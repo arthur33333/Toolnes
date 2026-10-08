@@ -1,1 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Math Tools - Toolnes</title>
+<meta name="description" content="Free online math tools and calculators. Simple, fast and free.">
 
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f7f9fc;
+    color: #1f2937;
+}
+
+header {
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 18px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 800;
+    color: #111827;
+    text-decoration: none;
+}
+
+.logo span {
+    color: #6366f1;
+}
+
+nav {
+    display: flex;
+    gap: 22px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #4b5563;
+    font-weight: 600;
+}
+
+nav a:hover {
+    color: #6366f1;
+}
+
+.hero {
+    text-align: center;
+    padding: 55px 20px 35px;
+}
+
+.hero h1 {
+    font-size: 42px;
+    margin-bottom: 12px;
+    color: #111827;
+}
+
+.hero p {
+    font-size: 18px;
+    color: #6b7280;
+    margin-bottom: 28px;
+}
+
+.search-box {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 16px 20px;
+    border: 1px solid #d1d5db;
+    border-radius: 14px;
+    font-size: 16px;
+    outline: none;
+    background: white;
+}
+
+.search-box input:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 25px 60px;
+}
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.tool-card {
+    padding: 25px;
+    border-radius: 18px;
+    min-height: 190px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.tool-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+}
+
+.tool-icon {
+    font-size: 34px;
+    margin-bottom: 16px;
+}
+
+.tool-card h2 {
+    font-size: 20px;
+    margin-bottom: 9px;
+    color: #111827;
+}
+
+.tool-card p {
+    color: #4b5563;
+    line-height: 1.5;
+    font-size: 14px;
+}
+
+/* Card backgrounds */
+
+.card-1 {
+    background: #e0e7ff;
+}
+
+.card-2 {
+    background: #fce7f3;
+}
+
+.card-3 {
+    background: #dcfce7;
+}
+
+.card-4 {
+    background: #fef3c7;
+}
+
+.card-5 {
+    background: #dbeafe;
+}
+
+.card-6 {
+    background: #f3e8ff;
+}
+
+.card-7 {
+    background: #cffafe;
+}
+
+.card-8 {
+    background: #ffedd5;
+}
+
+.card-9 {
+    background: #ede9fe;
+}
+
+.card-10 {
+    background: #d1fae5;
+}
+
+.card-11 {
+    background: #fee2e2;
+}
+
+.card-12 {
+    background: #e0f2fe;
+}
+
+.card-13 {
+    background: #fef9c3;
+}
+
+.card-14 {
+    background: #fce7f3;
+}
+
+.no-results {
+    display: none;
+    text-align: center;
+    padding: 40px;
+    color: #6b7280;
+    font-size: 18px;
+}
+
+footer {
+    background: #111827;
+    color: #d1d5db;
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 30px;
+}
+
+footer p {
+    font-size: 14px;
+}
+
+@media (max-width: 900px) {
+    .tools-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    header {
+        padding: 16px 18px;
+    }
+
+    nav {
+        gap: 12px;
+    }
+
+    nav a {
+        font-size: 14px;
+    }
+
+    .hero {
+        padding: 40px 18px 25px;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .tools-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .container {
+        padding: 15px 18px 45px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <a href="../index.html" class="logo">Tool<span>nes</span></a>
+
+    <nav>
+        <a href="../index.html">Home</a>
+        <a href="../calculators/index.html">Calculators</a>
+        <a href="../converters/index.html">Converters</a>
+        <a href="../puzzles/index.html">Puzzles</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h1>Free Math Tools</h1>
+    <p>Useful online math tools for calculations, formulas and problem solving.</p>
+
+    <div class="search-box">
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search a math tool..."
+            onkeyup="searchTools()"
+        >
+    </div>
+</section>
+
+<main class="container">
+
+    <div class="tools-grid" id="toolsGrid">
+
+        <!-- 1 -->
+        <a href="basic/index.html" class="tool-card card-1">
+            <div class="tool-icon">🧮</div>
+            <h2>Basic Calculator</h2>
+            <p>Perform everyday calculations with addition, subtraction, multiplication and division.</p>
+        </a>
+
+        <!-- 2 -->
+        <a href="scientific/index.html" class="tool-card card-2">
+            <div class="tool-icon">🔬</div>
+            <h2>Scientific Calculator</h2>
+            <p>Calculate advanced mathematical expressions, powers, roots and trigonometric functions.</p>
+        </a>
+
+        <!-- 3 -->
+        <a href="gcd/index.html" class="tool-card card-3">
+            <div class="tool-icon">🔢</div>
+            <h2>GCD Calculator</h2>
+            <p>Find the greatest common divisor of two or more numbers.</p>
+        </a>
+
+        <!-- 4 -->
+        <a href="lcm/index.html" class="tool-card card-4">
+            <div class="tool-icon">🔗</div>
+            <h2>LCM Calculator</h2>
+            <p>Calculate the least common multiple of two or more numbers.</p>
+        </a>
+
+        <!-- 5 -->
+        <a href="prime-number/index.html" class="tool-card card-5">
+            <div class="tool-icon">🧮</div>
+            <h2>Prime Number Checker</h2>
+            <p>Check whether a number is prime and find its prime factors.</p>
+        </a>
+
+        <!-- 6 -->
+        <a href="factorial/index.html" class="tool-card card-6">
+            <div class="tool-icon">❗</div>
+            <h2>Factorial Calculator</h2>
+            <p>Calculate the factorial of a positive integer quickly and easily.</p>
+        </a>
+
+        <!-- 7 -->
+        <a href="square-root/index.html" class="tool-card card-7">
+            <div class="tool-icon">√</div>
+            <h2>Square Root Calculator</h2>
+            <p>Calculate square roots and explore related mathematical results.</p>
+        </a>
+
+        <!-- 8 -->
+        <a href="power/index.html" class="tool-card card-8">
+            <div class="tool-icon">⚡</div>
+            <h2>Power Calculator</h2>
+            <p>Calculate a number raised to any exponent.</p>
+        </a>
+
+        <!-- 9 -->
+        <a href="exponent/index.html" class="tool-card card-9">
+            <div class="tool-icon">📈</div>
+            <h2>Exponent Calculator</h2>
+            <p>Work with exponents, powers and exponential calculations.</p>
+        </a>
+
+        <!-- 10 -->
+        <a href="area/index.html" class="tool-card card-10">
+            <div class="tool-icon">📐</div>
+            <h2>Area Calculator</h2>
+            <p>Calculate the area of common geometric shapes.</p>
+        </a>
+
+        <!-- 11 -->
+        <a href="volume/index.html" class="tool-card card-11">
+            <div class="tool-icon">📦</div>
+            <h2>Volume Calculator</h2>
+            <p>Calculate the volume of common 3D geometric shapes.</p>
+        </a>
+
+        <!-- 12 -->
+        <a href="circle/index.html" class="tool-card card-12">
+            <div class="tool-icon">⭕</div>
+            <h2>Circle Calculator</h2>
+            <p>Calculate the radius, diameter, circumference and area of a circle.</p>
+        </a>
+
+        <!-- 13 -->
+        <a href="triangle/index.html" class="tool-card card-13">
+            <div class="tool-icon">🔺</div>
+            <h2>Triangle Calculator</h2>
+            <p>Calculate triangle area, perimeter and other useful measurements.</p>
+        </a>
+
+        <!-- 14 -->
+        <a href="pythagorean/index.html" class="tool-card card-14">
+            <div class="tool-icon">📏</div>
+            <h2>Pythagorean Calculator</h2>
+            <p>Calculate the missing side of a right triangle using the Pythagorean theorem.</p>
+        </a>
+
+    </div>
+
+    <div class="no-results" id="noResults">
+        No math tool found.
+    </div>
+
+</main>
+
+<footer>
+    <p>© 2026 Toolnes. Useful tools. Simple and free.</p>
+</footer>
+
+<script>
+function searchTools() {
+    const input = document.getElementById("searchInput");
+    const filter = input.value.toLowerCase().trim();
+
+    const cards = document.querySelectorAll(".tool-card");
+    const noResults = document.getElementById("noResults");
+
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+
+        if (text.includes(filter)) {
+            card.style.display = "block";
+            visibleCount++;
+        } else {
+            card.style.display = "none";
+        }
+    });
+
+    noResults.style.display = visibleCount === 0 ? "block" : "none";
+}
+</script>
+
+</body>
+</html>
