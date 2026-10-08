@@ -1,1 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Date Difference Calculator - Toolnes</title>
+<meta name="description" content="Calculate the exact difference between two dates in years, months, weeks and days with Toolnes.">
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f6f8fb;
+    color: #1f2937;
+}
+
+header {
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 18px 30px;
+}
+
+.header-inner {
+    max-width: 1100px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 800;
+    color: #111827;
+    text-decoration: none;
+}
+
+nav a {
+    margin-left: 22px;
+    text-decoration: none;
+    color: #4b5563;
+    font-weight: 600;
+}
+
+nav a:hover {
+    color: #111827;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 45px 20px;
+}
+
+.hero {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.hero h1 {
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    color: #6b7280;
+    font-size: 17px;
+}
+
+.card {
+    background: white;
+    border-radius: 18px;
+    padding: 30px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+    margin-bottom: 25px;
+}
+
+.card h2 {
+    margin-top: 0;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+input {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #6366f1;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+button {
+    border: none;
+    border-radius: 10px;
+    padding: 13px 20px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.calculate-btn {
+    background: #6366f1;
+    color: white;
+    flex: 1;
+}
+
+.calculate-btn:hover {
+    background: #4f46e5;
+}
+
+.reset-btn {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+.results {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.result {
+    padding: 20px;
+    border-radius: 14px;
+    background: #f3f4f6;
+}
+
+.result-title {
+    color: #6b7280;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.result-value {
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.summary {
+    margin-top: 20px;
+    padding: 18px;
+    border-radius: 12px;
+    background: #eef2ff;
+    line-height: 1.6;
+}
+
+.error {
+    color: #dc2626;
+    margin-top: 15px;
+    font-weight: 600;
+}
+
+.info {
+    background: #eef2ff;
+    padding: 18px;
+    border-radius: 12px;
+    line-height: 1.6;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+@media (max-width: 650px) {
+
+    .header-inner {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    nav a {
+        margin: 0 8px;
+    }
+
+    .hero h1 {
+        font-size: 30px;
+    }
+
+    .card {
+        padding: 22px;
+    }
+
+    .results {
+        grid-template-columns: 1fr;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-inner">
+
+        <a href="../../index.html" class="logo">Toolnes</a>
+
+        <nav>
+            <a href="../../index.html">Home</a>
+            <a href="../index.html">Calculators</a>
+            <a href="../../converters/index.html">Converters</a>
+            <a href="../../puzzles/index.html">Puzzles</a>
+        </nav>
+
+    </div>
+</header>
+
+<main class="container">
+
+<section class="hero">
+
+    <h1>Date Difference Calculator</h1>
+
+    <p>
+        Calculate the difference between two dates in days, weeks, months and years.
+    </p>
+
+</section>
+
+
+<div class="card">
+
+    <h2>Calculate Date Difference</h2>
+
+    <div class="input-group">
+
+        <label for="startDate">
+            Start Date
+        </label>
+
+        <input
+            type="date"
+            id="startDate"
+        >
+
+    </div>
+
+
+    <div class="input-group">
+
+        <label for="endDate">
+            End Date
+        </label>
+
+        <input
+            type="date"
+            id="endDate"
+        >
+
+    </div>
+
+
+    <div class="buttons">
+
+        <button
+            class="calculate-btn"
+            onclick="calculateDifference()">
+            Calculate Difference
+        </button>
+
+        <button
+            class="reset-btn"
+            onclick="resetCalculator()">
+            Reset
+        </button>
+
+    </div>
+
+
+    <div id="error" class="error"></div>
+
+
+    <div
+        id="results"
+        class="results"
+        style="display:none;"
+    >
+
+        <div class="result">
+
+            <div class="result-title">
+                Total Days
+            </div>
+
+            <div
+                class="result-value"
+                id="daysResult">
+                0
+            </div>
+
+        </div>
+
+
+        <div class="result">
+
+            <div class="result-title">
+                Total Weeks
+            </div>
+
+            <div
+                class="result-value"
+                id="weeksResult">
+                0
+            </div>
+
+        </div>
+
+
+        <div class="result">
+
+            <div class="result-title">
+                Total Months
+            </div>
+
+            <div
+                class="result-value"
+                id="monthsResult">
+                0
+            </div>
+
+        </div>
+
+
+        <div class="result">
+
+            <div class="result-title">
+                Total Years
+            </div>
+
+            <div
+                class="result-value"
+                id="yearsResult">
+                0
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="summary"
+        class="summary"
+        style="display:none;">
+    </div>
+
+</div>
+
+
+<div class="card">
+
+    <h2>Exact Calendar Difference</h2>
+
+    <div
+        id="calendarResult"
+        class="info"
+        style="display:none;">
+    </div>
+
+</div>
+
+
+<div class="card">
+
+    <h2>How It Works</h2>
+
+    <div class="info">
+
+        Enter two dates and Toolnes calculates the exact number
+        of calendar days between them.
+
+        <br><br>
+
+        The result also shows an approximate number of weeks,
+        months and years.
+
+    </div>
+
+</div>
+
+</main>
+
+
+<footer>
+
+    © 2026 Toolnes — Useful tools. Simple and free.
+
+</footer>
+
+
+<script>
+
+function parseDate(value) {
+
+    return new Date(value + "T00:00:00");
+
+}
+
+
+function calculateDifference() {
+
+    const startInput =
+        document.getElementById("startDate").value;
+
+    const endInput =
+        document.getElementById("endDate").value;
+
+    const error =
+        document.getElementById("error");
+
+    const results =
+        document.getElementById("results");
+
+    const summary =
+        document.getElementById("summary");
+
+    const calendarResult =
+        document.getElementById("calendarResult");
+
+
+    error.textContent = "";
+
+    results.style.display = "none";
+
+    summary.style.display = "none";
+
+    calendarResult.style.display = "none";
+
+
+    if (!startInput || !endInput) {
+
+        error.textContent =
+            "Please enter both dates.";
+
+        return;
+    }
+
+
+    let startDate =
+        parseDate(startInput);
+
+    let endDate =
+        parseDate(endInput);
+
+
+    if (startDate > endDate) {
+
+        const temp = startDate;
+
+        startDate = endDate;
+
+        endDate = temp;
+    }
+
+
+    const millisecondsPerDay =
+        1000 * 60 * 60 * 24;
+
+
+    const differenceMilliseconds =
+        endDate - startDate;
+
+
+    const totalDays =
+        Math.round(
+            differenceMilliseconds /
+            millisecondsPerDay
+        );
+
+
+    const totalWeeks =
+        totalDays / 7;
+
+
+    const totalMonths =
+        totalDays / 30.436875;
+
+
+    const totalYears =
+        totalDays / 365.2425;
+
+
+    document.getElementById("daysResult").textContent =
+        totalDays.toLocaleString();
+
+
+    document.getElementById("weeksResult").textContent =
+        formatNumber(totalWeeks);
+
+
+    document.getElementById("monthsResult").textContent =
+        formatNumber(totalMonths);
+
+
+    document.getElementById("yearsResult").textContent =
+        formatNumber(totalYears);
+
+
+    results.style.display = "grid";
+
+
+    summary.innerHTML =
+        "The difference between the two dates is " +
+        "<strong>" +
+        totalDays.toLocaleString() +
+        " days</strong>.";
+
+
+    summary.style.display = "block";
+
+
+    const exact =
+        getCalendarDifference(startDate, endDate);
+
+
+    calendarResult.innerHTML =
+        "<strong>Exact calendar difference:</strong><br><br>" +
+        exact.years +
+        " years, " +
+        exact.months +
+        " months and " +
+        exact.days +
+        " days";
+
+
+    calendarResult.style.display = "block";
+}
+
+
+function getCalendarDifference(start, end) {
+
+    let years =
+        end.getFullYear() -
+        start.getFullYear();
+
+    let months =
+        end.getMonth() -
+        start.getMonth();
+
+    let days =
+        end.getDate() -
+        start.getDate();
+
+
+    if (days < 0) {
+
+        months--;
+
+        const previousMonth =
+            new Date(
+                end.getFullYear(),
+                end.getMonth(),
+                0
+            );
+
+        days += previousMonth.getDate();
+    }
+
+
+    if (months < 0) {
+
+        years--;
+
+        months += 12;
+    }
+
+
+    return {
+        years: years,
+        months: months,
+        days: days
+    };
+}
+
+
+function formatNumber(number) {
+
+    return number.toLocaleString(undefined, {
+
+        minimumFractionDigits: 0,
+
+        maximumFractionDigits: 2
+
+    });
+}
+
+
+function resetCalculator() {
+
+    document.getElementById("startDate").value = "";
+
+    document.getElementById("endDate").value = "";
+
+    document.getElementById("error").textContent = "";
+
+    document.getElementById("results").style.display = "none";
+
+    document.getElementById("summary").style.display = "none";
+
+    document.getElementById("calendarResult").style.display = "none";
+}
+
+</script>
+
+</body>
+</html>
