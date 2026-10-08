@@ -1,1 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>Compound Interest Calculator - Toolnes</title>
+  <meta name="description" content="Free compound interest calculator. Calculate future value, interest earned and investment growth.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f6f8fc;
+      color: #1f2937;
+    }
+
+    header {
+      background: white;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 18px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: 800;
+      color: #111827;
+      text-decoration: none;
+    }
+
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #374151;
+      font-weight: 600;
+    }
+
+    nav a:hover {
+      color: #2563eb;
+    }
+
+    .container {
+      max-width: 950px;
+      margin: auto;
+      padding: 45px 20px 70px;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .hero h1 {
+      font-size: 38px;
+      margin-bottom: 10px;
+      color: #111827;
+    }
+
+    .hero p {
+      color: #6b7280;
+      font-size: 17px;
+    }
+
+    .calculator {
+      background: white;
+      border-radius: 18px;
+      padding: 30px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+      border: 1px solid #e5e7eb;
+    }
+
+    .inputs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 14px;
+      border: 2px solid #e5e7eb;
+      border-radius: 10px;
+      font-size: 16px;
+      outline: none;
+      background: white;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #2563eb;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 13px 22px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .calculate {
+      background: #2563eb;
+      color: white;
+    }
+
+    .calculate:hover {
+      background: #1d4ed8;
+    }
+
+    .reset {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .reset:hover {
+      background: #d1d5db;
+    }
+
+    .error {
+      display: none;
+      margin-top: 18px;
+      padding: 12px 15px;
+      border-radius: 10px;
+      background: #fee2e2;
+      color: #991b1b;
+      font-weight: 600;
+    }
+
+    .results {
+      margin-top: 30px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .result-card {
+      padding: 22px 15px;
+      border-radius: 14px;
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      text-align: center;
+    }
+
+    .result-card h3 {
+      font-size: 15px;
+      color: #6b7280;
+      margin-bottom: 9px;
+    }
+
+    .result-value {
+      font-size: 25px;
+      font-weight: 800;
+      color: #111827;
+      word-break: break-word;
+    }
+
+    .breakdown {
+      margin-top: 30px;
+      padding: 22px;
+      background: #eff6ff;
+      border-radius: 14px;
+    }
+
+    .breakdown h2 {
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
+    .breakdown-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #dbeafe;
+    }
+
+    .breakdown-row:last-child {
+      border-bottom: none;
+    }
+
+    .formula {
+      margin-top: 25px;
+      padding: 22px;
+      background: #f8fafc;
+      border-radius: 14px;
+      line-height: 1.6;
+    }
+
+    .formula h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    @media (max-width: 700px) {
+      header {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      nav a {
+        margin: 0 7px;
+      }
+
+      .hero h1 {
+        font-size: 30px;
+      }
+
+      .calculator {
+        padding: 20px;
+      }
+
+      .inputs {
+        grid-template-columns: 1fr;
+      }
+
+      .results {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <a href="../../index.html" class="logo">Toolnes</a>
+
+  <nav>
+    <a href="../../index.html">Home</a>
+    <a href="../index.html">Calculators</a>
+    <a href="../../converters/index.html">Converters</a>
+    <a href="../../puzzles/index.html">Puzzles</a>
+  </nav>
+</header>
+
+<main class="container">
+
+  <section class="hero">
+    <h1>Compound Interest Calculator</h1>
+    <p>Calculate how your money can grow with compound interest.</p>
+  </section>
+
+  <section class="calculator">
+
+    <div class="inputs">
+
+      <div class="field">
+        <label for="principal">Initial Investment</label>
+        <input
+          type="number"
+          id="principal"
+          value="1000"
+          min="0"
+          step="0.01"
+        >
+      </div>
+
+      <div class="field">
+        <label for="rate">Annual Interest Rate (%)</label>
+        <input
+          type="number"
+          id="rate"
+          value="5"
+          min="0"
+          step="0.01"
+        >
+      </div>
+
+      <div class="field">
+        <label for="years">Investment Period (Years)</label>
+        <input
+          type="number"
+          id="years"
+          value="10"
+          min="0"
+          step="0.1"
+        >
+      </div>
+
+      <div class="field">
+        <label for="frequency">Compounding Frequency</label>
+
+        <select id="frequency">
+          <option value="1">Annually</option>
+          <option value="2">Semi-annually</option>
+          <option value="4">Quarterly</option>
+          <option value="12" selected>Monthly</option>
+          <option value="365">Daily</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="contribution">Additional Contribution</label>
+        <input
+          type="number"
+          id="contribution"
+          value="0"
+          min="0"
+          step="0.01"
+        >
+      </div>
+
+      <div class="field">
+        <label for="contributionFrequency">Contribution Frequency</label>
+
+        <select id="contributionFrequency">
+          <option value="1">Yearly</option>
+          <option value="12" selected>Monthly</option>
+        </select>
+      </div>
+
+    </div>
+
+    <div class="buttons">
+
+      <button class="calculate" onclick="calculateCompoundInterest()">
+        Calculate
+      </button>
+
+      <button class="reset" onclick="resetCalculator()">
+        Reset
+      </button>
+
+    </div>
+
+    <div id="error" class="error"></div>
+
+    <div class="results">
+
+      <div class="result-card">
+        <h3>Future Value</h3>
+        <div class="result-value" id="futureValue">—</div>
+      </div>
+
+      <div class="result-card">
+        <h3>Total Contributions</h3>
+        <div class="result-value" id="totalContributions">—</div>
+      </div>
+
+      <div class="result-card">
+        <h3>Total Interest</h3>
+        <div class="result-value" id="totalInterest">—</div>
+      </div>
+
+    </div>
+
+    <div class="breakdown">
+
+      <h2>Investment Breakdown</h2>
+
+      <div class="breakdown-row">
+        <span>Initial investment</span>
+        <strong id="breakInitial">—</strong>
+      </div>
+
+      <div class="breakdown-row">
+        <span>Additional contributions</span>
+        <strong id="breakAdditional">—</strong>
+      </div>
+
+      <div class="breakdown-row">
+        <span>Interest earned</span>
+        <strong id="breakInterest">—</strong>
+      </div>
+
+      <div class="breakdown-row">
+        <span>Final balance</span>
+        <strong id="breakFinal">—</strong>
+      </div>
+
+    </div>
+
+    <div class="formula">
+
+      <h2>Compound Interest Formula</h2>
+
+      <p>
+        Without additional contributions, the standard formula is:
+      </p>
+
+      <p style="margin-top:10px;">
+        <strong>A = P(1 + r/n)ⁿᵗ</strong>
+      </p>
+
+      <p style="margin-top:10px;">
+        P = initial investment, r = annual interest rate,
+        n = number of compounding periods per year,
+        and t = number of years.
+      </p>
+
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  © 2026 Toolnes — Useful tools. Simple and free.
+</footer>
+
+<script>
+
+function money(value) {
+  return value.toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+}
+
+function calculateCompoundInterest() {
+
+  const principal = Number(document.getElementById("principal").value);
+  const rate = Number(document.getElementById("rate").value);
+  const years = Number(document.getElementById("years").value);
+  const frequency = Number(document.getElementById("frequency").value);
+  const contribution = Number(document.getElementById("contribution").value);
+  const contributionFrequency =
+    Number(document.getElementById("contributionFrequency").value);
+
+  const error = document.getElementById("error");
+
+  error.style.display = "none";
+
+  if (
+    !Number.isFinite(principal) ||
+    !Number.isFinite(rate) ||
+    !Number.isFinite(years) ||
+    !Number.isFinite(contribution)
+  ) {
+    showError("Please enter valid numbers.");
+    return;
+  }
+
+  if (principal < 0 || rate < 0 || years < 0 || contribution < 0) {
+    showError("Values cannot be negative.");
+    return;
+  }
+
+  const periods = years * frequency;
+
+  const periodicRate = rate / 100 / frequency;
+
+  let balance = principal;
+
+  /*
+    Apply interest period by period.
+    Contributions are added according to their selected frequency.
+  */
+
+  const totalContributionPeriods =
+    Math.round(years * contributionFrequency);
+
+  const contributionPerPeriod = contribution;
+
+  let totalAdditional = 0;
+
+  for (let i = 1; i <= periods; i++) {
+
+    balance = balance * (1 + periodicRate);
+
+    /*
+      Add contributions when the current compounding period
+      corresponds to a contribution period.
+    */
+
+    const contributionRatio =
+      frequency / contributionFrequency;
+
+    if (
+      contribution > 0 &&
+      Math.abs(i % contributionRatio) < 0.000001
+    ) {
+      balance += contributionPerPeriod;
+      totalAdditional += contributionPerPeriod;
+    }
+  }
+
+  const totalContributions = principal + totalAdditional;
+  const totalInterest = balance - totalContributions;
+
+  document.getElementById("futureValue").textContent =
+    money(balance);
+
+  document.getElementById("totalContributions").textContent =
+    money(totalContributions);
+
+  document.getElementById("totalInterest").textContent =
+    money(totalInterest);
+
+  document.getElementById("breakInitial").textContent =
+    money(principal);
+
+  document.getElementById("breakAdditional").textContent =
+    money(totalAdditional);
+
+  document.getElementById("breakInterest").textContent =
+    money(totalInterest);
+
+  document.getElementById("breakFinal").textContent =
+    money(balance);
+}
+
+function showError(message) {
+
+  const error = document.getElementById("error");
+
+  error.textContent = message;
+  error.style.display = "block";
+}
+
+function resetCalculator() {
+
+  document.getElementById("principal").value = 1000;
+  document.getElementById("rate").value = 5;
+  document.getElementById("years").value = 10;
+  document.getElementById("frequency").value = 12;
+  document.getElementById("contribution").value = 0;
+  document.getElementById("contributionFrequency").value = 12;
+
+  document.getElementById("futureValue").textContent = "—";
+  document.getElementById("totalContributions").textContent = "—";
+  document.getElementById("totalInterest").textContent = "—";
+
+  document.getElementById("breakInitial").textContent = "—";
+  document.getElementById("breakAdditional").textContent = "—";
+  document.getElementById("breakInterest").textContent = "—";
+  document.getElementById("breakFinal").textContent = "—";
+
+  document.getElementById("error").style.display = "none";
+}
+
+</script>
+
+</body>
+</html>
