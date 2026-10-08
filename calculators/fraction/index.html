@@ -1,1 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>Fraction Calculator - Toolnes</title>
+  <meta name="description" content="Free fraction calculator. Add, subtract, multiply, divide and simplify fractions.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f6f8fc;
+      color: #1f2937;
+    }
+
+    header {
+      background: white;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 18px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: 800;
+      color: #111827;
+      text-decoration: none;
+    }
+
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #374151;
+      font-weight: 600;
+    }
+
+    nav a:hover {
+      color: #2563eb;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 45px 20px 70px;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .hero h1 {
+      font-size: 38px;
+      margin-bottom: 10px;
+      color: #111827;
+    }
+
+    .hero p {
+      color: #6b7280;
+      font-size: 17px;
+    }
+
+    .calculator {
+      background: white;
+      border-radius: 18px;
+      padding: 30px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+      border: 1px solid #e5e7eb;
+    }
+
+    .fraction-inputs {
+      display: grid;
+      grid-template-columns: 1fr 70px 1fr;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .fraction-box {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .fraction-box label {
+      font-weight: 700;
+      color: #374151;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px;
+      border: 2px solid #e5e7eb;
+      border-radius: 10px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #2563eb;
+    }
+
+    .operator {
+      text-align: center;
+      font-size: 28px;
+      font-weight: 800;
+      padding-top: 28px;
+    }
+
+    .operations {
+      margin-top: 25px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .operation {
+      background: #eef2ff;
+      color: #3730a3;
+      border: 2px solid transparent;
+      padding: 13px;
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .operation.active {
+      border-color: #2563eb;
+      background: #dbeafe;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 13px 22px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .calculate {
+      background: #2563eb;
+      color: white;
+    }
+
+    .calculate:hover {
+      background: #1d4ed8;
+    }
+
+    .reset {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .reset:hover {
+      background: #d1d5db;
+    }
+
+    .error {
+      display: none;
+      margin-top: 18px;
+      padding: 12px 15px;
+      border-radius: 10px;
+      background: #fee2e2;
+      color: #991b1b;
+      font-weight: 600;
+    }
+
+    .result {
+      margin-top: 30px;
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+    }
+
+    .result h2 {
+      font-size: 17px;
+      color: #6b7280;
+      margin-bottom: 10px;
+    }
+
+    .result-value {
+      font-size: 38px;
+      font-weight: 800;
+      color: #111827;
+    }
+
+    .decimal {
+      margin-top: 10px;
+      color: #6b7280;
+      font-size: 16px;
+    }
+
+    .formula {
+      margin-top: 30px;
+      padding: 22px;
+      background: #eff6ff;
+      border-radius: 14px;
+      line-height: 1.6;
+    }
+
+    .formula h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    @media (max-width: 650px) {
+      header {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      nav a {
+        margin: 0 7px;
+      }
+
+      .hero h1 {
+        font-size: 30px;
+      }
+
+      .calculator {
+        padding: 20px;
+      }
+
+      .fraction-inputs {
+        grid-template-columns: 1fr;
+      }
+
+      .operator {
+        padding: 0;
+      }
+
+      .operations {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <a href="../../index.html" class="logo">Toolnes</a>
+
+  <nav>
+    <a href="../../index.html">Home</a>
+    <a href="../index.html">Calculators</a>
+    <a href="../../converters/index.html">Converters</a>
+    <a href="../../puzzles/index.html">Puzzles</a>
+  </nav>
+</header>
+
+<main class="container">
+
+  <section class="hero">
+    <h1>Fraction Calculator</h1>
+    <p>Add, subtract, multiply, divide and simplify fractions.</p>
+  </section>
+
+  <section class="calculator">
+
+    <div class="fraction-inputs">
+
+      <div class="fraction-box">
+        <label>First Fraction</label>
+        <input type="number" id="num1" placeholder="Numerator">
+        <input type="number" id="den1" placeholder="Denominator">
+      </div>
+
+      <div class="operator" id="operator">+</div>
+
+      <div class="fraction-box">
+        <label>Second Fraction</label>
+        <input type="number" id="num2" placeholder="Numerator">
+        <input type="number" id="den2" placeholder="Denominator">
+      </div>
+
+    </div>
+
+    <div class="operations">
+
+      <button class="operation active" onclick="selectOperation('+', this)">+</button>
+
+      <button class="operation" onclick="selectOperation('-', this)">−</button>
+
+      <button class="operation" onclick="selectOperation('*', this)">×</button>
+
+      <button class="operation" onclick="selectOperation('/', this)">÷</button>
+
+    </div>
+
+    <div class="buttons">
+      <button class="calculate" onclick="calculateFraction()">
+        Calculate
+      </button>
+
+      <button class="reset" onclick="resetCalculator()">
+        Reset
+      </button>
+    </div>
+
+    <div id="error" class="error"></div>
+
+    <div class="result">
+
+      <h2>Result</h2>
+
+      <div class="result-value" id="result">
+        —
+      </div>
+
+      <div class="decimal" id="decimal">
+        Decimal: —
+      </div>
+
+    </div>
+
+    <div class="formula">
+
+      <h2>Fraction Calculator</h2>
+
+      <p>
+        This calculator automatically simplifies the result.
+        You can add, subtract, multiply or divide two fractions.
+      </p>
+
+      <p style="margin-top:10px;">
+        Example: <strong>1/2 + 1/4 = 3/4</strong>
+      </p>
+
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  © 2026 Toolnes — Useful tools. Simple and free.
+</footer>
+
+<script>
+
+let currentOperation = "+";
+
+function selectOperation(operation, button) {
+
+  currentOperation = operation;
+
+  document.getElementById("operator").textContent =
+    operation === "*" ? "×" :
+    operation === "/" ? "÷" :
+    operation;
+
+  document.querySelectorAll(".operation").forEach(btn => {
+    btn.classList.remove("active");
+  });
+
+  button.classList.add("active");
+}
+
+function gcd(a, b) {
+
+  a = Math.abs(a);
+  b = Math.abs(b);
+
+  while (b !== 0) {
+    const temp = b;
+    b = a % b;
+    a = temp;
+  }
+
+  return a;
+}
+
+function simplify(numerator, denominator) {
+
+  if (denominator === 0) {
+    throw new Error("Denominator cannot be zero.");
+  }
+
+  if (numerator === 0) {
+    return {
+      numerator: 0,
+      denominator: 1
+    };
+  }
+
+  if (denominator < 0) {
+    numerator *= -1;
+    denominator *= -1;
+  }
+
+  const divisor = gcd(numerator, denominator);
+
+  return {
+    numerator: numerator / divisor,
+    denominator: denominator / divisor
+  };
+}
+
+function calculateFraction() {
+
+  const n1 = Number(document.getElementById("num1").value);
+  const d1 = Number(document.getElementById("den1").value);
+
+  const n2 = Number(document.getElementById("num2").value);
+  const d2 = Number(document.getElementById("den2").value);
+
+  const error = document.getElementById("error");
+
+  error.style.display = "none";
+
+  if (
+    !Number.isFinite(n1) ||
+    !Number.isFinite(d1) ||
+    !Number.isFinite(n2) ||
+    !Number.isFinite(d2)
+  ) {
+    showError("Please enter all four values.");
+    return;
+  }
+
+  if (d1 === 0 || d2 === 0) {
+    showError("Denominators cannot be zero.");
+    return;
+  }
+
+  let numerator;
+  let denominator;
+
+  if (currentOperation === "+") {
+
+    numerator = n1 * d2 + n2 * d1;
+    denominator = d1 * d2;
+
+  } else if (currentOperation === "-") {
+
+    numerator = n1 * d2 - n2 * d1;
+    denominator = d1 * d2;
+
+  } else if (currentOperation === "*") {
+
+    numerator = n1 * n2;
+    denominator = d1 * d2;
+
+  } else if (currentOperation === "/") {
+
+    if (n2 === 0) {
+      showError("You cannot divide by zero.");
+      return;
+    }
+
+    numerator = n1 * d2;
+    denominator = d1 * n2;
+  }
+
+  const result = simplify(numerator, denominator);
+
+  document.getElementById("result").textContent =
+    result.numerator + " / " + result.denominator;
+
+  const decimalValue =
+    result.numerator / result.denominator;
+
+  document.getElementById("decimal").textContent =
+    "Decimal: " + decimalValue.toFixed(6).replace(/0+$/, "").replace(/\.$/, "");
+}
+
+function showError(message) {
+
+  const error = document.getElementById("error");
+
+  error.textContent = message;
+  error.style.display = "block";
+}
+
+function resetCalculator() {
+
+  document.getElementById("num1").value = "";
+  document.getElementById("den1").value = "";
+  document.getElementById("num2").value = "";
+  document.getElementById("den2").value = "";
+
+  document.getElementById("result").textContent = "—";
+  document.getElementById("decimal").textContent = "Decimal: —";
+
+  document.getElementById("error").style.display = "none";
+
+  currentOperation = "+";
+
+  document.getElementById("operator").textContent = "+";
+
+  document.querySelectorAll(".operation").forEach(btn => {
+    btn.classList.remove("active");
+  });
+
+  document.querySelector(".operation").classList.add("active");
+}
+
+</script>
+
+</body>
+</html>
