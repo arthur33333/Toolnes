@@ -1,456 +1,364 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Puzzles & Games - Toolnes</title>
-
-<meta name="description"
-content="Create free printable puzzles and games with Toolnes.">
+<meta name="description" content="Free online puzzle generators. Create word searches, crosswords, Sudoku, mazes and more with Toolnes.">
 
 <style>
-
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 body {
+  margin: 0;
   font-family: Arial, sans-serif;
-  background: #f7f8fc;
-  color: #202124;
+  background: #f6f7fb;
+  color: #222;
 }
-
-/* HEADER */
 
 header {
   background: white;
-  border-bottom: 1px solid #e8e8e8;
-}
-
-.navbar {
-  max-width: 1150px;
-  height: 70px;
-  margin: auto;
-  padding: 0 20px;
-
+  padding: 18px 6%;
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
 }
 
 .logo {
-  text-decoration: none;
-  font-size: 25px;
+  font-size: 26px;
   font-weight: 800;
-  color: #202124;
+  color: #222;
 }
 
 .logo span {
-  color: #6757e8;
+  color: #6c4cff;
 }
 
-.nav-links {
-  display: flex;
-  gap: 25px;
-}
-
-.nav-links a {
+nav a {
   text-decoration: none;
   color: #555;
-  font-size: 14px;
+  margin-left: 22px;
   font-weight: 600;
 }
 
-.nav-links a:hover {
-  color: #6757e8;
+.container {
+  max-width: 1150px;
+  margin: auto;
+  padding: 50px 20px;
 }
 
-/* HERO */
-
 .hero {
-  max-width: 1100px;
-  margin: auto;
-  padding: 55px 20px 35px;
   text-align: center;
+  margin-bottom: 45px;
 }
 
 .hero h1 {
-  font-size: 40px;
-  margin-bottom: 12px;
-}
-
-.hero h1 span {
-  color: #6757e8;
+  font-size: 42px;
+  margin: 0 0 12px;
 }
 
 .hero p {
-  color: #737784;
-  font-size: 16px;
+  color: #666;
+  font-size: 18px;
+  margin: 0;
 }
 
-/* PUZZLES */
-
-.container {
-  max-width: 1100px;
-  margin: auto;
-  padding: 20px 20px 70px;
-}
-
-.grid {
+.tools-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 25px;
 }
 
-/* CARDS */
-
 .card {
-  border-radius: 18px;
-  padding: 25px;
-  min-height: 230px;
-
-  transition: 0.2s;
+  border-radius: 22px;
+  padding: 30px;
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+  transform: translateY(-5px);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.12);
 }
-
-/* COLORS */
-
-.purple {
-  background: #eeeaff;
-}
-
-.blue {
-  background: #e7f3ff;
-}
-
-.green {
-  background: #e7f8ef;
-}
-
-.orange {
-  background: #fff0df;
-}
-
-.pink {
-  background: #ffe9f1;
-}
-
-.yellow {
-  background: #fff8d9;
-}
-
-/* ICON */
 
 .icon {
-  width: 55px;
-  height: 55px;
-
-  border-radius: 15px;
-
+  width: 62px;
+  height: 62px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.75);
   display: flex;
   align-items: center;
   justify-content: center;
-
-  font-size: 25px;
-
-  margin-bottom: 18px;
+  font-size: 32px;
+  margin-bottom: 20px;
 }
-
-.purple .icon {
-  background: #d8d0ff;
-}
-
-.blue .icon {
-  background: #cce6ff;
-}
-
-.green .icon {
-  background: #c9eedb;
-}
-
-.orange .icon {
-  background: #ffd9b0;
-}
-
-.pink .icon {
-  background: #ffcddd;
-}
-
-.yellow .icon {
-  background: #ffed9b;
-}
-
-/* TEXT */
 
 .card h2 {
-  font-size: 19px;
-  margin-bottom: 8px;
+  margin: 0 0 10px;
+  font-size: 24px;
 }
 
 .card p {
-  color: #656b75;
-  font-size: 14px;
+  margin: 0;
   line-height: 1.5;
-  margin-bottom: 18px;
+  color: #444;
 }
 
-.card a {
+.card a,
+.coming-soon {
   display: inline-block;
-
-  background: white;
-
-  color: #333;
-
+  margin-top: 22px;
+  padding: 11px 18px;
+  border-radius: 12px;
   text-decoration: none;
-
-  padding: 9px 14px;
-
-  border-radius: 8px;
-
-  font-size: 13px;
-
   font-weight: 700;
+  background: white;
+  color: #222;
+  border: none;
 }
 
-/* FOOTER */
+.card a:hover {
+  background: #222;
+  color: white;
+}
+
+.coming-soon {
+  color: #777;
+  cursor: default;
+}
+
+/* Card colors */
+
+.card-purple {
+  background: #e9e2ff;
+}
+
+.card-blue {
+  background: #dceeff;
+}
+
+.card-green {
+  background: #dcf7e4;
+}
+
+.card-orange {
+  background: #ffe8cf;
+}
+
+.card-pink {
+  background: #ffddeb;
+}
+
+.card-yellow {
+  background: #fff4c7;
+}
 
 footer {
-  background: white;
-  border-top: 1px solid #e8e8e8;
-
   text-align: center;
-
-  padding: 28px;
-
+  padding: 45px 20px;
   color: #777;
-
-  font-size: 13px;
 }
 
-/* MOBILE */
+@media (max-width: 850px) {
+  .tools-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 
-@media(max-width:800px) {
+@media (max-width: 550px) {
 
-  .grid {
-    grid-template-columns: 1fr;
+  header {
+    padding: 16px 20px;
+  }
+
+  nav a {
+    margin-left: 10px;
+    font-size: 14px;
   }
 
   .hero h1 {
     font-size: 32px;
   }
 
-  .nav-links {
-    gap: 12px;
+  .tools-grid {
+    grid-template-columns: 1fr;
   }
 
+  .card {
+    min-height: 220px;
+  }
 }
-
 </style>
-
 </head>
 
 <body>
 
-
 <header>
 
-<nav class="navbar">
+  <div class="logo">
+    Tool<span>nes</span>
+  </div>
 
-<a href="../index.html"
-class="logo">
-
-Tool<span>nes</span>
-
-</a>
-
-<div class="nav-links">
-
-<a href="../index.html">
-Home
-</a>
-
-<a href="../calculators/index.html">
-Calculators
-</a>
-
-<a href="../converters/index.html">
-Converters
-</a>
-
-</div>
-
-</nav>
+  <nav>
+    <a href="../index.html">Home</a>
+    <a href="../calculators/index.html">Calculators</a>
+    <a href="../converters/index.html">Converters</a>
+  </nav>
 
 </header>
 
 
-<section class="hero">
-
-<h1>
-Puzzles & <span>Games</span>
-</h1>
-
-<p>
-Create fun puzzles and printable activities for free.
-</p>
-
-</section>
-
-
 <main class="container">
 
-<div class="grid">
+  <section class="hero">
+    <h1>🧩 Puzzles & Games</h1>
+    <p>Create fun puzzles and printable games with Toolnes.</p>
+  </section>
 
 
-<div class="card purple">
+  <section class="tools-grid">
 
-<div class="icon">
-🔎
-</div>
+    <!-- WORD SEARCH -->
 
-<h2>
-Word Search
-</h2>
+    <div class="card card-purple">
 
-<p>
-Create printable word search puzzles from your own words.
-</p>
+      <div>
+        <div class="icon">🔎</div>
 
-<a href="#">
-Coming Soon
-</a>
+        <h2>Word Search</h2>
 
-</div>
+        <p>
+          Create custom word search puzzles with your own words.
+        </p>
+      </div>
 
+      <a href="word-search/index.html">
+        Create Word Search →
+      </a>
 
-<div class="card blue">
-
-<div class="icon">
-🧩
-</div>
-
-<h2>
-Crossword Generator
-</h2>
-
-<p>
-Create custom crossword puzzles for print or digital use.
-</p>
-
-<a href="#">
-Coming Soon
-</a>
-
-</div>
+    </div>
 
 
-<div class="card green">
+    <!-- CROSSWORD -->
 
-<div class="icon">
-🔢
-</div>
+    <div class="card card-blue">
 
-<h2>
-Sudoku Generator
-</h2>
+      <div>
+        <div class="icon">🧩</div>
 
-<p>
-Generate Sudoku puzzles with different difficulty levels.
-</p>
+        <h2>Crossword Generator</h2>
 
-<a href="#">
-Coming Soon
-</a>
+        <p>
+          Generate custom crossword puzzles for games and activities.
+        </p>
+      </div>
 
-</div>
+      <span class="coming-soon">
+        Coming Soon
+      </span>
 
-
-<div class="card orange">
-
-<div class="icon">
-🌀
-</div>
-
-<h2>
-Maze Generator
-</h2>
-
-<p>
-Generate printable mazes for children and activity books.
-</p>
-
-<a href="#">
-Coming Soon
-</a>
-
-</div>
+    </div>
 
 
-<div class="card pink">
+    <!-- SUDOKU -->
 
-<div class="icon">
-🔤
-</div>
+    <div class="card card-green">
 
-<h2>
-Word Scramble
-</h2>
+      <div>
+        <div class="icon">🔢</div>
 
-<p>
-Turn words into fun scrambled-word puzzles.
-</p>
+        <h2>Sudoku Generator</h2>
 
-<a href="#">
-Coming Soon
-</a>
+        <p>
+          Generate Sudoku puzzles with different difficulty levels.
+        </p>
+      </div>
 
-</div>
+      <span class="coming-soon">
+        Coming Soon
+      </span>
 
-
-<div class="card yellow">
-
-<div class="icon">
-🎟️
-</div>
-
-<h2>
-Bingo Generator
-</h2>
-
-<p>
-Create customized printable bingo cards.
-</p>
-
-<a href="#">
-Coming Soon
-</a>
-
-</div>
+    </div>
 
 
-</div>
+    <!-- MAZE -->
+
+    <div class="card card-orange">
+
+      <div>
+        <div class="icon">🌀</div>
+
+        <h2>Maze Generator</h2>
+
+        <p>
+          Create printable maze puzzles for kids and adults.
+        </p>
+      </div>
+
+      <span class="coming-soon">
+        Coming Soon
+      </span>
+
+    </div>
+
+
+    <!-- WORD SCRAMBLE -->
+
+    <div class="card card-pink">
+
+      <div>
+        <div class="icon">🔤</div>
+
+        <h2>Word Scramble</h2>
+
+        <p>
+          Turn words into fun scrambled-word puzzles.
+        </p>
+      </div>
+
+      <span class="coming-soon">
+        Coming Soon
+      </span>
+
+    </div>
+
+
+    <!-- BINGO -->
+
+    <div class="card card-yellow">
+
+      <div>
+        <div class="icon">🎟️</div>
+
+        <h2>Bingo Generator</h2>
+
+        <p>
+          Create custom printable Bingo cards instantly.
+        </p>
+      </div>
+
+      <span class="coming-soon">
+        Coming Soon
+      </span>
+
+    </div>
+
+  </section>
 
 </main>
 
 
 <footer>
-
-© 2026 Toolnes — Free Online Tools
-
+  © 2026 Toolnes — Free Online Tools
 </footer>
 
-
 </body>
-
 </html>
