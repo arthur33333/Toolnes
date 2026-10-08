@@ -1,1 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Tax Calculator - Toolnes</title>
+
+<meta name="description" content="Calculate sales tax, tax amount and final price with the free Toolnes Tax Calculator.">
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f7f8fc;
+    color:#222;
+}
+
+header{
+    background:#fff;
+    border-bottom:1px solid #e8e8ee;
+    padding:18px 5%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:800;
+    color:#222;
+    text-decoration:none;
+}
+
+nav{
+    display:flex;
+    gap:22px;
+}
+
+nav a{
+    text-decoration:none;
+    color:#555;
+    font-weight:600;
+}
+
+nav a:hover{
+    color:#6c5ce7;
+}
+
+.container{
+    max-width:900px;
+    margin:0 auto;
+    padding:45px 20px 60px;
+}
+
+.hero{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.hero h1{
+    font-size:38px;
+    margin-bottom:12px;
+}
+
+.hero p{
+    color:#666;
+    font-size:17px;
+}
+
+.card{
+    background:#fff;
+    border-radius:18px;
+    padding:30px;
+    box-shadow:0 8px 30px rgba(0,0,0,.06);
+    margin-bottom:25px;
+}
+
+.calculator{
+    background:#eef7ff;
+    border-radius:15px;
+    padding:25px;
+}
+
+.calculator h2{
+    font-size:23px;
+    margin-bottom:20px;
+}
+
+.input-group{
+    margin-bottom:18px;
+}
+
+label{
+    display:block;
+    font-weight:700;
+    margin-bottom:8px;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    border:1px solid #d9d9e2;
+    border-radius:10px;
+    font-size:16px;
+    outline:none;
+    background:#fff;
+}
+
+input:focus{
+    border-color:#6c5ce7;
+}
+
+.button-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:5px;
+}
+
+button{
+    border:none;
+    border-radius:10px;
+    padding:13px 20px;
+    font-size:16px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.calculate{
+    background:#6c5ce7;
+    color:#fff;
+}
+
+.calculate:hover{
+    opacity:.9;
+}
+
+.reset{
+    background:#eeeef4;
+    color:#333;
+}
+
+.result{
+    margin-top:22px;
+    background:#fff;
+    border:1px solid #e5e5ec;
+    border-radius:12px;
+    padding:20px;
+    font-size:18px;
+    line-height:1.9;
+}
+
+.result strong{
+    color:#6c5ce7;
+}
+
+.highlight{
+    color:#159447;
+    font-weight:800;
+}
+
+.error{
+    color:#d63031;
+    margin-top:15px;
+    font-weight:600;
+}
+
+.section-title{
+    margin-top:30px;
+    margin-bottom:15px;
+    font-size:20px;
+}
+
+.formula{
+    background:#f7f7fb;
+    border-radius:14px;
+    padding:22px;
+    line-height:1.7;
+}
+
+.formula h2{
+    margin-bottom:12px;
+}
+
+.formula p{
+    color:#555;
+    margin-bottom:8px;
+}
+
+footer{
+    text-align:center;
+    padding:30px 20px;
+    color:#777;
+    border-top:1px solid #e8e8ee;
+    background:#fff;
+}
+
+@media(max-width:700px){
+
+    header{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    nav{
+        gap:12px;
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+    .hero h1{
+        font-size:30px;
+    }
+
+    .card{
+        padding:20px;
+    }
+
+    .calculator{
+        padding:20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <a class="logo" href="../../index.html">Toolnes</a>
+
+    <nav>
+        <a href="../../index.html">Home</a>
+        <a href="../index.html">Calculators</a>
+        <a href="../../converters/index.html">Converters</a>
+        <a href="../../puzzles/index.html">Puzzles</a>
+    </nav>
+
+</header>
+
+
+<main class="container">
+
+    <div class="hero">
+
+        <h1>Tax Calculator</h1>
+
+        <p>
+            Calculate tax amounts, final prices and prices before tax.
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="calculator">
+
+            <h2>💰 Add Tax to a Price</h2>
+
+            <div class="input-group">
+
+                <label for="price">
+                    Price Before Tax
+                </label>
+
+                <input
+                    type="number"
+                    id="price"
+                    placeholder="Example: 100"
+                    min="0"
+                    step="any"
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="taxRate">
+                    Tax Rate (%)
+                </label>
+
+                <input
+                    type="number"
+                    id="taxRate"
+                    placeholder="Example: 20"
+                    min="0"
+                    step="any"
+                >
+
+            </div>
+
+
+            <div class="button-row">
+
+                <button
+                    class="calculate"
+                    onclick="calculateTax()"
+                >
+                    Calculate Tax
+                </button>
+
+                <button
+                    class="reset"
+                    onclick="resetCalculator()"
+                >
+                    ↻ Reset
+                </button>
+
+            </div>
+
+
+            <div id="result"></div>
+
+
+            <h3 class="section-title">
+                🔍 Find Price Before Tax
+            </h3>
+
+
+            <div class="input-group">
+
+                <label for="finalPrice">
+                    Price Including Tax
+                </label>
+
+                <input
+                    type="number"
+                    id="finalPrice"
+                    placeholder="Example: 120"
+                    min="0"
+                    step="any"
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="taxRateReverse">
+                    Tax Rate (%)
+                </label>
+
+                <input
+                    type="number"
+                    id="taxRateReverse"
+                    placeholder="Example: 20"
+                    min="0"
+                    step="any"
+                >
+
+            </div>
+
+
+            <button
+                class="calculate"
+                onclick="calculateBeforeTax()"
+            >
+                Calculate Before Tax
+            </button>
+
+
+            <div id="reverseResult"></div>
+
+        </div>
+
+    </div>
+
+
+    <div class="card formula">
+
+        <h2>📚 How the Tax Calculator Works</h2>
+
+        <p>
+            <strong>Tax Amount:</strong>
+            Price × Tax Rate ÷ 100
+        </p>
+
+        <p>
+            <strong>Price Including Tax:</strong>
+            Price + Tax Amount
+        </p>
+
+        <p>
+            <strong>Price Before Tax:</strong>
+            Final Price ÷ (1 + Tax Rate ÷ 100)
+        </p>
+
+        <p>
+            <strong>Example:</strong>
+            A $100 item with a 20% tax has a $20 tax and costs $120 after tax.
+        </p>
+
+    </div>
+
+</main>
+
+
+<footer>
+
+    © 2026 Toolnes — Useful tools. Simple and free.
+
+</footer>
+
+
+<script>
+
+function formatNumber(number){
+
+    return Number(number.toFixed(2)).toLocaleString();
+
+}
+
+
+function calculateTax(){
+
+    const price =
+        parseFloat(document.getElementById("price").value);
+
+    const taxRate =
+        parseFloat(document.getElementById("taxRate").value);
+
+    const result =
+        document.getElementById("result");
+
+
+    if(isNaN(price) || isNaN(taxRate)){
+
+        result.innerHTML =
+            '<div class="error">Please enter the price and tax rate.</div>';
+
+        return;
+    }
+
+
+    if(price < 0){
+
+        result.innerHTML =
+            '<div class="error">The price cannot be negative.</div>';
+
+        return;
+    }
+
+
+    if(taxRate < 0){
+
+        result.innerHTML =
+            '<div class="error">The tax rate cannot be negative.</div>';
+
+        return;
+    }
+
+
+    const taxAmount =
+        price * (taxRate / 100);
+
+    const finalPrice =
+        price + taxAmount;
+
+
+    result.innerHTML = `
+
+        <div class="result">
+
+            Price Before Tax:
+            <strong>${formatNumber(price)}</strong>
+            <br>
+
+            Tax Rate:
+            <strong>${formatNumber(taxRate)}%</strong>
+            <br>
+
+            Tax Amount:
+            <span class="highlight">
+                ${formatNumber(taxAmount)}
+            </span>
+            <br>
+
+            Price Including Tax:
+            <strong>${formatNumber(finalPrice)}</strong>
+
+        </div>
+
+    `;
+}
+
+
+function calculateBeforeTax(){
+
+    const finalPrice =
+        parseFloat(document.getElementById("finalPrice").value);
+
+    const taxRate =
+        parseFloat(document.getElementById("taxRateReverse").value);
+
+    const result =
+        document.getElementById("reverseResult");
+
+
+    if(isNaN(finalPrice) || isNaN(taxRate)){
+
+        result.innerHTML =
+            '<div class="error">Please enter the final price and tax rate.</div>';
+
+        return;
+    }
+
+
+    if(finalPrice < 0){
+
+        result.innerHTML =
+            '<div class="error">The final price cannot be negative.</div>';
+
+        return;
+    }
+
+
+    if(taxRate < 0){
+
+        result.innerHTML =
+            '<div class="error">The tax rate cannot be negative.</div>';
+
+        return;
+    }
+
+
+    const beforeTax =
+        finalPrice / (1 + taxRate / 100);
+
+    const taxAmount =
+        finalPrice - beforeTax;
+
+
+    result.innerHTML = `
+
+        <div class="result">
+
+            Price Before Tax:
+            <strong>${formatNumber(beforeTax)}</strong>
+            <br>
+
+            Tax Amount:
+            <span class="highlight">
+                ${formatNumber(taxAmount)}
+            </span>
+            <br>
+
+            Final Price:
+            <strong>${formatNumber(finalPrice)}</strong>
+
+        </div>
+
+    `;
+}
+
+
+function resetCalculator(){
+
+    document.getElementById("price").value = "";
+
+    document.getElementById("taxRate").value = "";
+
+    document.getElementById("finalPrice").value = "";
+
+    document.getElementById("taxRateReverse").value = "";
+
+    document.getElementById("result").innerHTML = "";
+
+    document.getElementById("reverseResult").innerHTML = "";
+
+}
+
+</script>
+
+</body>
+</html>
