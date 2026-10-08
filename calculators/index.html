@@ -4,261 +4,279 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Calculators – Toolnes</title>
-  <meta name="description" content="Free online calculators for percentages, discounts, taxes, age, loans, interest, BMI and more.">
+  <title>Free Calculators - Toolnes</title>
+  <meta name="description" content="Free online calculators for percentages, discounts, taxes, loans, mortgages, BMI, interest and more.">
 
   <style>
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
 
     body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f6f7fb;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f7f9fc;
       color: #1f2937;
-      line-height: 1.6;
     }
 
-    /* HEADER */
     header {
       background: #ffffff;
       border-bottom: 1px solid #e5e7eb;
+      padding: 18px 30px;
     }
 
     .header-inner {
       max-width: 1200px;
       margin: auto;
-      padding: 16px 20px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       gap: 20px;
     }
 
     .logo {
-      font-size: 28px;
-      font-weight: 800;
-      color: #111827;
+      font-size: 26px;
+      font-weight: bold;
+      color: #2563eb;
       text-decoration: none;
-      letter-spacing: -1px;
-    }
-
-    .logo span {
-      color: #6366f1;
-    }
-
-    nav {
-      display: flex;
-      gap: 22px;
     }
 
     nav a {
+      margin-left: 18px;
       text-decoration: none;
-      color: #4b5563;
+      color: #374151;
       font-weight: 600;
-      font-size: 15px;
     }
 
     nav a:hover {
-      color: #6366f1;
+      color: #2563eb;
     }
 
-    /* HERO */
     .hero {
-      max-width: 900px;
-      margin: auto;
       text-align: center;
-      padding: 60px 20px 40px;
+      padding: 50px 20px 30px;
     }
 
     .hero h1 {
-      font-size: 42px;
-      color: #111827;
-      margin-bottom: 14px;
-      letter-spacing: -1px;
-    }
-
-    .hero h1 span {
-      color: #6366f1;
+      font-size: 40px;
+      margin: 0 0 12px;
     }
 
     .hero p {
+      margin: 0;
       color: #6b7280;
-      font-size: 17px;
-      max-width: 680px;
-      margin: auto;
+      font-size: 18px;
     }
 
-    /* SEARCH */
-    .search-area {
-      max-width: 700px;
-      margin: 0 auto 35px;
+    .search-container {
+      max-width: 600px;
+      margin: 25px auto 40px;
       padding: 0 20px;
     }
 
     .search-box {
       width: 100%;
-      padding: 16px 20px;
+      padding: 15px 18px;
       border: 1px solid #d1d5db;
-      border-radius: 14px;
-      background: white;
+      border-radius: 12px;
       font-size: 16px;
       outline: none;
     }
 
     .search-box:focus {
-      border-color: #6366f1;
-      box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
     }
 
-    /* GRID */
-    .container {
+    .tools-container {
       max-width: 1200px;
       margin: auto;
-      padding: 0 20px 70px;
+      padding: 0 20px 60px;
     }
 
     .tools-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 22px;
+      gap: 20px;
     }
 
-    /* CARD */
-    .calculator-card {
-      min-height: 245px;
-      padding: 27px;
-      border-radius: 22px;
+    .card {
+      display: block;
       text-decoration: none;
-      color: #111827;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      border: 1px solid rgba(0,0,0,0.04);
-      transition: 0.2s ease;
+      color: inherit;
+      padding: 25px;
+      border-radius: 18px;
+      min-height: 190px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border: 1px solid rgba(0, 0, 0, 0.04);
     }
 
-    .calculator-card:hover {
+    .card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.10);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
     }
 
-    .icon {
-      width: 60px;
-      height: 60px;
-      border-radius: 17px;
-      background: rgba(255,255,255,0.7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 30px;
-      margin-bottom: 20px;
+    .card .icon {
+      font-size: 38px;
+      margin-bottom: 15px;
     }
 
-    .calculator-card h2 {
+    .card h3 {
+      margin: 0 0 10px;
       font-size: 20px;
-      margin-bottom: 8px;
     }
 
-    .calculator-card p {
+    .card p {
+      margin: 0;
       color: #4b5563;
-      font-size: 14px;
       line-height: 1.5;
     }
 
-    .open {
-      margin-top: 20px;
-      font-size: 14px;
-      font-weight: 700;
+    /* Different pastel backgrounds */
+
+    .card:nth-child(1) {
+      background: #dbeafe;
     }
 
-    /* COLORS */
-    .purple {
-      background: #e9ddff;
-    }
-
-    .blue {
-      background: #dceeff;
-    }
-
-    .green {
+    .card:nth-child(2) {
       background: #dcfce7;
     }
 
-    .orange {
-      background: #ffe3c2;
+    .card:nth-child(3) {
+      background: #fef3c7;
     }
 
-    .pink {
-      background: #fce1f0;
+    .card:nth-child(4) {
+      background: #fce7f3;
     }
 
-    .yellow {
-      background: #fff1b8;
+    .card:nth-child(5) {
+      background: #ede9fe;
     }
 
-    .red {
-      background: #ffe0e0;
+    .card:nth-child(6) {
+      background: #cffafe;
     }
 
-    .cyan {
-      background: #d9f5f7;
+    .card:nth-child(7) {
+      background: #fee2e2;
     }
 
-    .teal {
-      background: #d9f5e5;
+    .card:nth-child(8) {
+      background: #e0e7ff;
     }
 
-    .indigo {
-      background: #e5e7f9;
+    .card:nth-child(9) {
+      background: #d1fae5;
     }
 
-    /* NO RESULTS */
-    .no-results {
-      display: none;
+    .card:nth-child(10) {
+      background: #fef9c3;
+    }
+
+    .card:nth-child(11) {
+      background: #e0f2fe;
+    }
+
+    .card:nth-child(12) {
+      background: #f3e8ff;
+    }
+
+    .card:nth-child(13) {
+      background: #ffedd5;
+    }
+
+    .card:nth-child(14) {
+      background: #f1f5f9;
+    }
+
+    .card:nth-child(15) {
+      background: #dbeafe;
+    }
+
+    .card:nth-child(16) {
+      background: #dcfce7;
+    }
+
+    .card:nth-child(17) {
+      background: #fef3c7;
+    }
+
+    .card:nth-child(18) {
+      background: #fce7f3;
+    }
+
+    .card:nth-child(19) {
+      background: #ede9fe;
+    }
+
+    .card:nth-child(20) {
+      background: #cffafe;
+    }
+
+    .card:nth-child(21) {
+      background: #fee2e2;
+    }
+
+    .card:nth-child(22) {
+      background: #e0e7ff;
+    }
+
+    .card:nth-child(23) {
+      background: #d1fae5;
+    }
+
+    footer {
+      background: #ffffff;
+      border-top: 1px solid #e5e7eb;
       text-align: center;
-      padding: 50px;
+      padding: 25px;
       color: #6b7280;
     }
 
-    /* FOOTER */
-    footer {
-      background: #111827;
-      color: #9ca3af;
-      text-align: center;
-      padding: 30px 20px;
-    }
-
-    footer strong {
-      color: white;
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 1000px) {
+    @media (max-width: 900px) {
       .tools-grid {
         grid-template-columns: repeat(2, 1fr);
       }
     }
 
-    @media (max-width: 650px) {
+    @media (max-width: 600px) {
+
+      header {
+        padding: 15px 20px;
+      }
+
       .header-inner {
         flex-direction: column;
       }
 
       nav {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 14px;
+        text-align: center;
+      }
+
+      nav a {
+        margin: 0 7px;
+        font-size: 14px;
+      }
+
+      .hero {
+        padding: 35px 20px 25px;
       }
 
       .hero h1 {
-        font-size: 34px;
+        font-size: 30px;
+      }
+
+      .hero p {
+        font-size: 16px;
       }
 
       .tools-grid {
         grid-template-columns: 1fr;
+      }
+
+      .card {
+        min-height: auto;
       }
     }
   </style>
@@ -266,655 +284,442 @@
 
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <div class="header-inner">
+<header>
+  <div class="header-inner">
 
-      <a href="../index.html" class="logo">
-        Tool<span>nes</span>
-      </a>
+    <a href="../index.html" class="logo">
+      Toolnes
+    </a>
 
-      <nav>
-        <a href="../index.html">Home</a>
-        <a href="index.html">Calculators</a>
-        <a href="../converters/index.html">Converters</a>
-        <a href="../puzzles/index.html">Puzzles</a>
-      </nav>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="index.html">Calculators</a>
+      <a href="../converters/index.html">Converters</a>
+      <a href="../puzzles/index.html">Puzzles</a>
+    </nav>
 
-    </div>
-  </header>
-
-
-  <!-- HERO -->
-  <section class="hero">
-
-    <h1>
-      Free <span>Calculators</span>
-    </h1>
-
-    <p>
-      Simple and useful calculators for everyday life,
-      finance, health, dates and mathematics.
-    </p>
-
-  </section>
+  </div>
+</header>
 
 
-  <!-- SEARCH -->
-  <div class="search-area">
+<section class="hero">
 
-    <input
-      type="text"
-      id="searchInput"
-      class="search-box"
-      placeholder="Search a calculator..."
-      onkeyup="searchCalculators()"
-    >
+  <h1>Free Calculators</h1>
+
+  <p>
+    Simple, fast and free online calculators for everyday calculations.
+  </p>
+
+</section>
+
+
+<div class="search-container">
+
+  <input
+    type="text"
+    id="searchBox"
+    class="search-box"
+    placeholder="Search calculators..."
+    onkeyup="searchTools()"
+  >
+
+</div>
+
+
+<div class="tools-container">
+
+  <div class="tools-grid" id="toolsGrid">
+
+
+    <!-- 1. Basic Calculator -->
+
+    <a href="basic/index.html" class="card">
+
+      <div class="icon">🧮</div>
+
+      <h3>Basic Calculator</h3>
+
+      <p>
+        Perform basic addition, subtraction, multiplication and division.
+      </p>
+
+    </a>
+
+
+    <!-- 2. Percentage Calculator -->
+
+    <a href="percentage/index.html" class="card">
+
+      <div class="icon">📊</div>
+
+      <h3>Percentage Calculator</h3>
+
+      <p>
+        Calculate percentages, percentage changes and percentage differences.
+      </p>
+
+    </a>
+
+
+    <!-- 3. Percentage Increase / Decrease -->
+
+    <a href="percentage-increase/index.html" class="card">
+
+      <div class="icon">📈</div>
+
+      <h3>Percentage Increase / Decrease</h3>
+
+      <p>
+        Calculate percentage increases, decreases and changes.
+      </p>
+
+    </a>
+
+
+    <!-- 4. Discount Calculator -->
+
+    <a href="discount/index.html" class="card">
+
+      <div class="icon">🏷️</div>
+
+      <h3>Discount Calculator</h3>
+
+      <p>
+        Calculate discounts and final prices quickly.
+      </p>
+
+    </a>
+
+
+    <!-- 5. Tip Calculator -->
+
+    <a href="tip/index.html" class="card">
+
+      <div class="icon">💵</div>
+
+      <h3>Tip Calculator</h3>
+
+      <p>
+        Calculate tips and split the bill between multiple people.
+      </p>
+
+    </a>
+
+
+    <!-- 6. Tax Calculator -->
+
+    <a href="tax/index.html" class="card">
+
+      <div class="icon">🧾</div>
+
+      <h3>Tax Calculator</h3>
+
+      <p>
+        Calculate tax amounts and prices including or excluding tax.
+      </p>
+
+    </a>
+
+
+    <!-- 7. VAT Calculator -->
+
+    <a href="vat/index.html" class="card">
+
+      <div class="icon">💰</div>
+
+      <h3>VAT Calculator</h3>
+
+      <p>
+        Add or remove VAT from any price.
+      </p>
+
+    </a>
+
+
+    <!-- 8. Profit Margin Calculator -->
+
+    <a href="profit-margin/index.html" class="card">
+
+      <div class="icon">📈</div>
+
+      <h3>Profit Margin Calculator</h3>
+
+      <p>
+        Calculate profit, profit margin and selling prices.
+      </p>
+
+    </a>
+
+
+    <!-- 9. Markup Calculator -->
+
+    <a href="markup/index.html" class="card">
+
+      <div class="icon">💹</div>
+
+      <h3>Markup Calculator</h3>
+
+      <p>
+        Calculate markup percentage and selling price.
+      </p>
+
+    </a>
+
+
+    <!-- 10. Age Calculator -->
+
+    <a href="age/index.html" class="card">
+
+      <div class="icon">🎂</div>
+
+      <h3>Age Calculator</h3>
+
+      <p>
+        Calculate your exact age in years, months and days.
+      </p>
+
+    </a>
+
+
+    <!-- 11. Date Difference Calculator -->
+
+    <a href="date-difference/index.html" class="card">
+
+      <div class="icon">📅</div>
+
+      <h3>Date Difference Calculator</h3>
+
+      <p>
+        Calculate the difference between two dates.
+      </p>
+
+    </a>
+
+
+    <!-- 12. Time Duration Calculator -->
+
+    <a href="time-duration/index.html" class="card">
+
+      <div class="icon">⏱️</div>
+
+      <h3>Time Duration Calculator</h3>
+
+      <p>
+        Calculate the duration between two times.
+      </p>
+
+    </a>
+
+
+    <!-- 13. Average Calculator -->
+
+    <a href="average/index.html" class="card">
+
+      <div class="icon">📐</div>
+
+      <h3>Average Calculator</h3>
+
+      <p>
+        Calculate average, sum, minimum, maximum and median.
+      </p>
+
+    </a>
+
+
+    <!-- 14. Ratio Calculator -->
+
+    <a href="ratio/index.html" class="card">
+
+      <div class="icon">⚖️</div>
+
+      <h3>Ratio Calculator</h3>
+
+      <p>
+        Simplify ratios and calculate equivalent ratios.
+      </p>
+
+    </a>
+
+
+    <!-- 15. Fraction Calculator -->
+
+    <a href="fraction/index.html" class="card">
+
+      <div class="icon">➗</div>
+
+      <h3>Fraction Calculator</h3>
+
+      <p>
+        Add, subtract, multiply and divide fractions.
+      </p>
+
+    </a>
+
+
+    <!-- 16. Random Number Generator -->
+
+    <a href="random-number/index.html" class="card">
+
+      <div class="icon">🎲</div>
+
+      <h3>Random Number Generator</h3>
+
+      <p>
+        Generate random numbers within any range.
+      </p>
+
+    </a>
+
+
+    <!-- 17. Compound Interest Calculator -->
+
+    <a href="compound-interest/index.html" class="card">
+
+      <div class="icon">📈</div>
+
+      <h3>Compound Interest Calculator</h3>
+
+      <p>
+        Calculate compound interest and investment growth.
+      </p>
+
+    </a>
+
+
+    <!-- 18. Simple Interest Calculator -->
+
+    <a href="simple-interest/index.html" class="card">
+
+      <div class="icon">💵</div>
+
+      <h3>Simple Interest Calculator</h3>
+
+      <p>
+        Calculate simple interest and total amounts.
+      </p>
+
+    </a>
+
+
+    <!-- 19. Loan Calculator -->
+
+    <a href="loan/index.html" class="card">
+
+      <div class="icon">🏦</div>
+
+      <h3>Loan Calculator</h3>
+
+      <p>
+        Calculate loan payments, total interest and total repayment.
+      </p>
+
+    </a>
+
+
+    <!-- 20. Mortgage Calculator -->
+
+    <a href="mortgage/index.html" class="card">
+
+      <div class="icon">🏠</div>
+
+      <h3>Mortgage Calculator</h3>
+
+      <p>
+        Estimate monthly mortgage payments and total interest.
+      </p>
+
+    </a>
+
+
+    <!-- 21. BMI Calculator -->
+
+    <a href="bmi/index.html" class="card">
+
+      <div class="icon">⚖️</div>
+
+      <h3>BMI Calculator</h3>
+
+      <p>
+        Calculate Body Mass Index using your height and weight.
+      </p>
+
+    </a>
+
+
+    <!-- 22. BMR Calculator -->
+
+    <a href="bmr/index.html" class="card">
+
+      <div class="icon">🔥</div>
+
+      <h3>BMR Calculator</h3>
+
+      <p>
+        Calculate your Basal Metabolic Rate and daily calorie needs.
+      </p>
+
+    </a>
+
+
+    <!-- 23. Calorie Calculator -->
+
+    <a href="calorie/index.html" class="card">
+
+      <div class="icon">🍎</div>
+
+      <h3>Calorie Calculator</h3>
+
+      <p>
+        Estimate your daily calorie needs based on your activity and goal.
+      </p>
+
+    </a>
+
 
   </div>
 
+</div>
 
-  <!-- CALCULATORS -->
-  <main class="container">
 
-    <div class="tools-grid" id="calculatorGrid">
+<footer>
 
+  © 2026 Toolnes — Useful tools. Simple and free.
 
-      <!-- 1 -->
-      <a
-        href="percentage/index.html"
-        class="calculator-card purple"
-        data-search="percentage percent percentage calculator"
-      >
+</footer>
 
-        <div>
-          <div class="icon">%</div>
 
-          <h2>Percentage Calculator</h2>
+<script>
 
-          <p>
-            Calculate percentages quickly and easily.
-          </p>
-        </div>
+function searchTools() {
 
-        <div class="open">
-          Open calculator →
-        </div>
+  const input =
+    document.getElementById("searchBox")
+      .value
+      .toLowerCase();
 
-      </a>
+  const cards =
+    document.querySelectorAll(".card");
 
+  cards.forEach(function(card) {
 
-      <!-- 2 -->
-      <a
-        href="percentage-increase/index.html"
-        class="calculator-card blue"
-        data-search="percentage increase decrease percent change"
-      >
+    const text =
+      card.innerText.toLowerCase();
 
-        <div>
-          <div class="icon">📈</div>
+    if (text.includes(input)) {
 
-          <h2>Percentage Increase / Decrease</h2>
+      card.style.display = "block";
 
-          <p>
-            Find the percentage change between two numbers.
-          </p>
-        </div>
+    } else {
 
-        <div class="open">
-          Open calculator →
-        </div>
-
-      </a>
-
-
-      <!-- 3 -->
-      <a
-        href="discount/index.html"
-        class="calculator-card green"
-        data-search="discount sale price discount calculator"
-      >
-
-        <div>
-          <div class="icon">🏷️</div>
-
-          <h2>Discount Calculator</h2>
-
-          <p>
-            Calculate sale prices and savings from discounts.
-          </p>
-        </div>
-
-        <div class="open">
-          Open calculator →
-        </div>
-
-      </a>
-
-
-      <!-- 4 -->
-      <a
-        href="tip/index.html"
-        class="calculator-card orange"
-        data-search="tip gratuity restaurant tip calculator"
-      >
-
-        <div>
-          <div class="icon">💵</div>
-
-          <h2>Tip Calculator</h2>
-
-          <p>
-            Calculate tips and split the bill between people.
-          </p>
-        </div>
-
-        <div class="open">
-          Open calculator →
-        </div>
-
-      </a>
-
-
-      <!-- 5 -->
-      <a
-        href="tax/index.html"
-        class="calculator-card pink"
-        data-search="tax sales tax calculator"
-      >
-
-        <div>
-          <div class="icon">🧾</div>
-
-          <h2>Tax Calculator</h2>
-
-          <p>
-            Calculate tax amounts and final prices.
-          </p>
-        </div>
-
-        <div class="open">
-          Open calculator →
-        </div>
-
-      </a>
-
-
-      <!-- 6 -->
-      <a
-        href="vat/index.html"
-        class="calculator-card yellow"
-        data-search="vat value added tax calculator"
-      >
-
-        <div>
-          <div class="icon">💳</div>
-
-          <h2>VAT Calculator</h2>
-
-          <p>
-            Add or remove VAT from a price.
-          </p>
-        </div>
-
-        <div class="open">
-          Open calculator →
-        </div>
-
-      </a>
-
-
-      <!-- 7 -->
-      <a
-        href="profit-margin/index.html"
-        class="calculator-card red"
-        data-search="profit margin profit business calculator"
-      >
-
-        <div>
-          <div class="icon">📊</div>
-
-          <h2>Profit Margin Calculator</h2>
-
-          <p>
-            Calculate profit, revenue and profit margin.
-          </p>
-        </div>
-
-        <div class="open">
-          Open calculator →
-        </div>
-
-      </a>
-
-
-      <!-- 8 -->
-      <a
-        href="markup/index.html"
-        class="calculator-card cyan"
-        data-search="markup price markup calculator"
-      >
-
-        <div>
-          <div class="icon">💹</div>
-
-          <h2>Markup Calculator</h2>
-
-          <p>
-            Calculate markup and selling prices.
-          </p>
-        </div>
-
-        <div class="open">
-          Open calculator →
-        </div>
-
-      </a>
-
-
-      <!-- 9 -->
-      <a
-        href="age/index.html"
-        class="calculator-card purple"
-        data-search="age birthday date age calculator"
-      >
-
-        <div>
-          <div class="icon">🎂</div>
-
-          <h2>Age Calculator</h2>
-
-          <p>
-            Calculate exact age in years, months and days.
-          </p>
-        </div>
-
-        <div class="open">
-          Open calculator →
-        </div>
-
-      </a>
-
-
-      <!-- 10 -->
-      <a
-        href="date-difference/index.html"
-        class="calculator-card blue"
-        data-search="date difference days between dates"
-      >
-
-        <div>
-          <div class="icon">📅</div>
-
-          <h2>Date Difference</h2>
-
-          <p>
-            Find the number of days between two dates.
-          </p>
-        </div>
-
-        <div class="open">
-          Open calculator →
-        </div>
-
-      </a>
-
-
-      <!-- 11 -->
-      <a
-        href="time-duration/index.html"
-        class="calculator-card green"
-        data-search="time duration hours minutes seconds"
-      >
-
-        <div>
-          <div class="icon">⏱️</div>
-
-          <h2>Time Duration</h2>
-
-          <p>
-            Calculate the duration between two times.
-          </p>
-        </div>
-
-        <div class="open">
-          Open calculator →
-        </div>
-
-      </a>
-
-
-      <!-- 12 -->
-      <a
-        href="average/index.html"
-        class="calculator-card orange"
-        data-search="average mean calculator numbers"
-      >
-
-        <div>
-          <div class="icon">➗</div>
-
-          <h2>Average Calculator</h2>
-
-          <p>
-            Calculate the average of a list of numbers.
-          </p>
-        </div>
-
-        <div class="open">
-          Open calculator →
-        </div>
-
-      </a>
-
-
-      <!-- 13 -->
-      <a
-        href="ratio/index.html"
-        class="calculator-card pink"
-        data-search="ratio proportion calculator"
-      >
-
-        <div>
-          <div class="icon">⚖️</div>
-
-          <h2>Ratio Calculator</h2>
-
-          <p>
-            Solve ratios and proportions quickly.
-          </p>
-        </div>
-
-        <div class="open">
-          Open calculator →
-        </div>
-
-      </a>
-
-
-      <!-- 14 -->
-      <a
-        href="fraction/index.html"
-        class="calculator-card yellow"
-        data-search="fraction calculator fractions"
-      >
-
-        <div>
-          <div class="icon">½</div>
-
-          <h2>Fraction Calculator</h2>
-
-          <p>
-            Add, subtract, multiply and divide fractions.
-          </p>
-        </div>
-
-        <div class="open">
-          Open calculator →
-        </div>
-
-      </a>
-
-
-      <!-- 15 -->
-      <a
-        href="random-number/index.html"
-        class="calculator-card red"
-        data-search="random number generator random"
-      >
-
-        <div>
-          <div class="icon">🎲</div>
-
-          <h2>Random Number Generator</h2>
-
-          <p>
-            Generate random numbers within any range.
-          </p>
-        </div>
-
-        <div class="open">
-          Open calculator →
-        </div>
-
-      </a>
-
-
-      <!-- 16 -->
-      <a
-        href="compound-interest/index.html"
-        class="calculator-card cyan"
-        data-search="compound interest investment savings interest"
-      >
-
-        <div>
-          <div class="icon">📈</div>
-
-          <h2>Compound Interest</h2>
-
-          <p>
-            Calculate compound growth for savings and investments.
-          </p>
-        </div>
-
-        <div class="open">
-          Open calculator →
-        </div>
-
-      </a>
-
-
-      <!-- 17 -->
-      <a
-        href="simple-interest/index.html"
-        class="calculator-card teal"
-        data-search="simple interest interest calculator"
-      >
-
-        <div>
-          <div class="icon">💰</div>
-
-          <h2>Simple Interest</h2>
-
-          <p>
-            Calculate interest earned on a principal amount.
-          </p>
-        </div>
-
-        <div class="open">
-          Open calculator →
-        </div>
-
-      </a>
-
-
-      <!-- 18 -->
-      <a
-        href="loan/index.html"
-        class="calculator-card indigo"
-        data-search="loan payment interest borrowing loan calculator"
-      >
-
-        <div>
-          <div class="icon">🏦</div>
-
-          <h2>Loan Calculator</h2>
-
-          <p>
-            Estimate monthly payments and total loan costs.
-          </p>
-        </div>
-
-        <div class="open">
-          Open calculator →
-        </div>
-
-      </a>
-
-
-      <!-- 19 -->
-      <a
-        href="mortgage/index.html"
-        class="calculator-card purple"
-        data-search="mortgage home house mortgage calculator"
-      >
-
-        <div>
-          <div class="icon">🏠</div>
-
-          <h2>Mortgage Calculator</h2>
-
-          <p>
-            Estimate mortgage payments and total interest.
-          </p>
-        </div>
-
-        <div class="open">
-          Open calculator →
-        </div>
-
-      </a>
-
-
-      <!-- 20 -->
-      <a
-        href="bmi/index.html"
-        class="calculator-card blue"
-        data-search="bmi body mass index health calculator"
-      >
-
-        <div>
-          <div class="icon">⚖️</div>
-
-          <h2>BMI Calculator</h2>
-
-          <p>
-            Calculate body mass index from height and weight.
-          </p>
-        </div>
-
-        <div class="open">
-          Open calculator →
-        </div>
-
-      </a>
-
-
-      <!-- 21 -->
-      <a
-        href="bmr/index.html"
-        class="calculator-card green"
-        data-search="bmr basal metabolic rate calories"
-      >
-
-        <div>
-          <div class="icon">🔥</div>
-
-          <h2>BMR Calculator</h2>
-
-          <p>
-            Estimate your basal metabolic rate.
-          </p>
-        </div>
-
-        <div class="open">
-          Open calculator →
-        </div>
-
-      </a>
-
-
-      <!-- 22 -->
-      <a
-        href="calorie/index.html"
-        class="calculator-card orange"
-        data-search="calorie calories daily calorie calculator"
-      >
-
-        <div>
-          <div class="icon">🍎</div>
-
-          <h2>Calorie Calculator</h2>
-
-          <p>
-            Estimate daily calorie needs based on your activity.
-          </p>
-        </div>
-
-        <div class="open">
-          Open calculator →
-        </div>
-
-      </a>
-
-
-    </div>
-
-    <div class="no-results" id="noResults">
-      No calculators found. Try another search.
-    </div>
-
-  </main>
-
-
-  <!-- FOOTER -->
-  <footer>
-
-    <p>
-      <strong>Toolnes</strong> — Useful online tools, simple and free.
-    </p>
-
-    <p>
-      © 2026 Toolnes. All rights reserved.
-    </p>
-
-  </footer>
-
-
-  <script>
-
-    function searchCalculators() {
-
-      const input =
-        document
-          .getElementById("searchInput")
-          .value
-          .toLowerCase()
-          .trim();
-
-      const cards =
-        document.querySelectorAll(".calculator-card");
-
-      let visible = 0;
-
-      cards.forEach(card => {
-
-        const text =
-          (
-            card.innerText +
-            " " +
-            card.dataset.search
-          ).toLowerCase();
-
-        if (text.includes(input)) {
-
-          card.style.display = "flex";
-          visible++;
-
-        } else {
-
-          card.style.display = "none";
-
-        }
-
-      });
-
-      document.getElementById("noResults").style.display =
-        visible === 0 ? "block" : "none";
+      card.style.display = "none";
 
     }
 
-  </script>
+  });
+
+}
+
+</script>
 
 </body>
 </html>
