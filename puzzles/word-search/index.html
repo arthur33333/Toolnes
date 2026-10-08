@@ -1,1 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Word Search Generator - Toolnes</title>
 
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f6f7fb;
+  color: #222;
+}
+
+header {
+  background: white;
+  padding: 18px 6%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+
+.logo {
+  font-size: 26px;
+  font-weight: 800;
+  color: #222;
+}
+
+.logo span {
+  color: #6c4cff;
+}
+
+nav a {
+  text-decoration: none;
+  color: #555;
+  margin-left: 20px;
+  font-weight: 600;
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.hero h1 {
+  font-size: 38px;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  color: #666;
+  font-size: 17px;
+}
+
+.tool-box {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: 1fr 180px auto;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+textarea,
+select {
+  width: 100%;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 13px;
+  font-size: 15px;
+  outline: none;
+}
+
+textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+select {
+  height: 48px;
+  background: white;
+}
+
+button {
+  border: none;
+  border-radius: 12px;
+  padding: 13px 20px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.generate {
+  background: #6c4cff;
+  color: white;
+  height: 48px;
+}
+
+.generate:hover {
+  background: #5738e6;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin: 25px 0;
+  flex-wrap: wrap;
+}
+
+.actions button {
+  background: #eee;
+}
+
+.actions .primary {
+  background: #222;
+  color: white;
+}
+
+.workspace {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.grid {
+  display: grid;
+  gap: 2px;
+  background: #222;
+  padding: 3px;
+  border-radius: 8px;
+  user-select: none;
+}
+
+.cell {
+  width: 38px;
+  height: 38px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 17px;
+}
+
+.solution .cell.found {
+  background: #c8f7d1;
+  color: #14752c;
+}
+
+.words-box {
+  margin-top: 30px;
+  background: #f1efff;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.words-box h3 {
+  margin-top: 0;
+}
+
+.word-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.word {
+  background: white;
+  padding: 8px 13px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.message {
+  text-align: center;
+  color: #d33;
+  margin-top: 12px;
+  min-height: 20px;
+}
+
+footer {
+  text-align: center;
+  padding: 35px;
+  color: #777;
+}
+
+@media (max-width: 750px) {
+  .controls {
+    grid-template-columns: 1fr;
+  }
+
+  .hero h1 {
+    font-size: 30px;
+  }
+
+  .cell {
+    width: 29px;
+    height: 29px;
+    font-size: 13px;
+  }
+
+  .tool-box {
+    padding: 18px;
+  }
+}
+
+@media (max-width: 450px) {
+  .cell {
+    width: 24px;
+    height: 24px;
+    font-size: 11px;
+  }
+
+  nav {
+    display: none;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">Tool<span>nes</span></div>
+
+  <nav>
+    <a href="../../index.html">Home</a>
+    <a href="../index.html">Puzzles</a>
+  </nav>
+</header>
+
+<div class="container">
+
+  <section class="hero">
+    <h1>Word Search Generator</h1>
+    <p>Create printable word search puzzles in seconds.</p>
+  </section>
+
+  <div class="tool-box">
+
+    <div class="controls">
+
+      <textarea id="words"
+        placeholder="Enter words separated by commas&#10;Example: Apple, Banana, Orange, Lemon, Grape"></textarea>
+
+      <select id="size">
+        <option value="10">10 × 10</option>
+        <option value="12" selected>12 × 12</option>
+        <option value="15">15 × 15</option>
+        <option value="18">18 × 18</option>
+        <option value="20">20 × 20</option>
+      </select>
+
+      <button class="generate" onclick="generatePuzzle()">
+        Generate Puzzle
+      </button>
+
+    </div>
+
+    <div class="message" id="message"></div>
+
+    <div class="actions">
+      <button onclick="generatePuzzle()">🔄 New Puzzle</button>
+      <button onclick="toggleSolution()">👁 Show Solution</button>
+      <button class="primary" onclick="printPuzzle()">🖨 Print</button>
+    </div>
+
+    <div class="workspace">
+      <div id="grid" class="grid"></div>
+    </div>
+
+    <div class="words-box">
+      <h3>Words to Find</h3>
+      <div id="wordList" class="word-list"></div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  © 2026 Toolnes — Free Online Tools
+</footer>
+
+<script>
+
+let currentPuzzle = null;
+let showingSolution = false;
+
+const directions = [
+  [0, 1],
+  [0, -1],
+  [1, 0],
+  [-1, 0],
+  [1, 1],
+  [1, -1],
+  [-1, 1],
+  [-1, -1]
+];
+
+function cleanWords(text) {
+
+  return text
+    .split(/[,;\n]+/)
+    .map(word => word.trim().toUpperCase().replace(/[^A-Z]/g, ""))
+    .filter(word => word.length > 0);
+}
+
+
+function randomLetter() {
+  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  return letters[Math.floor(Math.random() * letters.length)];
+}
+
+
+function canPlace(grid, word, row, col, dr, dc) {
+
+  const size = grid.length;
+
+  for (let i = 0; i < word.length; i++) {
+
+    const r = row + dr * i;
+    const c = col + dc * i;
+
+    if (r < 0 || r >= size || c < 0 || c >= size) {
+      return false;
+    }
+
+    if (grid[r][c] !== "" && grid[r][c] !== word[i]) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+
+function placeWord(grid, word, positions) {
+
+  const size = grid.length;
+
+  for (let attempt = 0; attempt < 300; attempt++) {
+
+    const row = Math.floor(Math.random() * size);
+    const col = Math.floor(Math.random() * size);
+
+    const direction =
+      directions[Math.floor(Math.random() * directions.length)];
+
+    const dr = direction[0];
+    const dc = direction[1];
+
+    if (canPlace(grid, word, row, col, dr, dc)) {
+
+      const cells = [];
+
+      for (let i = 0; i < word.length; i++) {
+
+        const r = row + dr * i;
+        const c = col + dc * i;
+
+        grid[r][c] = word[i];
+
+        cells.push(`${r}-${c}`);
+      }
+
+      positions[word] = cells;
+
+      return true;
+    }
+  }
+
+  return false;
+}
+
+
+function generatePuzzle() {
+
+  const words = cleanWords(document.getElementById("words").value);
+  const size = parseInt(document.getElementById("size").value);
+  const message = document.getElementById("message");
+
+  message.textContent = "";
+
+  if (words.length === 0) {
+
+    message.textContent = "Please enter at least one word.";
+    return;
+  }
+
+  const tooLong = words.find(word => word.length > size);
+
+  if (tooLong) {
+
+    message.textContent =
+      `"${tooLong}" is too long for a ${size}×${size} grid.`;
+
+    return;
+  }
+
+  const grid = Array.from(
+    { length: size },
+    () => Array(size).fill("")
+  );
+
+  const positions = {};
+
+  const sortedWords = [...new Set(words)]
+    .sort((a, b) => b.length - a.length);
+
+  for (const word of sortedWords) {
+
+    const placed = placeWord(grid, word, positions);
+
+    if (!placed) {
+
+      message.textContent =
+        `Could not place "${word}". Try a larger grid.`;
+
+      return;
+    }
+  }
+
+  for (let r = 0; r < size; r++) {
+
+    for (let c = 0; c < size; c++) {
+
+      if (grid[r][c] === "") {
+        grid[r][c] = randomLetter();
+      }
+    }
+  }
+
+  currentPuzzle = {
+    grid: grid,
+    positions: positions,
+    words: sortedWords
+  };
+
+  showingSolution = false;
+
+  displayPuzzle();
+  displayWords();
+}
+
+
+function displayPuzzle() {
+
+  const gridElement = document.getElementById("grid");
+
+  gridElement.innerHTML = "";
+
+  if (!currentPuzzle) return;
+
+  const size = currentPuzzle.grid.length;
+
+  gridElement.style.gridTemplateColumns =
+    `repeat(${size}, auto)`;
+
+  for (let r = 0; r < size; r++) {
+
+    for (let c = 0; c < size; c++) {
+
+      const cell = document.createElement("div");
+
+      cell.className = "cell";
+
+      cell.textContent =
+        currentPuzzle.grid[r][c];
+
+      if (showingSolution) {
+
+        for (const word of currentPuzzle.words) {
+
+          if (
+            currentPuzzle.positions[word]
+              .includes(`${r}-${c}`)
+          ) {
+
+            cell.classList.add("found");
+          }
+        }
+      }
+
+      gridElement.appendChild(cell);
+    }
+  }
+
+  if (showingSolution) {
+    gridElement.classList.add("solution");
+  } else {
+    gridElement.classList.remove("solution");
+  }
+}
+
+
+function displayWords() {
+
+  const list = document.getElementById("wordList");
+
+  list.innerHTML = "";
+
+  if (!currentPuzzle) return;
+
+  currentPuzzle.words.forEach(word => {
+
+    const item = document.createElement("div");
+
+    item.className = "word";
+
+    item.textContent = word;
+
+    list.appendChild(item);
+  });
+}
+
+
+function toggleSolution() {
+
+  if (!currentPuzzle) {
+    generatePuzzle();
+    return;
+  }
+
+  showingSolution = !showingSolution;
+
+  displayPuzzle();
+}
+
+
+function printPuzzle() {
+
+  if (!currentPuzzle) {
+    generatePuzzle();
+  }
+
+  setTimeout(() => {
+    window.print();
+  }, 200);
+}
+
+
+document.getElementById("words").value =
+`APPLE
+BANANA
+ORANGE
+LEMON
+GRAPE
+MANGO
+PEACH
+CHERRY`;
+
+generatePuzzle();
+
+</script>
+
+</body>
+</html>
