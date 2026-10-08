@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>SmartToolHub - Free Online Tools</title>
+  <title>Toolnes - Free Online Tools</title>
 
-  <meta name="description" content="Free online tools for everyday tasks. Calculate, convert, generate and simplify your work with SmartToolHub.">
+  <meta name="description" content="Free online tools for everyday tasks. Calculate, convert, generate and simplify your work with Toolnes.">
   <meta name="robots" content="index, follow">
 
   <style>
@@ -66,7 +66,8 @@
       line-height: 1.5;
     }
 
-    input, button {
+    input,
+    button {
       width: 100%;
       padding: 12px;
       margin-top: 10px;
@@ -101,7 +102,7 @@
 <body>
 
 <header>
-  <h1>SmartToolHub</h1>
+  <h1>Toolnes</h1>
   <p>Free online tools for everyday tasks</p>
 </header>
 
@@ -109,38 +110,72 @@
 
   <div class="tools">
 
+    <!-- Percentage Calculator -->
     <div class="tool">
       <h2>Percentage Calculator</h2>
       <p>Calculate a percentage quickly.</p>
 
-      <input id="number" type="number" placeholder="Enter number">
-      <input id="percent" type="number" placeholder="Enter percentage">
+      <input
+        id="number"
+        type="number"
+        placeholder="Enter number"
+      >
 
-      <button onclick="calculatePercentage()">Calculate</button>
+      <input
+        id="percent"
+        type="number"
+        placeholder="Enter percentage"
+      >
 
-      <div class="result" id="percentageResult"></div>
+      <button onclick="calculatePercentage()">
+        Calculate
+      </button>
+
+      <div
+        class="result"
+        id="percentageResult"
+      ></div>
     </div>
 
+    <!-- Age Calculator -->
     <div class="tool">
       <h2>Age Calculator</h2>
       <p>Calculate your age from your date of birth.</p>
 
-      <input id="birthDate" type="date">
+      <input
+        id="birthDate"
+        type="date"
+      >
 
-      <button onclick="calculateAge()">Calculate Age</button>
+      <button onclick="calculateAge()">
+        Calculate Age
+      </button>
 
-      <div class="result" id="ageResult"></div>
+      <div
+        class="result"
+        id="ageResult"
+      ></div>
     </div>
 
+    <!-- Word Counter -->
     <div class="tool">
       <h2>Word Counter</h2>
       <p>Count words and characters instantly.</p>
 
-      <input id="textInput" type="text" placeholder="Type your text">
+      <input
+        id="textInput"
+        type="text"
+        placeholder="Type your text"
+      >
 
-      <button onclick="countWords()">Count</button>
+      <button onclick="countWords()">
+        Count
+      </button>
 
-      <div class="result" id="wordResult"></div>
+      <div
+        class="result"
+        id="wordResult"
+      ></div>
     </div>
 
   </div>
@@ -148,68 +183,125 @@
 </div>
 
 <footer>
-  © 2026 SmartToolHub — Free Online Tools
+  © 2026 Toolnes — Free Online Tools
 </footer>
 
 <script>
 
 function calculatePercentage() {
-  const number = parseFloat(document.getElementById("number").value);
-  const percent = parseFloat(document.getElementById("percent").value);
+
+  const number =
+    parseFloat(
+      document.getElementById("number").value
+    );
+
+  const percent =
+    parseFloat(
+      document.getElementById("percent").value
+    );
 
   if (isNaN(number) || isNaN(percent)) {
-    document.getElementById("percentageResult").textContent =
+
+    document.getElementById(
+      "percentageResult"
+    ).textContent =
       "Please enter both numbers.";
+
     return;
   }
 
-  const result = number * percent / 100;
+  const result =
+    number * percent / 100;
 
-  document.getElementById("percentageResult").textContent =
+  document.getElementById(
+    "percentageResult"
+  ).textContent =
     "Result: " + result;
 }
 
+
 function calculateAge() {
-  const birth = document.getElementById("birthDate").value;
+
+  const birth =
+    document.getElementById(
+      "birthDate"
+    ).value;
 
   if (!birth) {
-    document.getElementById("ageResult").textContent =
+
+    document.getElementById(
+      "ageResult"
+    ).textContent =
       "Please enter your birth date.";
+
     return;
   }
 
-  const birthDate = new Date(birth);
-  const today = new Date();
+  const birthDate =
+    new Date(birth);
 
-  let age = today.getFullYear() - birthDate.getFullYear();
+  const today =
+    new Date();
 
-  const month = today.getMonth() - birthDate.getMonth();
+  let age =
+    today.getFullYear() -
+    birthDate.getFullYear();
+
+  const month =
+    today.getMonth() -
+    birthDate.getMonth();
 
   if (
     month < 0 ||
-    (month === 0 && today.getDate() < birthDate.getDate())
+    (
+      month === 0 &&
+      today.getDate() <
+      birthDate.getDate()
+    )
   ) {
+
     age--;
   }
 
-  document.getElementById("ageResult").textContent =
-    "Your age: " + age + " years";
+  document.getElementById(
+    "ageResult"
+  ).textContent =
+    "Your age: " +
+    age +
+    " years";
 }
 
+
 function countWords() {
-  const text = document.getElementById("textInput").value.trim();
+
+  const text =
+    document.getElementById(
+      "textInput"
+    ).value.trim();
 
   if (!text) {
-    document.getElementById("wordResult").textContent =
+
+    document.getElementById(
+      "wordResult"
+    ).textContent =
       "Words: 0 | Characters: 0";
+
     return;
   }
 
-  const words = text.split(/\s+/).length;
-  const characters = text.length;
+  const words =
+    text.split(/\s+/).length;
 
-  document.getElementById("wordResult").textContent =
-    "Words: " + words + " | Characters: " + characters;
+  const characters =
+    text.length;
+
+  document.getElementById(
+    "wordResult"
+  ).textContent =
+    "Words: " +
+    words +
+    " | Characters: " +
+    characters;
 }
 
 </script>
