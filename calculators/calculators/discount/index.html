@@ -1,1 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Discount Calculator - Toolnes</title>
+
+<meta name="description" content="Calculate discounts, savings and final prices quickly and easily with the free Toolnes Discount Calculator.">
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f7f8fc;
+    color:#222;
+}
+
+header{
+    background:#fff;
+    border-bottom:1px solid #e8e8ee;
+    padding:18px 5%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:800;
+    color:#222;
+    text-decoration:none;
+}
+
+nav{
+    display:flex;
+    gap:22px;
+}
+
+nav a{
+    text-decoration:none;
+    color:#555;
+    font-weight:600;
+}
+
+nav a:hover{
+    color:#6c5ce7;
+}
+
+.container{
+    max-width:900px;
+    margin:0 auto;
+    padding:45px 20px 60px;
+}
+
+.hero{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.hero h1{
+    font-size:38px;
+    margin-bottom:12px;
+}
+
+.hero p{
+    color:#666;
+    font-size:17px;
+}
+
+.card{
+    background:#fff;
+    border-radius:18px;
+    padding:30px;
+    box-shadow:0 8px 30px rgba(0,0,0,.06);
+    margin-bottom:25px;
+}
+
+.calculator{
+    background:#fff4e8;
+    border-radius:15px;
+    padding:25px;
+}
+
+.calculator h2{
+    font-size:23px;
+    margin-bottom:20px;
+}
+
+.input-group{
+    margin-bottom:18px;
+}
+
+label{
+    display:block;
+    font-weight:700;
+    margin-bottom:8px;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    border:1px solid #d9d9e2;
+    border-radius:10px;
+    font-size:16px;
+    outline:none;
+}
+
+input:focus{
+    border-color:#6c5ce7;
+}
+
+button{
+    border:none;
+    border-radius:10px;
+    padding:13px 20px;
+    font-size:16px;
+    font-weight:700;
+    cursor:pointer;
+    margin-top:5px;
+}
+
+.calculate{
+    background:#6c5ce7;
+    color:white;
+}
+
+.calculate:hover{
+    opacity:.9;
+}
+
+.reset{
+    background:#eeeef4;
+    color:#333;
+    margin-left:8px;
+}
+
+.result{
+    margin-top:22px;
+    background:#fff;
+    border:1px solid #e5e5ec;
+    border-radius:12px;
+    padding:20px;
+    font-size:18px;
+    line-height:1.8;
+}
+
+.result strong{
+    color:#6c5ce7;
+}
+
+.saving{
+    color:#159447;
+    font-weight:800;
+}
+
+.formula{
+    background:#f7f7fb;
+    border-radius:14px;
+    padding:22px;
+    line-height:1.7;
+}
+
+.formula h2{
+    margin-bottom:12px;
+}
+
+.formula p{
+    color:#555;
+    margin-bottom:8px;
+}
+
+.error{
+    color:#d63031;
+    margin-top:15px;
+    font-weight:600;
+}
+
+footer{
+    text-align:center;
+    padding:30px 20px;
+    color:#777;
+    border-top:1px solid #e8e8ee;
+    background:#fff;
+}
+
+@media(max-width:700px){
+
+    header{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    nav{
+        gap:12px;
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+    .hero h1{
+        font-size:30px;
+    }
+
+    .card{
+        padding:20px;
+    }
+
+    .calculator{
+        padding:20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <a class="logo" href="../../index.html">Toolnes</a>
+
+    <nav>
+        <a href="../../index.html">Home</a>
+        <a href="../index.html">Calculators</a>
+        <a href="../../converters/index.html">Converters</a>
+        <a href="../../puzzles/index.html">Puzzles</a>
+    </nav>
+
+</header>
+
+
+<main class="container">
+
+    <div class="hero">
+
+        <h1>Discount Calculator</h1>
+
+        <p>
+            Calculate your discount, savings and final price instantly.
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="calculator">
+
+            <h2>🏷️ Calculate Your Discount</h2>
+
+            <div class="input-group">
+
+                <label for="price">
+                    Original Price
+                </label>
+
+                <input
+                    type="number"
+                    id="price"
+                    placeholder="Example: 100"
+                    min="0"
+                    step="any"
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="discount">
+                    Discount Percentage (%)
+                </label>
+
+                <input
+                    type="number"
+                    id="discount"
+                    placeholder="Example: 20"
+                    min="0"
+                    max="100"
+                    step="any"
+                >
+
+            </div>
+
+
+            <button
+                class="calculate"
+                onclick="calculateDiscount()"
+            >
+                Calculate Discount
+            </button>
+
+            <button
+                class="reset"
+                onclick="resetCalculator()"
+            >
+                ↻ Reset
+            </button>
+
+
+            <div id="result"></div>
+
+        </div>
+
+    </div>
+
+
+    <div class="card formula">
+
+        <h2>📚 How the Discount Calculator Works</h2>
+
+        <p>
+            <strong>Discount Amount:</strong>
+            Original Price × Discount Percentage ÷ 100
+        </p>
+
+        <p>
+            <strong>Final Price:</strong>
+            Original Price − Discount Amount
+        </p>
+
+        <p>
+            <strong>Example:</strong>
+            If an item costs $100 and has a 20% discount,
+            you save $20 and pay $80.
+        </p>
+
+    </div>
+
+</main>
+
+
+<footer>
+
+    © 2026 Toolnes — Useful tools. Simple and free.
+
+</footer>
+
+
+<script>
+
+function formatNumber(number){
+
+    return Number(number.toFixed(2)).toLocaleString();
+
+}
+
+
+function calculateDiscount(){
+
+    const price =
+        parseFloat(document.getElementById("price").value);
+
+    const discount =
+        parseFloat(document.getElementById("discount").value);
+
+    const result =
+        document.getElementById("result");
+
+
+    if(isNaN(price) || isNaN(discount)){
+
+        result.innerHTML =
+            '<div class="error">Please enter the original price and discount percentage.</div>';
+
+        return;
+    }
+
+
+    if(price < 0){
+
+        result.innerHTML =
+            '<div class="error">The original price cannot be negative.</div>';
+
+        return;
+    }
+
+
+    if(discount < 0 || discount > 100){
+
+        result.innerHTML =
+            '<div class="error">The discount must be between 0% and 100%.</div>';
+
+        return;
+    }
+
+
+    const discountAmount =
+        price * (discount / 100);
+
+    const finalPrice =
+        price - discountAmount;
+
+
+    result.innerHTML = `
+
+        <div class="result">
+
+            Original Price:
+            <strong>${formatNumber(price)}</strong>
+            <br>
+
+            Discount:
+            <strong>${formatNumber(discount)}%</strong>
+            <br>
+
+            You Save:
+            <span class="saving">
+                ${formatNumber(discountAmount)}
+            </span>
+            <br>
+
+            Final Price:
+            <strong>${formatNumber(finalPrice)}</strong>
+
+        </div>
+
+    `;
+}
+
+
+function resetCalculator(){
+
+    document.getElementById("price").value = "";
+
+    document.getElementById("discount").value = "";
+
+    document.getElementById("result").innerHTML = "";
+
+}
+
+</script>
+
+</body>
+</html>
