@@ -1,1 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BMR Calculator - Toolnes</title>
 
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f7f9fc;
+      color: #1f2937;
+    }
+
+    header {
+      background: white;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 18px 30px;
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: bold;
+      color: #2563eb;
+      text-decoration: none;
+    }
+
+    nav a {
+      margin-left: 18px;
+      text-decoration: none;
+      color: #374151;
+      font-weight: 600;
+    }
+
+    nav a:hover {
+      color: #2563eb;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 45px 20px 25px;
+    }
+
+    .hero h1 {
+      margin: 0 0 12px;
+      font-size: 38px;
+    }
+
+    .hero p {
+      margin: 0;
+      color: #6b7280;
+      font-size: 17px;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: 20px auto 60px;
+      padding: 0 20px;
+    }
+
+    .calculator {
+      background: white;
+      border-radius: 18px;
+      padding: 30px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.07);
+    }
+
+    .input-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #2563eb;
+    }
+
+    .buttons {
+      margin-top: 25px;
+      display: flex;
+      gap: 12px;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 13px 22px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .calculate {
+      background: #2563eb;
+      color: white;
+    }
+
+    .calculate:hover {
+      background: #1d4ed8;
+    }
+
+    .reset {
+      background: #e5e7eb;
+      color: #374151;
+    }
+
+    .reset:hover {
+      background: #d1d5db;
+    }
+
+    .error {
+      display: none;
+      margin-top: 20px;
+      padding: 12px;
+      border-radius: 10px;
+      background: #fee2e2;
+      color: #b91c1c;
+      font-weight: bold;
+    }
+
+    .results {
+      display: none;
+      margin-top: 30px;
+    }
+
+    .result-main {
+      text-align: center;
+      padding: 25px;
+      border-radius: 15px;
+      background: #dbeafe;
+    }
+
+    .result-main h3 {
+      margin: 0 0 10px;
+    }
+
+    .bmr-value {
+      font-size: 42px;
+      font-weight: bold;
+      color: #2563eb;
+    }
+
+    .result-label {
+      color: #4b5563;
+      margin-top: 5px;
+    }
+
+    .activity-results {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .activity-card {
+      padding: 17px;
+      border-radius: 12px;
+      background: #f3f4f6;
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .activity-card strong {
+      color: #111827;
+    }
+
+    .info {
+      margin-top: 35px;
+      padding: 22px;
+      background: #f3f4f6;
+      border-radius: 14px;
+    }
+
+    .info h2 {
+      margin-top: 0;
+    }
+
+    .info p {
+      line-height: 1.7;
+      color: #4b5563;
+    }
+
+    .formula {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      font-family: monospace;
+      overflow-x: auto;
+    }
+
+    footer {
+      background: white;
+      border-top: 1px solid #e5e7eb;
+      text-align: center;
+      padding: 25px;
+      color: #6b7280;
+    }
+
+    @media (max-width: 700px) {
+      .header-inner {
+        flex-direction: column;
+      }
+
+      nav a {
+        margin: 0 8px;
+      }
+
+      .hero h1 {
+        font-size: 30px;
+      }
+
+      .input-grid,
+      .activity-results {
+        grid-template-columns: 1fr;
+      }
+
+      .calculator {
+        padding: 20px;
+      }
+
+      .buttons {
+        flex-direction: column;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">Toolnes</a>
+
+    <nav>
+      <a href="../../index.html">Home</a>
+      <a href="../index.html">Calculators</a>
+      <a href="../../converters/index.html">Converters</a>
+      <a href="../../puzzles/index.html">Puzzles</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>BMR Calculator</h1>
+  <p>Estimate your Basal Metabolic Rate and daily calorie needs.</p>
+</section>
+
+<div class="container">
+
+  <div class="calculator">
+
+    <div class="input-grid">
+
+      <div class="field">
+        <label for="age">Age</label>
+        <input
+          type="number"
+          id="age"
+          placeholder="e.g. 30"
+          min="1"
+          max="120"
+        >
+      </div>
+
+      <div class="field">
+        <label for="gender">Gender</label>
+        <select id="gender">
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="weight">Weight (kg)</label>
+        <input
+          type="number"
+          id="weight"
+          placeholder="e.g. 70"
+          min="1"
+          step="0.1"
+        >
+      </div>
+
+      <div class="field">
+        <label for="height">Height (cm)</label>
+        <input
+          type="number"
+          id="height"
+          placeholder="e.g. 175"
+          min="1"
+          step="0.1"
+        >
+      </div>
+
+    </div>
+
+    <div class="buttons">
+      <button class="calculate" onclick="calculateBMR()">
+        Calculate BMR
+      </button>
+
+      <button class="reset" onclick="resetCalculator()">
+        Reset
+      </button>
+    </div>
+
+    <div class="error" id="error"></div>
+
+    <div class="results" id="results">
+
+      <div class="result-main">
+        <h3>Estimated BMR</h3>
+
+        <div class="bmr-value" id="bmrValue">0</div>
+
+        <div class="result-label">
+          calories per day at complete rest
+        </div>
+      </div>
+
+      <h2>Estimated Daily Calorie Needs</h2>
+
+      <div class="activity-results">
+
+        <div class="activity-card">
+          <strong>Sedentary</strong>
+          <span id="sedentary">0</span>
+        </div>
+
+        <div class="activity-card">
+          <strong>Light Activity</strong>
+          <span id="light">0</span>
+        </div>
+
+        <div class="activity-card">
+          <strong>Moderate Activity</strong>
+          <span id="moderate">0</span>
+        </div>
+
+        <div class="activity-card">
+          <strong>Very Active</strong>
+          <span id="veryActive">0</span>
+        </div>
+
+        <div class="activity-card">
+          <strong>Extra Active</strong>
+          <span id="extraActive">0</span>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="info">
+
+      <h2>How BMR Is Calculated</h2>
+
+      <p>
+        BMR stands for Basal Metabolic Rate. It estimates the number of
+        calories your body needs each day to maintain basic functions while
+        at complete rest.
+      </p>
+
+      <p>
+        Toolnes uses the Mifflin-St Jeor equation.
+      </p>
+
+      <div class="formula">
+        Men: BMR = 10W + 6.25H − 5A + 5
+        <br><br>
+        Women: BMR = 10W + 6.25H − 5A − 161
+      </div>
+
+      <p>
+        W = weight in kilograms, H = height in centimeters,
+        and A = age in years.
+      </p>
+
+      <p>
+        The daily calorie figures are estimates based on activity
+        multipliers and are not medical advice.
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+<footer>
+  © 2026 Toolnes — Useful tools. Simple and free.
+</footer>
+
+<script>
+  function formatNumber(number) {
+    return Math.round(number).toLocaleString("en-US");
+  }
+
+  function calculateBMR() {
+
+    const age = parseFloat(
+      document.getElementById("age").value
+    );
+
+    const weight = parseFloat(
+      document.getElementById("weight").value
+    );
+
+    const height = parseFloat(
+      document.getElementById("height").value
+    );
+
+    const gender =
+      document.getElementById("gender").value;
+
+    const error =
+      document.getElementById("error");
+
+    const results =
+      document.getElementById("results");
+
+    error.style.display = "none";
+    results.style.display = "none";
+
+    if (isNaN(age) || age < 1 || age > 120) {
+      error.textContent = "Please enter a valid age between 1 and 120.";
+      error.style.display = "block";
+      return;
+    }
+
+    if (isNaN(weight) || weight <= 0) {
+      error.textContent = "Please enter a valid weight.";
+      error.style.display = "block";
+      return;
+    }
+
+    if (isNaN(height) || height <= 0) {
+      error.textContent = "Please enter a valid height.";
+      error.style.display = "block";
+      return;
+    }
+
+    let bmr;
+
+    if (gender === "male") {
+
+      bmr =
+        (10 * weight) +
+        (6.25 * height) -
+        (5 * age) +
+        5;
+
+    } else {
+
+      bmr =
+        (10 * weight) +
+        (6.25 * height) -
+        (5 * age) -
+        161;
+    }
+
+    const sedentary = bmr * 1.2;
+    const light = bmr * 1.375;
+    const moderate = bmr * 1.55;
+    const veryActive = bmr * 1.725;
+    const extraActive = bmr * 1.9;
+
+    document.getElementById("bmrValue").textContent =
+      formatNumber(bmr);
+
+    document.getElementById("sedentary").textContent =
+      formatNumber(sedentary);
+
+    document.getElementById("light").textContent =
+      formatNumber(light);
+
+    document.getElementById("moderate").textContent =
+      formatNumber(moderate);
+
+    document.getElementById("veryActive").textContent =
+      formatNumber(veryActive);
+
+    document.getElementById("extraActive").textContent =
+      formatNumber(extraActive);
+
+    results.style.display = "block";
+  }
+
+  function resetCalculator() {
+
+    document.getElementById("age").value = "";
+    document.getElementById("weight").value = "";
+    document.getElementById("height").value = "";
+    document.getElementById("gender").value = "male";
+
+    document.getElementById("error").style.display = "none";
+    document.getElementById("results").style.display = "none";
+
+    document.getElementById("bmrValue").textContent = "0";
+    document.getElementById("sedentary").textContent = "0";
+    document.getElementById("light").textContent = "0";
+    document.getElementById("moderate").textContent = "0";
+    document.getElementById("veryActive").textContent = "0";
+    document.getElementById("extraActive").textContent = "0";
+  }
+</script>
+
+</body>
+</html>
