@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Toolnes - Free Online Tools</title>
+
+  <meta name="description" content="Free online tools for everyday tasks. Calculate, convert, generate and simplify your work with Toolnes.">
+  <meta name="robots" content="index, follow">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #1f2937;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0 0 10px;
+      font-size: 36px;
+    }
+
+    header p {
+      margin: 0;
+      color: #d1d5db;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .tools {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .tool {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    }
+
+    .tool h2 {
+      margin-top: 0;
+    }
+
+    .tool p {
+      color: #6b7280;
+      line-height: 1.5;
+    }
+
+    input,
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+      font-size: 16px;
+    }
+
+    button {
+      background: #111827;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #374151;
+    }
+
+    .result {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #6b7280;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Toolnes</h1>
+  <p>Free online tools for everyday tasks</p>
+</header>
+
+<div class="container">
+
+  <div class="tools">
+
+    <!-- Percentage Calculator -->
+    <div class="tool">
+      <h2>Percentage Calculator</h2>
+      <p>Calculate a percentage quickly.</p>
+
+      <input
+        id="number"
+        type="number"
+        placeholder="Enter number"
+      >
+
+      <input
+        id="percent"
+        type="number"
+        placeholder="Enter percentage"
+      >
+
+      <button onclick="calculatePercentage()">
+        Calculate
+      </button>
+
+      <div
+        class="result"
+        id="percentageResult"
+      ></div>
+    </div>
+
+    <!-- Age Calculator -->
+    <div class="tool">
+      <h2>Age Calculator</h2>
+      <p>Calculate your age from your date of birth.</p>
+
+      <input
+        id="birthDate"
+        type="date"
+      >
+
+      <button onclick="calculateAge()">
+        Calculate Age
+      </button>
+
+      <div
+        class="result"
+        id="ageResult"
+      ></div>
+    </div>
+
+    <!-- Word Counter -->
+    <div class="tool">
+      <h2>Word Counter</h2>
+      <p>Count words and characters instantly.</p>
+
+      <input
+        id="textInput"
+        type="text"
+        placeholder="Type your text"
+      >
+
+      <button onclick="countWords()">
+        Count
+      </button>
+
+      <div
+        class="result"
+        id="wordResult"
+      ></div>
+    </div>
+
+  </div>
+
+</div>
+
+<footer>
+  © 2026 Toolnes — Free Online Tools
+</footer>
+
+<script>
+
+function calculatePercentage() {
+
+  const number =
+    parseFloat(
+      document.getElementById("number").value
+    );
+
+  const percent =
+    parseFloat(
+      document.getElementById("percent").value
+    );
+
+  if (isNaN(number) || isNaN(percent)) {
+
+    document.getElementById(
+      "percentageResult"
+    ).textContent =
+      "Please enter both numbers.";
+
+    return;
+  }
+
+  const result =
+    number * percent / 100;
+
+  document.getElementById(
+    "percentageResult"
+  ).textContent =
+    "Result: " + result;
+}
+
+
+function calculateAge() {
+
+  const birth =
+    document.getElementById(
+      "birthDate"
+    ).value;
+
+  if (!birth) {
+
+    document.getElementById(
+      "ageResult"
+    ).textContent =
+      "Please enter your birth date.";
+
+    return;
+  }
+
+  const birthDate =
+    new Date(birth);
+
+  const today =
+    new Date();
+
+  let age =
+    today.getFullYear() -
+    birthDate.getFullYear();
+
+  const month =
+    today.getMonth() -
+    birthDate.getMonth();
+
+  if (
+    month < 0 ||
+    (
+      month === 0 &&
+      today.getDate() <
+      birthDate.getDate()
+    )
+  ) {
+
+    age--;
+  }
+
+  document.getElementById(
+    "ageResult"
+  ).textContent =
+    "Your age: " +
+    age +
+    " years";
+}
+
+
+function countWords() {
+
+  const text =
+    document.getElementById(
+      "textInput"
+    ).value.trim();
+
+  if (!text) {
+
+    document.getElementById(
+      "wordResult"
+    ).textContent =
+      "Words: 0 | Characters: 0";
+
+    return;
+  }
+
+  const words =
+    text.split(/\s+/).length;
+
+  const characters =
+    text.length;
+
+  document.getElementById(
+    "wordResult"
+  ).textContent =
+    "Words: " +
+    words +
+    " | Characters: " +
+    characters;
+}
+
+</script>
+
+</body>
+</html>
