@@ -5,411 +5,222 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Toolnes - Free Online Tools</title>
-<meta name="description" content="Toolnes provides free online tools for calculations, text and everyday tasks.">
+<meta name="description" content="Free online calculators, text tools, puzzles and useful tools.">
 
 <style>
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 body {
-  font-family: Inter, Arial, sans-serif;
-  background: #f7f8fc;
-  color: #1f2937;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f6f7fb;
+  color: #222;
 }
-
-/* =========================
-   HEADER
-========================= */
 
 header {
-  background: #ffffff;
-  border-bottom: 1px solid #eeeeee;
-}
-
-.navbar {
-  max-width: 1150px;
-  margin: auto;
-  height: 70px;
-  padding: 0 20px;
-
+  background: white;
+  padding: 18px 6%;
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
 }
 
 .logo {
-  text-decoration: none;
-  font-size: 25px;
+  font-size: 26px;
   font-weight: 800;
-  color: #202124;
 }
 
 .logo span {
-  color: #6757e8;
+  color: #6c4cff;
 }
 
-.nav-links {
-  display: flex;
-  gap: 28px;
-  align-items: center;
-}
-
-.nav-links a {
+nav a {
   text-decoration: none;
   color: #555;
-  font-size: 14px;
+  margin-left: 20px;
   font-weight: 600;
 }
 
-.nav-links a:hover {
-  color: #6757e8;
-}
-
-/* =========================
-   TOP / HERO
-========================= */
-
 .hero {
-  max-width: 1150px;
-  margin: auto;
-  padding: 58px 20px 42px;
   text-align: center;
+  padding: 65px 20px 40px;
 }
 
 .hero h1 {
   font-size: 44px;
-  line-height: 1.15;
-  color: #202124;
-  margin-bottom: 14px;
-  letter-spacing: -1px;
-}
-
-.hero h1 span {
-  color: #6757e8;
+  margin: 0 0 15px;
 }
 
 .hero p {
-  color: #737784;
-  font-size: 16px;
+  color: #666;
+  font-size: 18px;
+}
+
+.search-box {
   max-width: 600px;
-  margin: auto;
+  margin: 25px auto;
 }
 
-/* SEARCH */
-
-.search-container {
-  max-width: 620px;
-  margin: 28px auto 0;
-  position: relative;
-}
-
-.search-container input {
+.search-box input {
   width: 100%;
-  height: 54px;
-
-  border: 1px solid #dedfe5;
-  border-radius: 12px;
-
-  padding: 0 50px 0 18px;
-
-  font-size: 15px;
+  padding: 16px 20px;
+  border: 2px solid #e5e7eb;
+  border-radius: 14px;
+  font-size: 16px;
   outline: none;
-  background: white;
-
-  box-shadow: 0 5px 20px rgba(0,0,0,0.04);
 }
-
-.search-container input:focus {
-  border-color: #6757e8;
-}
-
-.search-icon {
-  position: absolute;
-  right: 18px;
-  top: 15px;
-  font-size: 21px;
-  color: #777;
-}
-
-/* =========================
-   CATEGORIES
-========================= */
 
 .categories {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 20px;
+  text-align: center;
+  margin: 20px 0 35px;
 }
 
-.category {
+.categories button {
+  border: none;
   background: white;
-  border: 1px solid #e2e3e8;
-  color: #555;
+  padding: 10px 18px;
+  margin: 5px;
   border-radius: 20px;
-  padding: 7px 15px;
-  font-size: 13px;
   cursor: pointer;
+  font-weight: 600;
 }
 
-.category:hover,
-.category.active {
-  background: #6757e8;
+.categories button.active {
+  background: #6c4cff;
   color: white;
-  border-color: #6757e8;
 }
 
-/* =========================
-   TOOLS
-========================= */
-
-.tools-section {
+.container {
   max-width: 1150px;
   margin: auto;
-  padding: 20px 20px 70px;
-}
-
-.section-title {
-  margin-bottom: 25px;
-}
-
-.section-title h2 {
-  font-size: 25px;
-  margin-bottom: 5px;
-}
-
-.section-title p {
-  color: #777;
-  font-size: 14px;
+  padding: 0 20px 50px;
 }
 
 .tools-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 22px;
 }
 
-/* =========================
-   COLORFUL TOOL CARDS
-========================= */
-
 .tool-card {
-  border-radius: 18px;
-  padding: 26px;
-  min-height: 320px;
-
-  position: relative;
-  overflow: hidden;
-
+  border-radius: 22px;
+  padding: 28px;
+  min-height: 245px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .tool-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 14px 30px rgba(0,0,0,0.09);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.12);
 }
-
-/* CARD COLORS */
-
-.card-purple {
-  background: #eeeaff;
-}
-
-.card-blue {
-  background: #e7f3ff;
-}
-
-.card-green {
-  background: #e7f8ef;
-}
-
-/* ICON */
 
 .tool-icon {
-  width: 58px;
-  height: 58px;
-
-  border-radius: 16px;
-
+  width: 60px;
+  height: 60px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.75);
   display: flex;
   align-items: center;
   justify-content: center;
-
-  font-size: 25px;
-  font-weight: 800;
-
-  margin-bottom: 20px;
+  font-size: 30px;
+  margin-bottom: 18px;
 }
 
-.icon-purple {
-  background: #d8d0ff;
-  color: #604ce6;
-}
-
-.icon-blue {
-  background: #cce6ff;
-  color: #3281c8;
-}
-
-.icon-green {
-  background: #c9eedb;
-  color: #24915a;
-}
-
-/* TEXT */
-
-.tool-card h3 {
-  font-size: 20px;
-  margin-bottom: 8px;
-  color: #222;
+.tool-card h2 {
+  margin: 0 0 10px;
+  font-size: 22px;
 }
 
 .tool-card p {
-  font-size: 14px;
-  color: #626772;
+  color: #444;
   line-height: 1.5;
-  margin-bottom: 20px;
+  margin: 0;
 }
 
-/* INPUTS */
-
-.tool-card input {
-  width: 100%;
-  height: 43px;
-
-  border: 1px solid rgba(0,0,0,0.10);
-  border-radius: 9px;
-
-  padding: 0 12px;
-  margin-bottom: 9px;
-
-  background: rgba(255,255,255,0.85);
-
-  font-size: 14px;
-  outline: none;
-}
-
-.tool-card input:focus {
-  border-color: #777;
-}
-
-/* BUTTON */
-
-.tool-card button {
-  width: 100%;
-  height: 43px;
-
+.tool-card button,
+.tool-card a {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 11px 16px;
   border: none;
-  border-radius: 9px;
-
-  color: white;
+  border-radius: 11px;
+  background: white;
+  color: #222;
+  text-decoration: none;
   font-weight: 700;
   cursor: pointer;
-
-  margin-top: 2px;
 }
 
-.button-purple {
-  background: #6757e8;
+.tool-card button:hover,
+.tool-card a:hover {
+  background: #222;
+  color: white;
 }
 
-.button-blue {
-  background: #398bd2;
+/* Card colors */
+
+.card-purple {
+  background: #e9e2ff;
 }
 
-.button-green {
-  background: #2b9a62;
+.card-blue {
+  background: #dceeff;
 }
 
-.tool-card button:hover {
-  opacity: 0.9;
+.card-green {
+  background: #dcf7e4;
 }
 
-/* RESULT */
-
-.result {
-  margin-top: 12px;
-
-  min-height: 38px;
-
-  background: rgba(255,255,255,0.75);
-
-  border-radius: 8px;
-
-  padding: 9px 11px;
-
-  font-size: 13px;
-  color: #444;
+.card-orange {
+  background: #ffe8cf;
 }
 
-/* =========================
-   FOOTER
-========================= */
+.no-results {
+  display: none;
+  text-align: center;
+  color: #777;
+  padding: 30px;
+}
 
 footer {
-  background: white;
-  border-top: 1px solid #e8e8e8;
   text-align: center;
-  padding: 28px;
+  padding: 40px 20px;
   color: #777;
-  font-size: 13px;
 }
 
-/* =========================
-   MOBILE
-========================= */
-
-@media (max-width: 850px) {
-
-  .nav-links {
-    gap: 15px;
-  }
-
+@media (max-width: 1000px) {
   .tools-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .hero h1 {
-    font-size: 36px;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 550px) {
+@media (max-width: 600px) {
 
-  .navbar {
-    height: 64px;
+  header {
+    padding: 16px 20px;
   }
 
-  .logo {
-    font-size: 22px;
-  }
-
-  .nav-links a {
+  nav {
     display: none;
   }
 
   .hero {
-    padding: 42px 18px 30px;
+    padding-top: 45px;
   }
 
   .hero h1 {
-    font-size: 31px;
+    font-size: 34px;
   }
 
-  .hero p {
-    font-size: 14px;
-  }
-
-  .tools-section {
-    padding: 20px 15px 50px;
-  }
-
-  .tool-card {
-    padding: 22px;
+  .tools-grid {
+    grid-template-columns: 1fr;
   }
 }
 </style>
@@ -417,447 +228,325 @@ footer {
 
 <body>
 
-<!-- =========================
-     HEADER
-========================= -->
-
 <header>
 
-<nav class="navbar">
+  <div class="logo">
+    Tool<span>nes</span>
+  </div>
 
-<a href="#" class="logo">
-Tool<span>nes</span>
-</a>
-
-<div class="nav-links">
-<a href="#">Home</a>
-<a href="#tools">Tools</a>
-<a href="#tools">Categories</a>
-</div>
-
-</nav>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="calculators/index.html">Calculators</a>
+    <a href="converters/index.html">Converters</a>
+    <a href="puzzles/index.html">Puzzles</a>
+  </nav>
 
 </header>
 
 
-<!-- =========================
-     HERO
-========================= -->
-
 <section class="hero">
 
-<h1>
-Useful tools.<br>
-<span>Simple and free.</span>
-</h1>
+  <h1>Useful tools. Simple and free.</h1>
 
-<p>
-A collection of simple online tools designed to help
-you calculate, write and get things done faster.
-</p>
+  <p>
+    Free online tools for everyday tasks.
+  </p>
 
-<div class="search-container">
+  <div class="search-box">
 
-<input
-type="text"
-id="searchInput"
-placeholder="Search for a tool..."
-onkeyup="searchTools()"
->
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Search for a tool..."
+      onkeyup="searchTools()"
+    >
 
-<div class="search-icon">⌕</div>
+  </div>
 
-</div>
+  <div class="categories">
 
+    <button class="active" onclick="filterTools('all', this)">
+      All Tools
+    </button>
 
-<div class="categories">
+    <button onclick="filterTools('calculator', this)">
+      Calculators
+    </button>
 
-<button class="category active"
-onclick="filterTools('all', this)">
-All Tools
-</button>
+    <button onclick="filterTools('text', this)">
+      Text
+    </button>
 
-<button class="category"
-onclick="filterTools('calculator', this)">
-Calculators
-</button>
+    <button onclick="filterTools('puzzle', this)">
+      Puzzles
+    </button>
 
-<button class="category"
-onclick="filterTools('text', this)">
-Text
-</button>
-
-</div>
+  </div>
 
 </section>
 
 
-<!-- =========================
-     TOOLS
-========================= -->
+<main class="container">
 
-<section class="tools-section" id="tools">
-
-<div class="section-title">
-
-<h2>Our Tools</h2>
-
-<p>
-Simple tools for everyday tasks.
-</p>
-
-</div>
+  <div class="tools-grid" id="toolsGrid">
 
 
-<div class="tools-grid">
+    <!-- PERCENTAGE -->
+
+    <div class="tool-card card-purple"
+         data-category="calculator"
+         data-name="percentage calculator">
+
+      <div>
+
+        <div class="tool-icon">
+          %
+        </div>
+
+        <h2>Percentage Calculator</h2>
+
+        <p>
+          Calculate percentages quickly and easily.
+        </p>
+
+      </div>
+
+      <button onclick="percentageCalculator()">
+        Open Tool →
+      </button>
+
+    </div>
 
 
-<!-- =========================
-     PERCENTAGE
-========================= -->
+    <!-- AGE -->
 
-<div class="tool-card card-purple"
-data-category="calculator">
+    <div class="tool-card card-blue"
+         data-category="calculator"
+         data-name="age calculator">
 
-<div class="tool-icon icon-purple">
-%
-</div>
+      <div>
 
-<h3>
-Percentage Calculator
-</h3>
+        <div class="tool-icon">
+          🎂
+        </div>
 
-<p>
-Calculate what percentage one number is of another.
-</p>
+        <h2>Age Calculator</h2>
 
-<input
-type="number"
-id="percentValue"
-placeholder="Enter value"
->
+        <p>
+          Calculate your exact age from your date of birth.
+        </p>
 
-<input
-type="number"
-id="percentTotal"
-placeholder="Enter total"
->
+      </div>
 
-<button
-class="button-purple"
-onclick="calculatePercentage()">
-Calculate
-</button>
+      <button onclick="ageCalculator()">
+        Open Tool →
+      </button>
 
-<div
-class="result"
-id="percentageResult">
-Result will appear here
-</div>
-
-</div>
+    </div>
 
 
-<!-- =========================
-     AGE
-========================= -->
+    <!-- WORD COUNTER -->
 
-<div class="tool-card card-blue"
-data-category="calculator">
+    <div class="tool-card card-green"
+         data-category="text"
+         data-name="word counter">
 
-<div class="tool-icon icon-blue">
-🎂
-</div>
+      <div>
 
-<h3>
-Age Calculator
-</h3>
+        <div class="tool-icon">
+          Aa
+        </div>
 
-<p>
-Find your exact age from your date of birth.
-</p>
+        <h2>Word Counter</h2>
 
-<input
-type="date"
-id="birthDate"
->
+        <p>
+          Count words and characters in your text.
+        </p>
 
-<button
-class="button-blue"
-onclick="calculateAge()">
-Calculate Age
-</button>
+      </div>
 
-<div
-class="result"
-id="ageResult">
-Result will appear here
-</div>
+      <button onclick="wordCounter()">
+        Open Tool →
+      </button>
 
-</div>
+    </div>
 
 
-<!-- =========================
-     WORD COUNTER
-========================= -->
+    <!-- PUZZLES -->
 
-<div class="tool-card card-green"
-data-category="text">
+    <div class="tool-card card-orange"
+         data-category="puzzle"
+         data-name="puzzles games word search crossword sudoku maze">
 
-<div class="tool-icon icon-green">
-Aa
-</div>
+      <div>
 
-<h3>
-Word Counter
-</h3>
+        <div class="tool-icon">
+          🧩
+        </div>
 
-<p>
-Count words and characters in your text instantly.
-</p>
+        <h2>Puzzles & Games</h2>
 
-<input
-type="text"
-id="wordText"
-placeholder="Type or paste text..."
-oninput="countWords()"
->
+        <p>
+          Create word searches, Sudoku, mazes and other fun puzzles.
+        </p>
 
-<button
-class="button-green"
-onclick="countWords()">
-Count Words
-</button>
+      </div>
 
-<div
-class="result"
-id="wordResult">
-Words: 0 | Characters: 0
-</div>
+      <a href="puzzles/index.html">
+        Explore Puzzles →
+      </a>
 
-</div>
+    </div>
 
 
-</div>
+  </div>
 
-</section>
+  <div class="no-results" id="noResults">
+    No tools found.
+  </div>
 
+</main>
 
-<!-- =========================
-     FOOTER
-========================= -->
 
 <footer>
-
-© 2026 Toolnes — Free Online Tools
-
+  © 2026 Toolnes — Free Online Tools
 </footer>
 
 
 <script>
 
-/* =========================
-   PERCENTAGE
-========================= */
+function percentageCalculator() {
 
-function calculatePercentage() {
+  const value = prompt("Enter the number:");
+  const percent = prompt("Enter the percentage:");
 
-const value =
-parseFloat(
-document.getElementById("percentValue").value
-);
+  if (value !== null && percent !== null) {
 
-const total =
-parseFloat(
-document.getElementById("percentTotal").value
-);
+    const result =
+      (parseFloat(value) * parseFloat(percent)) / 100;
 
-const result =
-document.getElementById("percentageResult");
-
-if (
-isNaN(value) ||
-isNaN(total) ||
-total === 0
-) {
-
-result.textContent =
-"Please enter valid numbers.";
-
-return;
-
-}
-
-const percentage =
-(value / total) * 100;
-
-result.textContent =
-value +
-" is " +
-percentage.toFixed(2) +
-"% of " +
-total;
-
+    alert("Result: " + result);
+  }
 }
 
 
-/* =========================
-   AGE
-========================= */
+function ageCalculator() {
 
-function calculateAge() {
+  const birth = prompt(
+    "Enter your date of birth (YYYY-MM-DD):"
+  );
 
-const birthDate =
-document.getElementById("birthDate").value;
+  if (!birth) return;
 
-const result =
-document.getElementById("ageResult");
+  const birthDate = new Date(birth);
+  const today = new Date();
 
-if (!birthDate) {
+  let age =
+    today.getFullYear() - birthDate.getFullYear();
 
-result.textContent =
-"Please select your birth date.";
+  const month =
+    today.getMonth() - birthDate.getMonth();
 
-return;
+  if (
+    month < 0 ||
+    (month === 0 &&
+     today.getDate() < birthDate.getDate())
+  ) {
+    age--;
+  }
 
-}
-
-const birth =
-new Date(birthDate);
-
-const today =
-new Date();
-
-let age =
-today.getFullYear() -
-birth.getFullYear();
-
-const month =
-today.getMonth() -
-birth.getMonth();
-
-if (
-month < 0 ||
-(
-month === 0 &&
-today.getDate() < birth.getDate()
-)
-) {
-
-age--;
-
-}
-
-result.textContent =
-"You are " +
-age +
-" years old.";
-
+  alert("Your age is " + age + " years.");
 }
 
 
-/* =========================
-   WORD COUNTER
-========================= */
+function wordCounter() {
 
-function countWords() {
+  const text = prompt("Enter your text:");
 
-const text =
-document.getElementById("wordText").value;
+  if (text === null) return;
 
-let words = 0;
+  const words =
+    text.trim() === ""
+      ? 0
+      : text.trim().split(/\s+/).length;
 
-if (text.trim() !== "") {
+  const characters = text.length;
 
-words =
-text.trim().split(/\s+/).length;
-
+  alert(
+    "Words: " + words +
+    "\nCharacters: " + characters
+  );
 }
 
-const characters =
-text.length;
-
-document.getElementById("wordResult").textContent =
-"Words: " +
-words +
-" | Characters: " +
-characters;
-
-}
-
-
-/* =========================
-   SEARCH
-========================= */
-
-function searchTools() {
-
-const search =
-document
-.getElementById("searchInput")
-.value
-.toLowerCase();
-
-const cards =
-document.querySelectorAll(".tool-card");
-
-cards.forEach(function(card) {
-
-const content =
-card.textContent.toLowerCase();
-
-if (content.includes(search)) {
-
-card.style.display = "";
-
-} else {
-
-card.style.display = "none";
-
-}
-
-});
-
-}
-
-
-/* =========================
-   CATEGORY FILTER
-========================= */
 
 function filterTools(category, button) {
 
-const cards =
-document.querySelectorAll(".tool-card");
+  const cards =
+    document.querySelectorAll(".tool-card");
 
-const buttons =
-document.querySelectorAll(".category");
+  document
+    .querySelectorAll(".categories button")
+    .forEach(btn => btn.classList.remove("active"));
 
-buttons.forEach(function(btn) {
+  button.classList.add("active");
 
-btn.classList.remove("active");
+  let visible = 0;
 
-});
+  cards.forEach(card => {
 
-button.classList.add("active");
+    if (
+      category === "all" ||
+      card.dataset.category === category
+    ) {
 
-cards.forEach(function(card) {
+      card.style.display = "flex";
+      visible++;
 
-if (
-category === "all" ||
-card.dataset.category === category
-) {
+    } else {
 
-card.style.display = "";
+      card.style.display = "none";
 
-} else {
+    }
+  });
 
-card.style.display = "none";
-
+  document.getElementById("noResults").style.display =
+    visible === 0 ? "block" : "none";
 }
 
-});
 
+function searchTools() {
+
+  const search =
+    document
+      .getElementById("searchInput")
+      .value
+      .toLowerCase();
+
+  const cards =
+    document.querySelectorAll(".tool-card");
+
+  let visible = 0;
+
+  cards.forEach(card => {
+
+    const name =
+      card.dataset.name.toLowerCase();
+
+    if (name.includes(search)) {
+
+      card.style.display = "flex";
+      visible++;
+
+    } else {
+
+      card.style.display = "none";
+
+    }
+
+  });
+
+  document.getElementById("noResults").style.display =
+    visible === 0 ? "block" : "none";
 }
 
 </script>
