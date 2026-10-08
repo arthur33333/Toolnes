@@ -1,1 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Percentage Increase & Decrease Calculator - Toolnes</title>
+<meta name="description" content="Calculate percentage increase, decrease, difference and final values easily with Toolnes.">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f7f8fc;
+    color:#222;
+}
+header{
+    background:#fff;
+    border-bottom:1px solid #e8e8ee;
+    padding:18px 5%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+.logo{
+    font-size:25px;
+    font-weight:800;
+    color:#222;
+    text-decoration:none;
+}
+nav{
+    display:flex;
+    gap:22px;
+}
+nav a{
+    text-decoration:none;
+    color:#555;
+    font-weight:600;
+}
+nav a:hover{color:#6c5ce7}
 
+.container{
+    max-width:1000px;
+    margin:0 auto;
+    padding:45px 20px 60px;
+}
+
+.hero{text-align:center;margin-bottom:35px}
+.hero h1{
+    font-size:38px;
+    margin-bottom:12px;
+}
+.hero p{
+    color:#666;
+    font-size:17px;
+}
+
+.card{
+    background:#fff;
+    border-radius:18px;
+    padding:30px;
+    box-shadow:0 8px 30px rgba(0,0,0,.06);
+    margin-bottom:25px;
+}
+
+.section{
+    border-radius:14px;
+    padding:25px;
+    margin-bottom:22px;
+}
+.section.increase{background:#eefaf1}
+.section.decrease{background:#fff1f1}
+.section.difference{background:#f1f4ff}
+
+.section h2{
+    margin-bottom:18px;
+    font-size:22px;
+}
+
+.inputs{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+}
+
+label{
+    display:block;
+    font-weight:700;
+    margin-bottom:8px;
+}
+
+input{
+    width:100%;
+    padding:13px 14px;
+    border:1px solid #d9d9e2;
+    border-radius:10px;
+    font-size:16px;
+    outline:none;
+}
+
+input:focus{
+    border-color:#6c5ce7;
+}
+
+button{
+    border:none;
+    border-radius:10px;
+    padding:13px 20px;
+    font-size:16px;
+    font-weight:700;
+    cursor:pointer;
+    margin-top:18px;
+}
+
+.calculate{
+    background:#6c5ce7;
+    color:#fff;
+}
+.calculate:hover{opacity:.9}
+
+.reset{
+    background:#eeeef4;
+    color:#333;
+    margin-left:8px;
+}
+
+.result{
+    margin-top:20px;
+    background:#fff;
+    border-radius:12px;
+    padding:18px;
+    border:1px solid #e5e5ec;
+    font-size:18px;
+    font-weight:700;
+}
+
+.result span{
+    color:#6c5ce7;
+}
+
+.error{
+    color:#d63031;
+    margin-top:15px;
+    font-weight:600;
+}
+
+.formula{
+    background:#f7f7fb;
+    border-radius:14px;
+    padding:22px;
+    line-height:1.7;
+}
+
+.formula h2{margin-bottom:10px}
+.formula p{margin-bottom:8px;color:#555}
+
+footer{
+    text-align:center;
+    padding:30px 20px;
+    color:#777;
+    border-top:1px solid #e8e8ee;
+    background:#fff;
+}
+
+@media(max-width:700px){
+    header{
+        flex-direction:column;
+        gap:15px;
+    }
+    nav{
+        gap:12px;
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+    .hero h1{font-size:30px}
+    .inputs{
+        grid-template-columns:1fr;
+    }
+    .card{padding:20px}
+    .section{padding:20px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <a class="logo" href="../../index.html">Toolnes</a>
+
+    <nav>
+        <a href="../../index.html">Home</a>
+        <a href="../index.html">Calculators</a>
+        <a href="../../converters/index.html">Converters</a>
+        <a href="../../puzzles/index.html">Puzzles</a>
+    </nav>
+</header>
+
+<main class="container">
+
+<div class="hero">
+    <h1>Percentage Increase & Decrease Calculator</h1>
+    <p>Calculate percentage changes, increases, decreases and final values instantly.</p>
+</div>
+
+<div class="card">
+
+    <!-- INCREASE -->
+    <div class="section increase">
+        <h2>📈 Percentage Increase</h2>
+
+        <div class="inputs">
+            <div>
+                <label for="increaseOriginal">Original Value</label>
+                <input type="number" id="increaseOriginal" placeholder="Example: 100">
+            </div>
+
+            <div>
+                <label for="increaseNew">New Value</label>
+                <input type="number" id="increaseNew" placeholder="Example: 125">
+            </div>
+        </div>
+
+        <button class="calculate" onclick="calculateIncrease()">Calculate Increase</button>
+
+        <div id="increaseResult"></div>
+    </div>
+
+
+    <!-- DECREASE -->
+    <div class="section decrease">
+        <h2>📉 Percentage Decrease</h2>
+
+        <div class="inputs">
+            <div>
+                <label for="decreaseOriginal">Original Value</label>
+                <input type="number" id="decreaseOriginal" placeholder="Example: 200">
+            </div>
+
+            <div>
+                <label for="decreaseNew">New Value</label>
+                <input type="number" id="decreaseNew" placeholder="Example: 150">
+            </div>
+        </div>
+
+        <button class="calculate" onclick="calculateDecrease()">Calculate Decrease</button>
+
+        <div id="decreaseResult"></div>
+    </div>
+
+
+    <!-- DIFFERENCE -->
+    <div class="section difference">
+        <h2>🔄 Percentage Change</h2>
+
+        <div class="inputs">
+            <div>
+                <label for="changeOriginal">Original Value</label>
+                <input type="number" id="changeOriginal" placeholder="Example: 100">
+            </div>
+
+            <div>
+                <label for="changeNew">New Value</label>
+                <input type="number" id="changeNew" placeholder="Example: 120">
+            </div>
+        </div>
+
+        <button class="calculate" onclick="calculateChange()">Calculate Change</button>
+
+        <div id="changeResult"></div>
+    </div>
+
+
+    <!-- FINAL VALUE AFTER INCREASE -->
+    <div class="section increase">
+        <h2>➕ Add a Percentage</h2>
+
+        <div class="inputs">
+            <div>
+                <label for="addValue">Value</label>
+                <input type="number" id="addValue" placeholder="Example: 100">
+            </div>
+
+            <div>
+                <label for="addPercent">Percentage</label>
+                <input type="number" id="addPercent" placeholder="Example: 20">
+            </div>
+        </div>
+
+        <button class="calculate" onclick="addPercentage()">Calculate Final Value</button>
+
+        <div id="addResult"></div>
+    </div>
+
+
+    <!-- FINAL VALUE AFTER DECREASE -->
+    <div class="section decrease">
+        <h2>➖ Subtract a Percentage</h2>
+
+        <div class="inputs">
+            <div>
+                <label for="subtractValue">Value</label>
+                <input type="number" id="subtractValue" placeholder="Example: 100">
+            </div>
+
+            <div>
+                <label for="subtractPercent">Percentage</label>
+                <input type="number" id="subtractPercent" placeholder="Example: 20">
+            </div>
+        </div>
+
+        <button class="calculate" onclick="subtractPercentage()">Calculate Final Value</button>
+
+        <div id="subtractResult"></div>
+    </div>
+
+    <button class="reset" onclick="resetAll()">↻ Reset All</button>
+
+</div>
+
+
+<div class="card formula">
+    <h2>📚 How to Calculate Percentage Increase & Decrease</h2>
+
+    <p><strong>Percentage Increase:</strong></p>
+    <p>(New Value − Original Value) ÷ Original Value × 100</p>
+
+    <p><strong>Percentage Decrease:</strong></p>
+    <p>(Original Value − New Value) ÷ Original Value × 100</p>
+
+    <p><strong>Percentage Change:</strong></p>
+    <p>(New Value − Original Value) ÷ Original Value × 100</p>
+
+    <p><strong>Adding a percentage:</strong></p>
+    <p>Original Value × (1 + Percentage ÷ 100)</p>
+
+    <p><strong>Subtracting a percentage:</strong></p>
+    <p>Original Value × (1 − Percentage ÷ 100)</p>
+</div>
+
+</main>
+
+<footer>
+    © 2026 Toolnes — Useful tools. Simple and free.
+</footer>
+
+
+<script>
+
+function formatNumber(number){
+    return Number(number.toFixed(4)).toLocaleString();
+}
+
+function calculateIncrease(){
+
+    const original = parseFloat(document.getElementById("increaseOriginal").value);
+    const newer = parseFloat(document.getElementById("increaseNew").value);
+    const result = document.getElementById("increaseResult");
+
+    if(isNaN(original) || isNaN(newer)){
+        result.innerHTML = '<div class="error">Please enter both values.</div>';
+        return;
+    }
+
+    if(original === 0){
+        result.innerHTML = '<div class="error">The original value cannot be zero.</div>';
+        return;
+    }
+
+    const difference = newer - original;
+    const percent = (difference / original) * 100;
+
+    result.innerHTML = `
+        <div class="result">
+            Difference: <span>${formatNumber(difference)}</span><br>
+            Percentage Increase: <span>${formatNumber(percent)}%</span>
+        </div>
+    `;
+}
+
+
+function calculateDecrease(){
+
+    const original = parseFloat(document.getElementById("decreaseOriginal").value);
+    const newer = parseFloat(document.getElementById("decreaseNew").value);
+    const result = document.getElementById("decreaseResult");
+
+    if(isNaN(original) || isNaN(newer)){
+        result.innerHTML = '<div class="error">Please enter both values.</div>';
+        return;
+    }
+
+    if(original === 0){
+        result.innerHTML = '<div class="error">The original value cannot be zero.</div>';
+        return;
+    }
+
+    const difference = original - newer;
+    const percent = (difference / original) * 100;
+
+    result.innerHTML = `
+        <div class="result">
+            Difference: <span>${formatNumber(difference)}</span><br>
+            Percentage Decrease: <span>${formatNumber(percent)}%</span>
+        </div>
+    `;
+}
+
+
+function calculateChange(){
+
+    const original = parseFloat(document.getElementById("changeOriginal").value);
+    const newer = parseFloat(document.getElementById("changeNew").value);
+    const result = document.getElementById("changeResult");
+
+    if(isNaN(original) || isNaN(newer)){
+        result.innerHTML = '<div class="error">Please enter both values.</div>';
+        return;
+    }
+
+    if(original === 0){
+        result.innerHTML = '<div class="error">The original value cannot be zero.</div>';
+        return;
+    }
+
+    const change = ((newer - original) / original) * 100;
+
+    let label = change >= 0 ? "Increase" : "Decrease";
+
+    result.innerHTML = `
+        <div class="result">
+            Percentage Change: <span>${formatNumber(Math.abs(change))}% ${label}</span><br>
+            Difference: <span>${formatNumber(newer - original)}</span>
+        </div>
+    `;
+}
+
+
+function addPercentage(){
+
+    const value = parseFloat(document.getElementById("addValue").value);
+    const percent = parseFloat(document.getElementById("addPercent").value);
+    const result = document.getElementById("addResult");
+
+    if(isNaN(value) || isNaN(percent)){
+        result.innerHTML = '<div class="error">Please enter both values.</div>';
+        return;
+    }
+
+    const increase = value * (percent / 100);
+    const finalValue = value + increase;
+
+    result.innerHTML = `
+        <div class="result">
+            Increase Amount: <span>${formatNumber(increase)}</span><br>
+            Final Value: <span>${formatNumber(finalValue)}</span>
+        </div>
+    `;
+}
+
+
+function subtractPercentage(){
+
+    const value = parseFloat(document.getElementById("subtractValue").value);
+    const percent = parseFloat(document.getElementById("subtractPercent").value);
+    const result = document.getElementById("subtractResult");
+
+    if(isNaN(value) || isNaN(percent)){
+        result.innerHTML = '<div class="error">Please enter both values.</div>';
+        return;
+    }
+
+    const decrease = value * (percent / 100);
+    const finalValue = value - decrease;
+
+    result.innerHTML = `
+        <div class="result">
+            Decrease Amount: <span>${formatNumber(decrease)}</span><br>
+            Final Value: <span>${formatNumber(finalValue)}</span>
+        </div>
+    `;
+}
+
+
+function resetAll(){
+
+    document.querySelectorAll("input").forEach(input => {
+        input.value = "";
+    });
+
+    document.querySelectorAll("[id$='Result']").forEach(result => {
+        result.innerHTML = "";
+    });
+}
+
+</script>
+
+</body>
+</html>
