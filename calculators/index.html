@@ -132,7 +132,7 @@
       line-height: 1.5;
     }
 
-    /* Different pastel backgrounds */
+    /* Pastel card backgrounds */
 
     .card:nth-child(1) {
       background: #dbeafe;
@@ -220,10 +220,6 @@
 
     .card:nth-child(22) {
       background: #e0e7ff;
-    }
-
-    .card:nth-child(23) {
-      background: #d1fae5;
     }
 
     footer {
@@ -331,22 +327,7 @@
   <div class="tools-grid" id="toolsGrid">
 
 
-    <!-- 1. Basic Calculator -->
-
-    <a href="basic/index.html" class="card">
-
-      <div class="icon">🧮</div>
-
-      <h3>Basic Calculator</h3>
-
-      <p>
-        Perform basic addition, subtraction, multiplication and division.
-      </p>
-
-    </a>
-
-
-    <!-- 2. Percentage Calculator -->
+    <!-- 1. Percentage Calculator -->
 
     <a href="percentage/index.html" class="card">
 
@@ -361,7 +342,7 @@
     </a>
 
 
-    <!-- 3. Percentage Increase / Decrease -->
+    <!-- 2. Percentage Increase / Decrease -->
 
     <a href="percentage-increase/index.html" class="card">
 
@@ -376,7 +357,7 @@
     </a>
 
 
-    <!-- 4. Discount Calculator -->
+    <!-- 3. Discount Calculator -->
 
     <a href="discount/index.html" class="card">
 
@@ -391,7 +372,7 @@
     </a>
 
 
-    <!-- 5. Tip Calculator -->
+    <!-- 4. Tip Calculator -->
 
     <a href="tip/index.html" class="card">
 
@@ -406,7 +387,7 @@
     </a>
 
 
-    <!-- 6. Tax Calculator -->
+    <!-- 5. Tax Calculator -->
 
     <a href="tax/index.html" class="card">
 
@@ -421,7 +402,7 @@
     </a>
 
 
-    <!-- 7. VAT Calculator -->
+    <!-- 6. VAT Calculator -->
 
     <a href="vat/index.html" class="card">
 
@@ -436,7 +417,7 @@
     </a>
 
 
-    <!-- 8. Profit Margin Calculator -->
+    <!-- 7. Profit Margin Calculator -->
 
     <a href="profit-margin/index.html" class="card">
 
@@ -451,7 +432,7 @@
     </a>
 
 
-    <!-- 9. Markup Calculator -->
+    <!-- 8. Markup Calculator -->
 
     <a href="markup/index.html" class="card">
 
@@ -466,7 +447,7 @@
     </a>
 
 
-    <!-- 10. Age Calculator -->
+    <!-- 9. Age Calculator -->
 
     <a href="age/index.html" class="card">
 
@@ -481,7 +462,7 @@
     </a>
 
 
-    <!-- 11. Date Difference Calculator -->
+    <!-- 10. Date Difference Calculator -->
 
     <a href="date-difference/index.html" class="card">
 
@@ -496,7 +477,7 @@
     </a>
 
 
-    <!-- 12. Time Duration Calculator -->
+    <!-- 11. Time Duration Calculator -->
 
     <a href="time-duration/index.html" class="card">
 
@@ -511,7 +492,7 @@
     </a>
 
 
-    <!-- 13. Average Calculator -->
+    <!-- 12. Average Calculator -->
 
     <a href="average/index.html" class="card">
 
@@ -526,7 +507,7 @@
     </a>
 
 
-    <!-- 14. Ratio Calculator -->
+    <!-- 13. Ratio Calculator -->
 
     <a href="ratio/index.html" class="card">
 
@@ -541,7 +522,7 @@
     </a>
 
 
-    <!-- 15. Fraction Calculator -->
+    <!-- 14. Fraction Calculator -->
 
     <a href="fraction/index.html" class="card">
 
@@ -556,7 +537,7 @@
     </a>
 
 
-    <!-- 16. Random Number Generator -->
+    <!-- 15. Random Number Generator -->
 
     <a href="random-number/index.html" class="card">
 
@@ -571,7 +552,7 @@
     </a>
 
 
-    <!-- 17. Compound Interest Calculator -->
+    <!-- 16. Compound Interest Calculator -->
 
     <a href="compound-interest/index.html" class="card">
 
@@ -586,7 +567,7 @@
     </a>
 
 
-    <!-- 18. Simple Interest Calculator -->
+    <!-- 17. Simple Interest Calculator -->
 
     <a href="simple-interest/index.html" class="card">
 
@@ -601,7 +582,7 @@
     </a>
 
 
-    <!-- 19. Loan Calculator -->
+    <!-- 18. Loan Calculator -->
 
     <a href="loan/index.html" class="card">
 
@@ -616,7 +597,7 @@
     </a>
 
 
-    <!-- 20. Mortgage Calculator -->
+    <!-- 19. Mortgage Calculator -->
 
     <a href="mortgage/index.html" class="card">
 
@@ -631,7 +612,7 @@
     </a>
 
 
-    <!-- 21. BMI Calculator -->
+    <!-- 20. BMI Calculator -->
 
     <a href="bmi/index.html" class="card">
 
@@ -646,7 +627,7 @@
     </a>
 
 
-    <!-- 22. BMR Calculator -->
+    <!-- 21. BMR Calculator -->
 
     <a href="bmr/index.html" class="card">
 
@@ -661,7 +642,7 @@
     </a>
 
 
-    <!-- 23. Calorie Calculator -->
+    <!-- 22. Calorie Calculator -->
 
     <a href="calorie/index.html" class="card">
 
@@ -693,7 +674,8 @@
 function searchTools() {
 
   const input =
-    document.getElementById("searchBox")
+    document
+      .getElementById("searchBox")
       .value
       .toLowerCase();
 
