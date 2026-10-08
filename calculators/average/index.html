@@ -1,1 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Average Calculator - Toolnes</title>
+  <meta name="description" content="Free online average calculator. Calculate average, sum, count, minimum, maximum and median.">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
+    body {
+      font-family: Arial, sans-serif;
+      background: #f6f8fc;
+      color: #1f2937;
+    }
+
+    header {
+      background: white;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 18px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: 800;
+      color: #111827;
+      text-decoration: none;
+    }
+
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #374151;
+      font-weight: 600;
+    }
+
+    nav a:hover {
+      color: #2563eb;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 45px 20px 70px;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .hero h1 {
+      font-size: 38px;
+      margin-bottom: 10px;
+      color: #111827;
+    }
+
+    .hero p {
+      color: #6b7280;
+      font-size: 17px;
+    }
+
+    .calculator {
+      background: white;
+      border-radius: 18px;
+      padding: 30px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+      border: 1px solid #e5e7eb;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 180px;
+      padding: 15px;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      font-size: 16px;
+      resize: vertical;
+      outline: none;
+    }
+
+    textarea:focus {
+      border-color: #2563eb;
+    }
+
+    .hint {
+      margin-top: 8px;
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 13px 22px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .calculate {
+      background: #2563eb;
+      color: white;
+    }
+
+    .calculate:hover {
+      background: #1d4ed8;
+    }
+
+    .reset {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .reset:hover {
+      background: #d1d5db;
+    }
+
+    .error {
+      display: none;
+      margin-top: 18px;
+      padding: 12px 15px;
+      border-radius: 10px;
+      background: #fee2e2;
+      color: #991b1b;
+      font-weight: 600;
+    }
+
+    .results {
+      margin-top: 30px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .result-card {
+      padding: 20px;
+      border-radius: 14px;
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      text-align: center;
+    }
+
+    .result-card h3 {
+      font-size: 15px;
+      color: #6b7280;
+      margin-bottom: 8px;
+    }
+
+    .result-value {
+      font-size: 27px;
+      font-weight: 800;
+      color: #111827;
+      word-break: break-word;
+    }
+
+    .formula {
+      margin-top: 30px;
+      padding: 22px;
+      background: #eff6ff;
+      border-radius: 14px;
+    }
+
+    .formula h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .formula p {
+      color: #374151;
+      line-height: 1.6;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    @media (max-width: 650px) {
+      header {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      nav a {
+        margin: 0 7px;
+      }
+
+      .hero h1 {
+        font-size: 30px;
+      }
+
+      .calculator {
+        padding: 20px;
+      }
+
+      .results {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <a href="../../index.html" class="logo">Toolnes</a>
+
+  <nav>
+    <a href="../../index.html">Home</a>
+    <a href="../index.html">Calculators</a>
+    <a href="../../converters/index.html">Converters</a>
+    <a href="../../puzzles/index.html">Puzzles</a>
+  </nav>
+</header>
+
+<main class="container">
+
+  <section class="hero">
+    <h1>Average Calculator</h1>
+    <p>Calculate the average, sum, median, minimum and maximum of your numbers.</p>
+  </section>
+
+  <section class="calculator">
+
+    <label for="numbers">Enter your numbers</label>
+
+    <textarea id="numbers" placeholder="Example:
+10, 20, 30, 40
+
+You can also use spaces or separate numbers with new lines."></textarea>
+
+    <div class="hint">
+      Separate numbers with commas, spaces, semicolons, or line breaks.
+    </div>
+
+    <div class="buttons">
+      <button class="calculate" onclick="calculateAverage()">Calculate</button>
+      <button class="reset" onclick="resetCalculator()">Reset</button>
+    </div>
+
+    <div id="error" class="error"></div>
+
+    <div class="results">
+
+      <div class="result-card">
+        <h3>Average / Mean</h3>
+        <div class="result-value" id="average">—</div>
+      </div>
+
+      <div class="result-card">
+        <h3>Sum</h3>
+        <div class="result-value" id="sum">—</div>
+      </div>
+
+      <div class="result-card">
+        <h3>Count</h3>
+        <div class="result-value" id="count">—</div>
+      </div>
+
+      <div class="result-card">
+        <h3>Minimum</h3>
+        <div class="result-value" id="minimum">—</div>
+      </div>
+
+      <div class="result-card">
+        <h3>Maximum</h3>
+        <div class="result-value" id="maximum">—</div>
+      </div>
+
+      <div class="result-card">
+        <h3>Median</h3>
+        <div class="result-value" id="median">—</div>
+      </div>
+
+    </div>
+
+    <div class="formula">
+      <h2>How is the average calculated?</h2>
+      <p>
+        The average is calculated by adding all the numbers together
+        and dividing the result by the number of values.
+      </p>
+      <p style="margin-top:10px;">
+        <strong>Average = Sum ÷ Number of values</strong>
+      </p>
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  © 2026 Toolnes — Useful tools. Simple and free.
+</footer>
+
+<script>
+function calculateAverage() {
+
+  const input = document.getElementById("numbers").value.trim();
+  const error = document.getElementById("error");
+
+  error.style.display = "none";
+  error.textContent = "";
+
+  if (!input) {
+    showError("Please enter at least one number.");
+    return;
+  }
+
+  // Accept commas, semicolons, spaces and line breaks
+  const parts = input.split(/[\s,;]+/).filter(Boolean);
+
+  const numbers = parts.map(Number);
+
+  if (numbers.some(num => !Number.isFinite(num))) {
+    showError("Please enter valid numbers only.");
+    return;
+  }
+
+  const sum = numbers.reduce((total, num) => total + num, 0);
+  const count = numbers.length;
+  const average = sum / count;
+
+  const sorted = [...numbers].sort((a, b) => a - b);
+
+  let median;
+
+  if (count % 2 === 0) {
+    const middle1 = sorted[count / 2 - 1];
+    const middle2 = sorted[count / 2];
+    median = (middle1 + middle2) / 2;
+  } else {
+    median = sorted[Math.floor(count / 2)];
+  }
+
+  const minimum = Math.min(...numbers);
+  const maximum = Math.max(...numbers);
+
+  document.getElementById("average").textContent = formatNumber(average);
+  document.getElementById("sum").textContent = formatNumber(sum);
+  document.getElementById("count").textContent = count;
+  document.getElementById("minimum").textContent = formatNumber(minimum);
+  document.getElementById("maximum").textContent = formatNumber(maximum);
+  document.getElementById("median").textContent = formatNumber(median);
+}
+
+function formatNumber(number) {
+  return Number(number.toFixed(10)).toLocaleString("en-US");
+}
+
+function showError(message) {
+  const error = document.getElementById("error");
+  error.textContent = message;
+  error.style.display = "block";
+}
+
+function resetCalculator() {
+  document.getElementById("numbers").value = "";
+
+  document.getElementById("average").textContent = "—";
+  document.getElementById("sum").textContent = "—";
+  document.getElementById("count").textContent = "—";
+  document.getElementById("minimum").textContent = "—";
+  document.getElementById("maximum").textContent = "—";
+  document.getElementById("median").textContent = "—";
+
+  document.getElementById("error").style.display = "none";
+}
+</script>
+
+</body>
+</html>
