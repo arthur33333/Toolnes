@@ -1,1 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Time Duration Calculator - Toolnes</title>
+<meta name="description" content="Calculate the duration between two times in hours, minutes and seconds with Toolnes.">
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f6f8fb;
+    color: #1f2937;
+}
+
+header {
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 18px 30px;
+}
+
+.header-inner {
+    max-width: 1100px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 800;
+    color: #111827;
+    text-decoration: none;
+}
+
+nav a {
+    margin-left: 22px;
+    text-decoration: none;
+    color: #4b5563;
+    font-weight: 600;
+}
+
+nav a:hover {
+    color: #111827;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 45px 20px;
+}
+
+.hero {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.hero h1 {
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    color: #6b7280;
+    font-size: 17px;
+}
+
+.card {
+    background: white;
+    border-radius: 18px;
+    padding: 30px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+    margin-bottom: 25px;
+}
+
+.card h2 {
+    margin-top: 0;
+}
+
+.time-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.time-box {
+    background: #f9fafb;
+    border-radius: 14px;
+    padding: 20px;
+}
+
+.time-box h3 {
+    margin-top: 0;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 7px;
+}
+
+input {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #6366f1;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+button {
+    border: none;
+    border-radius: 10px;
+    padding: 13px 20px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.calculate-btn {
+    background: #6366f1;
+    color: white;
+    flex: 1;
+}
+
+.calculate-btn:hover {
+    background: #4f46e5;
+}
+
+.reset-btn {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+.results {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.result {
+    padding: 22px;
+    border-radius: 14px;
+    background: #f3f4f6;
+    text-align: center;
+}
+
+.result-title {
+    color: #6b7280;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.result-value {
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.summary {
+    margin-top: 20px;
+    padding: 18px;
+    border-radius: 12px;
+    background: #eef2ff;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.error {
+    color: #dc2626;
+    margin-top: 15px;
+    font-weight: 600;
+}
+
+.info {
+    background: #eef2ff;
+    padding: 18px;
+    border-radius: 12px;
+    line-height: 1.6;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+@media (max-width: 650px) {
+
+    .header-inner {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    nav a {
+        margin: 0 8px;
+    }
+
+    .hero h1 {
+        font-size: 30px;
+    }
+
+    .card {
+        padding: 22px;
+    }
+
+    .time-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .results {
+        grid-template-columns: 1fr;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-inner">
+
+        <a href="../../index.html" class="logo">Toolnes</a>
+
+        <nav>
+            <a href="../../index.html">Home</a>
+            <a href="../index.html">Calculators</a>
+            <a href="../../converters/index.html">Converters</a>
+            <a href="../../puzzles/index.html">Puzzles</a>
+        </nav>
+
+    </div>
+</header>
+
+<main class="container">
+
+<section class="hero">
+
+    <h1>Time Duration Calculator</h1>
+
+    <p>
+        Calculate the exact duration between two times.
+    </p>
+
+</section>
+
+
+<div class="card">
+
+    <h2>Calculate Time Duration</h2>
+
+    <div class="time-grid">
+
+        <div class="time-box">
+
+            <h3>Start Time</h3>
+
+            <div class="input-group">
+
+                <label for="startTime">
+                    Time
+                </label>
+
+                <input
+                    type="time"
+                    id="startTime"
+                    step="1"
+                >
+
+            </div>
+
+        </div>
+
+
+        <div class="time-box">
+
+            <h3>End Time</h3>
+
+            <div class="input-group">
+
+                <label for="endTime">
+                    Time
+                </label>
+
+                <input
+                    type="time"
+                    id="endTime"
+                    step="1"
+                >
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="input-group" style="margin-top:20px;">
+
+        <label>
+            End time is on the next day
+        </label>
+
+        <input
+            type="checkbox"
+            id="nextDay"
+            style="width:auto;"
+        >
+
+        <span style="margin-left:8px;">
+            Check this if the end time is after midnight
+        </span>
+
+    </div>
+
+
+    <div class="buttons">
+
+        <button
+            class="calculate-btn"
+            onclick="calculateDuration()">
+            Calculate Duration
+        </button>
+
+        <button
+            class="reset-btn"
+            onclick="resetCalculator()">
+            Reset
+        </button>
+
+    </div>
+
+
+    <div id="error" class="error"></div>
+
+
+    <div
+        id="results"
+        class="results"
+        style="display:none;"
+    >
+
+        <div class="result">
+
+            <div class="result-title">
+                Hours
+            </div>
+
+            <div
+                class="result-value"
+                id="hoursResult">
+                0
+            </div>
+
+        </div>
+
+
+        <div class="result">
+
+            <div class="result-title">
+                Minutes
+            </div>
+
+            <div
+                class="result-value"
+                id="minutesResult">
+                0
+            </div>
+
+        </div>
+
+
+        <div class="result">
+
+            <div class="result-title">
+                Seconds
+            </div>
+
+            <div
+                class="result-value"
+                id="secondsResult">
+                0
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="summary"
+        class="summary"
+        style="display:none;">
+    </div>
+
+</div>
+
+
+<div class="card">
+
+    <h2>How It Works</h2>
+
+    <div class="info">
+
+        Enter a start time and an end time.
+
+        <br><br>
+
+        For example, from <strong>09:30</strong> to
+        <strong>17:45</strong>, the duration is
+        <strong>8 hours and 15 minutes</strong>.
+
+        <br><br>
+
+        If the end time is after midnight, activate
+        <strong>End time is on the next day</strong>.
+
+    </div>
+
+</div>
+
+</main>
+
+
+<footer>
+
+    © 2026 Toolnes — Useful tools. Simple and free.
+
+</footer>
+
+
+<script>
+
+function calculateDuration() {
+
+    const startInput =
+        document.getElementById("startTime").value;
+
+    const endInput =
+        document.getElementById("endTime").value;
+
+    const nextDay =
+        document.getElementById("nextDay").checked;
+
+    const error =
+        document.getElementById("error");
+
+    const results =
+        document.getElementById("results");
+
+    const summary =
+        document.getElementById("summary");
+
+
+    error.textContent = "";
+
+    results.style.display = "none";
+
+    summary.style.display = "none";
+
+
+    if (!startInput || !endInput) {
+
+        error.textContent =
+            "Please enter both start time and end time.";
+
+        return;
+    }
+
+
+    const startParts =
+        startInput.split(":").map(Number);
+
+    const endParts =
+        endInput.split(":").map(Number);
+
+
+    let startSeconds =
+        startParts[0] * 3600 +
+        startParts[1] * 60 +
+        (startParts[2] || 0);
+
+
+    let endSeconds =
+        endParts[0] * 3600 +
+        endParts[1] * 60 +
+        (endParts[2] || 0);
+
+
+    let difference =
+        endSeconds - startSeconds;
+
+
+    if (nextDay) {
+
+        difference += 24 * 3600;
+
+    } else if (difference < 0) {
+
+        error.textContent =
+            "End time is earlier than start time. Check the next-day option.";
+
+        return;
+    }
+
+
+    const hours =
+        Math.floor(difference / 3600);
+
+
+    const minutes =
+        Math.floor((difference % 3600) / 60);
+
+
+    const seconds =
+        difference % 60;
+
+
+    document.getElementById("hoursResult").textContent =
+        hours;
+
+
+    document.getElementById("minutesResult").textContent =
+        minutes;
+
+
+    document.getElementById("secondsResult").textContent =
+        seconds;
+
+
+    results.style.display = "grid";
+
+
+    let summaryText =
+        "";
+
+
+    if (hours > 0) {
+
+        summaryText +=
+            hours +
+            (hours === 1 ? " hour" : " hours");
+    }
+
+
+    if (minutes > 0) {
+
+        if (summaryText) {
+            summaryText += " ";
+        }
+
+        summaryText +=
+            minutes +
+            (minutes === 1 ? " minute" : " minutes");
+    }
+
+
+    if (seconds > 0) {
+
+        if (summaryText) {
+            summaryText += " ";
+        }
+
+        summaryText +=
+            seconds +
+            (seconds === 1 ? " second" : " seconds");
+    }
+
+
+    if (!summaryText) {
+
+        summaryText = "0 seconds";
+
+    }
+
+
+    summary.innerHTML =
+        "Duration: <strong>" +
+        summaryText +
+        "</strong>.";
+
+
+    summary.style.display = "block";
+}
+
+
+function resetCalculator() {
+
+    document.getElementById("startTime").value = "";
+
+    document.getElementById("endTime").value = "";
+
+    document.getElementById("nextDay").checked = false;
+
+    document.getElementById("error").textContent = "";
+
+    document.getElementById("results").style.display = "none";
+
+    document.getElementById("summary").style.display = "none";
+}
+
+</script>
+
+</body>
+</html>
