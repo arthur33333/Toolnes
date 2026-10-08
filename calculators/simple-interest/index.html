@@ -1,1 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>Simple Interest Calculator - Toolnes</title>
+  <meta name="description" content="Free simple interest calculator. Calculate interest earned and total amount.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f6f8fc;
+      color: #1f2937;
+    }
+
+    header {
+      background: white;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 18px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: 800;
+      color: #111827;
+      text-decoration: none;
+    }
+
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #374151;
+      font-weight: 600;
+    }
+
+    nav a:hover {
+      color: #2563eb;
+    }
+
+    .container {
+      max-width: 950px;
+      margin: auto;
+      padding: 45px 20px 70px;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .hero h1 {
+      font-size: 38px;
+      margin-bottom: 10px;
+      color: #111827;
+    }
+
+    .hero p {
+      color: #6b7280;
+      font-size: 17px;
+    }
+
+    .calculator {
+      background: white;
+      border-radius: 18px;
+      padding: 30px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+      border: 1px solid #e5e7eb;
+    }
+
+    .inputs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      border: 2px solid #e5e7eb;
+      border-radius: 10px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #2563eb;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 13px 22px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .calculate {
+      background: #2563eb;
+      color: white;
+    }
+
+    .calculate:hover {
+      background: #1d4ed8;
+    }
+
+    .reset {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .reset:hover {
+      background: #d1d5db;
+    }
+
+    .error {
+      display: none;
+      margin-top: 18px;
+      padding: 12px 15px;
+      border-radius: 10px;
+      background: #fee2e2;
+      color: #991b1b;
+      font-weight: 600;
+    }
+
+    .results {
+      margin-top: 30px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .result-card {
+      padding: 22px 15px;
+      border-radius: 14px;
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      text-align: center;
+    }
+
+    .result-card h3 {
+      font-size: 15px;
+      color: #6b7280;
+      margin-bottom: 9px;
+    }
+
+    .result-value {
+      font-size: 25px;
+      font-weight: 800;
+      color: #111827;
+      word-break: break-word;
+    }
+
+    .formula {
+      margin-top: 30px;
+      padding: 22px;
+      background: #eff6ff;
+      border-radius: 14px;
+      line-height: 1.6;
+    }
+
+    .formula h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    @media (max-width: 700px) {
+      header {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      nav a {
+        margin: 0 7px;
+      }
+
+      .hero h1 {
+        font-size: 30px;
+      }
+
+      .calculator {
+        padding: 20px;
+      }
+
+      .inputs {
+        grid-template-columns: 1fr;
+      }
+
+      .results {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <a href="../../index.html" class="logo">Toolnes</a>
+
+  <nav>
+    <a href="../../index.html">Home</a>
+    <a href="../index.html">Calculators</a>
+    <a href="../../converters/index.html">Converters</a>
+    <a href="../../puzzles/index.html">Puzzles</a>
+  </nav>
+</header>
+
+<main class="container">
+
+  <section class="hero">
+    <h1>Simple Interest Calculator</h1>
+    <p>Calculate simple interest, total interest and final amount.</p>
+  </section>
+
+  <section class="calculator">
+
+    <div class="inputs">
+
+      <div class="field">
+        <label for="principal">Principal Amount</label>
+        <input
+          type="number"
+          id="principal"
+          value="1000"
+          min="0"
+          step="0.01"
+        >
+      </div>
+
+      <div class="field">
+        <label for="rate">Annual Interest Rate (%)</label>
+        <input
+          type="number"
+          id="rate"
+          value="5"
+          min="0"
+          step="0.01"
+        >
+      </div>
+
+      <div class="field">
+        <label for="years">Time (Years)</label>
+        <input
+          type="number"
+          id="years"
+          value="10"
+          min="0"
+          step="0.01"
+        >
+      </div>
+
+    </div>
+
+    <div class="buttons">
+
+      <button class="calculate" onclick="calculateInterest()">
+        Calculate
+      </button>
+
+      <button class="reset" onclick="resetCalculator()">
+        Reset
+      </button>
+
+    </div>
+
+    <div id="error" class="error"></div>
+
+    <div class="results">
+
+      <div class="result-card">
+        <h3>Simple Interest</h3>
+        <div class="result-value" id="interest">—</div>
+      </div>
+
+      <div class="result-card">
+        <h3>Total Amount</h3>
+        <div class="result-value" id="total">—</div>
+      </div>
+
+      <div class="result-card">
+        <h3>Interest Rate</h3>
+        <div class="result-value" id="displayRate">—</div>
+      </div>
+
+    </div>
+
+    <div class="formula">
+
+      <h2>Simple Interest Formula</h2>
+
+      <p>
+        Simple interest is calculated using:
+      </p>
+
+      <p style="margin-top:10px;">
+        <strong>I = P × R × T</strong>
+      </p>
+
+      <p style="margin-top:10px;">
+        P = principal amount, R = annual interest rate,
+        and T = time in years.
+      </p>
+
+      <p style="margin-top:10px;">
+        Example: $1,000 at 5% for 10 years produces
+        <strong>$500</strong> in simple interest.
+      </p>
+
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  © 2026 Toolnes — Useful tools. Simple and free.
+</footer>
+
+<script>
+
+function money(value) {
+  return value.toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+}
+
+function calculateInterest() {
+
+  const principal = Number(document.getElementById("principal").value);
+  const rate = Number(document.getElementById("rate").value);
+  const years = Number(document.getElementById("years").value);
+
+  const error = document.getElementById("error");
+
+  error.style.display = "none";
+
+  if (
+    !Number.isFinite(principal) ||
+    !Number.isFinite(rate) ||
+    !Number.isFinite(years)
+  ) {
+    showError("Please enter valid numbers.");
+    return;
+  }
+
+  if (principal < 0 || rate < 0 || years < 0) {
+    showError("Values cannot be negative.");
+    return;
+  }
+
+  const interest = principal * (rate / 100) * years;
+  const total = principal + interest;
+
+  document.getElementById("interest").textContent =
+    money(interest);
+
+  document.getElementById("total").textContent =
+    money(total);
+
+  document.getElementById("displayRate").textContent =
+    rate + "%";
+}
+
+function showError(message) {
+
+  const error = document.getElementById("error");
+
+  error.textContent = message;
+  error.style.display = "block";
+}
+
+function resetCalculator() {
+
+  document.getElementById("principal").value = 1000;
+  document.getElementById("rate").value = 5;
+  document.getElementById("years").value = 10;
+
+  document.getElementById("interest").textContent = "—";
+  document.getElementById("total").textContent = "—";
+  document.getElementById("displayRate").textContent = "—";
+
+  document.getElementById("error").style.display = "none";
+}
+
+</script>
+
+</body>
+</html>
