@@ -1,1 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>Random Number Generator - Toolnes</title>
+  <meta name="description" content="Generate random numbers online for free with Toolnes.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f6f8fc;
+      color: #1f2937;
+    }
+
+    header {
+      background: white;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 18px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: 800;
+      color: #111827;
+      text-decoration: none;
+    }
+
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #374151;
+      font-weight: 600;
+    }
+
+    nav a:hover {
+      color: #2563eb;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 45px 20px 70px;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .hero h1 {
+      font-size: 38px;
+      margin-bottom: 10px;
+      color: #111827;
+    }
+
+    .hero p {
+      color: #6b7280;
+      font-size: 17px;
+    }
+
+    .calculator {
+      background: white;
+      border-radius: 18px;
+      padding: 30px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+      border: 1px solid #e5e7eb;
+    }
+
+    .inputs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      border: 2px solid #e5e7eb;
+      border-radius: 10px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #2563eb;
+    }
+
+    .options {
+      margin-top: 20px;
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .checkbox-row input {
+      width: auto;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 22px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 13px 22px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .generate {
+      background: #2563eb;
+      color: white;
+    }
+
+    .generate:hover {
+      background: #1d4ed8;
+    }
+
+    .reset {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .reset:hover {
+      background: #d1d5db;
+    }
+
+    .error {
+      display: none;
+      margin-top: 18px;
+      padding: 12px 15px;
+      border-radius: 10px;
+      background: #fee2e2;
+      color: #991b1b;
+      font-weight: 600;
+    }
+
+    .result {
+      margin-top: 30px;
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 15px;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .result h2 {
+      font-size: 17px;
+      color: #6b7280;
+      margin-bottom: 12px;
+    }
+
+    .result-value {
+      font-size: 48px;
+      font-weight: 800;
+      color: #111827;
+      word-break: break-word;
+    }
+
+    .multiple-results {
+      margin-top: 25px;
+      display: none;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .number-card {
+      padding: 18px 10px;
+      background: #eff6ff;
+      border-radius: 12px;
+      font-size: 22px;
+      font-weight: 800;
+      color: #1d4ed8;
+    }
+
+    .formula {
+      margin-top: 30px;
+      padding: 22px;
+      background: #eff6ff;
+      border-radius: 14px;
+      line-height: 1.6;
+    }
+
+    .formula h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    @media (max-width: 650px) {
+      header {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      nav a {
+        margin: 0 7px;
+      }
+
+      .hero h1 {
+        font-size: 30px;
+      }
+
+      .calculator {
+        padding: 20px;
+      }
+
+      .inputs {
+        grid-template-columns: 1fr;
+      }
+
+      .multiple-results {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <a href="../../index.html" class="logo">Toolnes</a>
+
+  <nav>
+    <a href="../../index.html">Home</a>
+    <a href="../index.html">Calculators</a>
+    <a href="../../converters/index.html">Converters</a>
+    <a href="../../puzzles/index.html">Puzzles</a>
+  </nav>
+</header>
+
+<main class="container">
+
+  <section class="hero">
+    <h1>Random Number Generator</h1>
+    <p>Generate random numbers within any range.</p>
+  </section>
+
+  <section class="calculator">
+
+    <div class="inputs">
+
+      <div>
+        <label for="minimum">Minimum</label>
+        <input type="number" id="minimum" value="1">
+      </div>
+
+      <div>
+        <label for="maximum">Maximum</label>
+        <input type="number" id="maximum" value="100">
+      </div>
+
+    </div>
+
+    <div class="options">
+
+      <label for="quantity">How many numbers?</label>
+
+      <input
+        type="number"
+        id="quantity"
+        value="1"
+        min="1"
+        max="100"
+      >
+
+      <div class="checkbox-row">
+        <input type="checkbox" id="unique">
+        <label for="unique">Unique numbers only</label>
+      </div>
+
+    </div>
+
+    <div class="buttons">
+
+      <button class="generate" onclick="generateNumbers()">
+        Generate Numbers
+      </button>
+
+      <button class="reset" onclick="resetCalculator()">
+        Reset
+      </button>
+
+    </div>
+
+    <div id="error" class="error"></div>
+
+    <div class="result">
+
+      <h2>Random Number</h2>
+
+      <div class="result-value" id="result">—</div>
+
+    </div>
+
+    <div id="multipleResults" class="multiple-results"></div>
+
+    <div class="formula">
+
+      <h2>How it works</h2>
+
+      <p>
+        Enter a minimum and maximum value and choose how many
+        random numbers you want to generate.
+      </p>
+
+      <p style="margin-top:10px;">
+        Example: Minimum <strong>1</strong>, Maximum <strong>100</strong>
+        can generate any whole number from 1 to 100.
+      </p>
+
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  © 2026 Toolnes — Useful tools. Simple and free.
+</footer>
+
+<script>
+
+function generateNumbers() {
+
+  const min = Number(document.getElementById("minimum").value);
+  const max = Number(document.getElementById("maximum").value);
+  const quantity = Number(document.getElementById("quantity").value);
+  const unique = document.getElementById("unique").checked;
+
+  const error = document.getElementById("error");
+  const result = document.getElementById("result");
+  const multipleResults = document.getElementById("multipleResults");
+
+  error.style.display = "none";
+  multipleResults.style.display = "none";
+  multipleResults.innerHTML = "";
+
+  if (!Number.isFinite(min) || !Number.isFinite(max)) {
+    showError("Please enter a minimum and maximum value.");
+    return;
+  }
+
+  if (!Number.isInteger(min) || !Number.isInteger(max)) {
+    showError("Please use whole numbers.");
+    return;
+  }
+
+  if (min > max) {
+    showError("Minimum cannot be greater than maximum.");
+    return;
+  }
+
+  if (!Number.isInteger(quantity) || quantity < 1 || quantity > 100) {
+    showError("Quantity must be between 1 and 100.");
+    return;
+  }
+
+  const availableNumbers = max - min + 1;
+
+  if (unique && quantity > availableNumbers) {
+    showError(
+      "There are not enough numbers in this range for the requested quantity."
+    );
+    return;
+  }
+
+  const numbers = [];
+
+  if (unique) {
+
+    while (numbers.length < quantity) {
+
+      const randomNumber =
+        Math.floor(Math.random() * (max - min + 1)) + min;
+
+      if (!numbers.includes(randomNumber)) {
+        numbers.push(randomNumber);
+      }
+    }
+
+  } else {
+
+    for (let i = 0; i < quantity; i++) {
+
+      const randomNumber =
+        Math.floor(Math.random() * (max - min + 1)) + min;
+
+      numbers.push(randomNumber);
+    }
+  }
+
+  if (quantity === 1) {
+
+    result.textContent = numbers[0];
+
+  } else {
+
+    result.textContent = numbers.join(", ");
+
+    numbers.forEach(number => {
+
+      const card = document.createElement("div");
+
+      card.className = "number-card";
+      card.textContent = number;
+
+      multipleResults.appendChild(card);
+
+    });
+
+    multipleResults.style.display = "grid";
+  }
+}
+
+function showError(message) {
+
+  const error = document.getElementById("error");
+
+  error.textContent = message;
+  error.style.display = "block";
+}
+
+function resetCalculator() {
+
+  document.getElementById("minimum").value = 1;
+  document.getElementById("maximum").value = 100;
+  document.getElementById("quantity").value = 1;
+  document.getElementById("unique").checked = false;
+
+  document.getElementById("result").textContent = "—";
+
+  document.getElementById("multipleResults").innerHTML = "";
+  document.getElementById("multipleResults").style.display = "none";
+
+  document.getElementById("error").style.display = "none";
+}
+
+</script>
+
+</body>
+</html>
