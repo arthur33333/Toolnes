@@ -1,1 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Basic Calculator - Toolnes</title>
+<meta name="description" content="Free online basic calculator for everyday calculations.">
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f7f9fc;
+    color: #1f2937;
+}
+
+header {
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 18px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 800;
+    color: #111827;
+    text-decoration: none;
+}
+
+.logo span {
+    color: #6366f1;
+}
+
+nav {
+    display: flex;
+    gap: 22px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #4b5563;
+    font-weight: 600;
+}
+
+nav a:hover {
+    color: #6366f1;
+}
+
+.hero {
+    text-align: center;
+    padding: 45px 20px 25px;
+}
+
+.hero h1 {
+    font-size: 38px;
+    margin-bottom: 10px;
+    color: #111827;
+}
+
+.hero p {
+    color: #6b7280;
+    font-size: 17px;
+}
+
+.calculator-container {
+    width: 100%;
+    max-width: 420px;
+    margin: 25px auto 60px;
+    padding: 0 20px;
+}
+
+.calculator {
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.display {
+    width: 100%;
+    height: 80px;
+    background: #111827;
+    color: white;
+    border-radius: 14px;
+    margin-bottom: 18px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    overflow: hidden;
+}
+
+#display {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: white;
+    text-align: right;
+    font-size: 32px;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+button {
+    border: none;
+    height: 65px;
+    border-radius: 13px;
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    background: #f3f4f6;
+    color: #111827;
+}
+
+button:hover {
+    filter: brightness(0.96);
+}
+
+.operator {
+    background: #e0e7ff;
+    color: #4338ca;
+}
+
+.clear {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.equals {
+    background: #6366f1;
+    color: white;
+}
+
+.zero {
+    grid-column: span 2;
+}
+
+.info {
+    max-width: 700px;
+    margin: 0 auto 60px;
+    padding: 0 25px;
+}
+
+.info-box {
+    background: white;
+    padding: 25px;
+    border-radius: 18px;
+    border: 1px solid #e5e7eb;
+}
+
+.info-box h2 {
+    margin-bottom: 12px;
+    color: #111827;
+}
+
+.info-box p {
+    color: #4b5563;
+    line-height: 1.6;
+}
+
+footer {
+    background: #111827;
+    color: #d1d5db;
+    text-align: center;
+    padding: 30px 20px;
+}
+
+footer p {
+    font-size: 14px;
+}
+
+@media (max-width: 500px) {
+
+    header {
+        padding: 16px 18px;
+    }
+
+    nav {
+        gap: 10px;
+    }
+
+    nav a {
+        font-size: 13px;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    button {
+        height: 60px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <a href="../../index.html" class="logo">
+        Tool<span>nes</span>
+    </a>
+
+    <nav>
+        <a href="../../index.html">Home</a>
+        <a href="../index.html">Math</a>
+        <a href="../../calculators/index.html">Calculators</a>
+    </nav>
+
+</header>
+
+
+<section class="hero">
+
+    <h1>Basic Calculator</h1>
+
+    <p>
+        A simple and free calculator for everyday calculations.
+    </p>
+
+</section>
+
+
+<div class="calculator-container">
+
+    <div class="calculator">
+
+        <div class="display">
+            <input
+                type="text"
+                id="display"
+                value="0"
+                readonly
+            >
+        </div>
+
+
+        <div class="buttons">
+
+            <button class="clear" onclick="clearCalculator()">AC</button>
+
+            <button onclick="deleteLast()">⌫</button>
+
+            <button class="operator" onclick="addOperator('%')">%</button>
+
+            <button class="operator" onclick="addOperator('/')">÷</button>
+
+
+            <button onclick="addNumber('7')">7</button>
+
+            <button onclick="addNumber('8')">8</button>
+
+            <button onclick="addNumber('9')">9</button>
+
+            <button class="operator" onclick="addOperator('*')">×</button>
+
+
+            <button onclick="addNumber('4')">4</button>
+
+            <button onclick="addNumber('5')">5</button>
+
+            <button onclick="addNumber('6')">6</button>
+
+            <button class="operator" onclick="addOperator('-')">−</button>
+
+
+            <button onclick="addNumber('1')">1</button>
+
+            <button onclick="addNumber('2')">2</button>
+
+            <button onclick="addNumber('3')">3</button>
+
+            <button class="operator" onclick="addOperator('+')">+</button>
+
+
+            <button class="zero" onclick="addNumber('0')">0</button>
+
+            <button onclick="addDecimal()">.</button>
+
+            <button class="equals" onclick="calculate()">=</button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<section class="info">
+
+    <div class="info-box">
+
+        <h2>How to use the Basic Calculator</h2>
+
+        <p>
+            Enter numbers using the buttons and choose an operation such as
+            addition, subtraction, multiplication or division.
+            Press the equals button to calculate the result.
+        </p>
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <p>
+        © 2026 Toolnes. Useful tools. Simple and free.
+    </p>
+
+</footer>
+
+
+<script>
+
+let expression = "";
+
+
+/* ADD NUMBER */
+
+function addNumber(number) {
+
+    if (expression === "Error") {
+        expression = "";
+    }
+
+    expression += number;
+
+    updateDisplay();
+}
+
+
+/* ADD OPERATOR */
+
+function addOperator(operator) {
+
+    if (expression === "Error") {
+        expression = "";
+    }
+
+    if (expression === "") {
+        return;
+    }
+
+    const lastCharacter =
+        expression.charAt(expression.length - 1);
+
+    if (
+        lastCharacter === "+" ||
+        lastCharacter === "-" ||
+        lastCharacter === "*" ||
+        lastCharacter === "/" ||
+        lastCharacter === "%"
+    ) {
+        expression =
+            expression.slice(0, -1) + operator;
+    } else {
+        expression += operator;
+    }
+
+    updateDisplay();
+}
+
+
+/* DECIMAL */
+
+function addDecimal() {
+
+    if (expression === "Error") {
+        expression = "";
+    }
+
+    const parts =
+        expression.split(/[+\-*/%]/);
+
+    const currentNumber =
+        parts[parts.length - 1];
+
+    if (!currentNumber.includes(".")) {
+
+        if (
+            expression === "" ||
+            /[+\-*/%]$/.test(expression)
+        ) {
+            expression += "0.";
+        } else {
+            expression += ".";
+        }
+
+    }
+
+    updateDisplay();
+}
+
+
+/* CALCULATE */
+
+function calculate() {
+
+    if (!expression) {
+        return;
+    }
+
+    try {
+
+        let safeExpression = expression;
+
+        /*
+        Convert percentage:
+        50% → 0.5
+        */
+
+        safeExpression =
+            safeExpression.replace(
+                /(\d+(?:\.\d+)?)%/g,
+                "($1/100)"
+            );
+
+        /*
+        Only mathematical characters
+        are allowed.
+        */
+
+        if (!/^[0-9+\-*/().\s]+$/.test(safeExpression)) {
+            throw new Error();
+        }
+
+        const result =
+            Function(
+                '"use strict"; return (' +
+                safeExpression +
+                ')'
+            )();
+
+        if (
+            typeof result !== "number" ||
+            !isFinite(result)
+        ) {
+            throw new Error();
+        }
+
+        expression =
+            String(
+                Math.round(result * 100000000) / 100000000
+            );
+
+        updateDisplay();
+
+    } catch (error) {
+
+        expression = "Error";
+
+        updateDisplay();
+
+    }
+
+}
+
+
+/* DELETE */
+
+function deleteLast() {
+
+    if (expression === "Error") {
+
+        expression = "";
+
+    } else {
+
+        expression =
+            expression.slice(0, -1);
+
+    }
+
+    updateDisplay();
+}
+
+
+/* CLEAR */
+
+function clearCalculator() {
+
+    expression = "";
+
+    updateDisplay();
+}
+
+
+/* DISPLAY */
+
+function updateDisplay() {
+
+    const display =
+        document.getElementById("display");
+
+    display.value =
+        expression || "0";
+
+}
+
+
+/* KEYBOARD SUPPORT */
+
+document.addEventListener("keydown", function(event) {
+
+    const key = event.key;
+
+    if (/^[0-9]$/.test(key)) {
+
+        addNumber(key);
+
+    } else if (
+        key === "+" ||
+        key === "-" ||
+        key === "*" ||
+        key === "/" ||
+        key === "%"
+    ) {
+
+        addOperator(key);
+
+    } else if (key === ".") {
+
+        addDecimal();
+
+    } else if (key === "Enter" || key === "=") {
+
+        calculate();
+
+    } else if (key === "Backspace") {
+
+        deleteLast();
+
+    } else if (key === "Escape") {
+
+        clearCalculator();
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
