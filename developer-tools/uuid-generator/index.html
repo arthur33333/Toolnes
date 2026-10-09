@@ -1,1 +1,305 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Generate UUID version 4 identifiers online for free. Create one or multiple random UUIDs and copy or download them with Toolnes.">
+  <meta name="robots" content="index,follow">
+  <title>UUID Generator - Generate UUID v4 Online | Toolnes</title>
+  <link rel="canonical" href="https://toolnes.netlify.app/developer-tools/uuid-generator/">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f8fafc;
+      color: #172033;
+      line-height: 1.6;
+    }
+    header { background: #fff; border-bottom: 1px solid #e5e7eb; }
+    nav {
+      max-width: 1000px;
+      margin: auto;
+      padding: 17px 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    a { color: #4f46e5; text-decoration: none; }
+    .logo { font-size: 25px; font-weight: 800; }
+    main {
+      max-width: 1000px;
+      margin: auto;
+      padding: 38px 22px 60px;
+    }
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(29px, 5vw, 40px);
+      line-height: 1.2;
+    }
+    .intro { color: #64748b; margin-bottom: 25px; }
+    .panel, .info {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    label { display: block; font-weight: 700; margin-bottom: 8px; }
+    select, input[type="number"] {
+      padding: 11px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background: #fff;
+      color: #172033;
+      font-size: 15px;
+      max-width: 100%;
+    }
+    .field { margin: 15px 0; }
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 16px 0;
+    }
+    button {
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      padding: 11px 15px;
+      background: #fff;
+      color: #172033;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    button.primary { background: #4f46e5; color: #fff; border-color: #4f46e5; }
+    button:hover { opacity: .88; }
+    textarea {
+      width: 100%;
+      min-height: 230px;
+      padding: 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+      resize: vertical;
+      background: #fbfdff;
+      color: #172033;
+      font: 14px/1.8 Consolas, Monaco, monospace;
+    }
+    .status {
+      padding: 12px 14px;
+      border-radius: 9px;
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .status.success { background: #ecfdf5; color: #166534; }
+    .status.error { background: #fef2f2; color: #b91c1c; }
+    .info { margin-top: 28px; }
+    .info h2 { margin-top: 0; }
+    .notice {
+      padding: 12px 14px;
+      background: #fffbeb;
+      border-radius: 9px;
+      color: #92400e;
+      font-size: 14px;
+    }
+    footer {
+      padding: 25px 20px;
+      text-align: center;
+      border-top: 1px solid #e5e7eb;
+      background: #fff;
+      color: #64748b;
+      font-size: 14px;
+    }
+    @media (max-width: 600px) {
+      main { padding: 28px 15px 45px; }
+      .panel, .info { padding: 14px; }
+      textarea { min-height: 200px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="logo" href="/">Toolnes</a>
+      <a href="/developer-tools/">← Developer Tools</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>UUID Generator</h1>
+    <p class="intro">
+      Generate random UUID version 4 identifiers for applications, databases,
+      testing and development. Create one or multiple UUIDs instantly.
+    </p>
+
+    <section class="panel">
+      <div class="field">
+        <label for="quantity">Number of UUIDs</label>
+        <input id="quantity" type="number" min="1" max="1000" value="1">
+      </div>
+
+      <div class="field">
+        <label for="letterCase">Letter case</label>
+        <select id="letterCase">
+          <option value="lower">Lowercase</option>
+          <option value="upper">Uppercase</option>
+        </select>
+      </div>
+
+      <div class="buttons">
+        <button class="primary" id="generate">Generate UUIDs</button>
+        <button id="clear">Clear</button>
+      </div>
+
+      <div id="status" class="status" role="status" aria-live="polite">
+        Click Generate UUIDs to create a new identifier.
+      </div>
+    </section>
+
+    <section class="panel">
+      <label for="output">Generated UUIDs</label>
+      <textarea id="output" readonly spellcheck="false" placeholder="Your UUIDs will appear here, one per line."></textarea>
+      <div class="buttons">
+        <button id="copy">Copy All</button>
+        <button id="download">Download TXT</button>
+      </div>
+    </section>
+
+    <section class="info">
+      <h2>What is a UUID?</h2>
+      <p>
+        A UUID (Universally Unique Identifier) is a 128-bit identifier commonly
+        used to identify records, resources, sessions and objects in software.
+        UUID version 4 uses randomly generated values.
+      </p>
+      <h2>How to use this generator</h2>
+      <ol>
+        <li>Choose how many UUIDs you need, from 1 to 1,000.</li>
+        <li>Select lowercase or uppercase letters.</li>
+        <li>Click Generate UUIDs.</li>
+        <li>Copy the results or download them as a text file.</li>
+      </ol>
+      <p class="notice">
+        UUIDs are designed to make collisions extremely unlikely, but they
+        should not be treated as a substitute for secure authentication tokens
+        or access-control systems.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> Toolnes. All rights reserved.</p>
+    <p><a href="/">Home</a> · <a href="/developer-tools/">Developer Tools</a> · <a href="/text-tools/">Text Tools</a></p>
+  </footer>
+
+  <script>
+    const quantity = document.getElementById("quantity");
+    const letterCase = document.getElementById("letterCase");
+    const output = document.getElementById("output");
+    const status = document.getElementById("status");
+
+    function showStatus(text, type = "") {
+      status.textContent = text;
+      status.className = "status" + (type ? " " + type : "");
+    }
+
+    function createUUID() {
+      if (typeof crypto.randomUUID === "function") {
+        return crypto.randomUUID();
+      }
+
+      if (typeof crypto.getRandomValues !== "function") {
+        throw new Error("Secure random generation is not supported by this browser.");
+      }
+
+      const bytes = new Uint8Array(16);
+      crypto.getRandomValues(bytes);
+      bytes[6] = (bytes[6] & 0x0f) | 0x40;
+      bytes[8] = (bytes[8] & 0x3f) | 0x80;
+
+      const hex = Array.from(bytes, byte =>
+        byte.toString(16).padStart(2, "0")
+      ).join("");
+
+      return [
+        hex.slice(0, 8),
+        hex.slice(8, 12),
+        hex.slice(12, 16),
+        hex.slice(16, 20),
+        hex.slice(20)
+      ].join("-");
+    }
+
+    document.getElementById("generate").addEventListener("click", () => {
+      const count = Number(quantity.value);
+
+      if (!Number.isInteger(count) || count < 1 || count > 1000) {
+        showStatus("Enter a whole number between 1 and 1000.", "error");
+        return;
+      }
+
+      try {
+        const ids = Array.from({ length: count }, () => {
+          const id = createUUID();
+          return letterCase.value === "upper" ? id.toUpperCase() : id.toLowerCase();
+        });
+
+        output.value = ids.join("\n");
+        showStatus(count + (count === 1 ? " UUID generated successfully." : " UUIDs generated successfully."), "success");
+      } catch (error) {
+        output.value = "";
+        showStatus(error.message, "error");
+      }
+    });
+
+    document.getElementById("clear").addEventListener("click", () => {
+      output.value = "";
+      quantity.value = "1";
+      showStatus("Results cleared.");
+    });
+
+    document.getElementById("copy").addEventListener("click", async () => {
+      if (!output.value) {
+        showStatus("Generate UUIDs before copying.", "error");
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(output.value);
+        showStatus("UUIDs copied to clipboard.", "success");
+      } catch {
+        output.focus();
+        output.select();
+        const ok = document.execCommand("copy");
+        showStatus(
+          ok ? "UUIDs copied to clipboard." : "Select the results and copy them manually.",
+          ok ? "success" : "error"
+        );
+      }
+    });
+
+    document.getElementById("download").addEventListener("click", () => {
+      if (!output.value) {
+        showStatus("Generate UUIDs before downloading.", "error");
+        return;
+      }
+
+      const blob = new Blob([output.value + "\n"], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "toolnes-uuids.txt";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+      showStatus("Download started.", "success");
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+```
 
