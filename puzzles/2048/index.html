@@ -1,1 +1,412 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Play 2048 online for free on Toolnes. Combine matching tiles, reach 2048, and beat your best score.">
+  <title>2048 Game - Toolnes</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #faf8ef;
+      color: #463f36;
+    }
+
+    header {
+      background: #172033;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header a { color: #bcd0ff; text-decoration: none; }
+    header h1 { margin: 12px 0 6px; }
+    header p { margin: 0; color: #dce4f2; }
+
+    main { width: min(520px, 94%); margin: 25px auto; }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .score-box {
+      background: #bbada0;
+      color: white;
+      border-radius: 7px;
+      padding: 8px 15px;
+      text-align: center;
+      min-width: 85px;
+    }
+
+    .score-box span { display: block; font-size: 12px; }
+    .score-box strong { font-size: 23px; }
+
+    button {
+      border: 0;
+      border-radius: 7px;
+      padding: 11px 15px;
+      background: #315efb;
+      color: white;
+      font-weight: bold;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    button:hover { background: #2448c7; }
+
+    .help { line-height: 1.6; color: #71675c; }
+
+    #board {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      padding: 10px;
+      background: #bbada0;
+      border-radius: 10px;
+      margin-top: 18px;
+      touch-action: none;
+      user-select: none;
+    }
+
+    .tile {
+      aspect-ratio: 1;
+      border-radius: 6px;
+      background: #cdc1b4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: clamp(22px, 7vw, 38px);
+      font-weight: bold;
+      color: #776e65;
+    }
+
+    .v2 { background: #eee4da; }
+    .v4 { background: #ede0c8; }
+    .v8 { background: #f2b179; color: white; }
+    .v16 { background: #f59563; color: white; }
+    .v32 { background: #f67c5f; color: white; }
+    .v64 { background: #f65e3b; color: white; }
+    .v128 { background: #edcf72; color: white; font-size: clamp(19px, 6vw, 32px); }
+    .v256 { background: #edcc61; color: white; font-size: clamp(19px, 6vw, 32px); }
+    .v512 { background: #edc850; color: white; font-size: clamp(19px, 6vw, 32px); }
+    .v1024, .v2048 { background: #edc53f; color: white; font-size: clamp(16px, 5vw, 27px); }
+    .high { background: #3c3a32; color: white; font-size: clamp(16px, 5vw, 27px); }
+
+    .message {
+      min-height: 28px;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(3, 55px);
+      justify-content: center;
+      gap: 7px;
+      margin: 18px auto;
+    }
+
+    .controls button { padding: 12px 0; font-size: 20px; }
+    .up { grid-column: 2; }
+    .left { grid-column: 1; }
+    .down { grid-column: 2; }
+    .right { grid-column: 3; grid-row: 2; }
+
+    .panel {
+      background: white;
+      border-radius: 10px;
+      padding: 17px;
+      margin-top: 22px;
+      line-height: 1.6;
+    }
+
+    footer { text-align: center; padding: 20px; color: #776e65; }
+    footer a { color: #315efb; }
+
+    @media (max-width: 380px) {
+      #board { gap: 6px; padding: 6px; }
+      .tile { font-size: 21px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">← Back to Toolnes</a>
+    <h1>2048 Game</h1>
+    <p>Combine tiles and reach 2048!</p>
+  </header>
+
+  <main>
+    <div class="top">
+      <div>
+        <h2 style="margin-bottom:5px;">2048</h2>
+        <div>Merge the same numbers.</div>
+      </div>
+      <div style="display:flex; gap:8px;">
+        <div class="score-box">
+          <span>SCORE</span>
+          <strong id="score">0</strong>
+        </div>
+        <div class="score-box">
+          <span>BEST</span>
+          <strong id="best">0</strong>
+        </div>
+      </div>
+    </div>
+
+    <p class="help">
+      Use your keyboard arrow keys, swipe on the board, or use the buttons below.
+      Matching tiles merge into one larger tile.
+    </p>
+
+    <button id="newGame">New Game</button>
+    <div id="board" aria-label="2048 game board"></div>
+    <div id="message" class="message" role="status" aria-live="polite"></div>
+
+    <div class="controls" aria-label="Movement controls">
+      <button class="up" data-dir="up" aria-label="Move up">↑</button>
+      <button class="left" data-dir="left" aria-label="Move left">←</button>
+      <button class="down" data-dir="down" aria-label="Move down">↓</button>
+      <button class="right" data-dir="right" aria-label="Move right">→</button>
+    </div>
+
+    <section class="panel">
+      <h2>How to Play 2048</h2>
+      <p>1. Move the numbered tiles up, down, left, or right.</p>
+      <p>2. When two tiles with the same number touch, they merge.</p>
+      <p>3. Each merge adds the new tile's value to your score.</p>
+      <p>4. Reach the 2048 tile to win. You can continue playing afterward!</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Free online games and tools at <a href="/">Toolnes</a>.</p>
+  </footer>
+
+  <script>
+    const boardElement = document.getElementById("board");
+    const scoreElement = document.getElementById("score");
+    const bestElement = document.getElementById("best");
+    const messageElement = document.getElementById("message");
+
+    let board = [];
+    let score = 0;
+    let best = 0;
+    let finished = false;
+    let won = false;
+
+    try {
+      best = Number(localStorage.getItem("toolnes2048best")) || 0;
+    } catch (error) {
+      best = 0;
+    }
+
+    function emptyBoard() {
+      return Array.from({ length: 4 }, () => Array(4).fill(0));
+    }
+
+    function addTile() {
+      const empty = [];
+
+      for (let r = 0; r < 4; r++) {
+        for (let c = 0; c < 4; c++) {
+          if (board[r][c] === 0) empty.push([r, c]);
+        }
+      }
+
+      if (!empty.length) return;
+
+      const [r, c] = empty[Math.floor(Math.random() * empty.length)];
+      board[r][c] = Math.random() < 0.9 ? 2 : 4;
+    }
+
+    function render() {
+      boardElement.replaceChildren();
+
+      for (let r = 0; r < 4; r++) {
+        for (let c = 0; c < 4; c++) {
+          const value = board[r][c];
+          const tile = document.createElement("div");
+          tile.className = "tile";
+
+          if (value) {
+            tile.textContent = value;
+            tile.classList.add(value <= 2048 ? "v" + value : "high");
+          }
+
+          tile.setAttribute(
+            "aria-label",
+            value ? "Tile " + value : "Empty tile"
+          );
+
+          boardElement.appendChild(tile);
+        }
+      }
+
+      scoreElement.textContent = score;
+      bestElement.textContent = best;
+    }
+
+    function startGame() {
+      board = emptyBoard();
+      score = 0;
+      finished = false;
+      won = false;
+      messageElement.textContent = "";
+      addTile();
+      addTile();
+      render();
+    }
+
+    function getLine(direction, index) {
+      const line = [];
+
+      for (let i = 0; i < 4; i++) {
+        if (direction === "left") line.push(board[index][i]);
+        if (direction === "right") line.push(board[index][3 - i]);
+        if (direction === "up") line.push(board[i][index]);
+        if (direction === "down") line.push(board[3 - i][index]);
+      }
+
+      return line;
+    }
+
+    function setLine(direction, index, line) {
+      for (let i = 0; i < 4; i++) {
+        if (direction === "left") board[index][i] = line[i];
+        if (direction === "right") board[index][3 - i] = line[i];
+        if (direction === "up") board[i][index] = line[i];
+        if (direction === "down") board[3 - i][index] = line[i];
+      }
+    }
+
+    function slideLine(line) {
+      const values = line.filter(value => value !== 0);
+      const result = [];
+      let gained = 0;
+
+      for (let i = 0; i < values.length; i++) {
+        if (values[i] === values[i + 1]) {
+          const merged = values[i] * 2;
+          result.push(merged);
+          gained += merged;
+          i++;
+        } else {
+          result.push(values[i]);
+        }
+      }
+
+      while (result.length < 4) result.push(0);
+
+      return { line: result, gained };
+    }
+
+    function hasMoves() {
+      for (let r = 0; r < 4; r++) {
+        for (let c = 0; c < 4; c++) {
+          if (board[r][c] === 0) return true;
+          if (c < 3 && board[r][c] === board[r][c + 1]) return true;
+          if (r < 3 && board[r][c] === board[r + 1][c]) return true;
+        }
+      }
+
+      return false;
+    }
+
+    function move(direction) {
+      if (finished) return;
+
+      const before = JSON.stringify(board);
+      let gainedTotal = 0;
+
+      for (let i = 0; i < 4; i++) {
+        const result = slideLine(getLine(direction, i));
+        setLine(direction, i, result.line);
+        gainedTotal += result.gained;
+      }
+
+      if (JSON.stringify(board) === before) return;
+
+      score += gainedTotal;
+
+      if (score > best) {
+        best = score;
+
+        try {
+          localStorage.setItem("toolnes2048best", best);
+        } catch (error) {
+          // The game still works if browser storage is unavailable.
+        }
+      }
+
+      addTile();
+
+      if (!won && board.some(row => row.includes(2048))) {
+        won = true;
+        messageElement.textContent = "🎉 You reached 2048! Keep playing or start a new game.";
+      }
+
+      if (!hasMoves()) {
+        finished = true;
+        messageElement.textContent = "Game over! Click New Game to try again.";
+      }
+
+      render();
+    }
+
+    document.addEventListener("keydown", event => {
+      const keys = {
+        ArrowLeft: "left",
+        ArrowRight: "right",
+        ArrowUp: "up",
+        ArrowDown: "down"
+      };
+
+      if (keys[event.key]) {
+        event.preventDefault();
+        move(keys[event.key]);
+      }
+    });
+
+    document.querySelectorAll("[data-dir]").forEach(button => {
+      button.addEventListener("click", () => move(button.dataset.dir));
+    });
+
+    document.getElementById("newGame").addEventListener("click", startGame);
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    boardElement.addEventListener("touchstart", event => {
+      const touch = event.changedTouches[0];
+      touchStartX = touch.clientX;
+      touchStartY = touch.clientY;
+    }, { passive: true });
+
+    boardElement.addEventListener("touchend", event => {
+      const touch = event.changedTouches[0];
+      const dx = touch.clientX - touchStartX;
+      const dy = touch.clientY - touchStartY;
+
+      if (Math.max(Math.abs(dx), Math.abs(dy)) < 25) return;
+
+      if (Math.abs(dx) > Math.abs(dy)) {
+        move(dx > 0 ? "right" : "left");
+      } else {
+        move(dy > 0 ? "down" : "up");
+      }
+    }, { passive: true });
+
+    startGame();
+  </script>
+</body>
+</html>
