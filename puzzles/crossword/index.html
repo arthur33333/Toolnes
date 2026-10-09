@@ -1,1 +1,346 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Create a simple crossword puzzle online with the free Toolnes Crossword Generator.">
+  <title>Crossword Generator | Toolnes</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: #1e293b;
+      background: #f8fafc;
+      line-height: 1.6;
+    }
+    header, footer {
+      background: #fff;
+      padding: 18px 20px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    footer {
+      border-top: 1px solid #e2e8f0;
+      border-bottom: 0;
+      margin-top: 40px;
+      text-align: center;
+      color: #64748b;
+    }
+    .nav, main {
+      max-width: 900px;
+      width: calc(100% - 32px);
+      margin: auto;
+    }
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .logo { color: #2563eb; font-size: 25px; font-weight: bold; }
+    a { color: #2563eb; text-decoration: none; }
+    main { padding-top: 35px; }
+    h1 { color: #0f172a; line-height: 1.2; }
+    .panel {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 22px;
+      margin: 22px 0;
+    }
+    label { display: block; font-weight: bold; margin-bottom: 8px; }
+    textarea {
+      width: 100%;
+      min-height: 170px;
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font: inherit;
+      resize: vertical;
+    }
+    button {
+      background: #2563eb;
+      color: white;
+      border: 0;
+      border-radius: 8px;
+      padding: 11px 16px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      margin: 8px 6px 0 0;
+    }
+    button:hover { background: #1d4ed8; }
+    .secondary { background: #475569; }
+    .hint { color: #64748b; font-size: 14px; }
+    #result { overflow-x: auto; }
+    .crossword {
+      display: grid;
+      grid-template-columns: repeat(10, 32px);
+      gap: 2px;
+      width: max-content;
+      margin: 20px auto;
+    }
+    .cell {
+      width: 32px;
+      height: 32px;
+      border: 1px solid #cbd5e1;
+      background: #fff;
+      text-align: center;
+      text-transform: uppercase;
+      font-size: 16px;
+      font-weight: bold;
+      padding: 0;
+      border-radius: 0;
+      color: #0f172a;
+    }
+    .cell.blocked { background: #0f172a; border-color: #0f172a; }
+    .clues { padding-left: 22px; }
+    .status { min-height: 24px; color: #0f766e; font-weight: bold; }
+    @media (max-width: 480px) {
+      .crossword { grid-template-columns: repeat(10, 27px); }
+      .cell { width: 27px; height: 27px; }
+      .panel { padding: 15px; }
+    }
+    @media print {
+      header, footer, .no-print, .panel.instructions { display: none; }
+      body { background: white; }
+      main { width: 100%; max-width: none; padding: 0; }
+      .panel { border: 0; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <a class="logo" href="/">Toolnes</a>
+      <a href="/puzzles/">← All Puzzle Games</a>
+    </div>
+  </header>
+
+  <main>
+    <h1>Crossword Generator</h1>
+    <p>Create a small crossword-style word puzzle from your own words and clues.</p>
+
+    <section class="panel instructions">
+      <h2>1. Enter your words and clues</h2>
+      <p>Enter one item per line in this format: <strong>WORD - Clue</strong>.</p>
+      <p class="hint">Use letters and short words for the best results. Example: CAT - A small pet.</p>
+      <label for="entries">Words and clues</label>
+      <textarea id="entries" spellcheck="false">CAT - A small pet
+SUN - The star that lights our day
+BOOK - Something you read
+TREE - A tall plant with branches
+FISH - An animal that lives in water
+MOON - An object seen in the night sky</textarea>
+      <button id="generate">Generate Puzzle</button>
+      <button id="clear" class="secondary">Clear</button>
+      <p class="hint">This is a simple crossword-style grid. Words are placed horizontally and vertically where possible.</p>
+      <p id="status" class="status" role="status"></p>
+    </section>
+
+    <section class="panel">
+      <h2>2. Your puzzle</h2>
+      <div id="result">
+        <p>Your generated puzzle will appear here.</p>
+      </div>
+      <button id="print" class="no-print">Print Puzzle</button>
+      <button id="showAnswers" class="secondary no-print">Show Answers</button>
+      <div id="answers" hidden></div>
+    </section>
+
+    <section class="panel">
+      <h2>How to use this generator</h2>
+      <ol>
+        <li>Enter a word and its clue on each line.</li>
+        <li>Click Generate Puzzle.</li>
+        <li>Use the clues to solve the puzzle.</li>
+        <li>Print the puzzle if you want to solve it on paper.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year">2026</span> Toolnes · <a href="/puzzles/">Puzzle Games</a></p>
+  </footer>
+
+  <script>
+    const entries = document.getElementById("entries");
+    const result = document.getElementById("result");
+    const status = document.getElementById("status");
+    const answersBox = document.getElementById("answers");
+
+    let currentWords = [];
+
+    function parseEntries() {
+      return entries.value.split("\n").map(line => {
+        const parts = line.split("-");
+        if (parts.length < 2) return null;
+        const word = parts.shift().trim().toUpperCase().replace(/[^A-Z]/g, "");
+        const clue = parts.join("-").trim();
+        if (word.length < 2 || !clue) return null;
+        return { word, clue };
+      }).filter(Boolean).slice(0, 10);
+    }
+
+    function generatePuzzle() {
+      const words = parseEntries();
+
+      if (words.length < 2) {
+        status.textContent = "Please enter at least two valid words with clues.";
+        result.replaceChildren();
+        answersBox.hidden = true;
+        return;
+      }
+
+      currentWords = words;
+      const size = 10;
+      const grid = Array.from({ length: size }, () => Array(size).fill(""));
+      const placed = [];
+
+      // Place the first word horizontally in the middle.
+      const first = words[0].word.slice(0, size);
+      const firstRow = 4;
+      const firstCol = Math.max(0, Math.floor((size - first.length) / 2));
+
+      for (let i = 0; i < first.length; i++) {
+        grid[firstRow][firstCol + i] = first[i];
+      }
+      placed.push({ ...words[0], row: firstRow, col: firstCol, dir: "across" });
+
+      // Try to cross each following word with an existing word.
+      for (const item of words.slice(1)) {
+        const word = item.word.slice(0, size);
+        let found = false;
+
+        for (const old of placed) {
+          if (found) break;
+
+          for (let i = 0; i < old.word.length && !found; i++) {
+            for (let j = 0; j < word.length && !found; j++) {
+              if (old.word[i] !== word[j]) continue;
+
+              let row, col, valid = true;
+
+              if (old.dir === "across") {
+                row = old.row - j;
+                col = old.col + i;
+                if (row < 0 || row + word.length > size || col < 0 || col >= size) continue;
+
+                for (let k = 0; k < word.length; k++) {
+                  const existing = grid[row + k][col];
+                  if (existing && existing !== word[k]) valid = false;
+                  if (grid[row + k][col - 1] || grid[row + k][col + 1]) {
+                    if (k !== j && !existing) valid = false;
+                  }
+                }
+                if (grid[row - 1] && grid[row - 1][col]) valid = false;
+                if (grid[row + word.length] && grid[row + word.length][col]) valid = false;
+              } else {
+                row = old.row + i;
+                col = old.col - j;
+                if (col < 0 || col + word.length > size || row < 0 || row >= size) continue;
+
+                for (let k = 0; k < word.length; k++) {
+                  const existing = grid[row][col + k];
+                  if (existing && existing !== word[k]) valid = false;
+                  if (grid[row - 1] && grid[row - 1][col + k]) {
+                    if (k !== j && !existing) valid = false;
+                  }
+                  if (grid[row + 1] && grid[row + 1][col + k]) {
+                    if (k !== j && !existing) valid = false;
+                  }
+                }
+                if (grid[row][col - 1]) valid = false;
+                if (grid[row][col + word.length]) valid = false;
+              }
+
+              if (!valid) continue;
+
+              for (let k = 0; k < word.length; k++) {
+                if (old.dir === "across") grid[row + k][col] = word[k];
+                else grid[row][col + k] = word[k];
+              }
+
+              placed.push({ ...item, word, row, col, dir: old.dir === "across" ? "down" : "across" });
+              found = true;
+            }
+          }
+        }
+      }
+
+      const table = document.createElement("div");
+      table.className = "crossword";
+
+      for (let r = 0; r < size; r++) {
+        for (let c = 0; c < size; c++) {
+          const cell = document.createElement("input");
+          cell.className = "cell" + (grid[r][c] ? "" : " blocked");
+          cell.maxLength = 1;
+          cell.setAttribute("aria-label", `Row ${r + 1}, column ${c + 1}`);
+          cell.autocomplete = "off";
+
+          if (!grid[r][c]) {
+            cell.disabled = true;
+            cell.tabIndex = -1;
+          } else {
+            cell.dataset.answer = grid[r][c];
+            cell.addEventListener("input", () => {
+              cell.value = cell.value.slice(-1).toUpperCase().replace(/[^A-Z]/g, "");
+            });
+          }
+          table.appendChild(cell);
+        }
+      }
+
+      result.replaceChildren(table);
+
+      const clues = document.createElement("div");
+      clues.innerHTML = "<h3>Clues</h3>";
+      const list = document.createElement("ol");
+      placed.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = `${item.clue} (${item.dir})`;
+        list.appendChild(li);
+      });
+      clues.appendChild(list);
+      result.appendChild(clues);
+
+      if (placed.length < words.length) {
+        status.textContent = `Placed ${placed.length} of ${words.length} words. Try different words if some did not fit.`;
+      } else {
+        status.textContent = `Puzzle generated with ${placed.length} words.`;
+      }
+
+      answersBox.replaceChildren();
+      const answerTitle = document.createElement("h3");
+      answerTitle.textContent = "Answers";
+      answersBox.appendChild(answerTitle);
+      const answerList = document.createElement("ol");
+      placed.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = `${item.word} — ${item.clue}`;
+        answerList.appendChild(li);
+      });
+      answersBox.appendChild(answerList);
+      answersBox.hidden = true;
+    }
+
+    document.getElementById("generate").addEventListener("click", generatePuzzle);
+    document.getElementById("clear").addEventListener("click", () => {
+      entries.value = "";
+      result.innerHTML = "<p>Your generated puzzle will appear here.</p>";
+      status.textContent = "";
+      answersBox.hidden = true;
+    });
+    document.getElementById("print").addEventListener("click", () => window.print());
+    document.getElementById("showAnswers").addEventListener("click", () => {
+      answersBox.hidden = !answersBox.hidden;
+    });
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    generatePuzzle();
+  </script>
+</body>
+</html>
