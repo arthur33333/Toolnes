@@ -1,1 +1,274 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image to Base64 Converter Online Free | Toolnes</title>
+  <meta name="description" content="Convert images to Base64 strings online for free. Copy the encoded text or download it as a text file. Fast, private and easy with Toolnes.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://toolnes.netlify.app/image-tools/image-to-base64/">
+  <meta name="theme-color" content="#635bff">
+
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #172033; background: #f6f7fb; line-height: 1.6; }
+    header { background: #fff; border-bottom: 1px solid #e8eaf1; padding: 17px 20px; }
+    nav { max-width: 1080px; margin: auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .logo { color: #635bff; font-size: 25px; font-weight: 800; text-decoration: none; }
+    nav a:not(.logo) { color: #475067; text-decoration: none; margin-left: 16px; font-size: 14px; }
+    main { width: min(900px, calc(100% - 32px)); margin: 44px auto; }
+    .intro { text-align: center; margin-bottom: 28px; }
+    .tag { display: inline-block; background: #ecebff; color: #5147d9; padding: 5px 12px; border-radius: 30px; font-size: 12px; font-weight: bold; }
+    h1 { font-size: clamp(30px, 5vw, 43px); line-height: 1.2; margin: 15px 0 12px; }
+    .intro p { color: #687187; max-width: 640px; margin: auto; }
+    .panel, .info { background: white; border: 1px solid #e7e9f1; border-radius: 18px; padding: 26px; box-shadow: 0 12px 35px rgba(28,35,70,.05); }
+    .drop { display: block; border: 2px dashed #c9cce0; border-radius: 14px; padding: 30px 16px; text-align: center; cursor: pointer; background: #fbfbff; }
+    .drop:hover { border-color: #635bff; background: #f5f4ff; }
+    .drop strong { display: block; font-size: 17px; }
+    .drop span { display: block; color: #747d91; font-size: 13px; margin-top: 5px; }
+    input[type="file"] { display: none; }
+    .message { color: #687187; font-size: 14px; margin: 14px 0 0; overflow-wrap: anywhere; }
+    .error { color: #b42318; }
+    .options { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 18px; }
+    .options label { display: flex; align-items: center; gap: 8px; color: #475067; font-size: 14px; }
+    button, .download { border: 0; border-radius: 10px; padding: 12px 16px; font-size: 14px; font-weight: 700; cursor: pointer; text-decoration: none; text-align: center; }
+    button { background: #635bff; color: white; }
+    button:hover { background: #5147e8; }
+    button:disabled { opacity: .45; cursor: not-allowed; }
+    .secondary { background: #eef0f7; color: #30394e; }
+    .secondary:hover { background: #e1e4ef; }
+    .output-title { margin: 25px 0 8px; font-size: 17px; }
+    textarea { display: block; width: 100%; min-height: 190px; resize: vertical; padding: 14px; border: 1px solid #d9dce8; border-radius: 12px; background: #fafbff; color: #293247; font: 12px/1.6 Consolas, Monaco, monospace; overflow-wrap: anywhere; }
+    .stats { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+    .stat { background: #f4f5fb; border-radius: 10px; padding: 10px 13px; font-size: 13px; color: #606a80; }
+    .stat strong { color: #172033; }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px; }
+    .actions button, .actions a { flex: 1; min-width: 150px; }
+    .download { display: inline-block; background: #12805c; color: white; }
+    .download:hover { background: #0d694b; }
+    .preview { display: none; max-width: 100%; max-height: 220px; object-fit: contain; margin: 20px auto 0; border: 1px solid #e6e8f0; border-radius: 10px; padding: 8px; }
+    .info { margin-top: 24px; box-shadow: none; }
+    .info h2 { font-size: 21px; margin-top: 0; }
+    .info p, .info li { color: #606a80; font-size: 14px; }
+    .back { display: inline-block; margin-top: 24px; color: #5147e8; text-decoration: none; font-weight: 700; }
+    footer { text-align: center; color: #7b8498; padding: 25px 16px; font-size: 13px; }
+    @media (max-width: 600px) { main { margin: 28px auto; } .panel, .info { padding: 18px; } nav a:not(.logo) { margin-left: 8px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="logo" href="/">Toolnes</a>
+      <div>
+        <a href="/">Home</a>
+        <a href="/image-tools/">Image Tools</a>
+        <a href="/text-tools/">Text Tools</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="intro">
+      <span class="tag">FREE ONLINE TOOL</span>
+      <h1>Image to Base64 Converter</h1>
+      <p>Turn an image into a Base64 data string for HTML, CSS, development projects and data transfer. Your image stays on your device.</p>
+    </section>
+
+    <section class="panel">
+      <label class="drop" for="imageInput">
+        <strong>📁 Choose an image</strong>
+        <span>JPG, PNG, WebP, GIF and other browser-supported image formats</span>
+      </label>
+      <input id="imageInput" type="file" accept="image/*">
+
+      <p id="fileInfo" class="message">No image selected yet.</p>
+
+      <div class="options">
+        <label><input id="dataUrlOption" type="checkbox" checked> Include data URL prefix</label>
+        <button id="convertBtn" disabled>Convert to Base64</button>
+      </div>
+      <p id="status" class="message" role="status" aria-live="polite">Select an image to begin.</p>
+
+      <img id="preview" class="preview" alt="Selected image preview">
+
+      <h2 class="output-title">Base64 output</h2>
+      <textarea id="output" placeholder="Your Base64 string will appear here…" spellcheck="false"></textarea>
+
+      <div class="stats">
+        <div class="stat">Characters: <strong id="charCount">0</strong></div>
+        <div class="stat">Original size: <strong id="fileSize">—</strong></div>
+      </div>
+
+      <div class="actions">
+        <button id="copyBtn" disabled>Copy Base64</button>
+        <a id="downloadBtn" class="download" href="#" download="image-base64.txt" aria-disabled="true" style="pointer-events:none;opacity:.45">Download TXT</a>
+        <button id="clearBtn" class="secondary">Clear</button>
+      </div>
+    </section>
+
+    <section class="info">
+      <h2>What is Base64?</h2>
+      <p>Base64 represents binary data as text. Developers sometimes use it to embed small images in HTML or CSS, or to pass image data through systems that accept text.</p>
+      <h2>How to convert an image to Base64</h2>
+      <ol>
+        <li>Select an image from your device.</li>
+        <li>Click <strong>Convert to Base64</strong>.</li>
+        <li>Choose whether to include the data URL prefix.</li>
+        <li>Copy the result or download it as a TXT file.</li>
+      </ol>
+      <p><strong>Note:</strong> Base64 output is usually larger than the original binary image. Very long strings can be inconvenient to use in web pages. The conversion runs locally in your browser.</p>
+    </section>
+
+    <a class="back" href="/image-tools/">← Back to Image Tools</a>
+  </main>
+
+  <footer>© <span id="year"></span> Toolnes. Free online tools.</footer>
+
+  <script>
+    const input = document.getElementById("imageInput");
+    const fileInfo = document.getElementById("fileInfo");
+    const convertBtn = document.getElementById("convertBtn");
+    const dataUrlOption = document.getElementById("dataUrlOption");
+    const output = document.getElementById("output");
+    const status = document.getElementById("status");
+    const preview = document.getElementById("preview");
+    const charCount = document.getElementById("charCount");
+    const fileSize = document.getElementById("fileSize");
+    const copyBtn = document.getElementById("copyBtn");
+    const downloadBtn = document.getElementById("downloadBtn");
+    const clearBtn = document.getElementById("clearBtn");
+
+    let selectedFile = null;
+    let fullDataUrl = "";
+    let base64Text = "";
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    function readableSize(bytes) {
+      if (bytes < 1024) return bytes + " B";
+      if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
+      return (bytes / (1024 * 1024)).toFixed(2) + " MB";
+    }
+
+    function setStatus(message, isError = false) {
+      status.textContent = message;
+      status.className = isError ? "message error" : "message";
+    }
+
+    function refreshOutput() {
+      output.value = dataUrlOption.checked ? fullDataUrl : base64Text;
+      charCount.textContent = output.value.length.toLocaleString();
+      const ready = output.value.length > 0;
+      copyBtn.disabled = !ready;
+      downloadBtn.style.pointerEvents = ready ? "auto" : "none";
+      downloadBtn.style.opacity = ready ? "1" : ".45";
+      downloadBtn.setAttribute("aria-disabled", String(!ready));
+      downloadBtn.href = ready
+        ? URL.createObjectURL(new Blob([output.value], { type: "text/plain;charset=utf-8" }))
+        : "#";
+    }
+
+    function clearAll() {
+      selectedFile = null;
+      fullDataUrl = "";
+      base64Text = "";
+      input.value = "";
+      fileInfo.textContent = "No image selected yet.";
+      output.value = "";
+      charCount.textContent = "0";
+      fileSize.textContent = "—";
+      preview.removeAttribute("src");
+      preview.style.display = "none";
+      convertBtn.disabled = true;
+      copyBtn.disabled = true;
+      downloadBtn.href = "#";
+      downloadBtn.style.pointerEvents = "none";
+      downloadBtn.style.opacity = ".45";
+      downloadBtn.setAttribute("aria-disabled", "true");
+      setStatus("Select an image to begin.");
+    }
+
+    input.addEventListener("change", () => {
+      const file = input.files && input.files[0];
+      if (!file) return;
+
+      if (!file.type.startsWith("image/")) {
+        clearAll();
+        setStatus("Please select a valid image file.", true);
+        return;
+      }
+
+      selectedFile = file;
+      fullDataUrl = "";
+      base64Text = "";
+      output.value = "";
+      charCount.textContent = "0";
+      copyBtn.disabled = true;
+      downloadBtn.href = "#";
+      downloadBtn.style.pointerEvents = "none";
+      downloadBtn.style.opacity = ".45";
+      downloadBtn.setAttribute("aria-disabled", "true");
+
+      fileInfo.textContent = file.name + " · " + readableSize(file.size);
+      fileSize.textContent = readableSize(file.size);
+      preview.src = URL.createObjectURL(file);
+      preview.style.display = "block";
+      convertBtn.disabled = false;
+      setStatus("Image selected. Click Convert to Base64.");
+    });
+
+    convertBtn.addEventListener("click", () => {
+      if (!selectedFile) {
+        setStatus("Please choose an image first.", true);
+        return;
+      }
+
+      convertBtn.disabled = true;
+      setStatus("Converting image…");
+
+      const reader = new FileReader();
+      reader.onerror = () => {
+        setStatus("Could not read this image file.", true);
+        convertBtn.disabled = false;
+      };
+
+      reader.onload = () => {
+        fullDataUrl = String(reader.result);
+        const comma = fullDataUrl.indexOf(",");
+        base64Text = comma >= 0 ? fullDataUrl.slice(comma + 1) : fullDataUrl;
+        refreshOutput();
+        setStatus("Conversion complete. You can copy or download the Base64 output.");
+        convertBtn.disabled = false;
+      };
+
+      reader.readAsDataURL(selectedFile);
+    });
+
+    dataUrlOption.addEventListener("change", () => {
+      if (!fullDataUrl) return;
+      refreshOutput();
+    });
+
+    copyBtn.addEventListener("click", async () => {
+      if (!output.value) return;
+      try {
+        await navigator.clipboard.writeText(output.value);
+        setStatus("Base64 copied to clipboard.");
+      } catch (error) {
+        output.focus();
+        output.select();
+        const copied = document.execCommand("copy");
+        setStatus(copied
+          ? "Base64 copied to clipboard."
+          : "Automatic copy was blocked. Select the text and copy it manually.",
+          !copied);
+      }
+    });
+
+    clearBtn.addEventListener("click", clearAll);
+  </script>
+</body>
+</html>
+```
 
