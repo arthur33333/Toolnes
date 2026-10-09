@@ -1,1 +1,297 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free online developer tools: JSON formatter, Base64 encoder, URL encoder, UUID generator, hash generator and more.">
+  <meta name="robots" content="index,follow">
+  <title>Developer Tools - Free Online Tools | Toolnes</title>
+  <link rel="canonical" href="https://toolnes.netlify.app/developer-tools/">
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-light: #eef2ff;
+      --text: #172033;
+      --muted: #64748b;
+      --border: #e5e7eb;
+      --background: #f8fafc;
+      --card: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: var(--background);
+      line-height: 1.6;
+    }
+
+    header {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      max-width: 1100px;
+      margin: auto;
+      padding: 18px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .logo {
+      color: var(--primary);
+      font-size: 25px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .nav a.home {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 45px 22px 65px;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .hero h1 {
+      margin: 0 0 12px;
+      font-size: clamp(30px, 5vw, 44px);
+      letter-spacing: -1px;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: auto;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .search {
+      display: block;
+      width: 100%;
+      max-width: 560px;
+      margin: 28px auto 0;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-size: 16px;
+      background: #fff;
+      outline: none;
+    }
+
+    .search:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px #4f46e51c;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
+      gap: 18px;
+    }
+
+    .tool {
+      display: block;
+      padding: 23px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: var(--card);
+      text-decoration: none;
+      color: inherit;
+      transition: transform .2s, border-color .2s, box-shadow .2s;
+    }
+
+    .tool:hover {
+      transform: translateY(-3px);
+      border-color: #c7d2fe;
+      box-shadow: 0 10px 25px #1720330b;
+    }
+
+    .icon {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 15px;
+      border-radius: 12px;
+      background: var(--primary-light);
+      font-size: 23px;
+    }
+
+    .tool h2 {
+      margin: 0 0 8px;
+      font-size: 19px;
+    }
+
+    .tool p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .empty {
+      display: none;
+      padding: 25px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .info {
+      margin-top: 42px;
+      padding: 25px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: #fff;
+    }
+
+    .info h2 { margin-top: 0; }
+
+    footer {
+      padding: 25px 20px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      background: #fff;
+      font-size: 14px;
+    }
+
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <a class="logo" href="/">Toolnes</a>
+      <a class="home" href="/">Home</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Free Developer Tools</h1>
+      <p>
+        Useful online tools for developers, programmers and web designers.
+        Format data, encode text and generate unique identifiers in seconds.
+      </p>
+      <input
+        class="search"
+        id="search"
+        type="search"
+        placeholder="Search developer tools..."
+        aria-label="Search developer tools"
+      >
+    </section>
+
+    <section class="grid" id="tools">
+      <a class="tool" href="/developer-tools/json-formatter/">
+        <div class="icon">{} </div>
+        <h2>JSON Formatter</h2>
+        <p>Format and beautify JSON data to make it easier to read.</p>
+      </a>
+
+      <a class="tool" href="/developer-tools/json-validator/">
+        <div class="icon">✓</div>
+        <h2>JSON Validator</h2>
+        <p>Check whether your JSON data is valid and correctly structured.</p>
+      </a>
+
+      <a class="tool" href="/developer-tools/base64-encoder/">
+        <div class="icon">🔐</div>
+        <h2>Base64 Encoder & Decoder</h2>
+        <p>Encode text to Base64 or decode Base64 strings online.</p>
+      </a>
+
+      <a class="tool" href="/developer-tools/url-encoder/">
+        <div class="icon">🔗</div>
+        <h2>URL Encoder & Decoder</h2>
+        <p>Encode or decode URL components safely and quickly.</p>
+      </a>
+
+      <a class="tool" href="/developer-tools/uuid-generator/">
+        <div class="icon">🆔</div>
+        <h2>UUID Generator</h2>
+        <p>Generate unique version 4 identifiers for your projects.</p>
+      </a>
+
+      <a class="tool" href="/developer-tools/hash-generator/">
+        <div class="icon">#</div>
+        <h2>Hash Generator</h2>
+        <p>Generate SHA-256 hashes from text directly in your browser.</p>
+      </a>
+
+      <a class="tool" href="/developer-tools/regex-tester/">
+        <div class="icon">.*</div>
+        <h2>Regex Tester</h2>
+        <p>Test regular expressions against sample text.</p>
+      </a>
+
+      <a class="tool" href="/developer-tools/timestamp-converter/">
+        <div class="icon">🕒</div>
+        <h2>Timestamp Converter</h2>
+        <p>Convert Unix timestamps into readable dates and times.</p>
+      </a>
+    </section>
+
+    <p class="empty" id="empty">No tools found. Try another search.</p>
+
+    <section class="info">
+      <h2>Why use Toolnes Developer Tools?</h2>
+      <p>
+        Toolnes provides convenient browser-based utilities for everyday
+        development tasks. These tools are designed to be simple to use,
+        with no software installation required.
+      </p>
+      <p>
+        Avoid entering passwords, API secrets or other confidential information
+        into online tools unless you understand how that information is handled.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> Toolnes. All rights reserved.</p>
+    <p><a href="/">Home</a> · <a href="/text-tools/">Text Tools</a> · <a href="/pdf-tools/">PDF Tools</a></p>
+  </footer>
+
+  <script>
+    const search = document.getElementById("search");
+    const tools = [...document.querySelectorAll(".tool")];
+    const empty = document.getElementById("empty");
+
+    search.addEventListener("input", function () {
+      const query = this.value.toLowerCase().trim();
+      let visible = 0;
+
+      tools.forEach(function (tool) {
+        const matches = tool.textContent.toLowerCase().includes(query);
+        tool.style.display = matches ? "block" : "none";
+        if (matches) visible++;
+      });
+
+      empty.style.display = visible === 0 ? "block" : "none";
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+```
 
