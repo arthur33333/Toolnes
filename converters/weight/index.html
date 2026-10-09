@@ -1,1 +1,160 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Convert length and distance units instantly with this free online length converter.">
+<title>Length Converter — Toolnes</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f7f8fc;color:#20243a;font-family:Arial,Helvetica,sans-serif}
+a{text-decoration:none;color:inherit}
+header{background:#fff;border-bottom:1px solid #e9eaf2}
+nav{max-width:850px;margin:auto;padding:20px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:26px;font-weight:800;color:#6558d3}
+nav a:last-child{color:#6558d3;font-weight:700}
+main{max-width:760px;margin:45px auto;padding:0 20px 55px}
+h1{font-size:clamp(29px,5vw,40px);margin:0 0 12px}
+.intro{color:#697087;line-height:1.7;margin-bottom:28px}
+.panel{background:white;border:1px solid #e9eaf2;border-radius:18px;padding:25px;box-shadow:0 8px 28px rgba(35,39,75,.06)}
+label{display:block;font-weight:700;font-size:14px;margin:0 0 8px}
+input,select{width:100%;padding:14px;border:1px solid #dfe1ec;border-radius:10px;font-size:16px;background:#fff;color:#20243a}
+input:focus,select:focus{outline:2px solid #d8d2ff;border-color:#6558d3}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.field{margin-bottom:18px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:5px}
+button{border:0;border-radius:10px;padding:12px 17px;font-size:14px;font-weight:700;cursor:pointer}
+.primary{background:#6558d3;color:white}
+.secondary{background:#eeecff;color:#5145b5}
+.result{background:#f2f0ff;border-radius:12px;padding:18px;margin-top:20px}
+.result small{display:block;color:#697087;margin-bottom:7px}
+#result{font-size:25px;font-weight:800;overflow-wrap:anywhere}
+.note{color:#697087;font-size:13px;line-height:1.7;margin-top:22px}
+footer{text-align:center;padding:23px;background:white;border-top:1px solid #e9eaf2;color:#697087;font-size:13px}
+@media(max-width:520px){.fields{grid-template-columns:1fr}.panel{padding:18px}main{margin-top:30px}}
+</style>
+</head>
+<body>
+<header>
+<nav>
+<a class="logo" href="/">Toolnes</a>
+<a href="/converters/">← All converters</a>
+</nav>
+</header>
+
+<main>
+<h1>Length Converter</h1>
+<p class="intro">Convert length and distance units instantly. Enter a value, choose your units, and get the result automatically.</p>
+
+<section class="panel">
+<div class="field">
+<label for="value">Value to convert</label>
+<input id="value" type="number" value="1" step="any" placeholder="Enter a number">
+</div>
+
+<div class="fields">
+<div class="field">
+<label for="from">From</label>
+<select id="from">
+<option value="mm">Millimeters (mm)</option>
+<option value="cm">Centimeters (cm)</option>
+<option value="m" selected>Meters (m)</option>
+<option value="km">Kilometers (km)</option>
+<option value="um">Micrometers (µm)</option>
+<option value="nm">Nanometers (nm)</option>
+<option value="in">Inches (in)</option>
+<option value="ft">Feet (ft)</option>
+<option value="yd">Yards (yd)</option>
+<option value="mi">Miles (mi)</option>
+<option value="nmi">Nautical miles (nmi)</option>
+</select>
+</div>
+<div class="field">
+<label for="to">To</label>
+<select id="to">
+<option value="mm">Millimeters (mm)</option>
+<option value="cm">Centimeters (cm)</option>
+<option value="m">Meters (m)</option>
+<option value="km" selected>Kilometers (km)</option>
+<option value="um">Micrometers (µm)</option>
+<option value="nm">Nanometers (nm)</option>
+<option value="in">Inches (in)</option>
+<option value="ft">Feet (ft)</option>
+<option value="yd">Yards (yd)</option>
+<option value="mi">Miles (mi)</option>
+<option value="nmi">Nautical miles (nmi)</option>
+</select>
+</div>
+</div>
+
+<div class="actions">
+<button class="primary" id="swap" type="button">⇅ Swap units</button>
+<button class="secondary" id="reset" type="button">Reset</button>
+<button class="secondary" id="copy" type="button">Copy result</button>
+</div>
+
+<div class="result" aria-live="polite">
+<small>Converted result</small>
+<div id="result">0.001 km</div>
+</div>
+<p class="note">Conversions use standard length-unit factors. Results are calculated in your browser; no account or installation is required.</p>
+</section>
+</main>
+
+<footer>© <span id="year"></span> Toolnes. Free online tools.</footer>
+
+<script>
+(function(){
+const factors={
+mm:0.001,cm:0.01,m:1,km:1000,um:0.000001,nm:0.000000001,
+in:0.0254,ft:0.3048,yd:0.9144,mi:1609.344,nmi:1852
+};
+const names={
+mm:"mm",cm:"cm",m:"m",km:"km",um:"µm",nm:"nm",
+in:"in",ft:"ft",yd:"yd",mi:"mi",nmi:"nmi"
+};
+const value=document.getElementById("value");
+const from=document.getElementById("from");
+const to=document.getElementById("to");
+const result=document.getElementById("result");
+
+function convert(){
+const n=Number(value.value);
+if(value.value.trim()===""||!Number.isFinite(n)){
+result.textContent="Enter a valid number";
+return;
+}
+const converted=n*factors[from.value]/factors[to.value];
+result.textContent=Number(converted.toPrecision(12)).toLocaleString("en-US",{maximumFractionDigits:12})+" "+names[to.value];
+}
+value.addEventListener("input",convert);
+from.addEventListener("change",convert);
+to.addEventListener("change",convert);
+document.getElementById("swap").addEventListener("click",function(){
+const old=from.value;
+from.value=to.value;
+to.value=old;
+convert();
+});
+document.getElementById("reset").addEventListener("click",function(){
+value.value="1";
+from.value="m";
+to.value="km";
+convert();
+});
+document.getElementById("copy").addEventListener("click",async function(){
+try{
+await navigator.clipboard.writeText(result.textContent);
+this.textContent="Copied!";
+setTimeout(()=>this.textContent="Copy result",1200);
+}catch(e){
+this.textContent="Select result to copy";
+}
+});
+document.getElementById("year").textContent=new Date().getFullYear();
+convert();
+})();
+</script>
+</body>
+</html>
