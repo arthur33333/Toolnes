@@ -1,1 +1,434 @@
 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Play free Sudoku online on Toolnes. Solve a number puzzle, check your answers, and reveal the solution.">
+  <meta name="robots" content="index, follow">
+  <title>Free Sudoku Game | Toolnes</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #1e293b;
+      background: #f8fafc;
+      line-height: 1.6;
+    }
+    header, footer {
+      padding: 17px 20px;
+      background: #fff;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    footer {
+      margin-top: 35px;
+      border-top: 1px solid #e2e8f0;
+      border-bottom: 0;
+      text-align: center;
+      color: #64748b;
+    }
+    .nav, main {
+      width: min(900px, calc(100% - 32px));
+      margin: auto;
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .logo { font-size: 25px; font-weight: 800; color: #2563eb; }
+    a { color: #2563eb; text-decoration: none; }
+    main { padding-top: 30px; }
+    h1 { margin-bottom: 8px; color: #0f172a; line-height: 1.2; }
+    .muted { color: #64748b; }
+    .panel {
+      margin: 22px 0;
+      padding: 22px;
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+    button, select {
+      min-height: 42px;
+      padding: 10px 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background: white;
+      color: #1e293b;
+      font: inherit;
+      cursor: pointer;
+    }
+    button.primary { background: #2563eb; color: white; border-color: #2563eb; }
+    button:hover { filter: brightness(.96); }
+    .board-wrap { overflow-x: auto; padding: 4px; }
+    .board {
+      display: grid;
+      grid-template-columns: repeat(9, minmax(0, 1fr));
+      width: min(100%, 450px);
+      aspect-ratio: 1;
+      margin: 20px auto;
+      border: 2px solid #334155;
+      background: #fff;
+    }
+    .cell {
+      width: 100%;
+      min-width: 0;
+      aspect-ratio: 1;
+      padding: 0;
+      border: 0;
+      border-right: 1px solid #cbd5e1;
+      border-bottom: 1px solid #cbd5e1;
+      border-radius: 0;
+      text-align: center;
+      font-size: clamp(15px, 3.6vw, 23px);
+      color: #2563eb;
+      background: white;
+    }
+    .cell.fixed { color: #0f172a; font-weight: 800; background: #f1f5f9; }
+    .cell.selected { background: #dbeafe; }
+    .cell.same-number { background: #eff6ff; }
+    .cell.error { background: #fee2e2; color: #b91c1c; }
+    .cell:nth-child(3n) { border-right: 2px solid #334155; }
+    .cell:nth-child(9n) { border-right: 0; }
+    .cell:nth-child(n+19):nth-child(-n+27),
+    .cell:nth-child(n+46):nth-child(-n+54) { border-bottom: 2px solid #334155; }
+    .cell:nth-child(n+73) { border-bottom: 0; }
+    .status { min-height: 26px; font-weight: 700; color: #0f766e; }
+    .status.error-text { color: #b91c1c; }
+    .numbers {
+      display: grid;
+      grid-template-columns: repeat(9, minmax(0, 1fr));
+      gap: 6px;
+      max-width: 450px;
+      margin: 0 auto;
+    }
+    .numbers button {
+      padding: 7px 0;
+      font-size: 18px;
+      color: #1d4ed8;
+      font-weight: 700;
+      background: #eff6ff;
+      border-color: #dbeafe;
+    }
+    @media (max-width: 520px) {
+      .panel { padding: 14px; }
+      .board { width: 100%; }
+      .cell { font-size: clamp(14px, 4vw, 21px); }
+      .controls button, .controls select { flex: 1 1 auto; }
+    }
+    @media print {
+      header, footer, .no-print, .instructions { display: none !important; }
+      body { background: white; }
+      main { width: 100%; padding: 0; }
+      .panel { border: 0; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <a class="logo" href="/">Toolnes</a>
+      <a href="/puzzles/">← All Puzzle Games</a>
+    </div>
+  </header>
+
+  <main>
+    <h1>Free Sudoku Game</h1>
+    <p class="muted">Fill every row, column, and 3 × 3 box with the numbers 1 to 9. Each number must appear only once in each row, column, and box.</p>
+
+    <section class="panel">
+      <div class="controls no-print">
+        <label for="difficulty">Difficulty:</label>
+        <select id="difficulty">
+          <option value="easy">Easy</option>
+          <option value="medium" selected>Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+        <button class="primary" id="newGame">New Game</button>
+        <button id="check">Check Answers</button>
+        <button id="solve">Show Solution</button>
+        <button id="print">Print</button>
+      </div>
+
+      <p id="status" class="status" role="status" aria-live="polite">Select a square, then choose a number.</p>
+
+      <div class="board-wrap">
+        <div id="board" class="board" role="group" aria-label="Sudoku board"></div>
+      </div>
+
+      <div class="numbers no-print" aria-label="Choose a number">
+        <button type="button" data-number="1">1</button>
+        <button type="button" data-number="2">2</button>
+        <button type="button" data-number="3">3</button>
+        <button type="button" data-number="4">4</button>
+        <button type="button" data-number="5">5</button>
+        <button type="button" data-number="6">6</button>
+        <button type="button" data-number="7">7</button>
+        <button type="button" data-number="8">8</button>
+        <button type="button" data-number="9">9</button>
+        <button type="button" data-number="0" style="grid-column: span 9;">Erase selected square</button>
+      </div>
+    </section>
+
+    <section class="panel instructions">
+      <h2>How to play Sudoku</h2>
+      <ol>
+        <li>Select an empty square on the board.</li>
+        <li>Choose a number from 1 to 9.</li>
+        <li>Do not repeat a number in the same row, column, or 3 × 3 box.</li>
+        <li>Click Check Answers to check your progress.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year">2026</span> Toolnes · <a href="/puzzles/">Puzzle Games</a></p>
+  </footer>
+
+  <script>
+    const boardElement = document.getElementById("board");
+    const statusElement = document.getElementById("status");
+    const difficultyElement = document.getElementById("difficulty");
+
+    let puzzle = [];
+    let solution = [];
+    let fixed = [];
+    let selected = -1;
+
+    function copyGrid(grid) {
+      return grid.map(row => row.slice());
+    }
+
+    function isValid(grid, row, col, value) {
+      for (let i = 0; i < 9; i++) {
+        if (i !== col && grid[row][i] === value) return false;
+        if (i !== row && grid[i][col] === value) return false;
+      }
+
+      const startRow = Math.floor(row / 3) * 3;
+      const startCol = Math.floor(col / 3) * 3;
+
+      for (let r = startRow; r < startRow + 3; r++) {
+        for (let c = startCol; c < startCol + 3; c++) {
+          if ((r !== row || c !== col) && grid[r][c] === value) {
+            return false;
+          }
+        }
+      }
+      return true;
+    }
+
+    function fillGrid(grid) {
+      const empty = [];
+
+      for (let r = 0; r < 9; r++) {
+        for (let c = 0; c < 9; c++) {
+          if (grid[r][c] === 0) empty.push([r, c]);
+        }
+      }
+
+      if (empty.length === 0) return true;
+
+      // Choose the empty cell with the fewest possible candidates.
+      let bestIndex = -1;
+      let bestCandidates = null;
+
+      for (let i = 0; i < empty.length; i++) {
+        const [r, c] = empty[i];
+        const candidates = [];
+
+        for (let n = 1; n <= 9; n++) {
+          if (isValid(grid, r, c, n)) candidates.push(n);
+        }
+
+        if (candidates.length === 0) return false;
+        if (!bestCandidates || candidates.length < bestCandidates.length) {
+          bestIndex = i;
+          bestCandidates = candidates;
+          if (candidates.length === 1) break;
+        }
+      }
+
+      const [row, col] = empty[bestIndex];
+
+      for (let i = bestCandidates.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [bestCandidates[i], bestCandidates[j]] = [bestCandidates[j], bestCandidates[i]];
+      }
+
+      for (const value of bestCandidates) {
+        grid[row][col] = value;
+        if (fillGrid(grid)) return true;
+      }
+
+      grid[row][col] = 0;
+      return false;
+    }
+
+    function makeSolution() {
+      const grid = Array.from({ length: 9 }, () => Array(9).fill(0));
+      fillGrid(grid);
+      return grid;
+    }
+
+    function createGame() {
+      solution = makeSolution();
+      puzzle = copyGrid(solution);
+
+      const level = difficultyElement.value;
+      const holes = level === "easy" ? 35 : level === "hard" ? 52 : 44;
+      let removed = 0;
+      let attempts = 0;
+
+      while (removed < holes && attempts < 500) {
+        const r = Math.floor(Math.random() * 9);
+        const c = Math.floor(Math.random() * 9);
+
+        if (puzzle[r][c] !== 0) {
+          puzzle[r][c] = 0;
+          removed++;
+        }
+        attempts++;
+      }
+
+      fixed = puzzle.map(row => row.map(value => value !== 0));
+      selected = -1;
+      statusElement.textContent = "New puzzle ready. Select an empty square.";
+      statusElement.className = "status";
+      renderBoard();
+    }
+
+    function renderBoard() {
+      boardElement.replaceChildren();
+
+      for (let r = 0; r < 9; r++) {
+        for (let c = 0; c < 9; c++) {
+          const index = r * 9 + c;
+          const cell = document.createElement("button");
+          cell.type = "button";
+          cell.className = "cell";
+          cell.dataset.index = index;
+
+          const value = puzzle[r][c];
+          cell.textContent = value || "";
+          cell.setAttribute("aria-label", `Row ${r + 1}, column ${c + 1}${value ? ", number " + value : ", empty"}`);
+
+          if (fixed[r][c]) {
+            cell.classList.add("fixed");
+            cell.disabled = true;
+          }
+
+          if (index === selected) cell.classList.add("selected");
+
+          if (selected >= 0 && value && value === puzzle[Math.floor(selected / 9)][selected % 9]) {
+            cell.classList.add("same-number");
+          }
+
+          cell.addEventListener("click", () => {
+            if (fixed[r][c]) {
+              selected = index;
+            } else {
+              selected = index;
+            }
+            renderBoard();
+          });
+
+          boardElement.appendChild(cell);
+        }
+      }
+    }
+
+    function enterNumber(value) {
+      if (selected < 0) {
+        statusElement.textContent = "Select a square first.";
+        return;
+      }
+
+      const row = Math.floor(selected / 9);
+      const col = selected % 9;
+
+      if (fixed[row][col]) {
+        statusElement.textContent = "Choose an empty square.";
+        return;
+      }
+
+      puzzle[row][col] = value;
+      statusElement.textContent = value === 0 ? "Square cleared." : "Number entered.";
+      statusElement.className = "status";
+      renderBoard();
+    }
+
+    function checkAnswers() {
+      let emptyCount = 0;
+      let wrongCount = 0;
+      let conflictCount = 0;
+
+      for (let r = 0; r < 9; r++) {
+        for (let c = 0; c < 9; c++) {
+          const value = puzzle[r][c];
+
+          if (value === 0) {
+            emptyCount++;
+          } else {
+            if (value !== solution[r][c]) wrongCount++;
+            if (!isValid(puzzle, r, c, value)) conflictCount++;
+          }
+        }
+      }
+
+      if (emptyCount === 0 && wrongCount === 0 && conflictCount === 0) {
+        statusElement.textContent = "Excellent! You solved the Sudoku correctly.";
+        statusElement.className = "status";
+      } else {
+        statusElement.textContent =
+          `${emptyCount} empty square(s), ${wrongCount} incorrect number(s), ${conflictCount} conflicting number(s).`;
+        statusElement.className = "status error-text";
+
+        boardElement.querySelectorAll(".cell").forEach(cell => {
+          const index = Number(cell.dataset.index);
+          const r = Math.floor(index / 9);
+          const c = index % 9;
+          cell.classList.toggle("error", !fixed[r][c] && puzzle[r][c] !== 0 &&
+            (puzzle[r][c] !== solution[r][c] || !isValid(puzzle, r, c, puzzle[r][c])));
+        });
+      }
+    }
+
+    document.querySelectorAll("[data-number]").forEach(button => {
+      button.addEventListener("click", () => enterNumber(Number(button.dataset.number)));
+    });
+
+    document.getElementById("newGame").addEventListener("click", createGame);
+    document.getElementById("check").addEventListener("click", checkAnswers);
+
+    document.getElementById("solve").addEventListener("click", () => {
+      puzzle = copyGrid(solution);
+      fixed = puzzle.map(row => row.map(() => true));
+      selected = -1;
+      renderBoard();
+      statusElement.textContent = "Solution revealed. Start a new game to play again.";
+      statusElement.className = "status";
+    });
+
+    document.getElementById("print").addEventListener("click", () => window.print());
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    document.addEventListener("keydown", event => {
+      if (/^[1-9]$/.test(event.key)) enterNumber(Number(event.key));
+      if (event.key === "Backspace" || event.key === "Delete") enterNumber(0);
+    });
+
+    createGame();
+  </script>
+</body>
+</html>
