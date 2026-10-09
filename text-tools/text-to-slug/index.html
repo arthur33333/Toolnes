@@ -1,1 +1,297 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Text to Slug Converter - Toolnes</title>
+  <meta name="description" content="Convert titles and text into clean, lowercase, SEO-friendly URL slugs for free with Toolnes.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://toolnes.netlify.app/text-tools/text-to-slug/">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f7f7fc;
+      color: #24213b;
+    }
+
+    header {
+      background: #ffffff;
+      padding: 20px 6%;
+      border-bottom: 1px solid #eeeeee;
+    }
+
+    header a {
+      font-size: 25px;
+      font-weight: bold;
+      color: #6d45d8;
+      text-decoration: none;
+    }
+
+    main {
+      max-width: 850px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .back {
+      color: #6d45d8;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    h1 {
+      font-size: 34px;
+      margin: 24px 0 10px;
+    }
+
+    .intro {
+      color: #666666;
+      line-height: 1.7;
+    }
+
+    .panel {
+      background: #ffffff;
+      padding: 26px;
+      border-radius: 16px;
+      margin-top: 25px;
+      box-shadow: 0 5px 25px #25204a0d;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    textarea,
+    input {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid #dcd9e8;
+      border-radius: 10px;
+      font: 16px Arial, sans-serif;
+      color: #24213b;
+      background: #ffffff;
+    }
+
+    textarea {
+      min-height: 150px;
+      resize: vertical;
+      line-height: 1.6;
+    }
+
+    textarea:focus,
+    input:focus {
+      outline: 2px solid #8c6be8;
+      border-color: transparent;
+    }
+
+    .result {
+      margin-top: 25px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 9px;
+      padding: 13px 18px;
+      background: #7048d8;
+      color: #ffffff;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #5933bd;
+    }
+
+    button.secondary {
+      background: #eee9fc;
+      color: #5432a7;
+    }
+
+    button.secondary:hover {
+      background: #ded4fa;
+    }
+
+    .hint,
+    .status {
+      font-size: 14px;
+      color: #666666;
+      line-height: 1.6;
+    }
+
+    .status {
+      min-height: 20px;
+    }
+
+    .example {
+      background: #f7f4ff;
+      border-radius: 10px;
+      padding: 15px;
+      margin-top: 20px;
+      line-height: 1.8;
+      overflow-wrap: anywhere;
+    }
+
+    footer {
+      text-align: center;
+      color: #777777;
+      padding: 30px 15px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 28px;
+      }
+
+      .panel {
+        padding: 18px;
+      }
+
+      button {
+        flex: 1 1 auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <a href="/">Toolnes</a>
+  </header>
+
+  <main>
+    <a class="back" href="/text-tools/">← All Text Tools</a>
+
+    <h1>Text to Slug Converter</h1>
+
+    <p class="intro">
+      Turn titles, headings, and text into clean, lowercase URL slugs.
+      Useful for creating readable website links and SEO-friendly URLs.
+    </p>
+
+    <section class="panel">
+      <label for="source">Enter your text or title</label>
+
+      <textarea
+        id="source"
+        placeholder="Example: My New Article About Technology!"
+      ></textarea>
+
+      <div class="buttons">
+        <button type="button" id="generate">Generate slug</button>
+        <button type="button" class="secondary" id="clear">Clear</button>
+      </div>
+
+      <div class="result">
+        <label for="result">Your URL slug</label>
+
+        <input
+          id="result"
+          type="text"
+          readonly
+          placeholder="your-url-slug"
+        >
+
+        <div class="buttons">
+          <button type="button" class="secondary" id="copy">
+            Copy slug
+          </button>
+        </div>
+
+        <p class="hint">
+          Spaces and punctuation are converted into hyphens. Accented
+          Latin letters are normalized where possible.
+        </p>
+
+        <p class="status" id="status" aria-live="polite"></p>
+      </div>
+
+      <div class="example">
+        <strong>Example</strong><br>
+        Input: My New Article About Technology!<br>
+        Output: my-new-article-about-technology
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> Toolnes. Free online tools.
+  </footer>
+
+  <script>
+    const source = document.getElementById("source");
+    const result = document.getElementById("result");
+    const status = document.getElementById("status");
+
+    function makeSlug(value) {
+      return value
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+    }
+
+    function generateSlug() {
+      result.value = makeSlug(source.value);
+
+      if (result.value) {
+        status.textContent = "Slug generated successfully.";
+      } else {
+        status.textContent = "Enter some text to generate a slug.";
+      }
+    }
+
+    async function copySlug() {
+      if (!result.value) {
+        status.textContent = "Generate a slug first.";
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(result.value);
+        status.textContent = "Slug copied to clipboard.";
+      } catch (error) {
+        result.focus();
+        result.select();
+        status.textContent =
+          "Automatic copying is unavailable. Copy the selected text manually.";
+      }
+    }
+
+    function clearAll() {
+      source.value = "";
+      result.value = "";
+      status.textContent = "Fields cleared.";
+      source.focus();
+    }
+
+    document.getElementById("generate").addEventListener("click", generateSlug);
+    document.getElementById("copy").addEventListener("click", copySlug);
+    document.getElementById("clear").addEventListener("click", clearAll);
+
+    source.addEventListener("input", generateSlug);
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+  </script>
+</body>
+</html>
