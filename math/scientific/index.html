@@ -1,1 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scientific Calculator - Toolnes</title>
+<meta name="description" content="Free online scientific calculator with trigonometry, logarithms, powers and roots.">
 
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:#f7f9fc;color:#1f2937}
+header{background:#fff;border-bottom:1px solid #e5e7eb;padding:18px 30px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:28px;font-weight:800;color:#111827;text-decoration:none}
+.logo span{color:#6366f1}
+nav{display:flex;gap:20px}
+nav a{text-decoration:none;color:#4b5563;font-weight:600}
+nav a:hover{color:#6366f1}
+.hero{text-align:center;padding:42px 20px 25px}
+.hero h1{font-size:36px;margin-bottom:10px;color:#111827}
+.hero p{color:#6b7280;line-height:1.5}
+.calculator-wrap{max-width:520px;margin:20px auto 55px;padding:0 16px}
+.calculator{background:#fff;padding:20px;border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,.08)}
+.mode-row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:15px}
+.mode-row label{font-weight:600;font-size:14px}
+select{padding:9px;border:1px solid #d1d5db;border-radius:9px;background:#fff}
+.display{background:#111827;border-radius:13px;padding:14px;margin-bottom:15px;min-height:82px;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+#expression{color:#c7d2fe;text-align:right;font-size:14px;min-height:20px;overflow-wrap:anywhere}
+#result{color:white;text-align:right;font-size:30px;margin-top:6px;overflow-wrap:anywhere}
+.buttons{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+button{min-width:0;height:52px;border:0;border-radius:10px;background:#f3f4f6;color:#111827;font-size:16px;font-weight:600;cursor:pointer}
+button:hover{filter:brightness(.96)}
+.fn{background:#e0e7ff;color:#3730a3}
+.op{background:#ede9fe;color:#5b21b6}
+.clear{background:#fee2e2;color:#b91c1c}
+.equal{background:#6366f1;color:white}
+.wide{grid-column:span 2}
+.info{max-width:700px;margin:0 auto 55px;padding:0 20px}
+.info-box{background:white;border:1px solid #e5e7eb;border-radius:16px;padding:24px}
+.info-box h2{margin-bottom:12px}
+.info-box p{color:#4b5563;line-height:1.7}
+footer{background:#111827;color:#d1d5db;text-align:center;padding:30px 20px;font-size:14px}
+@media(max-width:430px){header{padding:15px;flex-wrap:wrap;gap:12px}.logo{font-size:25px}nav{gap:12px}nav a{font-size:13px}.calculator{padding:13px}.buttons{gap:6px}button{height:47px;font-size:14px}.hero h1{font-size:30px}#result{font-size:25px}}
+</style>
+</head>
+<body>
+
+<header>
+<a href="../../index.html" class="logo">Tool<span>nes</span></a>
+<nav>
+<a href="../../index.html">Home</a>
+<a href="../index.html">Math</a>
+<a href="../../calculators/index.html">Calculators</a>
+</nav>
+</header>
+
+<section class="hero">
+<h1>Scientific Calculator</h1>
+<p>Calculate trigonometric functions, powers, roots and logarithms.</p>
+</section>
+
+<main class="calculator-wrap">
+<div class="calculator">
+
+<div class="mode-row">
+<label for="angleMode">Angle mode</label>
+<select id="angleMode">
+<option value="DEG">Degrees (DEG)</option>
+<option value="RAD">Radians (RAD)</option>
+</select>
+</div>
+
+<div class="display">
+<div id="expression">Ready</div>
+<div id="result">0</div>
+</div>
+
+<div class="buttons">
+<button class="clear" onclick="clearAll()">AC</button>
+<button onclick="deleteLast()">DEL</button>
+<button class="fn" onclick="append('(')">(</button>
+<button class="fn" onclick="append(')')">)</button>
+<button class="op" onclick="append(' / ')">÷</button>
+
+<button class="fn" onclick="append('sin(')">sin</button>
+<button class="fn" onclick="append('cos(')">cos</button>
+<button class="fn" onclick="append('tan(')">tan</button>
+<button class="fn" onclick="append('sqrt(')">√</button>
+<button class="op" onclick="append(' * ')">×</button>
+
+<button class="fn" onclick="append('asin(')">sin⁻¹</button>
+<button class="fn" onclick="append('acos(')">cos⁻¹</button>
+<button class="fn" onclick="append('atan(')">tan⁻¹</button>
+<button class="fn" onclick="append('^2')">x²</button>
+<button class="op" onclick="append(' - ')">−</button>
+
+<button class="fn" onclick="append('log(')">log</button>
+<button class="fn" onclick="append('ln(')">ln</button>
+<button class="fn" onclick="append('^')">xʸ</button>
+<button class="fn" onclick="append('pi')">π</button>
+<button class="op" onclick="append(' + ')">+</button>
+
+<button onclick="append('7')">7</button>
+<button onclick="append('8')">8</button>
+<button onclick="append('9')">9</button>
+<button class="fn" onclick="append('e')">e</button>
+<button class="fn" onclick="append('%')">%</button>
+
+<button onclick="append('4')">4</button>
+<button onclick="append('5')">5</button>
+<button onclick="append('6')">6</button>
+<button class="fn" onclick="append('abs(')">abs</button>
+<button class="fn" onclick="append('1 / ')">1/x</button>
+
+<button onclick="append('1')">1</button>
+<button onclick="append('2')">2</button>
+<button onclick="append('3')">3</button>
+<button onclick="append('0')">0</button>
+<button onclick="append('.')">.</button>
+
+<button class="wide" onclick="append('Ans')">Ans</button>
+<button class="clear" onclick="clearEntry()">C</button>
+<button class="equal wide" onclick="calculate()">=</button>
+</div>
+</div>
+</main>
+
+<section class="info">
+<div class="info-box">
+<h2>How to use the Scientific Calculator</h2>
+<p>
+Choose degrees or radians for trigonometric calculations. Use sin, cos and tan
+for trigonometric functions; log for base-10 logarithms; ln for natural
+logarithms; and x² or xʸ for powers. Use parentheses to group expressions.
+For example, sin(30) in degree mode returns 0.5.
+</p>
+</div>
+</section>
+
+<footer>© 2026 Toolnes. Useful tools. Simple and free.</footer>
+
+<script>
+let expression = "";
+let answer = 0;
+
+const resultEl = document.getElementById("result");
+const expressionEl = document.getElementById("expression");
+const angleMode = document.getElementById("angleMode");
+
+function append(value) {
+    if (expression === "Error") expression = "";
+    expression += value;
+    expressionEl.textContent = expression || "Ready";
+    resultEl.textContent = expression || "0";
+}
+
+function clearAll() {
+    expression = "";
+    expressionEl.textContent = "Ready";
+    resultEl.textContent = "0";
+}
+
+function clearEntry() {
+    expression = "";
+    expressionEl.textContent = "Ready";
+    resultEl.textContent = "0";
+}
+
+function deleteLast() {
+    if (expression === "Error") {
+        clearAll();
+        return;
+    }
+    expression = expression.trimEnd().slice(0, -1);
+    expressionEl.textContent = expression || "Ready";
+    resultEl.textContent = expression || "0";
+}
+
+function calculate() {
+    if (!expression.trim()) return;
+
+    try {
+        const value = evaluateExpression(expression);
+        if (!Number.isFinite(value)) throw new Error("Invalid result");
+
+        answer = value;
+        resultEl.textContent = formatNumber(value);
+        expressionEl.textContent = expression + " =";
+        expression = String(value);
+    } catch (error) {
+        resultEl.textContent = "Error";
+        expressionEl.textContent = "Check your expression";
+        expression = "Error";
+    }
+}
+
+function formatNumber(value) {
+    if (Object.is(value, -0)) value = 0;
+    if (Math.abs(value) >= 1e12 || (Math.abs(value) > 0 && Math.abs(value) < 1e-8)) {
+        return value.toExponential(8);
+    }
+    return String(Number(value.toPrecision(12)));
+}
+
+function evaluateExpression(input) {
+    const tokens = input.match(/(?:\d+(?:\.\d*)?|\.\d+)|(?:sin|cos|tan|asin|acos|atan|sqrt|log|ln|abs|pi|Ans|e)|[()+\-*/%^]/gi);
+    if (!tokens || tokens.join("").replace(/\s/g, "") !== input.replace(/\s/g, "")) {
+        throw new Error("Invalid characters");
+    }
+
+    let pos = 0;
+    const peek = () => tokens[pos];
+    const take = () => tokens[pos++];
+
+    function parseExpression() {
+        let value = parseTerm();
+        while (peek() === "+" || peek() === "-") {
+            const op = take();
+            const right = parseTerm();
+            value = op === "+" ? value + right : value - right;
+        }
+        return value;
+    }
+
+    function parseTerm() {
+        let value = parseUnary();
+        while (["*", "/", "%"].includes(peek())) {
+            const op = take();
+            const right = parseUnary();
+            if ((op === "/" || op === "%") && right === 0) throw new Error("Division by zero");
+            if (op === "*") value *= right;
+            if (op === "/") value /= right;
+            if (op === "%") value %= right;
+        }
+        return value;
+    }
+
+    function parseUnary() {
+        if (peek() === "+") {
+            take();
+            return parseUnary();
+        }
+        if (peek() === "-") {
+            take();
+            return -parseUnary();
+        }
+        return parsePower();
+    }
+
+    function parsePower() {
+        let value = parsePrimary();
+        if (peek() === "^") {
+            take();
+            value = Math.pow(value, parseUnary());
+        }
+        return value;
+    }
+
+    function parsePrimary() {
+        const token = take();
+        if (token === undefined) throw new Error("Missing value");
+
+        if (token === "(") {
+            const value = parseExpression();
+            if (take() !== ")") throw new Error("Missing closing parenthesis");
+            return value;
+        }
+
+        if (token.toLowerCase() === "pi") return Math.PI;
+        if (token.toLowerCase() === "e") return Math.E;
+        if (token.toLowerCase() === "ans") return answer;
+
+        if (/^(?:\d+(?:\.\d*)?|\.\d+)$/.test(token)) {
+            return Number(token);
+        }
+
+        const name = token.toLowerCase();
+        if (["sin","cos","tan","asin","acos","atan","sqrt","log","ln","abs"].includes(name)) {
+            if (take() !== "(") throw new Error("Function needs parentheses");
+            const value = parseExpression();
+            if (take() !== ")") throw new Error("Missing closing parenthesis");
+
+            const degrees = angleMode.value === "DEG";
+            const toRadians = n => degrees ? n * Math.PI / 180 : n;
+            const fromRadians = n => degrees ? n * 180 / Math.PI : n;
+
+            if (name === "sin") return Math.sin(toRadians(value));
+            if (name === "cos") return Math.cos(toRadians(value));
+            if (name === "tan") {
+                const radians = toRadians(value);
+                if (Math.abs(Math.cos(radians)) < 1e-12) throw new Error("Undefined tangent");
+                return Math.tan(radians);
+            }
+            if (name === "asin") {
+                if (value < -1 || value > 1) throw new Error("Outside domain");
+                return fromRadians(Math.asin(value));
+            }
+            if (name === "acos") {
+                if (value < -1 || value > 1) throw new Error("Outside domain");
+                return fromRadians(Math.acos(value));
+            }
+            if (name === "atan") return fromRadians(Math.atan(value));
+            if (name === "sqrt") {
+                if (value < 0) throw new Error("Negative square root");
+                return Math.sqrt(value);
+            }
+            if (name === "log") {
+                if (value <= 0) throw new Error("Log requires positive value");
+                return Math.log10(value);
+            }
+            if (name === "ln") {
+                if (value <= 0) throw new Error("Ln requires positive value");
+                return Math.log(value);
+            }
+            if (name === "abs") return Math.abs(value);
+        }
+
+        throw new Error("Invalid expression");
+    }
+
+    const value = parseExpression();
+    if (pos !== tokens.length) throw new Error("Unexpected input");
+    return value;
+}
+
+document.addEventListener("keydown", event => {
+    if (/^[0-9.+\-*/%^()]$/.test(event.key)) {
+        append(event.key);
+    } else if (event.key === "Enter" || event.key === "=") {
+        event.preventDefault();
+        calculate();
+    } else if (event.key === "Backspace") {
+        deleteLast();
+    } else if (event.key === "Escape") {
+        clearAll();
+    }
+});
+</script>
+
+</body>
+</html>
