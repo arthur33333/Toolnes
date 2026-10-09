@@ -1,1 +1,95 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Converter - Toolnes</title>
+  <meta name="description" content="Convert text to uppercase, lowercase, title case, or sentence case with this free online case converter.">
+  <link rel="canonical" href="https://toolnes.netlify.app/text-tools/case-converter/">
+  <style>
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Arial,sans-serif;background:#f7f7fc;color:#24213b}
+    header{background:#fff;padding:20px 6%;border-bottom:1px solid #eee}
+    header a{font-size:25px;font-weight:bold;color:#6d45d8;text-decoration:none}
+    main{max-width:900px;margin:40px auto;padding:0 20px}
+    .back{color:#6d45d8;text-decoration:none;font-weight:bold}
+    h1{font-size:34px;margin-bottom:10px}
+    .intro{color:#666;line-height:1.6}
+    .panel{background:#fff;padding:24px;border-radius:16px;margin-top:24px;box-shadow:0 5px 25px #25204a0d}
+    label{display:block;font-weight:bold;margin-bottom:10px}
+    textarea{width:100%;min-height:230px;padding:15px;border:1px solid #dcd9e8;border-radius:10px;font:16px/1.5 Arial,sans-serif;resize:vertical}
+    textarea:focus{outline:2px solid #8c6be8;border-color:transparent}
+    .buttons{display:flex;flex-wrap:wrap;gap:10px;margin-top:15px}
+    button{border:0;border-radius:9px;padding:12px 16px;background:#7048d8;color:white;font-weight:bold;cursor:pointer}
+    button:hover{background:#5933bd}
+    button.secondary{background:#eee9fc;color:#5432a7}
+    button.secondary:hover{background:#ded4fa}
+    .status{color:#555;font-size:14px;margin-top:14px;min-height:18px}
+    footer{text-align:center;color:#777;padding:30px}
+    @media(max-width:600px){h1{font-size:28px}.panel{padding:16px}}
+  </style>
+</head>
+<body>
+  <header><a href="/">Toolnes</a></header>
+  <main>
+    <a class="back" href="/text-tools/">← All Text Tools</a>
+    <h1>Case Converter</h1>
+    <p class="intro">Convert your text to uppercase, lowercase, title case, or sentence case instantly.</p>
+
+    <section class="panel">
+      <label for="text">Your text</label>
+      <textarea id="text" placeholder="Type or paste your text here..."></textarea>
+      <div class="buttons">
+        <button type="button" onclick="convert('upper')">UPPERCASE</button>
+        <button type="button" onclick="convert('lower')">lowercase</button>
+        <button type="button" onclick="convert('title')">Title Case</button>
+        <button type="button" onclick="convert('sentence')">Sentence case</button>
+      </div>
+      <div class="buttons">
+        <button type="button" class="secondary" onclick="copyText()">Copy text</button>
+        <button type="button" class="secondary" onclick="clearText()">Clear</button>
+      </div>
+      <p class="status" id="status" aria-live="polite">Your converted text will appear above.</p>
+    </section>
+  </main>
+  <footer>© <span id="year"></span> Toolnes. Free online tools.</footer>
+
+  <script>
+    const textArea = document.getElementById('text');
+    const status = document.getElementById('status');
+
+    function convert(type) {
+      const value = textArea.value;
+      if (type === 'upper') {
+        textArea.value = value.toLocaleUpperCase();
+      } else if (type === 'lower') {
+        textArea.value = value.toLocaleLowerCase();
+      } else if (type === 'title') {
+        textArea.value = value.toLocaleLowerCase().replace(/\b(\p{L}|\p{N})/gu, char => char.toLocaleUpperCase());
+      } else if (type === 'sentence') {
+        textArea.value = value.toLocaleLowerCase().replace(/(^\s*\p{L}|[.!?]\s+\p{L})/gu, char => char.toLocaleUpperCase());
+      }
+      status.textContent = 'Text converted successfully.';
+    }
+
+    async function copyText() {
+      try {
+        await navigator.clipboard.writeText(textArea.value);
+        status.textContent = 'Text copied to clipboard.';
+      } catch (error) {
+        textArea.select();
+        status.textContent = 'Select the text and copy it manually.';
+      }
+    }
+
+    function clearText() {
+      textArea.value = '';
+      status.textContent = 'Text cleared.';
+      textArea.focus();
+    }
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
