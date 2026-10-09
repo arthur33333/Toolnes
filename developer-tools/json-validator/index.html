@@ -1,1 +1,281 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Validate JSON online for free. Check JSON syntax, find parsing errors, and copy or download valid JSON with Toolnes.">
+  <meta name="robots" content="index,follow">
+  <title>JSON Validator - Check JSON Syntax Online | Toolnes</title>
+  <link rel="canonical" href="https://toolnes.netlify.app/developer-tools/json-validator/">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f8fafc;
+      color: #172033;
+      line-height: 1.6;
+    }
+    header {
+      background: #fff;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    nav {
+      max-width: 1000px;
+      margin: auto;
+      padding: 17px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    a { color: #4f46e5; text-decoration: none; }
+    .logo { font-size: 25px; font-weight: 800; }
+    main {
+      max-width: 1000px;
+      margin: auto;
+      padding: 38px 22px 60px;
+    }
+    h1 {
+      font-size: clamp(29px, 5vw, 40px);
+      line-height: 1.2;
+      margin: 0 0 12px;
+    }
+    .intro { color: #64748b; margin-bottom: 25px; }
+    .panel, .info {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    label { display: block; font-weight: 700; margin-bottom: 9px; }
+    textarea {
+      width: 100%;
+      min-height: 270px;
+      display: block;
+      padding: 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+      background: #fbfdff;
+      color: #172033;
+      font: 14px/1.6 Consolas, Monaco, monospace;
+      resize: vertical;
+    }
+    textarea:focus {
+      outline: 2px solid #c7d2fe;
+      border-color: #6366f1;
+    }
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 15px 0;
+    }
+    button {
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      padding: 11px 15px;
+      background: #fff;
+      color: #172033;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    button.primary {
+      background: #4f46e5;
+      color: #fff;
+      border-color: #4f46e5;
+    }
+    button:hover { opacity: .88; }
+    .status {
+      padding: 13px;
+      border-radius: 9px;
+      background: #f1f5f9;
+      color: #475569;
+      overflow-wrap: anywhere;
+    }
+    .status.success { background: #ecfdf5; color: #166534; }
+    .status.error { background: #fef2f2; color: #b91c1c; }
+    .info { margin-top: 28px; }
+    .info h2 { margin-top: 0; }
+    .example {
+      font: 14px/1.6 Consolas, Monaco, monospace;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      background: #f8fafc;
+      padding: 14px;
+      border-radius: 8px;
+    }
+    footer {
+      text-align: center;
+      padding: 25px 20px;
+      border-top: 1px solid #e5e7eb;
+      background: #fff;
+      color: #64748b;
+      font-size: 14px;
+    }
+    @media (max-width: 600px) {
+      main { padding: 28px 15px 45px; }
+      .panel, .info { padding: 14px; }
+      textarea { min-height: 220px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="logo" href="/">Toolnes</a>
+      <a href="/developer-tools/">← Developer Tools</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>JSON Validator</h1>
+    <p class="intro">
+      Check JSON syntax online for free. Find parsing errors and confirm
+      that your data is valid before using it in an application or API.
+    </p>
+
+    <section class="panel">
+      <label for="jsonInput">Paste your JSON</label>
+      <textarea id="jsonInput" spellcheck="false" placeholder='Example: {"name":"Toolnes","active":true}'></textarea>
+
+      <div class="buttons">
+        <button class="primary" id="checkButton">Validate JSON</button>
+        <button id="formatButton">Validate & Format</button>
+        <button id="exampleButton">Load Example</button>
+        <button id="clearButton">Clear</button>
+      </div>
+
+      <div id="status" class="status" role="status" aria-live="polite">
+        Enter JSON above and click Validate JSON.
+      </div>
+    </section>
+
+    <section class="panel">
+      <label for="result">Validated result</label>
+      <textarea id="result" spellcheck="false" readonly placeholder="Your validated JSON will appear here."></textarea>
+      <div class="buttons">
+        <button id="copyButton">Copy Result</button>
+        <button id="downloadButton">Download JSON</button>
+      </div>
+    </section>
+
+    <section class="info">
+      <h2>What is JSON validation?</h2>
+      <p>
+        JSON validation checks whether a text string follows the JSON syntax
+        rules. Missing quotes, trailing commas and incorrectly placed brackets
+        can cause JSON parsing errors.
+      </p>
+      <h2>Example of valid JSON</h2>
+      <div class="example">{
+  "name": "Toolnes",
+  "active": true,
+  "features": ["format", "validate"]
+}</div>
+      <p>
+        This tool checks syntax locally in your browser. It does not verify
+        whether your data follows a particular API's business rules.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> Toolnes. All rights reserved.</p>
+    <p><a href="/">Home</a> · <a href="/developer-tools/">Developer Tools</a> · <a href="/text-tools/">Text Tools</a></p>
+  </footer>
+
+  <script>
+    const input = document.getElementById("jsonInput");
+    const result = document.getElementById("result");
+    const status = document.getElementById("status");
+
+    function message(text, type = "") {
+      status.textContent = text;
+      status.className = "status" + (type ? " " + type : "");
+    }
+
+    function validate(format) {
+      const raw = input.value.trim();
+
+      if (!raw) {
+        result.value = "";
+        message("Please enter JSON before validating.", "error");
+        return;
+      }
+
+      try {
+        const parsed = JSON.parse(raw);
+        result.value = format ? JSON.stringify(parsed, null, 2) : raw;
+        message("Valid JSON! No syntax errors were found.", "success");
+      } catch (error) {
+        result.value = "";
+        message("Invalid JSON: " + error.message, "error");
+      }
+    }
+
+    document.getElementById("checkButton").addEventListener("click", () => validate(false));
+    document.getElementById("formatButton").addEventListener("click", () => validate(true));
+
+    document.getElementById("exampleButton").addEventListener("click", () => {
+      input.value = JSON.stringify({
+        name: "Toolnes",
+        active: true,
+        features: ["format", "validate", "download"]
+      }, null, 2);
+      validate(true);
+    });
+
+    document.getElementById("clearButton").addEventListener("click", () => {
+      input.value = "";
+      result.value = "";
+      message("Input and result cleared.");
+      input.focus();
+    });
+
+    document.getElementById("copyButton").addEventListener("click", async () => {
+      if (!result.value) {
+        message("There is no validated result to copy.", "error");
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(result.value);
+        message("Result copied to clipboard.", "success");
+      } catch {
+        result.focus();
+        result.select();
+        const ok = document.execCommand("copy");
+        message(
+          ok ? "Result copied to clipboard." : "Select the result and copy it manually.",
+          ok ? "success" : "error"
+        );
+      }
+    });
+
+    document.getElementById("downloadButton").addEventListener("click", () => {
+      if (!result.value) {
+        message("Validate some JSON before downloading.", "error");
+        return;
+      }
+      const blob = new Blob([result.value], {
+        type: "application/json;charset=utf-8"
+      });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "validated.json";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+      message("Download started.", "success");
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+```
 
