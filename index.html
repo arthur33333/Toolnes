@@ -1,41 +1,63 @@
-```html
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Toolnes offers free online calculators, converters, text tools, puzzles, image tools, PDF tools, KDP publishing tools and more.">
-  <meta name="theme-color" content="#f7f8fc">
 
-  <meta name="google-site-verification" content="CngCRdITQGF-uqgsOLWGIaWpcrL_fG4uiTE-DZU_BnI" />
+  <meta name="description" content="Toolnes offers free online calculators, converters, text tools, puzzles, image tools, PDF tools, KDP publishing tools and more.">
+  <meta name="theme-color" content="#17172f">
+  <meta name="google-site-verification" content="CngCRdITQGF-uqgsOLWGIaWpcrL_fG4uiTE-DZU_BnI">
 
   <title>Toolnes — Free Online Tools</title>
 
   <style>
     :root {
-      --bg: #f7f8fc;
-      --card: #ffffff;
-      --text: #20243a;
-      --muted: #697087;
-      --purple: #6558d3;
-      --border: #e9eaf2;
-      --shadow: 0 8px 28px rgba(35, 39, 75, .06);
+      --bg: #17172f;
+      --surface: #20203e;
+      --card: #242443;
+      --text: #f5f3ff;
+      --muted: #b0b1cf;
+      --purple: #a78bfa;
+      --turquoise: #67e8d4;
+      --pink: #f0abfc;
+      --blue: #93c5fd;
+      --border: #393858;
+      --shadow: 0 12px 35px rgba(0, 0, 0, .18);
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       margin: 0;
-      background: var(--bg);
+      background:
+        radial-gradient(ellipse at 15% 0%, rgba(167, 139, 250, .12), transparent 38%),
+        radial-gradient(ellipse at 90% 25%, rgba(103, 232, 212, .07), transparent 32%),
+        var(--bg);
       color: var(--text);
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Arial, Helvetica, sans-serif;
+      min-height: 100vh;
     }
 
-    a { color: inherit; text-decoration: none; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
     header {
-      background: #fff;
+      background: rgba(23, 23, 47, .92);
       border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(14px);
     }
 
     .nav {
@@ -45,85 +67,156 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      gap: 24px;
     }
 
     .logo {
-      font-size: 27px;
-      font-weight: 800;
-      letter-spacing: -1px;
+      font-size: 28px;
+      font-weight: 850;
+      letter-spacing: -1.2px;
       color: var(--purple);
+      white-space: nowrap;
+    }
+
+    .logo span {
+      color: var(--turquoise);
     }
 
     nav {
       display: flex;
-      gap: 23px;
+      gap: 22px;
       flex-wrap: wrap;
+      align-items: center;
     }
 
     nav a {
-      font-size: 14px;
-      font-weight: 600;
-      color: #51566d;
+      font-size: 13px;
+      font-weight: 650;
+      color: var(--muted);
+      transition: color .2s ease;
     }
 
-    nav a:hover { color: var(--purple); }
+    nav a:hover {
+      color: var(--turquoise);
+    }
 
     main {
       max-width: 1200px;
       margin: auto;
-      padding: 50px 24px 70px;
+      padding: 66px 24px 80px;
     }
 
     .hero {
       text-align: center;
-      margin: 0 auto 42px;
-      max-width: 760px;
+      margin: 0 auto 62px;
+      max-width: 790px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(167, 139, 250, .35);
+      background: rgba(167, 139, 250, .09);
+      color: var(--purple);
+      border-radius: 30px;
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 750;
+      letter-spacing: .6px;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--turquoise);
+      box-shadow: 0 0 12px rgba(103, 232, 212, .6);
     }
 
     .hero h1 {
-      font-size: clamp(32px, 5vw, 48px);
-      letter-spacing: -1.7px;
-      margin: 0 0 15px;
+      font-size: clamp(36px, 5.5vw, 60px);
+      line-height: 1.12;
+      letter-spacing: -2.5px;
+      margin: 0 0 20px;
+      font-weight: 850;
     }
 
-    .hero h1 span { color: var(--purple); }
+    .hero h1 span {
+      background: linear-gradient(
+        100deg,
+        var(--purple) 5%,
+        var(--pink) 52%,
+        var(--turquoise) 100%
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
 
     .hero p {
       font-size: 17px;
       color: var(--muted);
-      line-height: 1.7;
-      margin: 0;
+      line-height: 1.8;
+      margin: 0 auto;
+      max-width: 600px;
     }
 
     .search-wrap {
-      max-width: 620px;
-      margin: 27px auto 0;
+      max-width: 610px;
+      margin: 32px auto 0;
+      position: relative;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 19px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 19px;
+      pointer-events: none;
     }
 
     #search {
       width: 100%;
-      padding: 16px 18px;
-      border: 1px solid #dedfed;
-      border-radius: 13px;
-      background: white;
+      padding: 18px 20px 18px 52px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: var(--surface);
+      color: var(--text);
       font-size: 15px;
       outline: none;
       box-shadow: var(--shadow);
+      transition: border-color .2s, box-shadow .2s;
     }
 
-    #search:focus { border-color: var(--purple); }
+    #search::placeholder {
+      color: #9293b5;
+    }
+
+    #search:focus {
+      border-color: var(--purple);
+      box-shadow: 0 0 0 4px rgba(167, 139, 250, .12);
+    }
+
+    .section-heading {
+      margin-bottom: 30px;
+    }
 
     .section-title {
-      font-size: 25px;
+      font-size: clamp(25px, 3vw, 32px);
       margin: 0 0 10px;
-      letter-spacing: -.5px;
+      letter-spacing: -.8px;
     }
 
     .section-description {
       color: var(--muted);
-      margin: 0 0 24px;
-      line-height: 1.6;
+      margin: 0;
+      line-height: 1.7;
+      font-size: 15px;
     }
 
     .cards {
@@ -133,85 +226,219 @@
     }
 
     .category-card {
-      display: block;
-      background: var(--card);
+      --accent: var(--purple);
+
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      min-width: 0;
+      min-height: 248px;
+      background: linear-gradient(
+        145deg,
+        rgba(255, 255, 255, .035),
+        transparent 65%
+      ), var(--card);
       border: 1px solid var(--border);
-      border-radius: 18px;
+      border-radius: 20px;
       padding: 25px;
       box-shadow: var(--shadow);
-      transition: transform .2s, border-color .2s;
+      position: relative;
+      overflow: hidden;
+      transition:
+        transform .22s ease,
+        border-color .22s ease,
+        background .22s ease,
+        box-shadow .22s ease;
+    }
+
+    .category-card::before {
+      content: "";
+      position: absolute;
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      right: -70px;
+      top: -75px;
+      background: var(--accent);
+      opacity: .07;
+      filter: blur(4px);
+      transition: opacity .22s ease;
+      pointer-events: none;
     }
 
     .category-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--purple);
+      transform: translateY(-5px);
+      border-color: var(--accent);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, .24);
+    }
+
+    .category-card:hover::before {
+      opacity: .17;
+    }
+
+    .category-card:focus-visible {
+      outline: 2px solid var(--turquoise);
+      outline-offset: 4px;
+    }
+
+    .category-card:nth-child(4n + 1) {
+      --accent: var(--purple);
+    }
+
+    .category-card:nth-child(4n + 2) {
+      --accent: var(--turquoise);
+    }
+
+    .category-card:nth-child(4n + 3) {
+      --accent: var(--pink);
+    }
+
+    .category-card:nth-child(4n) {
+      --accent: var(--blue);
     }
 
     .card-icon {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 52px;
-      height: 52px;
-      background: #f0eeff;
-      border-radius: 14px;
-      font-size: 26px;
-      margin-bottom: 18px;
+      width: 56px;
+      height: 56px;
+      background: color-mix(in srgb, var(--accent) 13%, transparent);
+      border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
+      border-radius: 16px;
+      font-size: 27px;
+      margin-bottom: 21px;
     }
 
     .category-card h3 {
       font-size: 19px;
+      line-height: 1.35;
       margin: 0 0 10px;
+      font-weight: 750;
     }
 
     .category-card p {
       color: var(--muted);
       font-size: 14px;
-      line-height: 1.65;
+      line-height: 1.75;
       margin: 0;
     }
 
     .card-link {
-      display: inline-block;
-      margin-top: 18px;
-      color: var(--purple);
-      font-size: 14px;
-      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: auto;
+      padding-top: 22px;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 750;
+      transition: gap .2s ease;
+    }
+
+    .card-link::after {
+      content: "→";
+      font-size: 17px;
+    }
+
+    .category-card:hover .card-link {
+      gap: 13px;
     }
 
     #no-results {
       display: none;
       color: var(--muted);
       text-align: center;
-      padding: 30px 0;
+      padding: 35px 0;
     }
 
     footer {
       text-align: center;
-      padding: 25px;
+      padding: 28px 20px;
       border-top: 1px solid var(--border);
       color: var(--muted);
       font-size: 13px;
-      background: white;
+      background: rgba(18, 18, 39, .55);
     }
 
-    @media (max-width: 800px) {
-      .cards {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
+    footer p {
+      margin: 0;
+      line-height: 1.8;
+    }
 
+    @media (max-width: 900px) {
       .nav {
         align-items: flex-start;
         flex-direction: column;
+        gap: 17px;
+      }
+
+      nav {
+        gap: 14px 20px;
+      }
+
+      .cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
 
-    @media (max-width: 520px) {
-      .cards { grid-template-columns: 1fr; }
+    @media (max-width: 560px) {
+      .nav {
+        padding: 16px 18px;
+      }
 
-      main { padding: 35px 18px 50px; }
+      nav {
+        gap: 12px 16px;
+      }
 
-      .category-card { padding: 22px; }
+      nav a {
+        font-size: 12px;
+      }
+
+      main {
+        padding: 45px 18px 55px;
+      }
+
+      .hero {
+        margin-bottom: 45px;
+      }
+
+      .hero h1 {
+        letter-spacing: -1.5px;
+      }
+
+      .hero p {
+        font-size: 15px;
+      }
+
+      #search {
+        padding-top: 16px;
+        padding-bottom: 16px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .category-card {
+        min-height: 220px;
+        padding: 23px;
+      }
+
+      .section-heading {
+        margin-bottom: 24px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+      }
     }
   </style>
 </head>
@@ -219,9 +446,9 @@
 <body>
   <header>
     <div class="nav">
-      <a class="logo" href="/">Toolnes</a>
+      <a class="logo" href="/" aria-label="Toolnes home">Tool<span>nes</span></a>
 
-      <nav>
+      <nav aria-label="Main navigation">
         <a href="/">Home</a>
         <a href="/text-tools/">Text Tools</a>
         <a href="/calculators/">Calculators</a>
@@ -233,107 +460,119 @@
 
   <main>
     <section class="hero">
-      <h1>Free Online <span>Tools &amp; Utilities</span></h1>
-      <p>Fast, simple, and free web tools to help with your daily tasks.</p>
+      <div class="eyebrow">Free tools for everyone</div>
+
+      <h1>Free Online<br><span>Tools &amp; Utilities</span></h1>
+
+      <p>
+        Fast, simple, and free web tools to help you get things done.
+        Find the right tool for your everyday tasks.
+      </p>
 
       <div class="search-wrap">
+        <span class="search-icon" aria-hidden="true">⌕</span>
         <input
           type="search"
           id="search"
           placeholder="Search for a tool or category..."
           aria-label="Search tools and categories"
+          autocomplete="off"
         >
       </div>
     </section>
 
     <section aria-labelledby="categories-title">
-      <h2 class="section-title" id="categories-title">Explore Our Tools</h2>
-      <p class="section-description">
-        Choose a category to find free tools for your everyday tasks.
-      </p>
+      <div class="section-heading">
+        <h2 class="section-title" id="categories-title">Explore Our Tools</h2>
+        <p class="section-description">
+          Everything you need, organized into simple and useful categories.
+        </p>
+      </div>
 
       <div class="cards" id="category-cards">
 
         <a class="category-card" href="/calculators/" data-search="calculator calculators math percentage age date time">
-          <div class="card-icon">🧮</div>
+          <div class="card-icon" aria-hidden="true">🧮</div>
           <h3>Calculators</h3>
           <p>Calculate percentages, dates, ages and other everyday values quickly and easily.</p>
-          <span class="card-link">Explore calculators →</span>
+          <span class="card-link">Explore calculators</span>
         </a>
 
         <a class="category-card" href="/converters/" data-search="converters conversion units measurements">
-          <div class="card-icon">🔄</div>
+          <div class="card-icon" aria-hidden="true">🔄</div>
           <h3>Converters</h3>
           <p>Convert common values and measurements with convenient online tools.</p>
-          <span class="card-link">Explore converters →</span>
+          <span class="card-link">Explore converters</span>
         </a>
 
         <a class="category-card" href="/text-tools/" data-search="text tools word counter character counter case converter slug">
-          <div class="card-icon">📝</div>
+          <div class="card-icon" aria-hidden="true">📝</div>
           <h3>Text Tools</h3>
           <p>Count words, count characters, convert text case and create clean URL slugs.</p>
-          <span class="card-link">Explore text tools →</span>
+          <span class="card-link">Explore text tools</span>
         </a>
 
         <a class="category-card" href="/developer-tools/" data-search="developer tools coding json html css programming">
-          <div class="card-icon">💻</div>
+          <div class="card-icon" aria-hidden="true">💻</div>
           <h3>Developer Tools</h3>
           <p>Useful online helpers for common coding, formatting and development tasks.</p>
-          <span class="card-link">Explore developer tools →</span>
+          <span class="card-link">Explore developer tools</span>
         </a>
 
         <a class="category-card" href="/pdf-tools/" data-search="pdf tools documents files pdf">
-          <div class="card-icon">📄</div>
+          <div class="card-icon" aria-hidden="true">📄</div>
           <h3>PDF Tools</h3>
           <p>Discover practical tools to help manage and work with PDF documents.</p>
-          <span class="card-link">Explore PDF tools →</span>
+          <span class="card-link">Explore PDF tools</span>
         </a>
 
         <a class="category-card" href="/image-tools/" data-search="image tools pictures photos image">
-          <div class="card-icon">🖼️</div>
+          <div class="card-icon" aria-hidden="true">🖼️</div>
           <h3>Image Tools</h3>
           <p>Find handy tools for common image and picture tasks.</p>
-          <span class="card-link">Explore image tools →</span>
+          <span class="card-link">Explore image tools</span>
         </a>
 
         <a class="category-card" href="/utilities/" data-search="utilities everyday tools handy">
-          <div class="card-icon">🛠️</div>
+          <div class="card-icon" aria-hidden="true">🛠️</div>
           <h3>Utilities</h3>
           <p>Simple online utilities that help you complete everyday tasks.</p>
-          <span class="card-link">Explore utilities →</span>
+          <span class="card-link">Explore utilities</span>
         </a>
 
         <a class="category-card" href="/finance/" data-search="finance financial calculators savings budget money">
-          <div class="card-icon">💰</div>
+          <div class="card-icon" aria-hidden="true">💰</div>
           <h3>Finance Tools</h3>
           <p>Explore helpful calculators for money, budgeting and financial planning.</p>
-          <span class="card-link">Explore finance tools →</span>
+          <span class="card-link">Explore finance tools</span>
         </a>
 
         <a class="category-card" href="/kdp/" data-search="kdp publishing kindle amazon books authors paperback">
-          <div class="card-icon">📚</div>
+          <div class="card-icon" aria-hidden="true">📚</div>
           <h3>KDP &amp; Publishing</h3>
           <p>Tools for authors planning book layouts, page counts, royalties and publishing projects.</p>
-          <span class="card-link">Explore publishing tools →</span>
+          <span class="card-link">Explore publishing tools</span>
         </a>
 
         <a class="category-card" href="/kdp/generator/" data-search="kdp generator book title description keywords amazon kindle author publishing">
-          <div class="card-icon">✍️</div>
+          <div class="card-icon" aria-hidden="true">✍️</div>
           <h3>KDP Generator</h3>
           <p>Generate book titles, descriptions and keyword ideas to help prepare your next KDP publishing project.</p>
-          <span class="card-link">Open KDP Generator →</span>
+          <span class="card-link">Open KDP Generator</span>
         </a>
 
         <a class="category-card" href="/puzzles/" data-search="puzzles games brain teasers logic">
-          <div class="card-icon">🧩</div>
+          <div class="card-icon" aria-hidden="true">🧩</div>
           <h3>Puzzles &amp; Games</h3>
           <p>Try fun puzzles and brain challenges to test your logic and attention.</p>
-          <span class="card-link">Play puzzles →</span>
+          <span class="card-link">Play puzzles</span>
         </a>
 
       </div>
 
-      <p id="no-results">No matching categories found. Try another search.</p>
+      <p id="no-results" role="status">
+        No matching categories found. Try another search.
+      </p>
     </section>
   </main>
 
@@ -355,9 +594,12 @@
           card.innerText + " " + (card.dataset.search || "");
 
         const matches = searchableText.toLowerCase().includes(query);
+
         card.style.display = matches ? "" : "none";
 
-        if (matches) visibleCards++;
+        if (matches) {
+          visibleCards++;
+        }
       });
 
       noResults.style.display = visibleCards === 0 ? "block" : "none";
@@ -365,4 +607,3 @@
   </script>
 </body>
 </html>
-```
