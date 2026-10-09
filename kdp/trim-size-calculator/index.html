@@ -1,1 +1,347 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Calculate paperback trim sizes in inches and millimeters for your self-publishing project. Explore common book sizes and custom dimensions with Toolnes.">
+  <meta name="robots" content="index, follow">
+  <title>KDP Trim Size Calculator - Toolnes</title>
+  <link rel="canonical" href="https://toolnes.netlify.app/kdp/trim-size-calculator/">
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --text: #172033;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --bg: #f8fafc;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    header {
+      background: white;
+      border-bottom: 1px solid var(--border);
+      padding: 18px 20px;
+    }
+    nav {
+      max-width: 1050px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .brand {
+      color: var(--primary);
+      font-size: 1.45rem;
+      font-weight: 800;
+      text-decoration: none;
+    }
+    nav .links { display: flex; flex-wrap: wrap; gap: 14px; }
+    nav .links a { color: #475569; text-decoration: none; font-size: .94rem; }
+    main { width: min(850px, calc(100% - 32px)); margin: 42px auto 60px; }
+    .hero { text-align: center; margin-bottom: 28px; }
+    h1 { font-size: clamp(1.9rem, 5vw, 2.6rem); margin: 0 0 10px; }
+    .hero p { color: var(--muted); max-width: 680px; margin: auto; }
+    .panel, .content {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: clamp(20px, 4vw, 30px);
+      box-shadow: 0 8px 25px rgba(15, 23, 42, .04);
+    }
+    .field { margin-bottom: 20px; }
+    label { display: block; font-weight: 700; margin-bottom: 7px; }
+    input, select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+      font: inherit;
+      background: white;
+    }
+    input:focus-visible, select:focus-visible, button:focus-visible {
+      outline: 3px solid #a5b4fc;
+      outline-offset: 2px;
+    }
+    .dimensions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+    button {
+      border: 0;
+      border-radius: 9px;
+      padding: 12px 17px;
+      font-weight: 700;
+      font-size: .96rem;
+      cursor: pointer;
+    }
+    .primary { background: var(--primary); color: white; }
+    .secondary { background: #eef2ff; color: #3730a3; }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+    .result {
+      margin-top: 24px;
+      padding: 22px;
+      background: #eef2ff;
+      border-radius: 12px;
+    }
+    .result h2 { font-size: 1.2rem; margin: 0 0 15px; }
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .result-card {
+      background: white;
+      border: 1px solid #dbe3ff;
+      border-radius: 10px;
+      padding: 15px;
+    }
+    .result-card span { display: block; color: var(--muted); font-size: .9rem; }
+    .result-card strong { font-size: 1.35rem; overflow-wrap: anywhere; }
+    #message { min-height: 24px; color: #b91c1c; margin-top: 12px; }
+    .hint { color: var(--muted); font-size: .9rem; }
+    .content { margin-top: 28px; }
+    .content h2 { font-size: 1.3rem; margin-top: 0; }
+    .content p, .content li { color: #475569; }
+    table { width: 100%; border-collapse: collapse; margin-top: 14px; }
+    th, td { padding: 11px 9px; border-bottom: 1px solid var(--border); text-align: left; }
+    th { color: var(--muted); font-size: .9rem; }
+    footer {
+      background: white;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 28px 16px;
+      color: var(--muted);
+    }
+    footer a { color: var(--primary); text-decoration: none; margin: 0 8px; }
+    @media (max-width: 600px) {
+      nav { justify-content: center; }
+      nav .links { justify-content: center; gap: 10px; }
+      .dimensions, .result-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <nav>
+    <a class="brand" href="/">Toolnes</a>
+    <div class="links">
+      <a href="/">Home</a>
+      <a href="/pdf-tools/">PDF Tools</a>
+      <a href="/finance/">Finance</a>
+      <a href="/utilities/">Utilities</a>
+      <a href="/kdp/">KDP Tools</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <h1>KDP Trim Size Calculator</h1>
+    <p>Choose a common book trim size or enter custom dimensions. Convert inches to millimeters and plan the finished size of your paperback interior.</p>
+  </section>
+
+  <section class="panel">
+    <div class="field">
+      <label for="preset">Book trim size</label>
+      <select id="preset">
+        <option value="6x9">6 × 9 in — US Trade</option>
+        <option value="5x8">5 × 8 in — Small Trade</option>
+        <option value="5.5x8.5">5.5 × 8.5 in — Digest</option>
+        <option value="7x10">7 × 10 in</option>
+        <option value="8x10">8 × 10 in</option>
+        <option value="8.5x11">8.5 × 11 in — Letter</option>
+        <option value="8.25x11">8.25 × 11 in</option>
+        <option value="custom">Custom dimensions</option>
+      </select>
+      <p class="hint">Availability depends on book type, printing options, and the current KDP specifications.</p>
+    </div>
+
+    <div class="dimensions">
+      <div class="field">
+        <label for="width">Width (inches)</label>
+        <input id="width" type="number" min="1" max="30" step="0.01" value="6">
+      </div>
+      <div class="field">
+        <label for="height">Height (inches)</label>
+        <input id="height" type="number" min="1" max="30" step="0.01" value="9">
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="primary" id="calculateBtn" type="button">Calculate Dimensions</button>
+      <button class="secondary" id="swapBtn" type="button">Swap Width & Height</button>
+      <button class="secondary" id="copyBtn" type="button">Copy Results</button>
+    </div>
+
+    <div id="message" role="status" aria-live="polite"></div>
+
+    <div class="result" aria-live="polite">
+      <h2>Your Finished Book Size</h2>
+      <div class="result-grid">
+        <div class="result-card">
+          <span>Width</span>
+          <strong id="widthIn">6 in</strong>
+          <span id="widthMm">152.40 mm</span>
+        </div>
+        <div class="result-card">
+          <span>Height</span>
+          <strong id="heightIn">9 in</strong>
+          <span id="heightMm">228.60 mm</span>
+        </div>
+      </div>
+      <p id="area" class="hint">Trim area: 54 square inches</p>
+    </div>
+  </section>
+
+  <section class="content">
+    <h2>Common paperback trim sizes</h2>
+    <div style="overflow-x:auto">
+      <table>
+        <thead>
+          <tr><th>Format</th><th>Inches</th><th>Millimeters</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Small trade</td><td>5 × 8</td><td>127 × 203.2</td></tr>
+          <tr><td>Digest</td><td>5.5 × 8.5</td><td>139.7 × 215.9</td></tr>
+          <tr><td>US trade</td><td>6 × 9</td><td>152.4 × 228.6</td></tr>
+          <tr><td>Large format</td><td>7 × 10</td><td>177.8 × 254</td></tr>
+          <tr><td>Letter</td><td>8.5 × 11</td><td>215.9 × 279.4</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>What is trim size?</h2>
+    <p>Trim size is the final width and height of a printed book after its pages have been cut to size. It affects the layout of your interior, the number of words that fit on a page, and the dimensions of your cover file.</p>
+
+    <h2>Important before publishing</h2>
+    <ul>
+      <li>Confirm that your selected size is supported for your book's format and marketplace.</li>
+      <li>Set up the interior PDF using the correct page dimensions and margins.</li>
+      <li>Calculate the full cover separately; its dimensions also depend on spine width, bleed, and page count.</li>
+    </ul>
+    <p class="hint">This calculator provides dimension conversions and planning estimates. It does not replace Amazon KDP's current print specifications.</p>
+  </section>
+</main>
+
+<footer>
+  <p>Free online tools for everyday tasks.</p>
+  <a href="/about/">About</a>
+  <a href="/contact/">Contact</a>
+  <a href="/privacy-policy/">Privacy Policy</a>
+  <a href="/terms/">Terms</a>
+  <p>© <span id="year"></span> Toolnes</p>
+</footer>
+
+<script>
+(() => {
+  const preset = document.getElementById("preset");
+  const widthField = document.getElementById("width");
+  const heightField = document.getElementById("height");
+  const message = document.getElementById("message");
+
+  const sizes = {
+    "6x9": [6, 9],
+    "5x8": [5, 8],
+    "5.5x8.5": [5.5, 8.5],
+    "7x10": [7, 10],
+    "8x10": [8, 10],
+    "8.5x11": [8.5, 11],
+    "8.25x11": [8.25, 11]
+  };
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  function formatNumber(value, digits = 2) {
+    return Number(value.toFixed(digits)).toLocaleString("en-US", {
+      maximumFractionDigits: digits
+    });
+  }
+
+  function calculate() {
+    message.textContent = "";
+
+    const width = Number(widthField.value);
+    const height = Number(heightField.value);
+
+    if (!Number.isFinite(width) || !Number.isFinite(height) ||
+        width < 1 || height < 1 || width > 30 || height > 30) {
+      message.textContent = "Enter a width and height between 1 and 30 inches.";
+      return false;
+    }
+
+    document.getElementById("widthIn").textContent =
+      formatNumber(width) + " in";
+    document.getElementById("heightIn").textContent =
+      formatNumber(height) + " in";
+    document.getElementById("widthMm").textContent =
+      formatNumber(width * 25.4) + " mm";
+    document.getElementById("heightMm").textContent =
+      formatNumber(height * 25.4) + " mm";
+    document.getElementById("area").textContent =
+      "Trim area: " + formatNumber(width * height) + " square inches (" +
+      formatNumber(width * height * 645.16) + " square millimeters)";
+
+    return true;
+  }
+
+  preset.addEventListener("change", () => {
+    if (sizes[preset.value]) {
+      widthField.value = sizes[preset.value][0];
+      heightField.value = sizes[preset.value][1];
+    }
+    calculate();
+  });
+
+  [widthField, heightField].forEach(field => {
+    field.addEventListener("input", () => {
+      preset.value = "custom";
+      calculate();
+    });
+  });
+
+  document.getElementById("calculateBtn").addEventListener("click", calculate);
+
+  document.getElementById("swapBtn").addEventListener("click", () => {
+    const oldWidth = widthField.value;
+    widthField.value = heightField.value;
+    heightField.value = oldWidth;
+    preset.value = "custom";
+    calculate();
+  });
+
+  document.getElementById("copyBtn").addEventListener("click", async () => {
+    if (!calculate()) return;
+
+    const text = [
+      "KDP Trim Size",
+      "Width: " + widthField.value + " inches (" +
+        formatNumber(Number(widthField.value) * 25.4) + " mm)",
+      "Height: " + heightField.value + " inches (" +
+        formatNumber(Number(heightField.value) * 25.4) + " mm)"
+    ].join("\n");
+
+    try {
+      await navigator.clipboard.writeText(text);
+      message.textContent = "Dimensions copied to clipboard.";
+    } catch {
+      message.textContent = "Copy was blocked by the browser. Please copy the displayed dimensions manually.";
+    }
+  });
+
+  calculate();
+})();
+</script>
+</body>
+</html>
+```
 
