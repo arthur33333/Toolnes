@@ -1,1 +1,112 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Count words, characters, sentences and paragraphs online for free with Toolnes Word Counter.">
+  <title>Word Counter - Toolnes</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Arial, sans-serif; background: #f7f8fc; color: #20243a; }
+    header { background: white; border-bottom: 1px solid #e8eaf2; padding: 18px 20px; }
+    .header-inner { max-width: 900px; margin: auto; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .logo { color: #6558d3; font-size: 25px; font-weight: bold; text-decoration: none; }
+    a { color: #6558d3; }
+    main { max-width: 900px; margin: 40px auto; padding: 0 18px; }
+    h1 { margin-bottom: 10px; font-size: 32px; }
+    .intro { color: #656b80; line-height: 1.6; }
+    .panel { margin-top: 25px; padding: 24px; background: white; border: 1px solid #e7e8f0; border-radius: 16px; box-shadow: 0 8px 28px #20243a0b; }
+    textarea { width: 100%; min-height: 260px; padding: 15px; border: 1px solid #d9dce8; border-radius: 10px; font: 16px/1.6 Arial, sans-serif; resize: vertical; }
+    textarea:focus { outline: 2px solid #d2cdfb; border-color: #6558d3; }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 18px; }
+    .stat { background: #f4f2ff; border-radius: 11px; padding: 16px 10px; text-align: center; }
+    .number { color: #5145b5; font-size: 25px; font-weight: bold; }
+    .label { margin-top: 6px; color: #656b80; font-size: 13px; }
+    .buttons { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+    button { border: 0; border-radius: 9px; padding: 12px 17px; font-size: 15px; font-weight: bold; cursor: pointer; }
+    .primary { background: #6558d3; color: white; }
+    .secondary { background: #efedff; color: #5145b5; }
+    footer { text-align: center; color: #777d90; padding: 25px 15px; font-size: 14px; }
+    @media (max-width: 600px) { .stats { grid-template-columns: repeat(2, 1fr); } h1 { font-size: 28px; } .panel { padding: 17px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="/">Toolnes</a>
+      <a href="/text-tools/">← All Text Tools</a>
+    </div>
+  </header>
+
+  <main>
+    <h1>Word Counter</h1>
+    <p class="intro">Count words, characters, sentences and paragraphs in your text instantly.</p>
+
+    <section class="panel">
+      <label for="text">Enter or paste your text</label>
+      <textarea id="text" placeholder="Start typing or paste your text here..."></textarea>
+
+      <div class="stats" aria-live="polite">
+        <div class="stat"><div class="number" id="words">0</div><div class="label">Words</div></div>
+        <div class="stat"><div class="number" id="characters">0</div><div class="label">Characters</div></div>
+        <div class="stat"><div class="number" id="sentences">0</div><div class="label">Sentences</div></div>
+        <div class="stat"><div class="number" id="paragraphs">0</div><div class="label">Paragraphs</div></div>
+      </div>
+
+      <div class="buttons">
+        <button class="primary" id="copy" type="button">Copy text</button>
+        <button class="secondary" id="clear" type="button">Clear</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>© <span id="year"></span> Toolnes. Free online tools.</footer>
+
+  <script>
+    const text = document.getElementById("text");
+
+    function updateStats() {
+      const value = text.value;
+      const trimmed = value.trim();
+
+      const words = trimmed ? (trimmed.match(/\S+/g) || []).length : 0;
+      const sentences = trimmed
+        ? (trimmed.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [])
+            .filter(s => s.trim().length > 0).length
+        : 0;
+      const paragraphs = trimmed
+        ? trimmed.split(/\n\s*\n/).filter(p => p.trim()).length
+        : 0;
+
+      document.getElementById("words").textContent = words;
+      document.getElementById("characters").textContent = value.length;
+      document.getElementById("sentences").textContent = sentences;
+      document.getElementById("paragraphs").textContent = paragraphs;
+    }
+
+    text.addEventListener("input", updateStats);
+
+    document.getElementById("clear").addEventListener("click", () => {
+      text.value = "";
+      updateStats();
+      text.focus();
+    });
+
+    document.getElementById("copy").addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(text.value);
+        document.getElementById("copy").textContent = "Copied!";
+        setTimeout(() => {
+          document.getElementById("copy").textContent = "Copy text";
+        }, 1500);
+      } catch {
+        alert("Copy failed. Please select and copy the text manually.");
+      }
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+    updateStats();
+  </script>
+</body>
+</html>
