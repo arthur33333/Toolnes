@@ -1,1 +1,394 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Convert Unix timestamps to readable dates and dates to Unix timestamps. Free online timestamp converter by Toolnes.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://toolnes.netlify.app/developer-tools/timestamp-converter/">
+  <title>Unix Timestamp Converter - Toolnes</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #172033;
+      line-height: 1.6;
+    }
+    header {
+      background: #fff;
+      border-bottom: 1px solid #e5e9f2;
+      padding: 18px 20px;
+    }
+    .nav {
+      max-width: 1000px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .logo {
+      font-size: 25px;
+      font-weight: 800;
+      color: #2563eb;
+      text-decoration: none;
+    }
+    nav a {
+      color: #475569;
+      text-decoration: none;
+      margin-left: 14px;
+      font-size: 14px;
+    }
+    main {
+      max-width: 850px;
+      margin: 40px auto;
+      padding: 0 18px;
+    }
+    .card {
+      background: #fff;
+      border: 1px solid #e5e9f2;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 8px 28px rgba(15, 23, 42, .04);
+    }
+    h1 { margin-top: 0; font-size: 32px; line-height: 1.2; }
+    h2 { margin-top: 30px; font-size: 22px; }
+    h3 { font-size: 17px; margin-bottom: 8px; }
+    .intro { color: #64748b; }
+    .section {
+      border: 1px solid #e5e9f2;
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 22px;
+    }
+    label {
+      display: block;
+      font-weight: 700;
+      margin: 15px 0 7px;
+    }
+    input, select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+      font: inherit;
+      background: #fff;
+      color: #172033;
+    }
+    button {
+      border: 0;
+      border-radius: 9px;
+      padding: 12px 17px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      background: #2563eb;
+      color: #fff;
+    }
+    button.secondary { background: #e8eef8; color: #172033; }
+    button:hover { opacity: .88; }
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    .result {
+      background: #f8fafc;
+      border: 1px solid #e5e9f2;
+      border-radius: 9px;
+      padding: 14px;
+      margin-top: 14px;
+      overflow-wrap: anywhere;
+    }
+    .result strong { display: block; margin-bottom: 4px; }
+    .result-value {
+      font-family: Consolas, monospace;
+      font-size: 15px;
+    }
+    .message { min-height: 24px; margin-top: 10px; font-size: 14px; }
+    .error { color: #b91c1c; }
+    .success { color: #166534; }
+    .note {
+      background: #eff6ff;
+      border-left: 4px solid #2563eb;
+      padding: 12px 15px;
+      border-radius: 5px;
+      color: #334155;
+      font-size: 14px;
+    }
+    .links { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 25px; }
+    .links a { color: #2563eb; text-decoration: none; }
+    footer { text-align: center; padding: 25px; color: #64748b; font-size: 13px; }
+    @media (max-width: 600px) {
+      main { margin: 25px auto; }
+      .card { padding: 20px; }
+      h1 { font-size: 27px; }
+      nav a { margin-left: 7px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <a class="logo" href="/">Toolnes</a>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/text-tools/">Text Tools</a>
+        <a href="/pdf-tools/">PDF Tools</a>
+        <a href="/developer-tools/">Developer Tools</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="card">
+      <h1>Unix Timestamp Converter</h1>
+      <p class="intro">
+        Convert Unix timestamps to readable dates, or convert dates into
+        Unix timestamps in seconds and milliseconds.
+      </p>
+
+      <p class="note">
+        Unix timestamps count the time elapsed since January 1, 1970 at
+        00:00:00 UTC. Timestamps in seconds usually have 10 digits;
+        timestamps in milliseconds usually have 13 digits.
+      </p>
+
+      <section class="section">
+        <h2>Timestamp to Date</h2>
+        <label for="timestampInput">Unix timestamp</label>
+        <input id="timestampInput" type="text" inputmode="decimal" placeholder="Example: 1700000000">
+
+        <label for="timestampUnit">Timestamp unit</label>
+        <select id="timestampUnit">
+          <option value="auto">Auto-detect</option>
+          <option value="seconds">Seconds</option>
+          <option value="milliseconds">Milliseconds</option>
+        </select>
+
+        <div class="buttons">
+          <button id="convertToDate" type="button">Convert to Date</button>
+          <button id="nowTimestamp" class="secondary" type="button">Use Current Time</button>
+        </div>
+
+        <div id="dateResults" aria-live="polite"></div>
+        <p id="dateStatus" class="message" role="status"></p>
+      </section>
+
+      <section class="section">
+        <h2>Date to Timestamp</h2>
+        <label for="dateInput">Date and time</label>
+        <input id="dateInput" type="datetime-local" step="1">
+
+        <p class="note">
+          The date above is interpreted in your browser's local time zone.
+        </p>
+
+        <div class="buttons">
+          <button id="convertToTimestamp" type="button">Convert to Timestamp</button>
+          <button id="nowDate" class="secondary" type="button">Use Current Date</button>
+        </div>
+
+        <div id="timestampResults" aria-live="polite"></div>
+        <p id="timestampStatus" class="message" role="status"></p>
+      </section>
+
+      <h2>What is a Unix timestamp?</h2>
+      <p>
+        A Unix timestamp is a numeric representation of a point in time.
+        It is widely used in software, databases, APIs, and log files.
+        Unix timestamps are conventionally based on UTC, so the same timestamp
+        represents the same instant around the world.
+      </p>
+
+      <h2>Seconds vs. milliseconds</h2>
+      <ul>
+        <li><strong>Seconds:</strong> commonly a 10-digit number, such as 1700000000.</li>
+        <li><strong>Milliseconds:</strong> commonly a 13-digit number, such as 1700000000000.</li>
+      </ul>
+
+      <div class="links">
+        <a href="/developer-tools/">← All Developer Tools</a>
+        <a href="/developer-tools/json-formatter/">JSON Formatter</a>
+        <a href="/developer-tools/regex-tester/">Regex Tester</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>© 2026 Toolnes. Free online tools.</footer>
+
+  <script>
+    const timestampInput = document.getElementById("timestampInput");
+    const timestampUnit = document.getElementById("timestampUnit");
+    const dateResults = document.getElementById("dateResults");
+    const dateStatus = document.getElementById("dateStatus");
+    const dateInput = document.getElementById("dateInput");
+    const timestampResults = document.getElementById("timestampResults");
+    const timestampStatus = document.getElementById("timestampStatus");
+
+    function formatDateTimeLocal(date) {
+      const pad = number => String(number).padStart(2, "0");
+      return date.getFullYear() + "-" +
+        pad(date.getMonth() + 1) + "-" +
+        pad(date.getDate()) + "T" +
+        pad(date.getHours()) + ":" +
+        pad(date.getMinutes()) + ":" +
+        pad(date.getSeconds());
+    }
+
+    function createResult(label, value, copyValue) {
+      const box = document.createElement("div");
+      box.className = "result";
+
+      const title = document.createElement("strong");
+      title.textContent = label;
+
+      const valueElement = document.createElement("div");
+      valueElement.className = "result-value";
+      valueElement.textContent = value;
+
+      const copyButton = document.createElement("button");
+      copyButton.type = "button";
+      copyButton.className = "secondary";
+      copyButton.style.marginTop = "10px";
+      copyButton.textContent = "Copy";
+      copyButton.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(String(copyValue));
+          copyButton.textContent = "Copied!";
+        } catch (error) {
+          const helper = document.createElement("textarea");
+          helper.value = String(copyValue);
+          helper.style.position = "fixed";
+          helper.style.opacity = "0";
+          document.body.appendChild(helper);
+          helper.select();
+
+          try {
+            const copied = document.execCommand("copy");
+            copyButton.textContent = copied ? "Copied!" : "Select and copy manually";
+          } catch (copyError) {
+            copyButton.textContent = "Select and copy manually";
+          }
+
+          helper.remove();
+        }
+      });
+
+      box.append(title, valueElement, copyButton);
+      return box;
+    }
+
+    function convertTimestamp() {
+      dateResults.replaceChildren();
+      dateStatus.className = "message";
+
+      const raw = timestampInput.value.trim();
+
+      if (!raw || !/^-?\d+(\.\d+)?$/.test(raw)) {
+        dateStatus.className = "message error";
+        dateStatus.textContent = "Enter a valid numeric timestamp.";
+        return;
+      }
+
+      const number = Number(raw);
+      let unit = timestampUnit.value;
+
+      if (unit === "auto") {
+        unit = Math.abs(number) >= 1e11 ? "milliseconds" : "seconds";
+      }
+
+      const milliseconds = unit === "seconds" ? number * 1000 : number;
+
+      if (!Number.isFinite(milliseconds) || Math.abs(milliseconds) > 8.64e15) {
+        dateStatus.className = "message error";
+        dateStatus.textContent = "This timestamp is outside the supported date range.";
+        return;
+      }
+
+      const date = new Date(milliseconds);
+
+      if (Number.isNaN(date.getTime())) {
+        dateStatus.className = "message error";
+        dateStatus.textContent = "Unable to convert this timestamp.";
+        return;
+      }
+
+      const localDate = date.toLocaleString(undefined, {
+        dateStyle: "full",
+        timeStyle: "long"
+      });
+
+      dateResults.append(
+        createResult("UTC date and time", date.toISOString(), date.toISOString()),
+        createResult("Local date and time", localDate, localDate),
+        createResult("Timestamp in seconds", String(Math.floor(date.getTime() / 1000)), Math.floor(date.getTime() / 1000)),
+        createResult("Timestamp in milliseconds", String(date.getTime()), date.getTime())
+      );
+
+      dateStatus.className = "message success";
+      dateStatus.textContent = "Conversion successful. Detected unit: " + unit + ".";
+    }
+
+    function convertDateToTimestamp() {
+      timestampResults.replaceChildren();
+      timestampStatus.className = "message";
+
+      if (!dateInput.value) {
+        timestampStatus.className = "message error";
+        timestampStatus.textContent = "Choose a date and time first.";
+        return;
+      }
+
+      const milliseconds = new Date(dateInput.value).getTime();
+
+      if (!Number.isFinite(milliseconds)) {
+        timestampStatus.className = "message error";
+        timestampStatus.textContent = "Please enter a valid date and time.";
+        return;
+      }
+
+      const seconds = Math.floor(milliseconds / 1000);
+
+      timestampResults.append(
+        createResult("Unix timestamp (seconds)", String(seconds), seconds),
+        createResult("Unix timestamp (milliseconds)", String(milliseconds), milliseconds),
+        createResult("Equivalent UTC date", new Date(milliseconds).toISOString(), new Date(milliseconds).toISOString())
+      );
+
+      timestampStatus.className = "message success";
+      timestampStatus.textContent = "Conversion successful.";
+    }
+
+    document.getElementById("convertToDate").addEventListener("click", convertTimestamp);
+    document.getElementById("convertToTimestamp").addEventListener("click", convertDateToTimestamp);
+
+    document.getElementById("nowTimestamp").addEventListener("click", () => {
+      timestampInput.value = String(Math.floor(Date.now() / 1000));
+      timestampUnit.value = "seconds";
+      convertTimestamp();
+    });
+
+    document.getElementById("nowDate").addEventListener("click", () => {
+      dateInput.value = formatDateTimeLocal(new Date());
+      convertDateToTimestamp();
+    });
+
+    timestampInput.addEventListener("keydown", event => {
+      if (event.key === "Enter") convertTimestamp();
+    });
+
+    dateInput.value = formatDateTimeLocal(new Date());
+    timestampInput.value = String(Math.floor(Date.now() / 1000));
+    convertTimestamp();
+    convertDateToTimestamp();
+  </script>
+</body>
+</html>
+```
 
