@@ -1,1 +1,239 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Calculate the volume of common 3D shapes with this free online volume calculator.">
+<title>Volume Calculator - Toolnes</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f6f8fc;color:#243047;line-height:1.6}
+header{background:#fff;border-bottom:1px solid #e5eaf2;padding:17px 6%;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:25px;font-weight:800;color:#6254d9;text-decoration:none}
+nav{display:flex;gap:20px;flex-wrap:wrap}
+nav a{color:#475569;text-decoration:none;font-size:14px}
+nav a:hover{color:#6254d9}
+main{max-width:850px;margin:45px auto;padding:0 20px}
+.intro{text-align:center;margin-bottom:28px}
+.intro h1{font-size:clamp(29px,5vw,40px);margin:0 0 10px}
+.intro p{color:#64748b;margin:0}
+.card{background:#fff;border:1px solid #e6eaf2;border-radius:18px;padding:27px;margin-bottom:22px;box-shadow:0 8px 25px #2832500a}
+.field{margin-bottom:17px}
+label{display:block;font-weight:700;margin-bottom:9px}
+input,select{width:100%;padding:14px;border:1px solid #cbd5e1;border-radius:10px;font-size:16px;outline:none;background:#fff}
+input:focus,select:focus{border-color:#6254d9;box-shadow:0 0 0 3px #6254d91c}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:0 15px}
+.buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+button{border:0;border-radius:10px;padding:12px 19px;font-size:15px;font-weight:700;cursor:pointer}
+.primary{color:#fff;background:#6254d9}
+.primary:hover{background:#5042c5}
+.secondary{background:#eef0ff;color:#5144c7}
+.result{display:none;margin-top:22px;padding:20px;border-radius:12px;overflow-wrap:anywhere}
+.result.success{display:block;background:#e8f9ef;border:1px solid #b6ebc9}
+.result.error{display:block;background:#fff0f0;border:1px solid #ffcaca}
+.result h2{margin:0 0 8px;font-size:22px}
+.answer{font-size:clamp(25px,5vw,36px);font-weight:800;color:#5144c7;overflow-wrap:anywhere}
+.formula{background:#f4f3ff;border-radius:10px;padding:14px;margin-top:14px;overflow-wrap:anywhere}
+.shape-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.shape-item{padding:12px;border-radius:10px;background:#f4f3ff}
+.card h2{margin-top:0;font-size:22px}
+.card p,.card li{color:#526078}
+footer{text-align:center;padding:28px 16px;color:#778196;font-size:14px}
+footer a{color:#6254d9;text-decoration:none}
+@media(max-width:550px){header{padding:15px 5%}nav{gap:12px}main{margin-top:30px}.card{padding:20px}.grid,.shape-list{grid-template-columns:1fr}.buttons button{flex:1}}
+</style>
+</head>
+<body>
+<header>
+<a class="logo" href="../../index.html">Toolnes</a>
+<nav>
+<a href="../../index.html">Home</a>
+<a href="../index.html">Math Tools</a>
+<a href="../../calculators/index.html">Calculators</a>
+<a href="../../converters/index.html">Converters</a>
+</nav>
+</header>
+
+<main>
+<section class="intro">
+<h1>Volume Calculator</h1>
+<p>Calculate the volume of common three-dimensional shapes.</p>
+</section>
+
+<section class="card">
+<div class="field">
+<label for="shape">Choose a solid</label>
+<select id="shape">
+<option value="cube">Cube</option>
+<option value="box">Rectangular Prism</option>
+<option value="cylinder">Cylinder</option>
+<option value="sphere">Sphere</option>
+<option value="cone">Cone</option>
+<option value="pyramid">Square Pyramid</option>
+</select>
+</div>
+
+<div id="inputs" class="grid"></div>
+
+<div class="buttons">
+<button class="primary" id="calculate" type="button">Calculate Volume</button>
+<button class="secondary" id="example" type="button">Try Example</button>
+<button class="secondary" id="reset" type="button">Reset</button>
+</div>
+
+<div id="result" class="result" role="status" aria-live="polite"></div>
+</section>
+
+<section class="card">
+<h2>Volume formulas</h2>
+<div class="shape-list">
+<div class="shape-item"><strong>Cube</strong><br>V = side³</div>
+<div class="shape-item"><strong>Rectangular prism</strong><br>V = length × width × height</div>
+<div class="shape-item"><strong>Cylinder</strong><br>V = π × radius² × height</div>
+<div class="shape-item"><strong>Sphere</strong><br>V = ⁴⁄₃ × π × radius³</div>
+<div class="shape-item"><strong>Cone</strong><br>V = ⅓ × π × radius² × height</div>
+<div class="shape-item"><strong>Square pyramid</strong><br>V = ⅓ × base side² × height</div>
+</div>
+<p>Enter all measurements in the same unit. The volume will be shown in cubic units, such as cm³ or m³.</p>
+</section>
+</main>
+
+<footer>
+<p>© 2026 Toolnes. Useful tools. Simple and free.</p>
+<a href="../../index.html">Explore more free tools</a>
+</footer>
+
+<script>
+const shapeSelect=document.getElementById("shape");
+const inputsBox=document.getElementById("inputs");
+const result=document.getElementById("result");
+
+const shapeFields={
+  cube:[["a","Side length"]],
+  box:[["a","Length"],["b","Width"],["c","Height"]],
+  cylinder:[["a","Radius"],["b","Height"]],
+  sphere:[["a","Radius"]],
+  cone:[["a","Radius"],["b","Height"]],
+  pyramid:[["a","Base side length"],["b","Height"]]
+};
+
+const formulas={
+  cube:"V = side³",
+  box:"V = length × width × height",
+  cylinder:"V = π × radius² × height",
+  sphere:"V = (4/3) × π × radius³",
+  cone:"V = (1/3) × π × radius² × height",
+  pyramid:"V = (1/3) × base side² × height"
+};
+
+function renderFields(){
+  inputsBox.replaceChildren();
+  shapeFields[shapeSelect.value].forEach(([id,labelText])=>{
+    const wrap=document.createElement("div");
+    wrap.className="field";
+    const label=document.createElement("label");
+    label.htmlFor="dimension-"+id;
+    label.textContent=labelText;
+    const input=document.createElement("input");
+    input.id="dimension-"+id;
+    input.dataset.dimension=id;
+    input.type="number";
+    input.min="0";
+    input.step="any";
+    input.placeholder="Enter "+labelText.toLowerCase();
+    input.inputMode="decimal";
+    wrap.append(label,input);
+    inputsBox.appendChild(wrap);
+  });
+  result.className="result";
+  result.textContent="";
+}
+
+function showError(message){
+  result.className="result error";
+  result.textContent=message;
+}
+
+function calculate(){
+  const shape=shapeSelect.value;
+  const dimensions={};
+
+  for(const [id,labelText] of shapeFields[shape]){
+    const input=document.getElementById("dimension-"+id);
+    const raw=input.value.trim();
+    if(raw===""){
+      showError("Please enter "+labelText.toLowerCase()+".");
+      input.focus();
+      return;
+    }
+    const value=Number(raw);
+    if(!Number.isFinite(value)||value<=0){
+      showError("Please enter a measurement greater than zero for "+labelText.toLowerCase()+".");
+      input.focus();
+      return;
+    }
+    dimensions[id]=value;
+  }
+
+  const {a,b,c}=dimensions;
+  let volume;
+
+  switch(shape){
+    case "cube": volume=a*a*a; break;
+    case "box": volume=a*b*c; break;
+    case "cylinder": volume=Math.PI*a*a*b; break;
+    case "sphere": volume=(4/3)*Math.PI*a*a*a; break;
+    case "cone": volume=(1/3)*Math.PI*a*a*b; break;
+    case "pyramid": volume=(1/3)*a*a*b; break;
+  }
+
+  if(!Number.isFinite(volume)){
+    showError("The result is too large to calculate. Please use smaller measurements.");
+    return;
+  }
+
+  const formatted=Number(volume.toPrecision(12)).toLocaleString("en-US",{maximumFractionDigits:12});
+  result.className="result success";
+  result.replaceChildren();
+
+  const heading=document.createElement("h2");
+  heading.textContent="Calculated volume";
+  const answer=document.createElement("div");
+  answer.className="answer";
+  answer.textContent=formatted+" cubic units";
+  const formula=document.createElement("div");
+  formula.className="formula";
+  formula.textContent=formulas[shape];
+
+  result.append(heading,answer,formula);
+}
+
+document.getElementById("calculate").addEventListener("click",calculate);
+shapeSelect.addEventListener("change",renderFields);
+
+document.getElementById("example").addEventListener("click",()=>{
+  const examples={
+    cube:[3],
+    box:[4,3,2],
+    cylinder:[3,5],
+    sphere:[3],
+    cone:[3,5],
+    pyramid:[4,6]
+  };
+  examples[shapeSelect.value].forEach((value,index)=>{
+    inputsBox.querySelectorAll("input")[index].value=value;
+  });
+  calculate();
+});
+
+document.getElementById("reset").addEventListener("click",()=>{
+  inputsBox.querySelectorAll("input").forEach(input=>input.value="");
+  result.className="result";
+  result.textContent="";
+});
+
+renderFields();
+</script>
+</body>
+</html>
