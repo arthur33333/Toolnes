@@ -1,1 +1,508 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KDP Spine Width Calculator - Free Book Tool | Toolnes</title>
+  <meta name="description" content="Estimate paperback book spine width from page count and paper type with this free KDP spine width calculator. Get results in inches and millimeters.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://toolnes.netlify.app/kdp/spine-width-calculator/">
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --dark: #3730a3;
+      --bg: #f6f7fb;
+      --text: #172033;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --green: #047857;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    header { background: #fff; border-bottom: 1px solid var(--border); }
+    .nav {
+      max-width: 1100px;
+      margin: auto;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .logo {
+      font-size: 25px;
+      font-weight: 800;
+      color: var(--primary);
+      text-decoration: none;
+    }
+    nav { display: flex; gap: 16px; flex-wrap: wrap; }
+    nav a, footer a { color: var(--muted); text-decoration: none; }
+    nav a:hover, footer a:hover { color: var(--primary); }
+    main { max-width: 1000px; margin: 35px auto; padding: 0 20px; }
+    .hero { text-align: center; margin-bottom: 28px; }
+    .eyebrow {
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    h1 { font-size: clamp(30px, 5vw, 43px); line-height: 1.15; margin: 10px 0; }
+    .hero p { max-width: 720px; margin: auto; color: var(--muted); }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, .85fr);
+      gap: 22px;
+      align-items: start;
+    }
+    .card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 6px 22px rgba(15, 23, 42, .04);
+      margin-bottom: 22px;
+    }
+    h2 { font-size: 21px; margin: 0 0 18px; }
+    h3 { font-size: 17px; margin: 20px 0 8px; }
+    .field { margin-bottom: 17px; }
+    label { display: block; font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+    input, select {
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+      background: #fff;
+      color: var(--text);
+      font: inherit;
+    }
+    input:focus, select:focus { outline: 2px solid #c7d2fe; border-color: var(--primary); }
+    .hint { font-size: 12px; color: var(--muted); margin-top: 5px; }
+    button {
+      border: 0;
+      border-radius: 9px;
+      padding: 12px 16px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .primary { width: 100%; background: var(--primary); color: white; }
+    .primary:hover { background: var(--dark); }
+    .secondary { background: #eef2ff; color: var(--dark); }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
+    .result {
+      background: #eef2ff;
+      border: 1px solid #c7d2fe;
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    .result-label { color: var(--dark); font-weight: 700; font-size: 13px; }
+    .big-number { font-size: clamp(35px, 6vw, 46px); line-height: 1.2; font-weight: 800; color: var(--dark); overflow-wrap: anywhere; }
+    .unit { font-size: 15px; font-weight: 700; }
+    .stat {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .stat:last-child { border-bottom: 0; }
+    .stat span { color: var(--muted); }
+    .stat strong { text-align: right; }
+    .notice {
+      padding: 13px 14px;
+      border-radius: 9px;
+      background: #f0fdf4;
+      color: #166534;
+      font-size: 13px;
+      margin-top: 15px;
+    }
+    .warning { background: #fffbeb; color: #92400e; }
+    .error { color: #b91c1c; font-size: 13px; margin-top: 10px; }
+    .diagram {
+      margin: 18px auto;
+      max-width: 310px;
+      text-align: center;
+    }
+    .book {
+      position: relative;
+      display: flex;
+      height: 145px;
+      justify-content: center;
+      align-items: stretch;
+      margin: 10px auto;
+      perspective: 500px;
+    }
+    .cover {
+      width: 42%;
+      background: #c7d2fe;
+      border: 2px solid #818cf8;
+      border-radius: 3px 0 0 3px;
+    }
+    .spine {
+      width: 16%;
+      min-width: 20px;
+      background: #4f46e5;
+      border-left: 2px solid #3730a3;
+      border-right: 2px solid #3730a3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      writing-mode: vertical-rl;
+      overflow: hidden;
+    }
+    .cover.right { border-radius: 0 3px 3px 0; }
+    .diagram small { color: var(--muted); }
+    .formula {
+      padding: 14px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow-wrap: anywhere;
+    }
+    .formula code { color: var(--dark); font-size: 13px; }
+    ul { padding-left: 21px; }
+    li { margin: 7px 0; }
+    .muted { color: var(--muted); }
+    .faq { border-top: 1px solid var(--border); padding: 15px 0; }
+    .faq:first-of-type { border-top: 0; }
+    .faq h3 { margin: 0 0 6px; }
+    .faq p { color: var(--muted); margin: 0; }
+    footer {
+      text-align: center;
+      padding: 28px 20px;
+      background: white;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 14px;
+    }
+    @media (max-width: 760px) {
+      .layout { grid-template-columns: 1fr; }
+      .card { padding: 19px; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <a class="logo" href="/">Toolnes</a>
+    <nav aria-label="Main navigation">
+      <a href="/">Home</a>
+      <a href="/kdp/">KDP &amp; Publishing</a>
+      <a href="/calculators/">Calculators</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="eyebrow">Free publishing calculator</div>
+    <h1>KDP Spine Width Calculator</h1>
+    <p>Estimate the spine width of your paperback from its page count and paper type. Get measurements in inches, millimeters, and centimeters for your cover planning.</p>
+  </section>
+
+  <div class="layout">
+    <section class="card">
+      <h2>Enter your book details</h2>
+
+      <div class="field">
+        <label for="pages">Final interior page count</label>
+        <input id="pages" type="number" min="24" max="1000" step="1" value="250">
+        <div class="hint">Use the page count of your final formatted interior, including blank pages.</div>
+      </div>
+
+      <div class="field">
+        <label for="paper">Paper type</label>
+        <select id="paper">
+          <option value="white">Black ink on white paper</option>
+          <option value="cream">Black ink on cream paper</option>
+          <option value="color">Standard color printing</option>
+          <option value="premium">Premium color printing</option>
+        </select>
+        <div class="hint">Paper thickness differs by printing option. Confirm the coefficient against current KDP specifications.</div>
+      </div>
+
+      <div class="field">
+        <label for="unit">Display unit</label>
+        <select id="unit">
+          <option value="in">Inches</option>
+          <option value="mm">Millimeters</option>
+          <option value="cm">Centimeters</option>
+        </select>
+      </div>
+
+      <button class="primary" id="calculate" type="button">Calculate Spine Width</button>
+      <div id="error" class="error" role="alert" aria-live="polite"></div>
+
+      <div class="actions">
+        <button class="secondary" id="copy" type="button">Copy Results</button>
+        <button class="secondary" id="download" type="button">Download Report</button>
+        <button class="secondary" id="reset" type="button">Reset</button>
+      </div>
+      <div id="status" class="hint" role="status" aria-live="polite"></div>
+    </section>
+
+    <aside>
+      <section class="card">
+        <h2>Your estimate</h2>
+        <div class="result" aria-live="polite">
+          <div class="result-label">Estimated spine width</div>
+          <div class="big-number" id="mainResult">0.563</div>
+          <div class="unit" id="mainUnit">inches</div>
+        </div>
+
+        <div class="stat">
+          <span>Inches</span>
+          <strong id="inches">0.563 in</strong>
+        </div>
+        <div class="stat">
+          <span>Millimeters</span>
+          <strong id="millimeters">14.30 mm</strong>
+        </div>
+        <div class="stat">
+          <span>Centimeters</span>
+          <strong id="centimeters">1.43 cm</strong>
+        </div>
+        <div class="stat">
+          <span>Page count</span>
+          <strong id="pageSummary">250 pages</strong>
+        </div>
+        <div class="stat">
+          <span>Selected paper</span>
+          <strong id="paperSummary">White paper</strong>
+        </div>
+
+        <div class="diagram">
+          <div class="book" aria-label="Illustration of a paperback cover with a spine between the front and back covers">
+            <div class="cover"></div>
+            <div class="spine" id="spineVisual">SPINE</div>
+            <div class="cover right"></div>
+          </div>
+          <small>Illustration only — not drawn to scale.</small>
+        </div>
+
+        <div class="notice warning" id="notice">
+          This result is an estimate. Verify the current KDP cover specifications before preparing your final cover file.
+        </div>
+      </section>
+    </aside>
+  </div>
+
+  <section class="card">
+    <h2>How the estimate works</h2>
+    <p>This calculator multiplies the interior page count by a paper-thickness coefficient. The coefficients below are common reference values for planning, not a guarantee of the exact measurements KDP will require.</p>
+    <div class="formula">
+      <strong>Estimated spine width</strong><br>
+      <code>Page count × paper-thickness coefficient</code>
+    </div>
+    <ul>
+      <li><strong>White paper:</strong> 0.002252 inches per page.</li>
+      <li><strong>Cream paper:</strong> 0.0025 inches per page.</li>
+      <li><strong>Standard color:</strong> 0.002252 inches per page as a preliminary estimate.</li>
+      <li><strong>Premium color:</strong> 0.002347 inches per page as a preliminary estimate.</li>
+    </ul>
+    <p class="muted">Actual requirements can vary with printing specifications and marketplace. These estimates do not replace KDP's current cover calculator or official cover template.</p>
+  </section>
+
+  <section class="card">
+    <h2>Frequently asked questions</h2>
+    <div class="faq">
+      <h3>What is a book spine?</h3>
+      <p>The spine is the narrow section of a book cover between the front and back covers. Its width depends partly on the thickness and number of interior pages.</p>
+    </div>
+    <div class="faq">
+      <h3>Why does paper type matter?</h3>
+      <p>Different paper stocks have different thicknesses. The same number of pages can therefore produce different estimated spine widths.</p>
+    </div>
+    <div class="faq">
+      <h3>Can I use this result directly for my KDP cover?</h3>
+      <p>Use it for preliminary planning only. Before uploading, enter your final book details in the official KDP cover calculator and use the generated cover template.</p>
+    </div>
+    <div class="faq">
+      <h3>Does this tool calculate hardcover spines?</h3>
+      <p>This tool is intended for paperback planning. Hardcover covers have different construction and specifications and need a suitable hardcover template.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>© <span id="year"></span> Toolnes. Free online tools for everyday work.</p>
+  <p><a href="/">Home</a> · <a href="/kdp/">KDP &amp; Publishing</a></p>
+  <p>Always verify current Amazon KDP requirements before publishing.</p>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  const $ = id => document.getElementById(id);
+
+  // Preliminary planning coefficients in inches per page.
+  // Verify current specifications before using a value for a final cover.
+  const paperTypes = {
+    white: {
+      name: "Black ink on white paper",
+      shortName: "White paper",
+      coefficient: 0.002252
+    },
+    cream: {
+      name: "Black ink on cream paper",
+      shortName: "Cream paper",
+      coefficient: 0.0025
+    },
+    color: {
+      name: "Standard color printing",
+      shortName: "Standard color",
+      coefficient: 0.002252
+    },
+    premium: {
+      name: "Premium color printing",
+      shortName: "Premium color",
+      coefficient: 0.002347
+    }
+  };
+
+  let latestReport = "";
+
+  function format(value, decimals) {
+    return value.toLocaleString("en-US", {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals
+    });
+  }
+
+  function calculate() {
+    $("error").textContent = "";
+    $("status").textContent = "";
+
+    const rawPages = $("pages").value.trim();
+    const pages = Number(rawPages);
+    const paper = paperTypes[$("paper").value];
+    const unit = $("unit").value;
+
+    if (
+      rawPages === "" ||
+      !Number.isFinite(pages) ||
+      !Number.isInteger(pages) ||
+      pages < 24 ||
+      pages > 1000
+    ) {
+      $("error").textContent =
+        "Enter a whole-number page count between 24 and 1,000.";
+      return;
+    }
+
+    if (!paper) {
+      $("error").textContent = "Please select a paper type.";
+      return;
+    }
+
+    const widthIn = pages * paper.coefficient;
+    const widthMm = widthIn * 25.4;
+    const widthCm = widthIn * 2.54;
+
+    let displayValue;
+    let displayUnit;
+
+    if (unit === "mm") {
+      displayValue = format(widthMm, 2);
+      displayUnit = "millimeters";
+    } else if (unit === "cm") {
+      displayValue = format(widthCm, 3);
+      displayUnit = "centimeters";
+    } else {
+      displayValue = format(widthIn, 4);
+      displayUnit = "inches";
+    }
+
+    $("mainResult").textContent = displayValue;
+    $("mainUnit").textContent = displayUnit;
+    $("inches").textContent = format(widthIn, 4) + " in";
+    $("millimeters").textContent = format(widthMm, 2) + " mm";
+    $("centimeters").textContent = format(widthCm, 3) + " cm";
+    $("pageSummary").textContent = pages.toLocaleString("en-US") + " pages";
+    $("paperSummary").textContent = paper.shortName;
+    $("spineVisual").textContent = "SPINE";
+
+    $("notice").textContent =
+      "Estimated width: " + format(widthIn, 4) +
+      " inches. This is a planning estimate, not an official KDP measurement. " +
+      "Confirm the final width using KDP's current cover calculator and template.";
+
+    latestReport =
+      "TOOLNES - KDP SPINE WIDTH CALCULATOR\n" +
+      "Page count: " + pages + "\n" +
+      "Paper type: " + paper.name + "\n" +
+      "Planning coefficient: " + paper.coefficient + " inches per page\n" +
+      "Estimated spine width: " + format(widthIn, 4) + " inches\n" +
+      "Estimated spine width: " + format(widthMm, 2) + " millimeters\n" +
+      "Estimated spine width: " + format(widthCm, 3) + " centimeters\n\n" +
+      "Important: This is a preliminary estimate, not an official KDP specification. " +
+      "Confirm the current measurements with KDP's cover calculator and generated template.";
+
+  }
+
+  $("calculate").addEventListener("click", calculate);
+  $("pages").addEventListener("input", calculate);
+  $("paper").addEventListener("change", calculate);
+  $("unit").addEventListener("change", calculate);
+
+  $("reset").addEventListener("click", function () {
+    $("pages").value = 250;
+    $("paper").value = "white";
+    $("unit").value = "in";
+    calculate();
+  });
+
+  $("copy").addEventListener("click", async function () {
+    if (!latestReport) calculate();
+    if (!latestReport) return;
+
+    try {
+      await navigator.clipboard.writeText(latestReport);
+      $("status").textContent = "Results copied to clipboard.";
+    } catch (error) {
+      $("status").textContent =
+        "Clipboard access was blocked. Use Download Report instead.";
+    }
+  });
+
+  $("download").addEventListener("click", function () {
+    if (!latestReport) calculate();
+    if (!latestReport) return;
+
+    const blob = new Blob([latestReport], {
+      type: "text/plain;charset=utf-8"
+    });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = "toolnes-kdp-spine-width-report.txt";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+  });
+
+  $("year").textContent = new Date().getFullYear();
+  calculate();
+})();
+</script>
+</body>
+</html>
+```
 
