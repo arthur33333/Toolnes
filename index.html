@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Toolnes offers free online calculators, converters, text tools, puzzles, image tools, PDF tools, KDP publishing tools and more.">
   <meta name="theme-color" content="#f7f8fc">
+
+  <meta name="google-site-verification" content="CngCRdITQGF-uqgsOLWGIaWpcrL_fG4uiTE-DZU_BnI" />
+
   <title>Toolnes — Free Online Tools</title>
 
   <style>
@@ -19,9 +22,7 @@
       --shadow: 0 8px 28px rgba(35, 39, 75, .06);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -30,10 +31,7 @@
       font-family: Arial, Helvetica, sans-serif;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+    a { color: inherit; text-decoration: none; }
 
     header {
       background: #fff;
@@ -69,9 +67,7 @@
       color: #51566d;
     }
 
-    nav a:hover {
-      color: var(--purple);
-    }
+    nav a:hover { color: var(--purple); }
 
     main {
       max-width: 1200px;
@@ -91,9 +87,7 @@
       margin: 0 0 15px;
     }
 
-    .hero h1 span {
-      color: var(--purple);
-    }
+    .hero h1 span { color: var(--purple); }
 
     .hero p {
       font-size: 17px;
@@ -118,9 +112,7 @@
       box-shadow: var(--shadow);
     }
 
-    #search:focus {
-      border-color: var(--purple);
-    }
+    #search:focus { border-color: var(--purple); }
 
     .section-title {
       font-size: 25px;
@@ -215,17 +207,11 @@
     }
 
     @media (max-width: 520px) {
-      .cards {
-        grid-template-columns: 1fr;
-      }
+      .cards { grid-template-columns: 1fr; }
 
-      main {
-        padding: 35px 18px 50px;
-      }
+      main { padding: 35px 18px 50px; }
 
-      .category-card {
-        padding: 22px;
-      }
+      .category-card { padding: 22px; }
     }
   </style>
 </head>
@@ -248,10 +234,7 @@
   <main>
     <section class="hero">
       <h1>Free Online <span>Tools &amp; Utilities</span></h1>
-
-      <p>
-        Fast, simple, and free web tools to help with your daily tasks.
-      </p>
+      <p>Fast, simple, and free web tools to help with your daily tasks.</p>
 
       <div class="search-wrap">
         <input
@@ -264,10 +247,7 @@
     </section>
 
     <section aria-labelledby="categories-title">
-      <h2 class="section-title" id="categories-title">
-        Explore Our Tools
-      </h2>
-
+      <h2 class="section-title" id="categories-title">Explore Our Tools</h2>
       <p class="section-description">
         Choose a category to find free tools for your everyday tasks.
       </p>
@@ -353,9 +333,7 @@
 
       </div>
 
-      <p id="no-results">
-        No matching categories found. Try another search.
-      </p>
+      <p id="no-results">No matching categories found. Try another search.</p>
     </section>
   </main>
 
@@ -377,16 +355,12 @@
           card.innerText + " " + (card.dataset.search || "");
 
         const matches = searchableText.toLowerCase().includes(query);
-
         card.style.display = matches ? "" : "none";
 
-        if (matches) {
-          visibleCards++;
-        }
+        if (matches) visibleCards++;
       });
 
-      noResults.style.display =
-        visibleCards === 0 ? "block" : "none";
+      noResults.style.display = visibleCards === 0 ? "block" : "none";
     });
   </script>
 </body>
