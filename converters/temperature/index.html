@@ -1,1 +1,159 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Convert Celsius, Fahrenheit and Kelvin with this free online temperature converter.">
+<title>Temperature Converter — Toolnes</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f7f8fc;color:#20243a;font-family:Arial,Helvetica,sans-serif}
+a{text-decoration:none;color:inherit}
+header{background:#fff;border-bottom:1px solid #e9eaf2}
+nav{max-width:850px;margin:auto;padding:20px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.logo{font-size:26px;font-weight:800;color:#6558d3}
+nav a:last-child{color:#6558d3;font-weight:700}
+main{max-width:760px;margin:45px auto;padding:0 20px 55px}
+h1{font-size:clamp(29px,5vw,40px);margin:0 0 12px}
+.intro{color:#697087;line-height:1.7;margin-bottom:28px}
+.panel{background:#fff;border:1px solid #e9eaf2;border-radius:18px;padding:25px;box-shadow:0 8px 28px rgba(35,39,75,.06)}
+label{display:block;font-weight:700;font-size:14px;margin:0 0 8px}
+input,select{width:100%;padding:14px;border:1px solid #dfe1ec;border-radius:10px;font-size:16px;background:#fff;color:#20243a}
+input:focus,select:focus{outline:2px solid #d8d2ff;border-color:#6558d3}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.field{margin-bottom:18px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:5px}
+button{border:0;border-radius:10px;padding:12px 17px;font-size:14px;font-weight:700;cursor:pointer}
+.primary{background:#6558d3;color:#fff}
+.secondary{background:#eeecff;color:#5145b5}
+.result{background:#f2f0ff;border-radius:12px;padding:18px;margin-top:20px}
+.result small{display:block;color:#697087;margin-bottom:7px}
+#result{font-size:25px;font-weight:800;overflow-wrap:anywhere}
+.note{color:#697087;font-size:13px;line-height:1.7;margin-top:22px}
+footer{text-align:center;padding:23px;background:#fff;border-top:1px solid #e9eaf2;color:#697087;font-size:13px}
+@media(max-width:520px){.fields{grid-template-columns:1fr}.panel{padding:18px}main{margin-top:30px}}
+</style>
+</head>
+<body>
+<header>
+<nav>
+<a class="logo" href="/">Toolnes</a>
+<a href="/converters/">← All converters</a>
+</nav>
+</header>
+
+<main>
+<h1>Temperature Converter</h1>
+<p class="intro">Convert temperatures between Celsius, Fahrenheit and Kelvin instantly with this free online tool.</p>
+
+<section class="panel">
+<div class="field">
+<label for="value">Temperature</label>
+<input id="value" type="number" value="25" step="any" placeholder="Enter a temperature">
+</div>
+
+<div class="fields">
+<div class="field">
+<label for="from">From</label>
+<select id="from">
+<option value="C" selected>Celsius (°C)</option>
+<option value="F">Fahrenheit (°F)</option>
+<option value="K">Kelvin (K)</option>
+</select>
+</div>
+<div class="field">
+<label for="to">To</label>
+<select id="to">
+<option value="C">Celsius (°C)</option>
+<option value="F" selected>Fahrenheit (°F)</option>
+<option value="K">Kelvin (K)</option>
+</select>
+</div>
+</div>
+
+<div class="actions">
+<button class="primary" id="swap" type="button">⇅ Swap units</button>
+<button class="secondary" id="reset" type="button">Reset</button>
+<button class="secondary" id="copy" type="button">Copy result</button>
+</div>
+
+<div class="result" aria-live="polite">
+<small>Converted temperature</small>
+<div id="result">77 °F</div>
+</div>
+<p class="note">Conversions use standard temperature formulas. Kelvin cannot be negative, and results are calculated in your browser.</p>
+</section>
+</main>
+
+<footer>© <span id="year"></span> Toolnes. Free online tools.</footer>
+
+<script>
+(function(){
+const value=document.getElementById("value");
+const from=document.getElementById("from");
+const to=document.getElementById("to");
+const result=document.getElementById("result");
+
+function toCelsius(n,unit){
+if(unit==="C")return n;
+if(unit==="F")return (n-32)*5/9;
+return n-273.15;
+}
+function fromCelsius(c,unit){
+if(unit==="C")return c;
+if(unit==="F")return c*9/5+32;
+return c+273.15;
+}
+function symbol(unit){
+return unit==="C"?"°C":unit==="F"?"°F":"K";
+}
+function convert(){
+if(value.value.trim()===""){
+result.textContent="Enter a temperature";
+return;
+}
+const n=Number(value.value);
+if(!Number.isFinite(n)){
+result.textContent="Enter a valid temperature";
+return;
+}
+const c=toCelsius(n,from.value);
+if(c < -273.15-1e-10){
+result.textContent="Below absolute zero is not valid";
+return;
+}
+const converted=fromCelsius(c,to.value);
+const rounded=Number(converted.toFixed(8));
+result.textContent=rounded.toLocaleString("en-US",{maximumFractionDigits:8})+" "+symbol(to.value);
+}
+value.addEventListener("input",convert);
+from.addEventListener("change",convert);
+to.addEventListener("change",convert);
+document.getElementById("swap").addEventListener("click",function(){
+const old=from.value;
+from.value=to.value;
+to.value=old;
+convert();
+});
+document.getElementById("reset").addEventListener("click",function(){
+value.value="25";
+from.value="C";
+to.value="F";
+convert();
+});
+document.getElementById("copy").addEventListener("click",async function(){
+try{
+await navigator.clipboard.writeText(result.textContent);
+this.textContent="Copied!";
+setTimeout(()=>this.textContent="Copy result",1200);
+}catch(e){
+this.textContent="Copy unavailable";
+}
+});
+document.getElementById("year").textContent=new Date().getFullYear();
+convert();
+})();
+</script>
+</body>
+</html>
