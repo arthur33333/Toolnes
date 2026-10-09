@@ -1,1 +1,977 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Plan your self-publishing project with a free book publishing planner. Track tasks, deadlines, budgets and progress from manuscript to launch.">
+  <meta name="robots" content="index, follow">
+  <title>Publishing Project Planner - Free Self-Publishing Organizer | Toolnes</title>
+  <link rel="canonical" href="https://toolnes.netlify.app/kdp/publishing-project-planner/">
+  <style>
+    :root {
+      --primary: #5b45d6;
+      --primary-dark: #4431b2;
+      --bg: #f5f6fb;
+      --card: #fff;
+      --text: #202438;
+      --muted: #687087;
+      --border: #e1e5ef;
+      --green: #16865c;
+      --red: #c0394b;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 18px 20px;
+    }
+
+    .nav {
+      max-width: 1050px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand {
+      color: var(--primary);
+      font-size: 1.35rem;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .back {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .92rem;
+    }
+
+    main {
+      max-width: 1050px;
+      margin: 35px auto;
+      padding: 0 18px;
+    }
+
+    .eyebrow {
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 1.3px;
+      font-size: .78rem;
+      font-weight: 800;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1.15;
+      margin: 8px 0 12px;
+    }
+
+    h2 { font-size: 1.25rem; margin-top: 0; }
+
+    .intro {
+      color: var(--muted);
+      max-width: 760px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 23px;
+      margin-top: 22px;
+      box-shadow: 0 5px 20px rgba(30, 35, 70, .035);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .field { margin-bottom: 15px; }
+
+    label {
+      display: block;
+      font-weight: 700;
+      font-size: .92rem;
+      margin-bottom: 7px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 12px;
+      border: 1px solid #cfd5e3;
+      border-radius: 9px;
+      background: #fff;
+      color: var(--text);
+      font: inherit;
+    }
+
+    textarea {
+      min-height: 95px;
+      resize: vertical;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: 2px solid #d4ceff;
+      border-color: var(--primary);
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: .82rem;
+      display: block;
+      margin-top: 5px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .stat {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 15px;
+      min-width: 0;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: .84rem;
+      display: block;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.5rem;
+      overflow-wrap: anywhere;
+      margin-top: 5px;
+    }
+
+    .progress-track {
+      height: 12px;
+      border-radius: 99px;
+      overflow: hidden;
+      background: #e9eaf2;
+      margin-top: 12px;
+    }
+
+    .progress-bar {
+      width: 0;
+      height: 100%;
+      background: var(--primary);
+      transition: width .2s ease;
+    }
+
+    .progress-caption {
+      font-size: .9rem;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 18px 0;
+      align-items: center;
+    }
+
+    button {
+      padding: 11px 15px;
+      border: 0;
+      border-radius: 9px;
+      cursor: pointer;
+      font: inherit;
+      font-weight: 700;
+    }
+
+    button:focus-visible {
+      outline: 3px solid #bcb3ff;
+      outline-offset: 2px;
+    }
+
+    .primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .primary:hover { background: var(--primary-dark); }
+
+    .secondary {
+      background: #eeecff;
+      color: var(--primary-dark);
+    }
+
+    .danger {
+      background: #fff0f1;
+      color: var(--red);
+    }
+
+    .task-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .task {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 15px;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) minmax(115px, 150px);
+      gap: 12px;
+      align-items: start;
+    }
+
+    .task input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      min-height: auto;
+      margin-top: 5px;
+      accent-color: var(--primary);
+    }
+
+    .task-title {
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    .task.completed .task-title {
+      text-decoration: line-through;
+      color: var(--muted);
+    }
+
+    .task-meta {
+      color: var(--muted);
+      font-size: .82rem;
+      overflow-wrap: anywhere;
+    }
+
+    .task-fields {
+      display: grid;
+      gap: 7px;
+    }
+
+    .task-fields input,
+    .task-fields select {
+      min-height: 38px;
+      padding: 7px 9px;
+      font-size: .86rem;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 25px 10px;
+      color: var(--muted);
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+    }
+
+    .budget-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .budget-table td {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .budget-table td:last-child {
+      text-align: right;
+      font-weight: 700;
+    }
+
+    .budget-total {
+      font-size: 1.25rem;
+      font-weight: 800;
+    }
+
+    .notice {
+      color: #6d571d;
+      background: #fff9e9;
+      border: 1px solid #f0dfad;
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .status {
+      min-height: 24px;
+      color: var(--green);
+      font-size: .9rem;
+      margin-top: 10px;
+    }
+
+    footer {
+      background: #fff;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      text-align: center;
+      padding: 25px 18px;
+      margin-top: 40px;
+    }
+
+    footer a { color: var(--primary); }
+
+    @media (max-width: 760px) {
+      .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .task { grid-template-columns: auto minmax(0, 1fr); }
+      .task-fields { grid-column: 2; grid-template-columns: 1fr 1fr; }
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 420px) {
+      main { margin-top: 24px; }
+      .card { padding: 17px; }
+      .task-fields { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <a class="brand" href="/">Toolnes</a>
+      <a class="back" href="/kdp/">← All KDP Tools</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="eyebrow">KDP & Publishing Tools</div>
+    <h1>Publishing Project Planner</h1>
+    <p class="intro">
+      Organize your self-publishing project from manuscript preparation
+      to book launch. Track deadlines, publishing tasks, expenses and
+      overall progress with this free planner.
+    </p>
+
+    <section class="card">
+      <h2>Project Details</h2>
+      <div class="grid">
+        <div class="field">
+          <label for="projectName">Book or project name</label>
+          <input id="projectName" maxlength="120" value="My First Book" placeholder="Enter your book title">
+        </div>
+        <div class="field">
+          <label for="author">Author or project owner</label>
+          <input id="author" maxlength="100" placeholder="Enter a name">
+        </div>
+        <div class="field">
+          <label for="bookType">Project type</label>
+          <select id="bookType">
+            <option>Paperback</option>
+            <option>Hardcover</option>
+            <option>Kindle eBook</option>
+            <option>Journal or Planner</option>
+            <option>Workbook</option>
+            <option>Multiple Formats</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="launchDate">Target launch date</label>
+          <input id="launchDate" type="date">
+        </div>
+        <div class="field">
+          <label for="currency">Budget currency</label>
+          <select id="currency">
+            <option value="USD">USD — US Dollar</option>
+            <option value="EUR">EUR — Euro</option>
+            <option value="GBP">GBP — British Pound</option>
+            <option value="CAD">CAD — Canadian Dollar</option>
+            <option value="AUD">AUD — Australian Dollar</option>
+            <option value="INR">INR — Indian Rupee</option>
+            <option value="DZD">DZD — Algerian Dinar</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="budget">Total project budget</label>
+          <input id="budget" type="number" min="0" step="0.01" value="300">
+        </div>
+      </div>
+      <div class="field">
+        <label for="notes">Project notes</label>
+        <textarea id="notes" maxlength="3000" placeholder="Ideas, publishing goals, important information..."></textarea>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Project Overview</h2>
+      <div class="stats">
+        <div class="stat">
+          <span>Tasks completed</span>
+          <strong id="completedCount">0/0</strong>
+        </div>
+        <div class="stat">
+          <span>Overall progress</span>
+          <strong id="progressPercent">0%</strong>
+        </div>
+        <div class="stat">
+          <span>Planned expenses</span>
+          <strong id="plannedTotal">$0.00</strong>
+        </div>
+        <div class="stat">
+          <span>Budget remaining</span>
+          <strong id="remainingBudget">$300.00</strong>
+        </div>
+      </div>
+      <div class="progress-track" role="progressbar" id="progressTrack"
+           aria-label="Project completion" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+      <div class="progress-caption" id="progressCaption">Your project has not started yet.</div>
+    </section>
+
+    <section class="card">
+      <h2>Publishing Task Checklist</h2>
+      <p class="intro">
+        Check tasks as you finish them. You can change their deadlines,
+        status and estimated costs, or add your own tasks.
+      </p>
+
+      <div class="toolbar">
+        <button class="primary" id="addTask" type="button">+ Add Task</button>
+        <button class="secondary" id="showAll" type="button">Show All</button>
+        <button class="secondary" id="showPending" type="button">Pending Only</button>
+        <button class="secondary" id="showCompleted" type="button">Completed Only</button>
+      </div>
+
+      <div id="taskList" class="task-list"></div>
+      <div id="taskStatus" class="status" role="status" aria-live="polite"></div>
+    </section>
+
+    <section class="card">
+      <h2>Budget Summary</h2>
+      <p class="intro">
+        Add estimated costs to individual tasks to plan your spending.
+        These figures are entered by you and are not publishing quotes.
+      </p>
+      <table class="budget-table">
+        <tbody>
+          <tr>
+            <td>Total project budget</td>
+            <td id="budgetTotal">$300.00</td>
+          </tr>
+          <tr>
+            <td>Planned task expenses</td>
+            <td id="budgetExpenses">$0.00</td>
+          </tr>
+          <tr>
+            <td class="budget-total">Budget remaining</td>
+            <td class="budget-total" id="budgetRemaining">$300.00</td>
+          </tr>
+        </tbody>
+      </table>
+      <p id="budgetMessage" class="progress-caption"></p>
+    </section>
+
+    <section class="card">
+      <h2>Save or Export Your Plan</h2>
+      <p class="intro">
+        Download your project as a JSON backup so you can import it later,
+        or export a readable report to keep your plan offline.
+      </p>
+      <div class="toolbar">
+        <button class="primary" id="downloadReport" type="button">Download Project Report</button>
+        <button class="secondary" id="downloadBackup" type="button">Download JSON Backup</button>
+        <button class="secondary" id="importBackup" type="button">Import JSON Backup</button>
+        <input id="backupFile" type="file" accept=".json,application/json" hidden>
+        <button class="danger" id="resetProject" type="button">Reset Project</button>
+      </div>
+      <div id="exportStatus" class="status" role="status" aria-live="polite"></div>
+    </section>
+
+    <section class="notice" style="margin-top:22px">
+      <strong>Important:</strong> This planner helps organize your work.
+      It does not publish books, submit files to Amazon KDP, or guarantee
+      that your manuscript meets platform requirements. Save your backups
+      regularly. Project information is kept in this page's current session;
+      downloading a backup is the reliable way to preserve it.
+    </section>
+
+    <section class="card">
+      <h2>How to Plan a Self-Publishing Project</h2>
+      <ol>
+        <li>Define your book format, budget and target launch date.</li>
+        <li>Complete your manuscript and revise the content.</li>
+        <li>Prepare the interior layout and book cover.</li>
+        <li>Review metadata, keywords, categories and pricing.</li>
+        <li>Check the final files and upload them to your chosen platform.</li>
+        <li>Review the preview, resolve issues and plan your launch.</li>
+      </ol>
+      <p class="intro">
+        Timelines vary by project. Leave room for revisions, proof copies
+        and platform review before announcing a firm launch date.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> Toolnes — Free Online Tools</p>
+    <p><a href="/kdp/">Explore more KDP & Publishing Tools</a></p>
+  </footer>
+
+  <script>
+    (() => {
+      const $ = (id) => document.getElementById(id);
+
+      const defaultTasks = [
+        { title: "Define book concept and target audience", phase: "Planning", days: 45 },
+        { title: "Research competing books and keywords", phase: "Planning", days: 42 },
+        { title: "Complete manuscript draft", phase: "Writing", days: 35 },
+        { title: "Edit and proofread manuscript", phase: "Editing", days: 28 },
+        { title: "Finalize book title and subtitle", phase: "Metadata", days: 21 },
+        { title: "Prepare interior layout", phase: "Formatting", days: 18 },
+        { title: "Design book cover", phase: "Design", days: 16 },
+        { title: "Review book description and keywords", phase: "Metadata", days: 12 },
+        { title: "Check final files and formatting", phase: "Quality Check", days: 9 },
+        { title: "Review proof or digital preview", phase: "Quality Check", days: 7 },
+        { title: "Prepare launch announcement", phase: "Marketing", days: 4 },
+        { title: "Publish and verify book listing", phase: "Launch", days: 0 }
+      ];
+
+      let tasks = [];
+      let filter = "all";
+      let nextId = 1;
+
+      function newTask(data = {}) {
+        return {
+          id: nextId++,
+          title: data.title || "New publishing task",
+          phase: data.phase || "Custom",
+          dueDate: data.dueDate || "",
+          cost: Number.isFinite(Number(data.cost)) && data.cost !== ""
+            ? Math.max(0, Number(data.cost)) : 0,
+          done: Boolean(data.done)
+        };
+      }
+
+      function currency(value) {
+        const code = $("currency").value;
+        try {
+          return new Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency: code,
+            maximumFractionDigits: 2
+          }).format(value);
+        } catch {
+          return value.toFixed(2) + " " + code;
+        }
+      }
+
+      function safeText(value) {
+        return String(value ?? "");
+      }
+
+      function getProject() {
+        return {
+          projectName: $("projectName").value.trim(),
+          author: $("author").value.trim(),
+          bookType: $("bookType").value,
+          launchDate: $("launchDate").value,
+          currency: $("currency").value,
+          budget: Number($("budget").value),
+          notes: $("notes").value,
+          tasks: tasks.map(task => ({ ...task }))
+        };
+      }
+
+      function updateOverview() {
+        const total = tasks.length;
+        const completed = tasks.filter(task => task.done).length;
+        const percent = total ? Math.round(completed / total * 100) : 0;
+        const expenses = tasks.reduce((sum, task) => sum + task.cost, 0);
+        const budget = Math.max(0, Number($("budget").value) || 0);
+        const remaining = budget - expenses;
+
+        $("completedCount").textContent = completed + "/" + total;
+        $("progressPercent").textContent = percent + "%";
+        $("plannedTotal").textContent = currency(expenses);
+        $("remainingBudget").textContent = currency(remaining);
+        $("budgetTotal").textContent = currency(budget);
+        $("budgetExpenses").textContent = currency(expenses);
+        $("budgetRemaining").textContent = currency(remaining);
+
+        $("progressBar").style.width = percent + "%";
+        $("progressTrack").setAttribute("aria-valuenow", String(percent));
+
+        $("progressCaption").textContent = total === 0
+          ? "Add a task to start planning your project."
+          : percent === 100
+            ? "All tasks are marked complete."
+            : completed === 0
+              ? "Your project has not started yet."
+              : completed + " of " + total + " tasks completed.";
+
+        $("remainingBudget").style.color = remaining < 0 ? "var(--red)" : "var(--text)";
+        $("budgetRemaining").style.color = remaining < 0 ? "var(--red)" : "var(--text)";
+        $("budgetMessage").textContent = remaining < 0
+          ? "Your planned expenses exceed the project budget by " + currency(Math.abs(remaining)) + "."
+          : "You have " + currency(remaining) + " remaining in your planned budget.";
+      }
+
+      function renderTasks() {
+        const list = $("taskList");
+        list.replaceChildren();
+
+        const visible = tasks.filter(task => {
+          if (filter === "pending") return !task.done;
+          if (filter === "completed") return task.done;
+          return true;
+        });
+
+        if (!visible.length) {
+          const empty = document.createElement("div");
+          empty.className = "empty";
+          empty.textContent = tasks.length
+            ? "No tasks match this filter."
+            : "No tasks yet. Click Add Task to create your first task.";
+          list.appendChild(empty);
+          updateOverview();
+          return;
+        }
+
+        visible.forEach(task => {
+          const article = document.createElement("article");
+          article.className = "task" + (task.done ? " completed" : "");
+
+          const checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.checked = task.done;
+          checkbox.setAttribute("aria-label", "Mark " + task.title + " as complete");
+          checkbox.addEventListener("change", () => {
+            task.done = checkbox.checked;
+            renderTasks();
+          });
+
+          const body = document.createElement("div");
+          const title = document.createElement("div");
+          title.className = "task-title";
+          title.textContent = task.title;
+
+          const meta = document.createElement("div");
+          meta.className = "task-meta";
+          meta.textContent = task.phase + " · Planned cost: " + currency(task.cost);
+
+          const rename = document.createElement("button");
+          rename.type = "button";
+          rename.className = "secondary";
+          rename.style.marginTop = "8px";
+          rename.style.padding = "6px 10px";
+          rename.style.fontSize = ".82rem";
+          rename.textContent = "Rename";
+          rename.addEventListener("click", () => {
+            const value = prompt("Enter a task name:", task.title);
+            if (value === null) return;
+            if (!value.trim()) {
+              $("taskStatus").textContent = "Task name cannot be empty.";
+              return;
+            }
+            task.title = value.trim().slice(0, 180);
+            renderTasks();
+            $("taskStatus").textContent = "Task updated.";
+          });
+
+          const remove = document.createElement("button");
+          remove.type = "button";
+          remove.className = "danger";
+          remove.style.marginTop = "8px";
+          remove.style.marginLeft = "6px";
+          remove.style.padding = "6px 10px";
+          remove.style.fontSize = ".82rem";
+          remove.textContent = "Delete";
+          remove.addEventListener("click", () => {
+            if (!confirm('Delete the task "' + task.title + '"?')) return;
+            tasks = tasks.filter(item => item.id !== task.id);
+            renderTasks();
+            $("taskStatus").textContent = "Task deleted.";
+          });
+
+          body.append(title, meta, rename, remove);
+
+          const fields = document.createElement("div");
+          fields.className = "task-fields";
+
+          const phase = document.createElement("select");
+          phase.setAttribute("aria-label", "Phase for " + task.title);
+          [
+            "Planning", "Writing", "Editing", "Formatting", "Design",
+            "Metadata", "Quality Check", "Marketing", "Launch", "Custom"
+          ].forEach(optionText => {
+            const option = document.createElement("option");
+            option.value = optionText;
+            option.textContent = optionText;
+            phase.appendChild(option);
+          });
+          phase.value = task.phase;
+          phase.addEventListener("change", () => {
+            task.phase = phase.value;
+            renderTasks();
+          });
+
+          const date = document.createElement("input");
+          date.type = "date";
+          date.value = task.dueDate;
+          date.setAttribute("aria-label", "Deadline for " + task.title);
+          date.addEventListener("change", () => {
+            task.dueDate = date.value;
+          });
+
+          const cost = document.createElement("input");
+          cost.type = "number";
+          cost.min = "0";
+          cost.step = "0.01";
+          cost.value = task.cost;
+          cost.placeholder = "Cost";
+          cost.setAttribute("aria-label", "Estimated cost for " + task.title);
+          cost.addEventListener("change", () => {
+            const value = Number(cost.value);
+            if (!Number.isFinite(value) || value < 0 || cost.value.trim() === "") {
+              cost.value = task.cost;
+              $("taskStatus").textContent = "Enter a valid non-negative cost.";
+              return;
+            }
+            task.cost = value;
+            renderTasks();
+          });
+
+          fields.append(phase, date, cost);
+          article.append(checkbox, body, fields);
+          list.appendChild(article);
+        });
+
+        updateOverview();
+      }
+
+      function refresh() {
+        renderTasks();
+        updateOverview();
+      }
+
+      function downloadFile(filename, content, type) {
+        const blob = new Blob([content], { type });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+      }
+
+      function makeReport() {
+        const project = getProject();
+        const expenses = tasks.reduce((sum, task) => sum + task.cost, 0);
+        const budget = Math.max(0, Number(project.budget) || 0);
+        const completed = tasks.filter(task => task.done).length;
+        const percent = tasks.length ? Math.round(completed / tasks.length * 100) : 0;
+
+        const lines = [
+          "TOOLNES — PUBLISHING PROJECT PLAN",
+          "=================================",
+          "",
+          "Project: " + (project.projectName || "Untitled project"),
+          "Author / Owner: " + (project.author || "Not specified"),
+          "Book format: " + project.bookType,
+          "Target launch date: " + (project.launchDate || "Not set"),
+          "Currency: " + project.currency,
+          "",
+          "PROJECT PROGRESS",
+          "Tasks completed: " + completed + " / " + tasks.length,
+          "Progress: " + percent + "%",
+          "",
+          "BUDGET",
+          "Total budget: " + currency(budget),
+          "Planned expenses: " + currency(expenses),
+          "Budget remaining: " + currency(budget - expenses),
+          "",
+          "TASKS",
+          "-----",
+          ...tasks.map((task, index) =>
+            (index + 1) + ". [" + (task.done ? "DONE" : "PENDING") + "] " +
+            task.title +
+            " | Phase: " + task.phase +
+            " | Deadline: " + (task.dueDate || "Not set") +
+            " | Cost: " + currency(task.cost)
+          ),
+          "",
+          "PROJECT NOTES",
+          project.notes || "No notes added.",
+          "",
+          "This is a planning report, not an official publishing submission."
+        ];
+
+        return lines.join("\n");
+      }
+
+      function applyProject(project) {
+        if (!project || typeof project !== "object" || !Array.isArray(project.tasks)) {
+          throw new Error("This file does not contain a valid project backup.");
+        }
+
+        $("projectName").value = safeText(project.projectName).slice(0, 120);
+        $("author").value = safeText(project.author).slice(0, 100);
+        $("notes").value = safeText(project.notes).slice(0, 3000);
+
+        const bookTypes = Array.from($("bookType").options).map(option => option.value);
+        $("bookType").value = bookTypes.includes(project.bookType)
+          ? project.bookType : "Paperback";
+
+        const currencies = Array.from($("currency").options).map(option => option.value);
+        $("currency").value = currencies.includes(project.currency)
+          ? project.currency : "USD";
+
+        $("launchDate").value = /^\d{4}-\d{2}-\d{2}$/.test(project.launchDate || "")
+          ? project.launchDate : "";
+
+        const budget = Number(project.budget);
+        $("budget").value = Number.isFinite(budget) && budget >= 0 ? budget : 0;
+
+        nextId = 1;
+        tasks = project.tasks.slice(0, 500).map(item => newTask({
+          title: safeText(item.title).slice(0, 180) || "Untitled task",
+          phase: safeText(item.phase).slice(0, 60) || "Custom",
+          dueDate: /^\d{4}-\d{2}-\d{2}$/.test(item.dueDate || "") ? item.dueDate : "",
+          cost: Number.isFinite(Number(item.cost)) && Number(item.cost) >= 0
+            ? Number(item.cost) : 0,
+          done: item.done === true
+        }));
+
+        refresh();
+      }
+
+      $("addTask").addEventListener("click", () => {
+        tasks.push(newTask());
+        filter = "all";
+        refresh();
+        $("taskStatus").textContent = "New task added. Rename it and set its phase, deadline and cost.";
+      });
+
+      $("showAll").addEventListener("click", () => {
+        filter = "all";
+        renderTasks();
+      });
+
+      $("showPending").addEventListener("click", () => {
+        filter = "pending";
+        renderTasks();
+      });
+
+      $("showCompleted").addEventListener("click", () => {
+        filter = "completed";
+        renderTasks();
+      });
+
+      ["budget", "currency"].forEach(id => {
+        $(id).addEventListener("input", updateOverview);
+        $(id).addEventListener("change", refresh);
+      });
+
+      $("downloadReport").addEventListener("click", () => {
+        downloadFile(
+          "toolnes-publishing-project-report.txt",
+          makeReport(),
+          "text/plain;charset=utf-8"
+        );
+        $("exportStatus").textContent = "Project report downloaded.";
+      });
+
+      $("downloadBackup").addEventListener("click", () => {
+        downloadFile(
+          "toolnes-publishing-project-backup.json",
+          JSON.stringify(getProject(), null, 2),
+          "application/json;charset=utf-8"
+        );
+        $("exportStatus").textContent = "JSON backup downloaded. Keep it safe for future import.";
+      });
+
+      $("importBackup").addEventListener("click", () => $("backupFile").click());
+
+      $("backupFile").addEventListener("change", async event => {
+        const file = event.target.files && event.target.files[0];
+        if (!file) return;
+
+        try {
+          const text = await file.text();
+          const project = JSON.parse(text);
+          if (!confirm("Import this backup? It will replace the project currently displayed.")) {
+            return;
+          }
+          applyProject(project);
+          $("exportStatus").textContent = "Project backup imported successfully.";
+        } catch (error) {
+          $("exportStatus").textContent = "Could not import this file. Choose a valid Toolnes JSON backup.";
+        } finally {
+          event.target.value = "";
+        }
+      });
+
+      $("resetProject").addEventListener("click", () => {
+        if (!confirm("Reset the entire project and restore the default checklist? Download a backup first if needed.")) {
+          return;
+        }
+
+        $("projectName").value = "My First Book";
+        $("author").value = "";
+        $("bookType").value = "Paperback";
+        $("launchDate").value = "";
+        $("currency").value = "USD";
+        $("budget").value = "300";
+        $("notes").value = "";
+
+        nextId = 1;
+        tasks = defaultTasks.map(item => newTask({
+          title: item.title,
+          phase: item.phase,
+          cost: 0,
+          done: false
+        }));
+
+        filter = "all";
+        refresh();
+        $("exportStatus").textContent = "Project reset. Update the details to start again.";
+      });
+
+      $("year").textContent = new Date().getFullYear();
+
+      tasks = defaultTasks.map(item => {
+        const task = newTask({
+          title: item.title,
+          phase: item.phase,
+          cost: 0,
+          done: false
+        });
+
+        const launch = $("launchDate").value;
+        if (launch) {
+          const date = new Date(launch + "T12:00:00");
+          date.setDate(date.getDate() - item.days);
+          task.dueDate = date.toISOString().slice(0, 10);
+        }
+
+        return task;
+      });
+
+      refresh();
+    })();
+  </script>
+</body>
+</html>
+```
 
