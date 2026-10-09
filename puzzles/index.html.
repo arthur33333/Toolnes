@@ -4,234 +4,402 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Explore free puzzles and games on Toolnes, including word search, Sudoku, crosswords and 2048.">
-  <title>Puzzles &amp; Games | Toolnes</title>
+
+  <title>Free Online Puzzle Games | Toolnes</title>
+  <meta name="description" content="Play free online puzzle games on Toolnes, including word search, Sudoku, mazes, word scramble, bingo, and 2048.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://toolnes.netlify.app/puzzles/">
+
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f5f7fb;
-      color: #172033;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #1e293b;
+      background: #f8fafc;
+      line-height: 1.6;
     }
 
-    header {
-      background: white;
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .site-header {
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
       padding: 18px 20px;
-      border-bottom: 1px solid #e5e7eb;
     }
 
     .header-inner {
-      max-width: 1100px;
-      margin: auto;
+      max-width: 1150px;
+      margin: 0 auto;
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
+      gap: 20px;
       flex-wrap: wrap;
-      gap: 16px;
     }
 
     .logo {
-      font-size: 26px;
-      font-weight: bold;
+      font-size: 27px;
+      font-weight: 800;
       color: #2563eb;
-      text-decoration: none;
+      letter-spacing: -1px;
     }
 
-    nav {
+    .main-nav {
       display: flex;
+      align-items: center;
+      gap: 22px;
       flex-wrap: wrap;
-      gap: 16px;
     }
 
-    nav a {
-      text-decoration: none;
-      color: #334155;
-      font-weight: bold;
+    .main-nav a {
+      font-size: 15px;
+      font-weight: 600;
+      color: #475569;
     }
 
-    main {
-      max-width: 1100px;
-      margin: auto;
-      padding: 40px 20px 60px;
+    .main-nav a:hover,
+    .main-nav a.active {
+      color: #2563eb;
+    }
+
+    .container {
+      width: min(1150px, calc(100% - 36px));
+      margin: 0 auto;
     }
 
     .hero {
+      padding: 55px 0 35px;
       text-align: center;
-      margin-bottom: 35px;
     }
 
-    .hero h1 {
-      font-size: clamp(30px, 5vw, 44px);
-      margin: 0 0 12px;
+    .hero-label {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 6px 13px;
+      border-radius: 30px;
+      background: #dbeafe;
+      color: #1d4ed8;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 0 0 15px;
+      color: #0f172a;
+      font-size: clamp(32px, 5vw, 46px);
+      line-height: 1.2;
+      letter-spacing: -1.3px;
     }
 
     .hero p {
+      max-width: 680px;
+      margin: 0 auto;
       color: #64748b;
-      line-height: 1.7;
+      font-size: 17px;
+    }
+
+    .section-heading {
+      margin: 12px 0 22px;
+      font-size: 25px;
+      color: #0f172a;
     }
 
     .games-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 22px;
+      width: 100%;
+      margin: 0 0 55px;
     }
 
     .game-card {
-      background: #fff;
-      border: 1px solid #e2e8f0;
-      border-radius: 16px;
-      padding: 24px;
-      min-width: 0;
       display: flex;
       flex-direction: column;
+      align-items: flex-start;
+      min-width: 0;
+      min-height: 255px;
+      padding: 24px;
+      overflow-wrap: anywhere;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
       box-shadow: 0 5px 18px rgba(15, 23, 42, 0.05);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .game-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.09);
     }
 
     .game-icon {
-      font-size: 36px;
-      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 55px;
+      height: 55px;
+      margin-bottom: 17px;
+      border-radius: 14px;
+      background: #eff6ff;
+      font-size: 29px;
     }
 
     .game-card h2 {
       margin: 0 0 10px;
-      font-size: 21px;
+      color: #0f172a;
+      font-size: 20px;
+      line-height: 1.35;
     }
 
     .game-card p {
+      margin: 0 0 22px;
       color: #64748b;
-      line-height: 1.6;
-      flex: 1;
+      font-size: 15px;
     }
 
-    .game-button {
-      display: block;
-      padding: 12px;
-      text-align: center;
+    .card-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: auto;
+      padding: 10px 16px;
       border-radius: 9px;
       background: #2563eb;
-      color: white;
-      font-weight: bold;
-      text-decoration: none;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 700;
+      transition: background 0.2s ease;
     }
 
-    .game-button:hover {
+    .card-action:hover {
       background: #1d4ed8;
     }
 
-    .coming-soon {
-      display: block;
-      padding: 12px;
-      text-align: center;
-      border-radius: 9px;
-      background: #eef2f7;
+    .card-action.disabled {
+      background: #e2e8f0;
       color: #64748b;
-      font-weight: bold;
+      cursor: default;
     }
 
-    .featured {
-      border: 2px solid #2563eb;
+    .info-section {
+      margin-bottom: 55px;
+      padding: 28px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
     }
 
-    footer {
-      text-align: center;
-      background: white;
-      padding: 24px;
+    .info-section h2 {
+      margin-top: 0;
+      color: #0f172a;
+    }
+
+    .info-section p {
+      margin-bottom: 0;
       color: #64748b;
-      border-top: 1px solid #e5e7eb;
+    }
+
+    .site-footer {
+      padding: 25px 20px;
+      background: #ffffff;
+      border-top: 1px solid #e2e8f0;
+      text-align: center;
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    .site-footer a {
+      color: #2563eb;
     }
 
     @media (max-width: 800px) {
       .games-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
+
+      .hero {
+        padding-top: 42px;
+      }
     }
 
     @media (max-width: 540px) {
+      .header-inner {
+        justify-content: center;
+      }
+
+      .main-nav {
+        justify-content: center;
+        gap: 15px;
+      }
+
       .games-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 16px;
+      }
+
+      .game-card {
+        min-height: 230px;
+        padding: 21px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .section-heading {
+        font-size: 22px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
       }
     }
   </style>
 </head>
 
 <body>
-  <header>
+  <header class="site-header">
     <div class="header-inner">
-      <a class="logo" href="/">Toolnes</a>
-      <nav>
+      <a class="logo" href="/" aria-label="Toolnes homepage">Toolnes</a>
+
+      <nav class="main-nav" aria-label="Main navigation">
         <a href="/">Home</a>
         <a href="/text-tools/">Text Tools</a>
         <a href="/calculators/">Calculators</a>
-        <a href="/puzzles/">Puzzles</a>
+        <a class="active" href="/puzzles/" aria-current="page">Puzzles</a>
       </nav>
     </div>
   </header>
 
-  <main>
+  <main class="container">
     <section class="hero">
-      <h1>Puzzles &amp; Games</h1>
-      <p>Discover free puzzles, challenge your brain and enjoy fun games on Toolnes.</p>
+      <span class="hero-label">FREE ONLINE GAMES</span>
+      <h1>Free Online Puzzle Games</h1>
+      <p>
+        Take a break and challenge your brain with our collection of free
+        online puzzles. Choose a game below and start playing.
+      </p>
     </section>
 
-    <section class="games-grid">
+    <section aria-labelledby="games-title">
+      <h2 class="section-heading" id="games-title">Explore Puzzle Games</h2>
 
-      <article class="game-card">
-        <div class="game-icon">🔎</div>
-        <h2>Word Search</h2>
-        <p>Create and print your own word search puzzles.</p>
-        <a class="game-button" href="/puzzles/word-search/">Create Word Search</a>
-      </article>
+      <div class="games-grid">
 
-      <article class="game-card">
-        <div class="game-icon">📝</div>
-        <h2>Crossword Generator</h2>
-        <p>Create crossword puzzles for learning and entertainment.</p>
-        <span class="coming-soon">Coming Soon</span>
-      </article>
+        <article class="game-card">
+          <div class="game-icon" aria-hidden="true">🔎</div>
+          <h2>Word Search</h2>
+          <p>
+            Find hidden words in a letter grid and test your vocabulary
+            and observation skills.
+          </p>
+          <a class="card-action" href="/puzzles/word-search/">
+            Play Word Search →
+          </a>
+        </article>
 
-      <article class="game-card">
-        <div class="game-icon">🔢</div>
-        <h2>Sudoku Generator</h2>
-        <p>Challenge your logic with number puzzles.</p>
-        <span class="coming-soon">Coming Soon</span>
-      </article>
+        <article class="game-card">
+          <div class="game-icon" aria-hidden="true">📝</div>
+          <h2>Crossword Generator</h2>
+          <p>
+            Create crossword puzzles to challenge your vocabulary
+            and enjoy a classic word game.
+          </p>
+          <span class="card-action disabled">Coming Soon</span>
+        </article>
 
-      <article class="game-card">
-        <div class="game-icon">🌀</div>
-        <h2>Maze Generator</h2>
-        <p>Generate mazes to solve and print.</p>
-        <span class="coming-soon">Coming Soon</span>
-      </article>
+        <article class="game-card">
+          <div class="game-icon" aria-hidden="true">🔢</div>
+          <h2>Sudoku Generator</h2>
+          <p>
+            Exercise your logic with number puzzles suitable for
+            different skill levels.
+          </p>
+          <span class="card-action disabled">Coming Soon</span>
+        </article>
 
-      <article class="game-card">
-        <div class="game-icon">🔤</div>
-        <h2>Word Scramble</h2>
-        <p>Unscramble letters and test your vocabulary.</p>
-        <span class="coming-soon">Coming Soon</span>
-      </article>
+        <article class="game-card">
+          <div class="game-icon" aria-hidden="true">🌀</div>
+          <h2>Maze Generator</h2>
+          <p>
+            Find your way through a maze, solve the path,
+            and challenge your problem-solving skills.
+          </p>
+          <span class="card-action disabled">Coming Soon</span>
+        </article>
 
-      <article class="game-card">
-        <div class="game-icon">🎯</div>
-        <h2>Bingo Generator</h2>
-        <p>Create bingo cards for parties and classrooms.</p>
-        <span class="coming-soon">Coming Soon</span>
-      </article>
+        <article class="game-card">
+          <div class="game-icon" aria-hidden="true">🔤</div>
+          <h2>Word Scramble</h2>
+          <p>
+            Rearrange mixed-up letters to discover the hidden words
+            and improve your spelling.
+          </p>
+          <span class="card-action disabled">Coming Soon</span>
+        </article>
 
-      <article class="game-card featured">
-        <div class="game-icon">🧩</div>
-        <h2>2048 Game</h2>
-        <p>Merge matching number tiles and try to reach 2048.</p>
-        <a class="game-button" href="/puzzles/2048/">Play 2048</a>
-      </article>
+        <article class="game-card">
+          <div class="game-icon" aria-hidden="true">🎱</div>
+          <h2>Bingo Generator</h2>
+          <p>
+            Generate bingo cards for parties, classrooms,
+            family activities, and group games.
+          </p>
+          <span class="card-action disabled">Coming Soon</span>
+        </article>
 
+        <article class="game-card">
+          <div class="game-icon" aria-hidden="true">🎮</div>
+          <h2>2048 Game</h2>
+          <p>
+            Combine matching numbered tiles, reach 2048,
+            and try to beat your highest score.
+          </p>
+          <a class="card-action" href="/puzzles/2048/">
+            Play 2048 →
+          </a>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="info-section">
+      <h2>Why Play Puzzle Games?</h2>
+      <p>
+        Puzzle games offer an enjoyable way to practise logical thinking,
+        vocabulary, concentration, and problem-solving. Explore the available
+        games on Toolnes and check back as more free puzzles are added.
+      </p>
     </section>
   </main>
 
-  <footer>
-    <p>&copy; 2026 Toolnes — Free online tools and games.</p>
-    <a href="/">Back to Home</a>
+  <footer class="site-footer">
+    <p>
+      © <span id="current-year">2026</span> Toolnes.
+      Free online tools and games.
+    </p>
+    <p><a href="/">Visit Toolnes Home</a></p>
   </footer>
+
+  <script>
+    document.getElementById("current-year").textContent =
+      new Date().getFullYear();
+  </script>
 </body>
 </html>
