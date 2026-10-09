@@ -1,1 +1,370 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Free PDF & Document Tools Online | Toolnes</title>
+  <meta name="description" content="Use free online PDF and document tools to merge, split, rotate, compress and convert PDF files. Simple tools for everyday document tasks.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://toolnes.netlify.app/pdf-documents/">
+
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --background: #f5f7fb;
+      --surface: #ffffff;
+      --text: #172033;
+      --muted: #64748b;
+      --border: #e2e8f0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--background);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      max-width: 1100px;
+      margin: auto;
+      padding: 17px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo {
+      color: var(--primary);
+      font-size: 26px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .nav-link {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .nav-link:hover,
+    .tool-link:hover {
+      color: var(--primary-dark);
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 45px 20px 55px;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      background: #dbeafe;
+      color: #1d4ed8;
+      padding: 5px 12px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: clamp(30px, 5vw, 44px);
+      line-height: 1.2;
+      letter-spacing: -1px;
+      margin: 0 0 16px;
+    }
+
+    .hero p {
+      max-width: 680px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      font-size: 23px;
+    }
+
+    .tool-count {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .tool-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 23px;
+      display: flex;
+      flex-direction: column;
+      min-height: 235px;
+      transition: transform .2s, box-shadow .2s, border-color .2s;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-3px);
+      border-color: #bfdbfe;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, .07);
+    }
+
+    .tool-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #eff6ff;
+      font-size: 27px;
+      margin-bottom: 15px;
+    }
+
+    .tool-card h3 {
+      margin: 0 0 8px;
+      font-size: 19px;
+    }
+
+    .tool-card p {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 0 0 18px;
+      flex-grow: 1;
+    }
+
+    .tool-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+      align-self: flex-start;
+    }
+
+    .info-section {
+      margin-top: 40px;
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--surface);
+    }
+
+    .info-section h2 {
+      margin: 0 0 12px;
+      font-size: 23px;
+    }
+
+    .info-section p {
+      color: var(--muted);
+      margin: 0 0 12px;
+    }
+
+    .info-section h3 {
+      font-size: 17px;
+      margin: 22px 0 7px;
+    }
+
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 25px 20px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    @media (max-width: 850px) {
+      .tools-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 540px) {
+      main {
+        padding: 30px 15px 40px;
+      }
+
+      .nav {
+        padding: 15px;
+      }
+
+      .tools-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .tool-card {
+        min-height: auto;
+      }
+
+      .info-section {
+        padding: 20px;
+      }
+
+      .hero p {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav class="nav" aria-label="Main navigation">
+      <a class="logo" href="/">Toolnes</a>
+      <a class="nav-link" href="/">← Back to Home</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <span class="eyebrow">FREE ONLINE TOOLS</span>
+      <h1>PDF & Document Tools</h1>
+      <p>
+        Manage your documents with simple online tools.
+        Merge, split, organize and convert PDF files for everyday tasks.
+      </p>
+    </section>
+
+    <section aria-labelledby="tools-heading">
+      <div class="section-heading">
+        <h2 id="tools-heading">Explore PDF Tools</h2>
+        <span class="tool-count">8 tools</span>
+      </div>
+
+      <div class="tools-grid">
+        <article class="tool-card">
+          <div class="tool-icon" aria-hidden="true">📚</div>
+          <h3>Merge PDF</h3>
+          <p>Combine multiple PDF files into one document in your preferred order.</p>
+          <a class="tool-link" href="/pdf-documents/merge-pdf/">Merge PDF →</a>
+        </article>
+
+        <article class="tool-card">
+          <div class="tool-icon" aria-hidden="true">✂️</div>
+          <h3>Split PDF</h3>
+          <p>Extract selected pages or divide a PDF into separate documents.</p>
+          <a class="tool-link" href="/pdf-documents/split-pdf/">Split PDF →</a>
+        </article>
+
+        <article class="tool-card">
+          <div class="tool-icon" aria-hidden="true">🗜️</div>
+          <h3>Compress PDF</h3>
+          <p>Reduce PDF file size where possible to make documents easier to share.</p>
+          <a class="tool-link" href="/pdf-documents/compress-pdf/">Compress PDF →</a>
+        </article>
+
+        <article class="tool-card">
+          <div class="tool-icon" aria-hidden="true">📝</div>
+          <h3>PDF to Word</h3>
+          <p>Extract text from PDF documents and prepare editable Word-compatible content.</p>
+          <a class="tool-link" href="/pdf-documents/pdf-to-word/">PDF to Word →</a>
+        </article>
+
+        <article class="tool-card">
+          <div class="tool-icon" aria-hidden="true">📄</div>
+          <h3>Word to PDF</h3>
+          <p>Convert supported Word documents into PDF files for easier sharing.</p>
+          <a class="tool-link" href="/pdf-documents/word-to-pdf/">Word to PDF →</a>
+        </article>
+
+        <article class="tool-card">
+          <div class="tool-icon" aria-hidden="true">🔄</div>
+          <h3>Rotate PDF</h3>
+          <p>Rotate PDF pages to correct their orientation before sharing or printing.</p>
+          <a class="tool-link" href="/pdf-documents/rotate-pdf/">Rotate PDF →</a>
+        </article>
+
+        <article class="tool-card">
+          <div class="tool-icon" aria-hidden="true">🔢</div>
+          <h3>Add Page Numbers</h3>
+          <p>Add page numbers to make long PDF documents easier to navigate.</p>
+          <a class="tool-link" href="/pdf-documents/add-page-numbers/">Add Page Numbers →</a>
+        </article>
+
+        <article class="tool-card">
+          <div class="tool-icon" aria-hidden="true">🖼️</div>
+          <h3>PDF to Images</h3>
+          <p>Turn PDF pages into image files for presentations and other projects.</p>
+          <a class="tool-link" href="/pdf-documents/pdf-to-images/">PDF to Images →</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="info-section">
+      <h2>Free PDF Tools for Everyday Work</h2>
+      <p>
+        Toolnes brings useful document utilities together in one place.
+        Whether you need to organize pages, prepare a document for sharing,
+        or extract content, choose the tool that matches your task.
+      </p>
+
+      <h3>How to use these tools</h3>
+      <p>
+        Select a tool, follow its instructions, and download the resulting file
+        when processing is complete. Available features and supported file
+        formats may vary by tool.
+      </p>
+
+      <h3>Your files and privacy</h3>
+      <p>
+        Some tools may process files directly in your browser. Check the
+        individual tool's instructions before uploading or processing sensitive
+        documents. Keep a copy of important original files.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> Toolnes. Free online tools for everyday tasks.</p>
+    <p>
+      <a href="/">Home</a> ·
+      <a href="/image-tools/">Image Tools</a>
+    </p>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+```
 
