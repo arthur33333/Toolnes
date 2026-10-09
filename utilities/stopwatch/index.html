@@ -1,1 +1,383 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Use the free Toolnes online stopwatch to measure elapsed time, record lap times, pause, resume, and reset the timer.">
+  <meta name="robots" content="index, follow">
+  <title>Free Online Stopwatch - Toolnes</title>
+  <link rel="canonical" href="https://toolnes.netlify.app/utilities/stopwatch/">
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --text: #172033;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --bg: #f8fafc;
+      --green: #15803d;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    header {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 18px 20px;
+    }
+    nav {
+      max-width: 1050px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .brand {
+      color: var(--primary);
+      font-size: 1.45rem;
+      font-weight: 800;
+      text-decoration: none;
+    }
+    nav a:not(.brand) {
+      color: #475569;
+      text-decoration: none;
+      margin-left: 14px;
+      font-size: .94rem;
+    }
+    main {
+      width: min(760px, calc(100% - 32px));
+      margin: 42px auto;
+    }
+    .intro { text-align: center; margin-bottom: 28px; }
+    h1 { font-size: clamp(1.9rem, 5vw, 2.6rem); margin: 0 0 10px; }
+    .intro p { color: var(--muted); margin: auto; max-width: 600px; }
+    .panel, .content {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: clamp(20px, 5vw, 32px);
+      box-shadow: 0 8px 25px rgba(15, 23, 42, .04);
+    }
+    .timer {
+      text-align: center;
+      padding: 25px 0;
+    }
+    #display {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: clamp(2.7rem, 10vw, 5rem);
+      font-weight: 700;
+      letter-spacing: -2px;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+    #state {
+      color: var(--muted);
+      font-size: .95rem;
+      margin-top: 8px;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin: 18px 0 25px;
+    }
+    button {
+      border: 0;
+      border-radius: 9px;
+      padding: 12px 20px;
+      font-size: .96rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    button:focus-visible {
+      outline: 3px solid #a5b4fc;
+      outline-offset: 2px;
+    }
+    button:disabled { opacity: .45; cursor: not-allowed; }
+    .primary { background: var(--primary); color: white; }
+    .secondary { background: #eef2ff; color: #3730a3; }
+    .danger { background: #fee2e2; color: #991b1b; }
+    .laps-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .laps-header h2 { margin: 0; font-size: 1.2rem; }
+    .laps-header button { padding: 9px 12px; font-size: .88rem; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td {
+      text-align: left;
+      padding: 12px 10px;
+      border-bottom: 1px solid var(--border);
+      font-variant-numeric: tabular-nums;
+    }
+    th { color: var(--muted); font-size: .88rem; }
+    td.time { font-family: Consolas, monospace; white-space: nowrap; }
+    .empty { text-align: center; color: var(--muted); padding: 22px 8px; }
+    .content { margin-top: 28px; }
+    .content h2 { font-size: 1.3rem; margin-top: 0; }
+    .content p, .content li { color: #475569; }
+    footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 28px 16px;
+      border-top: 1px solid var(--border);
+      background: white;
+    }
+    footer a { color: var(--primary); text-decoration: none; margin: 0 8px; }
+    @media (max-width: 520px) {
+      nav { justify-content: center; }
+      nav a:not(.brand) { margin: 0 6px; }
+      .controls button { flex: 1 1 40%; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <nav>
+    <a class="brand" href="/">Toolnes</a>
+    <div>
+      <a href="/">Home</a>
+      <a href="/text-tools/">Text Tools</a>
+      <a href="/developer-tools/">Developer Tools</a>
+      <a href="/utilities/">Utilities</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <section class="intro">
+    <h1>Online Stopwatch</h1>
+    <p>Measure elapsed time with this free online stopwatch. Start, pause, resume, and record lap times directly in your browser.</p>
+  </section>
+
+  <section class="panel" aria-label="Stopwatch">
+    <div class="timer">
+      <div id="display" role="timer" aria-label="Elapsed time">00:00:00.000</div>
+      <div id="state" aria-live="polite">Ready to start</div>
+    </div>
+
+    <div class="controls">
+      <button class="primary" id="startBtn" type="button">Start</button>
+      <button class="secondary" id="lapBtn" type="button" disabled>Lap</button>
+      <button class="secondary" id="resetBtn" type="button" disabled>Reset</button>
+    </div>
+
+    <div class="laps-header">
+      <h2>Lap Times</h2>
+      <button class="secondary" id="exportBtn" type="button" disabled>Download CSV</button>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Lap</th>
+            <th scope="col">Lap Time</th>
+            <th scope="col">Total Time</th>
+          </tr>
+        </thead>
+        <tbody id="lapsBody">
+          <tr><td class="empty" colspan="3">No lap times recorded yet.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="content">
+    <h2>How to use the stopwatch</h2>
+    <ol>
+      <li>Click <strong>Start</strong> to begin measuring elapsed time.</li>
+      <li>Click <strong>Lap</strong> to record a split time without stopping the timer.</li>
+      <li>Click <strong>Pause</strong> to temporarily stop the timer, then click <strong>Resume</strong> to continue.</li>
+      <li>Click <strong>Reset</strong> to return the stopwatch to zero.</li>
+      <li>Use <strong>Download CSV</strong> to save your recorded lap times.</li>
+    </ol>
+    <h2>Accurate elapsed-time measurement</h2>
+    <p>The stopwatch uses the browser's high-resolution performance timer rather than counting fixed intervals. This helps keep elapsed time accurate even when the browser temporarily slows down screen updates.</p>
+  </section>
+</main>
+
+<footer>
+  <p>Free online tools for everyday tasks.</p>
+  <a href="/about/">About</a>
+  <a href="/contact/">Contact</a>
+  <a href="/privacy-policy/">Privacy Policy</a>
+  <a href="/terms/">Terms</a>
+  <p>© <span id="year"></span> Toolnes</p>
+</footer>
+
+<script>
+(() => {
+  const display = document.getElementById("display");
+  const state = document.getElementById("state");
+  const startBtn = document.getElementById("startBtn");
+  const lapBtn = document.getElementById("lapBtn");
+  const resetBtn = document.getElementById("resetBtn");
+  const exportBtn = document.getElementById("exportBtn");
+  const lapsBody = document.getElementById("lapsBody");
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  let running = false;
+  let startedAt = 0;
+  let elapsedBeforeStart = 0;
+  let animationFrame = null;
+  let laps = [];
+
+  function elapsedNow() {
+    return running
+      ? elapsedBeforeStart + (performance.now() - startedAt)
+      : elapsedBeforeStart;
+  }
+
+  function formatTime(milliseconds) {
+    const totalMs = Math.max(0, Math.floor(milliseconds));
+    const hours = Math.floor(totalMs / 3600000);
+    const minutes = Math.floor((totalMs % 3600000) / 60000);
+    const seconds = Math.floor((totalMs % 60000) / 1000);
+    const ms = totalMs % 1000;
+
+    return String(hours).padStart(2, "0") + ":" +
+      String(minutes).padStart(2, "0") + ":" +
+      String(seconds).padStart(2, "0") + "." +
+      String(ms).padStart(3, "0");
+  }
+
+  function render() {
+    display.textContent = formatTime(elapsedNow());
+    if (running) animationFrame = requestAnimationFrame(render);
+  }
+
+  function renderLaps() {
+    lapsBody.replaceChildren();
+
+    if (laps.length === 0) {
+      const row = document.createElement("tr");
+      const cell = document.createElement("td");
+      cell.colSpan = 3;
+      cell.className = "empty";
+      cell.textContent = "No lap times recorded yet.";
+      row.appendChild(cell);
+      lapsBody.appendChild(row);
+      exportBtn.disabled = true;
+      return;
+    }
+
+    laps.forEach(lap => {
+      const row = document.createElement("tr");
+      [String(lap.number), formatTime(lap.split), formatTime(lap.total)]
+        .forEach((value, index) => {
+          const cell = document.createElement("td");
+          cell.textContent = value;
+          if (index > 0) cell.className = "time";
+          row.appendChild(cell);
+        });
+      lapsBody.appendChild(row);
+    });
+
+    exportBtn.disabled = false;
+  }
+
+  function start() {
+    if (running) {
+      elapsedBeforeStart = elapsedNow();
+      running = false;
+      cancelAnimationFrame(animationFrame);
+      startBtn.textContent = "Resume";
+      lapBtn.disabled = true;
+      state.textContent = "Paused";
+      render();
+      return;
+    }
+
+    startedAt = performance.now();
+    running = true;
+    startBtn.textContent = "Pause";
+    lapBtn.disabled = false;
+    resetBtn.disabled = false;
+    state.textContent = "Stopwatch running";
+    render();
+  }
+
+  function recordLap() {
+    if (!running) return;
+    const total = elapsedNow();
+    const previousTotal = laps.length ? laps[laps.length - 1].total : 0;
+
+    laps.push({
+      number: laps.length + 1,
+      split: total - previousTotal,
+      total
+    });
+
+    renderLaps();
+  }
+
+  function reset() {
+    running = false;
+    cancelAnimationFrame(animationFrame);
+    elapsedBeforeStart = 0;
+    startedAt = 0;
+    laps = [];
+
+    display.textContent = "00:00:00.000";
+    startBtn.textContent = "Start";
+    lapBtn.disabled = true;
+    resetBtn.disabled = true;
+    state.textContent = "Ready to start";
+    renderLaps();
+  }
+
+  function downloadCsv() {
+    if (laps.length === 0) return;
+
+    const rows = [
+      ["Lap", "Lap Time (ms)", "Total Time (ms)", "Lap Time", "Total Time"],
+      ...laps.map(lap => [
+        lap.number,
+        Math.round(lap.split),
+        Math.round(lap.total),
+        formatTime(lap.split),
+        formatTime(lap.total)
+      ])
+    ];
+
+    const csv = rows.map(row =>
+      row.map(value => '"' + String(value).replace(/"/g, '""') + '"').join(",")
+    ).join("\r\n");
+
+    const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "toolnes-stopwatch-laps.csv";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  startBtn.addEventListener("click", start);
+  lapBtn.addEventListener("click", recordLap);
+  resetBtn.addEventListener("click", reset);
+  exportBtn.addEventListener("click", downloadCsv);
+
+  renderLaps();
+})();
+</script>
+</body>
+</html>
+```
 
