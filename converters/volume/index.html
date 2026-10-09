@@ -1,1 +1,309 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Convert volume units instantly with this free online volume converter.">
+  <title>Volume Converter - Toolnes</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f7f8fc;
+      color: #20243a;
+    }
+    header {
+      background: white;
+      border-bottom: 1px solid #e8eaf2;
+      padding: 18px 20px;
+    }
+    .header-inner {
+      max-width: 1000px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo {
+      color: #6558d3;
+      font-size: 25px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    .back {
+      color: #6558d3;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    main {
+      max-width: 760px;
+      margin: 45px auto;
+      padding: 0 18px;
+    }
+    h1 { margin-bottom: 10px; font-size: 32px; }
+    .intro { color: #656b80; line-height: 1.6; }
+    .panel {
+      margin-top: 25px;
+      padding: 26px;
+      background: white;
+      border: 1px solid #e7e8f0;
+      border-radius: 16px;
+      box-shadow: 0 8px 28px #20243a0b;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    input, select {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #d9dce8;
+      border-radius: 9px;
+      background: white;
+      color: #20243a;
+      font-size: 16px;
+    }
+    .fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 18px;
+    }
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    button {
+      border: 0;
+      border-radius: 9px;
+      padding: 12px 17px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .primary { background: #6558d3; color: white; }
+    .secondary { background: #efedff; color: #5145b5; }
+    .result {
+      margin-top: 22px;
+      padding: 20px;
+      background: #f4f2ff;
+      border-radius: 12px;
+    }
+    .result-label { color: #656b80; font-size: 14px; }
+    #result {
+      margin-top: 8px;
+      font-size: 27px;
+      font-weight: bold;
+      overflow-wrap: anywhere;
+    }
+    .note {
+      color: #656b80;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-top: 20px;
+    }
+    footer {
+      text-align: center;
+      color: #777d90;
+      padding: 25px 15px;
+      font-size: 14px;
+    }
+    @media (max-width: 520px) {
+      .fields { grid-template-columns: 1fr; }
+      .panel { padding: 19px; }
+      h1 { font-size: 27px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="/">Toolnes</a>
+      <a class="back" href="/converters/">← All converters</a>
+    </div>
+  </header>
+
+  <main>
+    <h1>Volume Converter</h1>
+    <p class="intro">
+      Convert volume measurements instantly between metric, US and imperial units.
+      Free to use, with no registration required.
+    </p>
+
+    <section class="panel">
+      <label for="amount">Enter volume</label>
+      <input id="amount" type="number" step="any" value="1" placeholder="Enter a value">
+
+      <div class="fields">
+        <div>
+          <label for="from">From</label>
+          <select id="from">
+            <option value="ml">Milliliters (mL)</option>
+            <option value="l" selected>Liters (L)</option>
+            <option value="m3">Cubic meters (m³)</option>
+            <option value="cm3">Cubic centimeters (cm³)</option>
+            <option value="mm3">Cubic millimeters (mm³)</option>
+            <option value="tsp">US teaspoons</option>
+            <option value="tbsp">US tablespoons</option>
+            <option value="floz">US fluid ounces</option>
+            <option value="cup">US cups</option>
+            <option value="pt">US pints</option>
+            <option value="qt">US quarts</option>
+            <option value="gal">US gallons</option>
+            <option value="ukgal">Imperial gallons</option>
+            <option value="ft3">Cubic feet (ft³)</option>
+            <option value="in3">Cubic inches (in³)</option>
+          </select>
+        </div>
+        <div>
+          <label for="to">To</label>
+          <select id="to">
+            <option value="ml" selected>Milliliters (mL)</option>
+            <option value="l">Liters (L)</option>
+            <option value="m3">Cubic meters (m³)</option>
+            <option value="cm3">Cubic centimeters (cm³)</option>
+            <option value="mm3">Cubic millimeters (mm³)</option>
+            <option value="tsp">US teaspoons</option>
+            <option value="tbsp">US tablespoons</option>
+            <option value="floz">US fluid ounces</option>
+            <option value="cup">US cups</option>
+            <option value="pt">US pints</option>
+            <option value="qt">US quarts</option>
+            <option value="gal">US gallons</option>
+            <option value="ukgal">Imperial gallons</option>
+            <option value="ft3">Cubic feet (ft³)</option>
+            <option value="in3">Cubic inches (in³)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="buttons">
+        <button class="secondary" id="swap" type="button">⇄ Swap</button>
+        <button class="secondary" id="reset" type="button">Reset</button>
+        <button class="primary" id="copy" type="button">Copy result</button>
+      </div>
+
+      <div class="result" aria-live="polite">
+        <div class="result-label">Converted result</div>
+        <div id="result">1,000 mL</div>
+      </div>
+
+      <p class="note">
+        Note: US and imperial liquid measurements are different. Results use
+        standard unit conversion factors.
+      </p>
+    </section>
+  </main>
+
+  <footer>© <span id="year"></span> Toolnes. Free online tools.</footer>
+
+  <script>
+    (() => {
+      const amount = document.getElementById("amount");
+      const from = document.getElementById("from");
+      const to = document.getElementById("to");
+      const result = document.getElementById("result");
+
+      // Conversion factors expressed in cubic meters.
+      const factors = {
+        ml: 0.000001,
+        l: 0.001,
+        m3: 1,
+        cm3: 0.000001,
+        mm3: 0.000000001,
+        tsp: 0.00000492892159375,
+        tbsp: 0.00001478676478125,
+        floz: 0.0000295735295625,
+        cup: 0.0002365882365,
+        pt: 0.000473176473,
+        qt: 0.000946352946,
+        gal: 0.003785411784,
+        ukgal: 0.00454609,
+        ft3: 0.028316846592,
+        in3: 0.000016387064
+      };
+
+      const labels = {
+        ml: "mL",
+        l: "L",
+        m3: "m³",
+        cm3: "cm³",
+        mm3: "mm³",
+        tsp: "US tsp",
+        tbsp: "US tbsp",
+        floz: "US fl oz",
+        cup: "US cups",
+        pt: "US pt",
+        qt: "US qt",
+        gal: "US gal",
+        ukgal: "Imperial gal",
+        ft3: "ft³",
+        in3: "in³"
+      };
+
+      function formatNumber(number) {
+        if (!Number.isFinite(number)) return "Invalid result";
+        return new Intl.NumberFormat("en-US", {
+          maximumSignificantDigits: 10
+        }).format(number);
+      }
+
+      function convert() {
+        if (amount.value.trim() === "") {
+          result.textContent = "Enter a value";
+          return;
+        }
+
+        const value = Number(amount.value);
+        if (!Number.isFinite(value)) {
+          result.textContent = "Enter a valid number";
+          return;
+        }
+
+        const converted = value * factors[from.value] / factors[to.value];
+        result.textContent = formatNumber(converted) + " " + labels[to.value];
+      }
+
+      amount.addEventListener("input", convert);
+      from.addEventListener("change", convert);
+      to.addEventListener("change", convert);
+
+      document.getElementById("swap").addEventListener("click", () => {
+        const oldFrom = from.value;
+        from.value = to.value;
+        to.value = oldFrom;
+        convert();
+      });
+
+      document.getElementById("reset").addEventListener("click", () => {
+        amount.value = "1";
+        from.value = "l";
+        to.value = "ml";
+        convert();
+      });
+
+      document.getElementById("copy").addEventListener("click", async () => {
+        const text = result.textContent;
+        try {
+          await navigator.clipboard.writeText(text);
+          document.getElementById("copy").textContent = "Copied!";
+          setTimeout(() => {
+            document.getElementById("copy").textContent = "Copy result";
+          }, 1500);
+        } catch {
+          alert("Copy failed. Please select and copy the result manually.");
+        }
+      });
+
+      document.getElementById("year").textContent = new Date().getFullYear();
+      convert();
+    })();
+  </script>
+</body>
+</html>
