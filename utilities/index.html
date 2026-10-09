@@ -1,1 +1,281 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free online utility tools for everyday tasks. Calculate dates, convert units, check time zones, generate passwords and more with Toolnes.">
+  <meta name="robots" content="index, follow">
+  <title>Free Online Utility Tools | Toolnes</title>
+  <link rel="canonical" href="https://toolnes.netlify.app/utilities/">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f7fb;
+      color: #172033;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid #e5e9f2;
+      padding: 18px 20px;
+    }
+
+    .nav {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 800;
+      color: #2563eb;
+      text-decoration: none;
+    }
+
+    nav {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #344054;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      color: #2563eb;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 55px 20px 35px;
+      background: linear-gradient(135deg, #eaf1ff, #f8faff);
+    }
+
+    .hero h1 {
+      margin: 0 0 12px;
+      font-size: clamp(30px, 5vw, 44px);
+      line-height: 1.2;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: auto;
+      color: #5b6475;
+      font-size: 17px;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 35px 20px 55px;
+    }
+
+    .section-title {
+      font-size: 25px;
+      margin: 0 0 8px;
+    }
+
+    .section-description {
+      color: #667085;
+      margin: 0 0 25px;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 18px;
+    }
+
+    .tool-card {
+      display: block;
+      background: #ffffff;
+      border: 1px solid #e4e8f0;
+      border-radius: 14px;
+      padding: 22px;
+      color: inherit;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(25, 45, 85, 0.08);
+    }
+
+    .tool-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 46px;
+      height: 46px;
+      margin-bottom: 12px;
+      border-radius: 12px;
+      background: #eaf1ff;
+      font-size: 24px;
+    }
+
+    .tool-card h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    .tool-card p {
+      margin: 0;
+      color: #667085;
+      font-size: 14px;
+    }
+
+    .info-section {
+      margin-top: 45px;
+      padding: 25px;
+      border-radius: 14px;
+      background: #ffffff;
+      border: 1px solid #e4e8f0;
+    }
+
+    .info-section h2 {
+      margin-top: 0;
+    }
+
+    .info-section p {
+      color: #5b6475;
+    }
+
+    footer {
+      padding: 25px 20px;
+      text-align: center;
+      color: #667085;
+      background: #ffffff;
+      border-top: 1px solid #e5e9f2;
+      font-size: 14px;
+    }
+
+    footer a {
+      color: #2563eb;
+      text-decoration: none;
+      margin: 0 7px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="nav">
+      <a class="logo" href="/">Toolnes</a>
+      <nav aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/text-tools/">Text Tools</a>
+        <a href="/pdf-tools/">PDF Tools</a>
+        <a href="/developer-tools/">Developer Tools</a>
+        <a href="/finance/">Finance</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>Free Online Utility Tools</h1>
+    <p>Simple, practical and free tools to help you solve everyday problems quickly. No installation required.</p>
+  </section>
+
+  <main>
+    <h2 class="section-title">Explore Utility Tools</h2>
+    <p class="section-description">Choose a tool below to get started. These tools are designed to be simple and easy to use.</p>
+
+    <div class="tools-grid">
+      <a class="tool-card" href="/utilities/age-calculator/">
+        <span class="tool-icon">🎂</span>
+        <h3>Age Calculator</h3>
+        <p>Calculate your age in years, months and days from your date of birth.</p>
+      </a>
+
+      <a class="tool-card" href="/utilities/date-calculator/">
+        <span class="tool-icon">📅</span>
+        <h3>Date Calculator</h3>
+        <p>Add or subtract days from a date and calculate the difference between two dates.</p>
+      </a>
+
+      <a class="tool-card" href="/utilities/time-zone-converter/">
+        <span class="tool-icon">🌍</span>
+        <h3>Time Zone Converter</h3>
+        <p>Convert a date and time between different time zones around the world.</p>
+      </a>
+
+      <a class="tool-card" href="/utilities/unit-converter/">
+        <span class="tool-icon">📏</span>
+        <h3>Unit Converter</h3>
+        <p>Convert common units of length, weight, temperature, area and volume.</p>
+      </a>
+
+      <a class="tool-card" href="/utilities/word-counter/">
+        <span class="tool-icon">📝</span>
+        <h3>Word Counter</h3>
+        <p>Count words, characters, sentences and paragraphs in any text.</p>
+      </a>
+
+      <a class="tool-card" href="/utilities/password-generator/">
+        <span class="tool-icon">🔐</span>
+        <h3>Password Generator</h3>
+        <p>Generate a random password with adjustable length and character types.</p>
+      </a>
+
+      <a class="tool-card" href="/utilities/qr-code-generator/">
+        <span class="tool-icon">▦</span>
+        <h3>QR Code Generator</h3>
+        <p>Create a QR code from a URL or text and download the image.</p>
+      </a>
+
+      <a class="tool-card" href="/utilities/stopwatch/">
+        <span class="tool-icon">⏱️</span>
+        <h3>Online Stopwatch</h3>
+        <p>Use a simple stopwatch to measure elapsed time.</p>
+      </a>
+    </div>
+
+    <section class="info-section">
+      <h2>Why Use Toolnes Utilities?</h2>
+      <p>Toolnes brings useful online tools together in one place. Whether you need to calculate dates, convert measurements, generate a password or create a QR code, you can access the tools directly from your browser.</p>
+      <p>Our goal is to make everyday digital tasks faster and easier with straightforward tools that work on desktop and mobile devices.</p>
+    </section>
+
+    <section class="info-section">
+      <h2>Explore More Free Tools</h2>
+      <p>Looking for something else? Explore our other tool categories:</p>
+      <p>
+        <a href="/calculators/">Calculators</a> ·
+        <a href="/finance/">Finance Tools</a> ·
+        <a href="/text-tools/">Text Tools</a> ·
+        <a href="/pdf-tools/">PDF Tools</a> ·
+        <a href="/developer-tools/">Developer Tools</a>
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Toolnes. All rights reserved.</p>
+    <p>
+      <a href="/">Home</a>
+      <a href="/about/">About</a>
+      <a href="/contact/">Contact</a>
+      <a href="/privacy-policy/">Privacy Policy</a>
+      <a href="/terms/">Terms</a>
+    </p>
+  </footer>
+</body>
+</html>
+```
 
