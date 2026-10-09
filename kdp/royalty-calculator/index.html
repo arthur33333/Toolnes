@@ -1,1 +1,677 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Estimate your Amazon KDP book royalties, earnings per sale, total profit and break-even sales with this free royalty calculator.">
+  <meta name="robots" content="index, follow">
+  <title>KDP Royalty Calculator - Free Book Earnings Estimator | Toolnes</title>
+  <link rel="canonical" href="https://toolnes.netlify.app/kdp/royalty-calculator/">
+  <style>
+    :root {
+      --primary: #5b45d6;
+      --primary-dark: #4431b2;
+      --bg: #f5f6fb;
+      --card: #ffffff;
+      --text: #202438;
+      --muted: #687087;
+      --border: #e1e5ef;
+      --green: #16865c;
+      --red: #c0394b;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 18px 20px;
+    }
+
+    .nav {
+      max-width: 1050px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand {
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 1.35rem;
+      text-decoration: none;
+    }
+
+    .back {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .92rem;
+    }
+
+    main {
+      max-width: 1050px;
+      margin: 35px auto;
+      padding: 0 18px;
+    }
+
+    .hero { margin-bottom: 25px; }
+
+    .eyebrow {
+      color: var(--primary);
+      text-transform: uppercase;
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: 1.3px;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1.15;
+      margin: 8px 0 12px;
+    }
+
+    h2 { font-size: 1.25rem; margin-top: 0; }
+
+    .intro {
+      color: var(--muted);
+      max-width: 720px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 22px;
+      align-items: start;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 5px 20px rgba(30, 35, 70, .035);
+    }
+
+    .field { margin-bottom: 17px; }
+
+    label {
+      display: block;
+      font-weight: 700;
+      font-size: .92rem;
+      margin-bottom: 7px;
+    }
+
+    input, select {
+      width: 100%;
+      min-height: 45px;
+      border: 1px solid #cfd5e3;
+      border-radius: 9px;
+      padding: 10px 12px;
+      font: inherit;
+      color: var(--text);
+      background: #fff;
+    }
+
+    input:focus, select:focus {
+      outline: 2px solid #d4ceff;
+      border-color: var(--primary);
+    }
+
+    .hint {
+      display: block;
+      font-size: .82rem;
+      color: var(--muted);
+      margin-top: 5px;
+    }
+
+    .two {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 13px;
+    }
+
+    .results {
+      background: #f7f6ff;
+      border: 1px solid #e0dcff;
+      border-radius: 12px;
+      padding: 17px;
+      margin-bottom: 18px;
+    }
+
+    .result-label {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .big-number {
+      font-size: clamp(1.9rem, 4vw, 2.5rem);
+      line-height: 1.2;
+      font-weight: 800;
+      color: var(--primary);
+      overflow-wrap: anywhere;
+      margin: 5px 0;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .mini {
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      min-width: 0;
+    }
+
+    .mini strong {
+      display: block;
+      font-size: 1.18rem;
+      margin-top: 5px;
+      overflow-wrap: anywhere;
+    }
+
+    .positive { color: var(--green); }
+    .negative { color: var(--red); }
+
+    .breakdown {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: .93rem;
+    }
+
+    .breakdown td {
+      padding: 11px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .breakdown td:last-child {
+      text-align: right;
+      font-weight: 700;
+      padding-left: 10px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 9px;
+      padding: 12px 17px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .primary:hover { background: var(--primary-dark); }
+
+    .secondary {
+      background: #eeecff;
+      color: var(--primary-dark);
+    }
+
+    .status {
+      min-height: 24px;
+      color: var(--green);
+      font-size: .9rem;
+      margin-top: 12px;
+    }
+
+    .content-section { margin-top: 25px; }
+
+    .content-section p,
+    .content-section li { color: var(--muted); }
+
+    .notice {
+      background: #fff9e9;
+      border: 1px solid #f0dfad;
+      border-radius: 12px;
+      padding: 16px;
+      color: #6d571d;
+      font-size: .91rem;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 25px 18px;
+      text-align: center;
+      color: var(--muted);
+      background: #fff;
+      margin-top: 40px;
+    }
+
+    footer a { color: var(--primary); }
+
+    @media (max-width: 720px) {
+      .layout { grid-template-columns: 1fr; }
+      main { margin-top: 25px; }
+      .card { padding: 19px; }
+    }
+
+    @media (max-width: 400px) {
+      .two, .result-grid { grid-template-columns: 1fr; }
+      .back { font-size: .82rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <a class="brand" href="/">Toolnes</a>
+      <a class="back" href="/kdp/">← All KDP Tools</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="eyebrow">KDP & Publishing Tools</div>
+      <h1>KDP Royalty Calculator</h1>
+      <p class="intro">
+        Estimate how much you could earn from each book sale on Amazon
+        KDP. Calculate royalties, projected earnings, costs and your
+        break-even sales target in seconds.
+      </p>
+    </section>
+
+    <div class="layout">
+      <section class="card">
+        <h2>Your Book Details</h2>
+
+        <div class="field">
+          <label for="currency">Currency</label>
+          <select id="currency">
+            <option value="USD">USD — US Dollar</option>
+            <option value="GBP">GBP — British Pound</option>
+            <option value="EUR">EUR — Euro</option>
+            <option value="CAD">CAD — Canadian Dollar</option>
+            <option value="AUD">AUD — Australian Dollar</option>
+            <option value="INR">INR — Indian Rupee</option>
+          </select>
+          <span class="hint">Choose the currency used for your estimates.</span>
+        </div>
+
+        <div class="field">
+          <label for="price">Book list price</label>
+          <input id="price" type="number" min="0" step="0.01" value="9.99">
+        </div>
+
+        <div class="field">
+          <label for="rate">Royalty rate (%)</label>
+          <select id="rate">
+            <option value="60" selected>60% — Example rate</option>
+            <option value="50">50% — Example rate</option>
+            <option value="35">35% — Example rate</option>
+            <option value="custom">Custom rate</option>
+          </select>
+        </div>
+
+        <div class="field" id="customRateField" hidden>
+          <label for="customRate">Custom royalty rate (%)</label>
+          <input id="customRate" type="number" min="0" max="100" step="0.1" value="60">
+        </div>
+
+        <div class="field">
+          <label for="printCost">Printing cost per copy</label>
+          <input id="printCost" type="number" min="0" step="0.01" value="3.00">
+          <span class="hint">
+            Enter the printing cost shown for your book's format and marketplace.
+            For ebooks, enter 0 here and account for any delivery fees separately.
+          </span>
+        </div>
+
+        <div class="field">
+          <label for="sales">Expected number of sales</label>
+          <input id="sales" type="number" min="0" step="1" value="100">
+        </div>
+
+        <div class="field">
+          <label for="budget">Upfront costs</label>
+          <input id="budget" type="number" min="0" step="0.01" value="50">
+          <span class="hint">
+            Optional: editing, cover design, formatting or advertising.
+          </span>
+        </div>
+
+        <div class="actions">
+          <button class="primary" id="calculate" type="button">Calculate Royalties</button>
+          <button class="secondary" id="reset" type="button">Reset</button>
+        </div>
+        <div id="inputStatus" class="status" role="status" aria-live="polite"></div>
+      </section>
+
+      <section class="card" aria-live="polite">
+        <h2>Your Estimated Earnings</h2>
+
+        <div class="results">
+          <div class="result-label">Estimated royalty per sale</div>
+          <div class="big-number" id="perSale">$2.99</div>
+          <div class="result-label">After the printing cost entered above</div>
+        </div>
+
+        <div class="result-grid">
+          <div class="mini">
+            <span class="result-label">Total royalties</span>
+            <strong id="totalRoyalties">$299.40</strong>
+          </div>
+          <div class="mini">
+            <span class="result-label">After upfront costs</span>
+            <strong id="netProfit">$249.40</strong>
+          </div>
+          <div class="mini">
+            <span class="result-label">Break-even sales</span>
+            <strong id="breakEven">17 copies</strong>
+          </div>
+          <div class="mini">
+            <span class="result-label">Royalty margin</span>
+            <strong id="margin">29.97%</strong>
+          </div>
+        </div>
+
+        <table class="breakdown">
+          <tbody>
+            <tr>
+              <td>List price</td>
+              <td id="outPrice">$9.99</td>
+            </tr>
+            <tr>
+              <td>Royalty before printing</td>
+              <td id="grossRoyalty">$5.99</td>
+            </tr>
+            <tr>
+              <td>Printing cost per copy</td>
+              <td id="outPrint">$3.00</td>
+            </tr>
+            <tr>
+              <td>Printing costs for all sales</td>
+              <td id="totalPrint">$300.00</td>
+            </tr>
+            <tr>
+              <td>Upfront costs</td>
+              <td id="outBudget">$50.00</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="actions">
+          <button class="primary" id="copy" type="button">Copy Results</button>
+          <button class="secondary" id="download" type="button">Download Report</button>
+        </div>
+        <div id="actionStatus" class="status" role="status" aria-live="polite"></div>
+      </section>
+    </div>
+
+    <section class="card content-section">
+      <h2>How to Use This KDP Royalty Calculator</h2>
+      <ol>
+        <li>Choose a currency for your estimates.</li>
+        <li>Enter your book's list price.</li>
+        <li>Select an example royalty rate or enter a custom rate.</li>
+        <li>Enter the printing cost per copy displayed for your book.</li>
+        <li>Set your expected sales and any upfront publishing costs.</li>
+        <li>Review your estimated royalties and break-even target.</li>
+      </ol>
+      <p>
+        The calculator uses the royalty rate you select and subtracts
+        the printing cost you enter. It is designed for planning,
+        not as a replacement for your official KDP royalty report.
+      </p>
+    </section>
+
+    <section class="notice content-section">
+      <strong>Important:</strong> These are simplified estimates, not
+      guaranteed Amazon KDP payouts. Actual royalties depend on the
+      marketplace, book format, pricing eligibility, distribution option,
+      printing charges, delivery fees, taxes and current KDP rules.
+      The selected royalty percentage is an input, not a confirmation
+      that your book qualifies for that rate. Check Amazon KDP's current
+      official pricing and royalty information before publishing.
+    </section>
+
+    <section class="card content-section">
+      <h2>Frequently Asked Questions</h2>
+
+      <h3>How much can I earn per book?</h3>
+      <p>
+        Your estimated earnings depend on your list price, applicable
+        royalty rate and production costs. Change the inputs above to
+        compare possible outcomes.
+      </p>
+
+      <h3>What is break-even sales?</h3>
+      <p>
+        It is the estimated number of copies you need to sell for your
+        royalties to cover the upfront costs you entered. If your
+        estimated royalty per copy is zero or negative, break-even
+        cannot be reached under these assumptions.
+      </p>
+
+      <h3>Are these official Amazon KDP calculations?</h3>
+      <p>
+        No. This is an independent planning tool. Use the current
+        Amazon KDP calculator and your account's reports to verify
+        actual printing costs, eligibility and royalties.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> Toolnes — Free Online Tools</p>
+    <p><a href="/kdp/">Explore more KDP & Publishing Tools</a></p>
+  </footer>
+
+  <script>
+    (() => {
+      const $ = (id) => document.getElementById(id);
+
+      const defaults = {
+        currency: "USD",
+        price: "9.99",
+        rate: "60",
+        customRate: "60",
+        printCost: "3.00",
+        sales: "100",
+        budget: "50"
+      };
+
+      let lastReport = "";
+
+      function numberValue(id) {
+        const value = Number($(id).value);
+        return Number.isFinite(value) ? value : NaN;
+      }
+
+      function money(value) {
+        const currency = $("currency").value;
+        try {
+          return new Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency,
+            maximumFractionDigits: 2,
+            minimumFractionDigits: 2
+          }).format(value);
+        } catch {
+          return value.toFixed(2) + " " + currency;
+        }
+      }
+
+      function setText(id, value) {
+        $(id).textContent = value;
+      }
+
+      function update() {
+        $("customRateField").hidden = $("rate").value !== "custom";
+
+        const price = numberValue("price");
+        const printCost = numberValue("printCost");
+        const sales = numberValue("sales");
+        const budget = numberValue("budget");
+        const rate = $("rate").value === "custom"
+          ? numberValue("customRate")
+          : numberValue("rate");
+
+        const inputs = [
+          ["Book list price", price],
+          ["Printing cost", printCost],
+          ["Expected sales", sales],
+          ["Upfront costs", budget],
+          ["Royalty rate", rate]
+        ];
+
+        const invalid = inputs.find((item) =>
+          !Number.isFinite(item[1]) ||
+          item[1] < 0 ||
+          (item[0] === "Royalty rate" && item[1] > 100) ||
+          (item[0] === "Expected sales" && !Number.isInteger(item[1]))
+        );
+
+        if (invalid) {
+          setText("inputStatus", "Check " + invalid[0] + ". Enter a valid non-negative value" +
+            (invalid[0] === "Royalty rate" ? " up to 100%." : "."));
+          return;
+        }
+
+        if (printCost > price) {
+          setText("inputStatus", "Warning: printing cost exceeds list price. The estimate may be negative.");
+        } else {
+          setText("inputStatus", "");
+        }
+
+        const gross = price * rate / 100;
+        const perSale = gross - printCost;
+        const total = perSale * sales;
+        const net = total - budget;
+        const breakEven = perSale > 0
+          ? Math.ceil(budget / perSale)
+          : null;
+        const margin = price > 0 ? (perSale / price) * 100 : 0;
+        const totalPrinting = printCost * sales;
+
+        setText("perSale", money(perSale));
+        setText("totalRoyalties", money(total));
+        setText("netProfit", money(net));
+        setText("breakEven", breakEven === null ? "Not reachable" : breakEven + " copies");
+        setText("margin", margin.toFixed(2) + "%");
+        setText("outPrice", money(price));
+        setText("grossRoyalty", money(gross));
+        setText("outPrint", money(printCost));
+        setText("totalPrint", money(totalPrinting));
+        setText("outBudget", money(budget));
+
+        $("netProfit").className = net >= 0 ? "positive" : "negative";
+        $("perSale").className = "big-number " + (perSale >= 0 ? "positive" : "negative");
+
+        lastReport = [
+          "Toolnes — KDP Royalty Estimate",
+          "Currency: " + $("currency").value,
+          "Book list price: " + money(price),
+          "Royalty rate: " + rate + "%",
+          "Printing cost per copy: " + money(printCost),
+          "Royalty before printing: " + money(gross),
+          "Estimated royalty per sale: " + money(perSale),
+          "Expected sales: " + sales,
+          "Total estimated royalties: " + money(total),
+          "Total printing costs: " + money(totalPrinting),
+          "Upfront costs: " + money(budget),
+          "Estimated earnings after upfront costs: " + money(net),
+          "Break-even sales: " + (breakEven === null ? "Not reachable with these assumptions" : breakEven + " copies"),
+          "Royalty margin: " + margin.toFixed(2) + "%",
+          "",
+          "Estimate only. Verify current eligibility, fees and payouts with Amazon KDP."
+        ].join("\n");
+      }
+
+      function showActionStatus(message) {
+        setText("actionStatus", message);
+      }
+
+      $("calculate").addEventListener("click", update);
+
+      $("rate").addEventListener("change", update);
+      $("currency").addEventListener("change", update);
+
+      ["price", "customRate", "printCost", "sales", "budget"].forEach((id) => {
+        $(id).addEventListener("input", update);
+      });
+
+      $("reset").addEventListener("click", () => {
+        Object.entries(defaults).forEach(([id, value]) => {
+          $(id).value = value;
+        });
+        showActionStatus("");
+        update();
+      });
+
+      $("copy").addEventListener("click", async () => {
+        update();
+        if (!lastReport) return;
+
+        try {
+          await navigator.clipboard.writeText(lastReport);
+          showActionStatus("Results copied to clipboard.");
+        } catch {
+          const area = document.createElement("textarea");
+          area.value = lastReport;
+          area.style.position = "fixed";
+          area.style.opacity = "0";
+          document.body.appendChild(area);
+          area.select();
+
+          try {
+            const success = document.execCommand("copy");
+            showActionStatus(success
+              ? "Results copied to clipboard."
+              : "Copy failed. Please select and copy the report manually.");
+          } catch {
+            showActionStatus("Copy failed. Please select and copy the report manually.");
+          }
+
+          area.remove();
+        }
+      });
+
+      $("download").addEventListener("click", () => {
+        update();
+        if (!lastReport) return;
+
+        const blob = new Blob([lastReport], { type: "text/plain;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "toolnes-kdp-royalty-estimate.txt";
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+        showActionStatus("Your report download has started.");
+      });
+
+      $("year").textContent = new Date().getFullYear();
+      update();
+    })();
+  </script>
+</body>
+</html>
+```
 
