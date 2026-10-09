@@ -1,1 +1,251 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Convert Image to PNG Online Free | Toolnes</title>
+  <meta name="description" content="Convert JPG, WebP and other browser-supported images to PNG online for free. Preview and download your PNG image privately with Toolnes.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://toolnes.netlify.app/image-tools/image-to-png/">
+  <meta name="theme-color" content="#635bff">
+
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #172033; background: #f6f7fb; line-height: 1.6; }
+    header { background: #fff; border-bottom: 1px solid #e8eaf1; padding: 17px 20px; }
+    nav { max-width: 1080px; margin: auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .logo { color: #635bff; font-size: 25px; font-weight: 800; text-decoration: none; }
+    nav a:not(.logo) { color: #475067; text-decoration: none; margin-left: 16px; font-size: 14px; }
+    main { width: min(900px, calc(100% - 32px)); margin: 44px auto; }
+    .intro { text-align: center; margin-bottom: 28px; }
+    .tag { display: inline-block; background: #ecebff; color: #5147d9; padding: 5px 12px; border-radius: 30px; font-size: 12px; font-weight: bold; }
+    h1 { font-size: clamp(30px, 5vw, 43px); line-height: 1.2; margin: 15px 0 12px; }
+    .intro p { color: #687187; max-width: 640px; margin: auto; }
+    .panel, .info { background: #fff; border: 1px solid #e7e9f1; border-radius: 18px; padding: 26px; box-shadow: 0 12px 35px rgba(28,35,70,.05); }
+    .drop { display: block; border: 2px dashed #c9cce0; border-radius: 14px; padding: 30px 16px; text-align: center; cursor: pointer; background: #fbfbff; }
+    .drop:hover { border-color: #635bff; background: #f5f4ff; }
+    .drop strong { display: block; font-size: 17px; }
+    .drop span { display: block; color: #747d91; font-size: 13px; margin-top: 5px; }
+    input[type="file"] { display: none; }
+    .message { color: #687187; font-size: 14px; margin: 14px 0 0; overflow-wrap: anywhere; }
+    .error { color: #b42318; }
+    button, .download { display: inline-block; width: 100%; border: 0; border-radius: 10px; padding: 13px 16px; font-size: 15px; font-weight: 700; cursor: pointer; text-align: center; text-decoration: none; }
+    button { background: #635bff; color: #fff; margin-top: 20px; }
+    button:hover { background: #5147e8; }
+    button:disabled { opacity: .45; cursor: not-allowed; }
+    .preview-wrap { display: none; margin-top: 24px; padding: 16px; border: 1px solid #e6e8f0; border-radius: 12px; text-align: center; background-color: #f6f7fb; background-image: linear-gradient(45deg,#e8eaf1 25%,transparent 25%),linear-gradient(-45deg,#e8eaf1 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#e8eaf1 75%),linear-gradient(-45deg,transparent 75%,#e8eaf1 75%); background-size: 20px 20px; background-position: 0 0,0 10px,10px -10px,-10px 0; }
+    .preview-wrap img { display: block; max-width: 100%; max-height: 400px; object-fit: contain; margin: auto; }
+    .stats { color: #687187; font-size: 13px; margin: 12px 0; overflow-wrap: anywhere; }
+    .download { background: #12805c; color: #fff; margin-top: 12px; }
+    .download:hover { background: #0d694b; }
+    .info { margin-top: 24px; box-shadow: none; }
+    .info h2 { font-size: 21px; margin-top: 0; }
+    .info p, .info li { color: #606a80; font-size: 14px; }
+    .back { display: inline-block; margin-top: 24px; color: #5147e8; text-decoration: none; font-weight: 700; }
+    footer { text-align: center; color: #7b8498; padding: 25px 16px; font-size: 13px; }
+    @media (max-width: 600px) { main { margin: 28px auto; } .panel, .info { padding: 18px; } nav a:not(.logo) { margin-left: 8px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="logo" href="/">Toolnes</a>
+      <div>
+        <a href="/">Home</a>
+        <a href="/image-tools/">Image Tools</a>
+        <a href="/text-tools/">Text Tools</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="intro">
+      <span class="tag">FREE ONLINE TOOL</span>
+      <h1>Image to PNG Converter</h1>
+      <p>Convert JPG, WebP and other supported image formats to PNG in seconds. Your image stays on your device.</p>
+    </section>
+
+    <section class="panel">
+      <label class="drop" for="imageInput">
+        <strong>📁 Choose an image</strong>
+        <span>Select an image from your computer or phone.</span>
+      </label>
+      <input id="imageInput" type="file" accept="image/*">
+      <p id="fileInfo" class="message">No image selected yet.</p>
+
+      <button id="convertBtn" disabled>Convert to PNG</button>
+      <p id="status" class="message" role="status" aria-live="polite">Choose an image to get started.</p>
+
+      <section id="result" style="display:none">
+        <div class="preview-wrap" id="previewWrap">
+          <img id="preview" alt="Converted PNG preview">
+        </div>
+        <p id="stats" class="stats"></p>
+        <a id="download" class="download" href="#" download="converted-image.png">Download PNG</a>
+      </section>
+    </section>
+
+    <section class="info">
+      <h2>How to convert an image to PNG</h2>
+      <ol>
+        <li>Choose an image from your device.</li>
+        <li>Click <strong>Convert to PNG</strong>.</li>
+        <li>Preview the converted image.</li>
+        <li>Click <strong>Download PNG</strong> to save it.</li>
+      </ol>
+      <h2>Why use PNG?</h2>
+      <p>PNG is a lossless image format and supports transparent pixels. It is useful for logos, icons, screenshots and graphics. Converting a JPG to PNG does not restore details that were lost in the original JPG.</p>
+      <p><strong>Privacy:</strong> The conversion runs locally in your browser. Your image is not uploaded to a Toolnes server.</p>
+    </section>
+
+    <a class="back" href="/image-tools/">← Back to Image Tools</a>
+  </main>
+
+  <footer>© <span id="year"></span> Toolnes. Free online tools.</footer>
+
+  <script>
+    const imageInput = document.getElementById("imageInput");
+    const fileInfo = document.getElementById("fileInfo");
+    const convertBtn = document.getElementById("convertBtn");
+    const status = document.getElementById("status");
+    const result = document.getElementById("result");
+    const preview = document.getElementById("preview");
+    const stats = document.getElementById("stats");
+    const download = document.getElementById("download");
+
+    let selectedFile = null;
+    let resultUrl = null;
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    function sizeText(bytes) {
+      if (bytes < 1024) return bytes + " B";
+      if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
+      return (bytes / (1024 * 1024)).toFixed(2) + " MB";
+    }
+
+    function setStatus(message, error = false) {
+      status.textContent = message;
+      status.className = error ? "message error" : "message";
+    }
+
+    function clearResult() {
+      if (resultUrl) URL.revokeObjectURL(resultUrl);
+      resultUrl = null;
+      preview.removeAttribute("src");
+      download.removeAttribute("href");
+      result.style.display = "none";
+    }
+
+    imageInput.addEventListener("change", () => {
+      clearResult();
+      selectedFile = imageInput.files && imageInput.files[0]
+        ? imageInput.files[0] : null;
+
+      if (!selectedFile) {
+        fileInfo.textContent = "No image selected yet.";
+        convertBtn.disabled = true;
+        setStatus("Choose an image to get started.");
+        return;
+      }
+
+      if (!selectedFile.type.startsWith("image/")) {
+        selectedFile = null;
+        imageInput.value = "";
+        fileInfo.textContent = "Please select a valid image file.";
+        convertBtn.disabled = true;
+        setStatus("The selected file is not an image.", true);
+        return;
+      }
+
+      fileInfo.textContent = selectedFile.name + " · " + sizeText(selectedFile.size);
+      convertBtn.disabled = false;
+      setStatus("Ready to convert to PNG.");
+    });
+
+    convertBtn.addEventListener("click", () => {
+      if (!selectedFile) {
+        setStatus("Please choose an image first.", true);
+        return;
+      }
+
+      convertBtn.disabled = true;
+      setStatus("Converting image…");
+      clearResult();
+
+      const reader = new FileReader();
+
+      reader.onerror = () => {
+        setStatus("Could not read this image file. Try another image.", true);
+        convertBtn.disabled = false;
+      };
+
+      reader.onload = () => {
+        const img = new Image();
+
+        img.onerror = () => {
+          setStatus("This image could not be opened by your browser.", true);
+          convertBtn.disabled = false;
+        };
+
+        img.onload = () => {
+          try {
+            const canvas = document.createElement("canvas");
+            canvas.width = img.naturalWidth;
+            canvas.height = img.naturalHeight;
+
+            const ctx = canvas.getContext("2d");
+            if (!ctx) throw new Error("Canvas is unavailable.");
+
+            ctx.drawImage(img, 0, 0);
+
+            canvas.toBlob(blob => {
+              if (!blob) {
+                setStatus("Conversion failed. Please try a different image.", true);
+                convertBtn.disabled = false;
+                return;
+              }
+
+              resultUrl = URL.createObjectURL(blob);
+              preview.onload = () => {
+                const baseName = selectedFile.name.replace(/\.[^/.]+$/, "") || "image";
+                preview.onload = null;
+                preview.onerror = null;
+                download.href = resultUrl;
+                download.download = baseName + ".png";
+                stats.textContent = img.naturalWidth + " × " + img.naturalHeight +
+                  " px · Original: " + sizeText(selectedFile.size) +
+                  " · PNG: " + sizeText(blob.size);
+                result.style.display = "block";
+                setStatus("Conversion complete. Your PNG is ready to download.");
+                convertBtn.disabled = false;
+              };
+
+              preview.onerror = () => {
+                setStatus("Could not display the converted PNG.", true);
+                convertBtn.disabled = false;
+              };
+
+              preview.src = resultUrl;
+            }, "image/png");
+          } catch (error) {
+            setStatus("Conversion failed. Please try another image.", true);
+            convertBtn.disabled = false;
+          }
+        };
+
+        img.src = reader.result;
+      };
+
+      reader.readAsDataURL(selectedFile);
+    });
+
+    window.addEventListener("beforeunload", () => {
+      if (resultUrl) URL.revokeObjectURL(resultUrl);
+    });
+  </script>
+</body>
+</html>
+```
 
