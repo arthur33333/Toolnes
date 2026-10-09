@@ -1,1 +1,797 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free KDP Generator for book descriptions, title ideas, subtitles, keywords, pen names and copyright page templates.">
+  <meta name="robots" content="index, follow">
+  <title>KDP Generator - Free Self-Publishing Writing Tools | Toolnes</title>
+  <link rel="canonical" href="https://toolnes.netlify.app/kdp/generator/">
+  <style>
+    :root {
+      --primary: #5b45d6;
+      --dark: #4431b2;
+      --bg: #f5f6fb;
+      --card: #fff;
+      --text: #202438;
+      --muted: #687087;
+      --border: #e1e5ef;
+      --green: #16865c;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+
+    header {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 18px 20px;
+    }
+
+    .nav {
+      max-width: 1050px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 1.35rem;
+      font-weight: 800;
+    }
+
+    .back {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .92rem;
+    }
+
+    main {
+      max-width: 1050px;
+      margin: 34px auto;
+      padding: 0 18px;
+    }
+
+    .eyebrow {
+      color: var(--primary);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: 1.3px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1.15;
+      margin: 8px 0 12px;
+    }
+
+    h2 { font-size: 1.3rem; margin-top: 0; }
+    h3 { font-size: 1rem; }
+
+    .intro {
+      color: var(--muted);
+      max-width: 760px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 23px;
+      margin-top: 22px;
+      box-shadow: 0 5px 20px rgba(30, 35, 70, .035);
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 22px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 9px;
+      padding: 11px 15px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button:focus-visible {
+      outline: 3px solid #bcb3ff;
+      outline-offset: 2px;
+    }
+
+    .tab {
+      background: #fff;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .tab.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .primary { background: var(--primary); color: #fff; }
+    .primary:hover { background: var(--dark); }
+    .secondary { background: #eeecff; color: var(--dark); }
+
+    .tool-panel[hidden] { display: none; }
+
+    .field { margin-bottom: 16px; }
+
+    label {
+      display: block;
+      font-size: .92rem;
+      font-weight: 700;
+      margin-bottom: 7px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      min-height: 44px;
+      border: 1px solid #cfd5e3;
+      border-radius: 9px;
+      padding: 10px 12px;
+      background: #fff;
+      color: var(--text);
+      font: inherit;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: 2px solid #d4ceff;
+      border-color: var(--primary);
+    }
+
+    .hint {
+      display: block;
+      color: var(--muted);
+      font-size: .82rem;
+      margin-top: 5px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .output {
+      margin-top: 20px;
+      padding: 17px;
+      background: #fafaff;
+      border: 1px solid #e0dcff;
+      border-radius: 12px;
+    }
+
+    .output h3 { margin-top: 0; }
+
+    .output-text {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      color: var(--text);
+    }
+
+    .output-item {
+      border-bottom: 1px solid var(--border);
+      padding: 13px 0;
+    }
+
+    .output-item:last-child { border-bottom: 0; }
+
+    .output-item strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .small-button {
+      padding: 7px 10px;
+      font-size: .83rem;
+      margin-top: 8px;
+    }
+
+    .status {
+      min-height: 24px;
+      color: var(--green);
+      font-size: .9rem;
+      margin-top: 10px;
+    }
+
+    .notice {
+      background: #fff9e9;
+      border: 1px solid #f0dfad;
+      color: #6d571d;
+      padding: 16px;
+      border-radius: 12px;
+      margin-top: 22px;
+    }
+
+    footer {
+      background: #fff;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      text-align: center;
+      padding: 25px 18px;
+      margin-top: 40px;
+    }
+
+    footer a { color: var(--primary); }
+
+    @media (max-width: 650px) {
+      .grid { grid-template-columns: 1fr; }
+      .card { padding: 17px; }
+      main { margin-top: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <a class="brand" href="/">Toolnes</a>
+      <a class="back" href="/kdp/">← All KDP Tools</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="eyebrow">KDP & Publishing Tools</div>
+    <h1>KDP Generator</h1>
+    <p class="intro">
+      Prepare essential publishing text with free generators for book
+      descriptions, title ideas, subtitles, keyword ideas, pen names
+      and copyright page templates.
+    </p>
+
+    <div class="tabs" role="group" aria-label="Choose a generator">
+      <button class="tab active" type="button" data-panel="description">Book Description</button>
+      <button class="tab" type="button" data-panel="titles">Title Ideas</button>
+      <button class="tab" type="button" data-panel="keywords">Keyword Ideas</button>
+      <button class="tab" type="button" data-panel="penname">Pen Name</button>
+      <button class="tab" type="button" data-panel="copyright">Copyright Page</button>
+    </div>
+
+    <section class="card tool-panel" id="panel-description">
+      <h2>Book Description Generator</h2>
+      <p class="intro">Create a structured first draft for your book listing.</p>
+
+      <div class="field">
+        <label for="dTitle">Book title</label>
+        <input id="dTitle" placeholder="e.g. The Art of Growing Herbs">
+      </div>
+
+      <div class="grid">
+        <div class="field">
+          <label for="dGenre">Genre or book category</label>
+          <input id="dGenre" placeholder="e.g. Gardening, mystery, self-help">
+        </div>
+        <div class="field">
+          <label for="dAudience">Target readers</label>
+          <input id="dAudience" placeholder="e.g. Beginners, busy parents">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="dBenefits">Main benefits or story highlights</label>
+        <textarea id="dBenefits" placeholder="What will readers learn, discover or experience?"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="dTone">Writing style</label>
+        <select id="dTone">
+          <option value="engaging">Engaging and friendly</option>
+          <option value="professional">Professional and informative</option>
+          <option value="emotional">Emotional and inspiring</option>
+          <option value="mysterious">Intriguing and suspenseful</option>
+        </select>
+      </div>
+
+      <button class="primary" type="button" id="makeDescription">Generate Description</button>
+      <div class="output" id="descriptionOutput" hidden>
+        <h3>Your Draft</h3>
+        <div class="output-text" id="descriptionText"></div>
+        <div class="actions">
+          <button class="secondary" type="button" data-copy="descriptionText">Copy Text</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="card tool-panel" id="panel-titles" hidden>
+      <h2>Book Title and Subtitle Ideas</h2>
+      <p class="intro">Generate title structures from your topic and preferred style.</p>
+
+      <div class="field">
+        <label for="tTopic">Main topic or subject</label>
+        <input id="tTopic" placeholder="e.g. Personal finance">
+      </div>
+
+      <div class="grid">
+        <div class="field">
+          <label for="tAudience">Target audience</label>
+          <input id="tAudience" placeholder="e.g. Young professionals">
+        </div>
+        <div class="field">
+          <label for="tStyle">Title style</label>
+          <select id="tStyle">
+            <option value="clear">Clear and descriptive</option>
+            <option value="question">Question-led</option>
+            <option value="guide">Guide or handbook</option>
+            <option value="creative">Creative and memorable</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="primary" type="button" id="makeTitles">Generate Title Ideas</button>
+      <div class="output" id="titlesOutput" hidden>
+        <h3>Suggested Title Structures</h3>
+        <div id="titlesList"></div>
+        <div class="actions">
+          <button class="secondary" type="button" data-copy="titlesText">Copy All Ideas</button>
+        </div>
+        <textarea id="titlesText" hidden></textarea>
+      </div>
+    </section>
+
+    <section class="card tool-panel" id="panel-keywords" hidden>
+      <h2>KDP Keyword Ideas</h2>
+      <p class="intro">
+        Create keyword phrase ideas to research for your book.
+        These are suggestions, not live search-volume data.
+      </p>
+
+      <div class="field">
+        <label for="kTopic">Book topic</label>
+        <input id="kTopic" placeholder="e.g. Beginner watercolor painting">
+      </div>
+
+      <div class="grid">
+        <div class="field">
+          <label for="kAudience">Target audience</label>
+          <input id="kAudience" placeholder="e.g. Adults, beginners">
+        </div>
+        <div class="field">
+          <label for="kFormat">Book type</label>
+          <select id="kFormat">
+            <option>Guide</option>
+            <option>Workbook</option>
+            <option>Journal</option>
+            <option>Planner</option>
+            <option>Activity Book</option>
+            <option>Novel</option>
+            <option>Nonfiction Book</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="primary" type="button" id="makeKeywords">Generate Keyword Ideas</button>
+      <div class="output" id="keywordsOutput" hidden>
+        <h3>Keyword Phrases to Research</h3>
+        <div id="keywordsList"></div>
+        <div class="actions">
+          <button class="secondary" type="button" data-copy="keywordsText">Copy All Keywords</button>
+        </div>
+        <textarea id="keywordsText" hidden></textarea>
+      </div>
+    </section>
+
+    <section class="card tool-panel" id="panel-penname" hidden>
+      <h2>Pen Name Idea Generator</h2>
+      <p class="intro">
+        Create fictional name combinations for brainstorming.
+        Check availability and avoid impersonating real authors.
+      </p>
+
+      <div class="grid">
+        <div class="field">
+          <label for="pStyle">Name style</label>
+          <select id="pStyle">
+            <option value="classic">Classic</option>
+            <option value="modern">Modern</option>
+            <option value="fantasy">Fantasy</option>
+            <option value="mystery">Mystery and thriller</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="pCount">Number of ideas</label>
+          <select id="pCount">
+            <option value="5">5 ideas</option>
+            <option value="10">10 ideas</option>
+            <option value="15">15 ideas</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="primary" type="button" id="makePenNames">Generate Pen Names</button>
+      <div class="output" id="pennameOutput" hidden>
+        <h3>Name Ideas</h3>
+        <div id="pennameList"></div>
+        <div class="actions">
+          <button class="secondary" type="button" data-copy="pennameText">Copy All Names</button>
+        </div>
+        <textarea id="pennameText" hidden></textarea>
+      </div>
+    </section>
+
+    <section class="card tool-panel" id="panel-copyright" hidden>
+      <h2>Copyright Page Template</h2>
+      <p class="intro">
+        Create a basic copyright page draft. Review it for your country,
+        publication format and circumstances before using it.
+      </p>
+
+      <div class="field">
+        <label for="cTitle">Book title</label>
+        <input id="cTitle" placeholder="Enter the book title">
+      </div>
+
+      <div class="grid">
+        <div class="field">
+          <label for="cAuthor">Copyright holder or author</label>
+          <input id="cAuthor" placeholder="Enter the name">
+        </div>
+        <div class="field">
+          <label for="cYear">Copyright year</label>
+          <input id="cYear" type="number" min="1900" max="2200">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="cPublisher">Publisher or imprint (optional)</label>
+        <input id="cPublisher" placeholder="Enter publisher name, if applicable">
+      </div>
+
+      <div class="field">
+        <label for="cNotice">Additional notice (optional)</label>
+        <textarea id="cNotice" placeholder="Add a permissions statement or other relevant notice."></textarea>
+      </div>
+
+      <button class="primary" type="button" id="makeCopyright">Generate Template</button>
+      <div class="output" id="copyrightOutput" hidden>
+        <h3>Copyright Page Draft</h3>
+        <div class="output-text" id="copyrightText"></div>
+        <div class="actions">
+          <button class="secondary" type="button" data-copy="copyrightText">Copy Template</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="notice">
+      <strong>Important:</strong> These generators use templates and
+      combinations of the information you enter. They do not connect to
+      Amazon, access keyword search-volume data, check name availability
+      or provide legal advice. Review all output for accuracy and originality
+      before publishing.
+    </div>
+
+    <section class="card">
+      <h2>How to Use the KDP Generator</h2>
+      <ol>
+        <li>Choose the generator you need from the tabs above.</li>
+        <li>Enter accurate information about your book and readers.</li>
+        <li>Generate suggestions and edit the result to match your book.</li>
+        <li>Copy the final text into your own publishing workflow.</li>
+        <li>Verify all publishing details before uploading your book.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> Toolnes — Free Online Tools</p>
+    <p><a href="/kdp/">Explore more KDP & Publishing Tools</a></p>
+  </footer>
+
+  <script>
+    (() => {
+      const $ = id => document.getElementById(id);
+
+      function clean(value, fallback) {
+        const text = String(value || "").trim();
+        return text || fallback;
+      }
+
+      function show(id, visible = true) {
+        $(id).hidden = !visible;
+      }
+
+      function addCopyButton(container, text) {
+        container.replaceChildren();
+        const output = document.createElement("div");
+        output.className = "output-text";
+        output.textContent = text;
+        container.appendChild(output);
+      }
+
+      function renderItems(container, items) {
+        container.replaceChildren();
+
+        items.forEach((item, index) => {
+          const row = document.createElement("div");
+          row.className = "output-item";
+
+          const title = document.createElement("strong");
+          title.textContent = (index + 1) + ". " + item;
+
+          const copy = document.createElement("button");
+          copy.type = "button";
+          copy.className = "secondary small-button";
+          copy.textContent = "Copy";
+          copy.addEventListener("click", () => copyText(item));
+
+          row.append(title, copy);
+          container.appendChild(row);
+        });
+      }
+
+      async function copyText(text) {
+        const status = document.querySelector(".status") || createStatus();
+        try {
+          await navigator.clipboard.writeText(text);
+          status.textContent = "Copied to clipboard.";
+        } catch {
+          const area = document.createElement("textarea");
+          area.value = text;
+          area.style.position = "fixed";
+          area.style.opacity = "0";
+          document.body.appendChild(area);
+          area.select();
+
+          let success = false;
+          try { success = document.execCommand("copy"); } catch {}
+
+          area.remove();
+          status.textContent = success
+            ? "Copied to clipboard."
+            : "Copy failed. Select the text and copy it manually.";
+        }
+      }
+
+      function createStatus() {
+        const status = document.createElement("div");
+        status.className = "status";
+        status.setAttribute("role", "status");
+        document.querySelector("main").appendChild(status);
+        return status;
+      }
+
+      document.querySelectorAll(".tab").forEach(button => {
+        button.addEventListener("click", () => {
+          document.querySelectorAll(".tab").forEach(tab => {
+            const active = tab === button;
+            tab.classList.toggle("active", active);
+            tab.setAttribute("aria-pressed", String(active));
+          });
+
+          document.querySelectorAll(".tool-panel").forEach(panel => {
+            panel.hidden = panel.id !== "panel-" + button.dataset.panel;
+          });
+        });
+      });
+
+      $("makeDescription").addEventListener("click", () => {
+        const title = clean($("dTitle").value, "Your Book");
+        const genre = clean($("dGenre").value, "this subject");
+        const audience = clean($("dAudience").value, "curious readers");
+        const benefits = clean($("dBenefits").value, "Explore the subject and discover new ideas.");
+        const tone = $("dTone").value;
+
+        const openings = {
+          engaging: "Looking for a fresh way to explore " + genre + "?",
+          professional: "Discover a practical introduction to " + genre + ".",
+          emotional: "Every new journey begins with a single step.",
+          mysterious: "What could you discover when you look closer at " + genre + "?"
+        };
+
+        const draft =
+          title + "\n\n" +
+          openings[tone] + "\n\n" +
+          benefits + "\n\n" +
+          "Created for " + audience + ", this book offers an opportunity to explore " +
+          genre + " at your own pace.\n\n" +
+          "If you are ready to learn, reflect or discover something new, " +
+          title + " can be a starting point for your next reading journey.";
+
+        $("descriptionText").textContent = draft;
+        show("descriptionOutput");
+      });
+
+      $("makeTitles").addEventListener("click", () => {
+        const topic = clean($("tTopic").value, "Your Topic");
+        const audience = clean($("tAudience").value, "Everyday Readers");
+        const style = $("tStyle").value;
+        let ideas = [];
+
+        if (style === "clear") {
+          ideas = [
+            topic + ": A Practical Guide",
+            "Understanding " + topic,
+            topic + " for " + audience,
+            "The Complete Introduction to " + topic,
+            "A Beginner's Guide to " + topic,
+            "Learning " + topic + " Step by Step",
+            topic + ": Essential Concepts and Methods",
+            "The Fundamentals of " + topic
+          ];
+        } else if (style === "question") {
+          ideas = [
+            "Ready to Explore " + topic + "?",
+            "What Should You Know About " + topic + "?",
+            "Can You Master " + topic + "?",
+            "Where Does Your Journey with " + topic + " Begin?",
+            "Why Does " + topic + " Matter?",
+            "How Can You Get Started with " + topic + "?"
+          ];
+        } else if (style === "guide") {
+          ideas = [
+            "The " + topic + " Handbook",
+            "The Essential " + topic + " Workbook",
+            topic + ": The Practical Handbook",
+            "Your Step-by-Step Guide to " + topic,
+            "The Everyday Guide to " + topic,
+            "The " + topic + " Companion"
+          ];
+        } else {
+          ideas = [
+            "Beyond the Basics of " + topic,
+            "The " + topic + " Blueprint",
+            "A New Perspective on " + topic,
+            "The " + topic + " Journey",
+            "Unlocking New Ideas in " + topic,
+            "The " + topic + " Playbook",
+            "Small Steps, Big Ideas: " + topic
+          ];
+        }
+
+        ideas = [...new Set(ideas)];
+        renderItems($("titlesList"), ideas);
+        $("titlesText").value = ideas.join("\n");
+        show("titlesOutput");
+      });
+
+      $("makeKeywords").addEventListener("click", () => {
+        const topic = clean($("kTopic").value, "your topic");
+        const audience = clean($("kAudience").value, "beginners");
+        const format = $("kFormat").value.toLowerCase();
+
+        const phrases = [
+          topic,
+          topic + " for beginners",
+          beginnerGuide(topic),
+          topic + " for " + audience,
+          audience + " " + topic + " " + format,
+          topic + " tips and techniques",
+          topic + " step by step",
+          topic + " ideas and inspiration",
+          "how to learn " + topic,
+          topic + " practice " + format,
+          "complete " + topic + " guide",
+          topic + " for everyday use",
+          topic + " skills for beginners",
+          "learn " + topic + " at home",
+          topic + " " + format + " for " + audience
+        ];
+
+        const unique = [...new Set(phrases)];
+        renderItems($("keywordsList"), unique);
+        $("keywordsText").value = unique.join("\n");
+        show("keywordsOutput");
+      });
+
+      function beginnerGuide(topic) {
+        return "beginner's guide to " + topic;
+      }
+
+      const firstNames = {
+        classic: ["Eleanor", "Arthur", "Clara", "Henry", "Margaret", "Thomas", "Alice", "Edward", "Violet", "George", "Julia", "Frederick"],
+        modern: ["Avery", "Jordan", "Morgan", "Riley", "Taylor", "Casey", "Rowan", "Quinn", "Parker", "Reese", "Cameron", "Skyler"],
+        fantasy: ["Elara", "Alden", "Lyra", "Caelan", "Seren", "Evander", "Isolde", "Theron", "Mira", "Orin", "Arwen", "Cassian"],
+        mystery: ["Evelyn", "Victor", "Mara", "Adrian", "Iris", "Silas", "Nora", "Damian", "Vera", "Julian", "Lydia", "Felix"]
+      };
+
+      const lastNames = {
+        classic: ["Bennett", "Whitmore", "Ellis", "Hawthorne", "Collins", "Reed", "Fletcher", "Warren", "Brooks", "Sinclair"],
+        modern: ["Hayes", "Blake", "Miller", "Reid", "Parker", "Wells", "Carter", "Gray", "Monroe", "Lane"],
+        fantasy: ["Moonvale", "Silverwind", "Starfall", "Ravenwood", "Thornfield", "Wintermere", "Dawnwhisper", "Stormborn", "Ashbourne", "Nightbloom"],
+        mystery: ["Blackwood", "Cross", "Vale", "Sloane", "Mercer", "Holloway", "Graves", "Lockwood", "Shaw", "Marlowe"]
+      };
+
+      function shuffle(list) {
+        const result = list.slice();
+        for (let i = result.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [result[i], result[j]] = [result[j], result[i]];
+        }
+        return result;
+      }
+
+      $("makePenNames").addEventListener("click", () => {
+        const style = $("pStyle").value;
+        const count = Number($("pCount").value);
+        const first = shuffle(firstNames[style]);
+        const last = shuffle(lastNames[style]);
+        const names = [];
+
+        for (let i = 0; names.length < count; i++) {
+          const name = first[i % first.length] + " " + last[(i * 3) % last.length];
+          if (!names.includes(name)) names.push(name);
+          if (i > 100) break;
+        }
+
+        renderItems($("pennameList"), names);
+        $("pennameText").value = names.join("\n");
+        show("pennameOutput");
+      });
+
+      $("makeCopyright").addEventListener("click", () => {
+        const title = clean($("cTitle").value, "Book Title");
+        const author = clean($("cAuthor").value, "Author Name");
+        const year = Number($("cYear").value) || new Date().getFullYear();
+        const publisher = $("cPublisher").value.trim();
+        const extra = $("cNotice").value.trim();
+
+        const lines = [
+          "Copyright © " + year + " by " + author,
+          "",
+          "All rights reserved.",
+          "",
+          "No part of this publication may be reproduced, distributed, or transmitted in any form or by any means without prior permission from the rights holder, except as permitted by applicable law.",
+          "",
+          "Title: " + title
+        ];
+
+        if (publisher) lines.push("Publisher: " + publisher);
+        if (extra) lines.push("", extra);
+
+        lines.push(
+          "",
+          "This page is a general template. Review the wording and applicable legal requirements before publication."
+        );
+
+        $("copyrightText").textContent = lines.join("\n");
+        show("copyrightOutput");
+      });
+
+      document.querySelectorAll("[data-copy]").forEach(button => {
+        button.addEventListener("click", () => {
+          const id = button.dataset.copy;
+          const element = $(id);
+          const text = element.value !== undefined && element.value !== ""
+            ? element.value
+            : element.textContent;
+          copyText(text);
+        });
+      });
+
+      $("cYear").value = new Date().getFullYear();
+      $("year").textContent = new Date().getFullYear();
+    })();
+  </script>
+</body>
+</html>
+```
 
