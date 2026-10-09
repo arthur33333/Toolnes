@@ -1,1 +1,253 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inflation Calculator - Toolnes</title>
+  <meta name="description" content="Calculate the future value of money, the effect of inflation on purchasing power, and the amount needed to match rising prices.">
+  <link rel="canonical" href="https://toolnes.netlify.app/finance/inflation-calculator/">
+  <meta name="robots" content="index,follow">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Arial, sans-serif; background: #f5f7fb; color: #182230; line-height: 1.6; }
+    header { background: #fff; border-bottom: 1px solid #e5e9f0; padding: 18px 20px; }
+    nav, main, footer { max-width: 950px; margin: auto; }
+    nav a { color: #2457d6; text-decoration: none; font-weight: 700; margin-right: 18px; }
+    main { padding: 32px 18px; }
+    h1 { font-size: clamp(28px, 5vw, 40px); margin-bottom: 8px; }
+    .intro { color: #5d6878; margin-top: 0; }
+    .panel { background: #fff; border: 1px solid #e2e7ef; border-radius: 16px; padding: 24px; margin: 22px 0; box-shadow: 0 5px 18px #17255408; }
+    .fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 18px; }
+    label { display: block; font-weight: 700; margin-bottom: 7px; }
+    input, select { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 9px; font: inherit; background: #fff; }
+    button { background: #2457d6; color: #fff; border: 0; border-radius: 9px; padding: 13px 20px; font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 20px; }
+    button:hover { background: #1946b5; }
+    .results { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-top: 22px; }
+    .result { background: #f0f5ff; border-radius: 12px; padding: 16px; overflow-wrap: anywhere; }
+    .result span { display: block; color: #536174; font-size: 14px; }
+    .result strong { font-size: 23px; }
+    .note { color: #64748b; font-size: 14px; }
+    .formula { background: #f8fafc; border-left: 4px solid #2457d6; padding: 14px; border-radius: 8px; overflow-wrap: anywhere; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+    th, td { text-align: right; padding: 10px; border-bottom: 1px solid #e5e9f0; white-space: nowrap; }
+    th:first-child, td:first-child { text-align: left; }
+    th { background: #f5f7fb; }
+    .error { color: #b42318; font-weight: 700; }
+    footer { padding: 20px; color: #64748b; }
+    @media (max-width: 500px) { .panel { padding: 17px; } nav a { display: inline-block; margin-bottom: 7px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <nav aria-label="Main navigation">
+      <a href="/">Toolnes</a>
+      <a href="/calculators/">Calculators</a>
+      <a href="/finance/">Finance</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Inflation Calculator</h1>
+    <p class="intro">Discover how inflation changes the purchasing power of your money over time.</p>
+
+    <section class="panel">
+      <h2>Enter your details</h2>
+      <div class="fields">
+        <div>
+          <label for="currency">Currency</label>
+          <select id="currency">
+            <option value="USD">USD ($)</option>
+            <option value="EUR">EUR (€)</option>
+            <option value="GBP">GBP (£)</option>
+            <option value="DZD">DZD (DA)</option>
+            <option value="CAD">CAD (CA$)</option>
+            <option value="AUD">AUD (A$)</option>
+            <option value="INR">INR (₹)</option>
+          </select>
+        </div>
+        <div>
+          <label for="amount">Starting amount</label>
+          <input id="amount" type="number" min="0.01" step="any" value="1000">
+        </div>
+        <div>
+          <label for="inflation">Annual inflation rate (%)</label>
+          <input id="inflation" type="number" min="-50" max="100" step="any" value="3">
+        </div>
+        <div>
+          <label for="years">Number of years</label>
+          <input id="years" type="number" min="0" max="100" step="any" value="10">
+        </div>
+        <div>
+          <label for="mode">Calculate</label>
+          <select id="mode">
+            <option value="future">Future cost of today's amount</option>
+            <option value="purchasing">Purchasing power of future money</option>
+            <option value="required">Amount needed in the future</option>
+          </select>
+        </div>
+      </div>
+
+      <button id="calculate" type="button">Calculate Inflation</button>
+      <p id="error" class="error" role="alert"></p>
+
+      <div class="results" aria-live="polite">
+        <div class="result">
+          <span id="mainLabel">Estimated future cost</span>
+          <strong id="mainResult">—</strong>
+        </div>
+        <div class="result">
+          <span>Change in amount</span>
+          <strong id="change">—</strong>
+        </div>
+        <div class="result">
+          <span>Total price change</span>
+          <strong id="totalRate">—</strong>
+        </div>
+        <div class="result">
+          <span>Purchasing power retained</span>
+          <strong id="retained">—</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Year-by-year inflation estimate</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Year</th><th>Estimated amount</th><th>Change from start</th></tr>
+          </thead>
+          <tbody id="schedule">
+            <tr><td colspan="3">Enter your values and calculate.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">This table uses the same annual inflation rate for each year. Real inflation changes over time.</p>
+    </section>
+
+    <section class="panel">
+      <h2>How does inflation affect money?</h2>
+      <p>Inflation means that prices generally rise over time. When prices increase, the same amount of money buys fewer goods and services.</p>
+      <div class="formula">
+        <p><strong>Future cost</strong> = Today's amount × (1 + inflation rate)<sup>years</sup></p>
+        <p><strong>Purchasing power</strong> = Future amount ÷ (1 + inflation rate)<sup>years</sup></p>
+      </div>
+      <p>For example, with 3% annual inflation, something that costs $1,000 today would cost approximately $1,343.92 in 10 years if that rate stayed constant.</p>
+      <p class="note">This calculator is an estimate, not a forecast of actual inflation.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> Toolnes. Free online tools.</p>
+  </footer>
+
+  <script>
+    const $ = id => document.getElementById(id);
+
+    function money(value) {
+      const currency = $("currency").value;
+      try {
+        return new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency,
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        }).format(value);
+      } catch {
+        return value.toFixed(2) + " " + currency;
+      }
+    }
+
+    function calculateInflation() {
+      $("error").textContent = "";
+
+      const amount = Number($("amount").value);
+      const rate = Number($("inflation").value) / 100;
+      const years = Number($("years").value);
+      const mode = $("mode").value;
+
+      if (![amount, rate, years].every(Number.isFinite)) {
+        $("error").textContent = "Please enter valid numbers in all fields.";
+        return;
+      }
+      if (amount <= 0) {
+        $("error").textContent = "Starting amount must be greater than zero.";
+        return;
+      }
+      if (rate <= -1 || rate > 1) {
+        $("error").textContent = "Enter an annual rate greater than -100% and no more than 100%.";
+        return;
+      }
+      if (years < 0 || years > 100) {
+        $("error").textContent = "Enter a number of years from 0 to 100.";
+        return;
+      }
+
+      const factor = Math.pow(1 + rate, years);
+      let result;
+      let label;
+      let difference;
+
+      if (mode === "future") {
+        result = amount * factor;
+        label = "Estimated future cost";
+        difference = result - amount;
+      } else if (mode === "purchasing") {
+        result = amount / factor;
+        label = "Purchasing power in today's money";
+        difference = amount - result;
+      } else {
+        result = amount * factor;
+        label = "Future amount needed";
+        difference = result - amount;
+      }
+
+      const totalPriceChange = (factor - 1) * 100;
+      const retainedPurchasingPower = 1 / factor * 100;
+
+      $("mainLabel").textContent = label;
+      $("mainResult").textContent = money(result);
+      $("change").textContent = (difference >= 0 ? "+" : "−") + money(Math.abs(difference));
+      $("totalRate").textContent = (totalPriceChange >= 0 ? "+" : "") + totalPriceChange.toFixed(2) + "%";
+      $("retained").textContent = retainedPurchasingPower.toFixed(2) + "%";
+
+      let rows = "";
+      for (let year = 0; year <= Math.floor(years); year++) {
+        const currentFactor = Math.pow(1 + rate, year);
+        const value = mode === "purchasing" ? amount / currentFactor : amount * currentFactor;
+        const changeFromStart = value - amount;
+        rows += `<tr>
+          <td>${year}</td>
+          <td>${money(value)}</td>
+          <td>${changeFromStart >= 0 ? "+" : "−"}${money(Math.abs(changeFromStart))}</td>
+        </tr>`;
+      }
+
+      if (!Number.isInteger(years)) {
+        const value = mode === "purchasing" ? amount / factor : amount * factor;
+        const changeFromStart = value - amount;
+        rows += `<tr>
+          <td>${years}</td>
+          <td>${money(value)}</td>
+          <td>${changeFromStart >= 0 ? "+" : "−"}${money(Math.abs(changeFromStart))}</td>
+        </tr>`;
+      }
+
+      $("schedule").innerHTML = rows;
+    }
+
+    $("calculate").addEventListener("click", calculateInflation);
+    ["currency", "amount", "inflation", "years", "mode"].forEach(id => {
+      $(id).addEventListener("input", calculateInflation);
+      $(id).addEventListener("change", calculateInflation);
+    });
+
+    $("year").textContent = new Date().getFullYear();
+    calculateInflation();
+  </script>
+</body>
+</html>
+```
 
