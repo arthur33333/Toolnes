@@ -1,1 +1,283 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Encode and decode URLs online for free. Convert special characters for URL components with this simple Toolnes developer tool.">
+  <meta name="robots" content="index,follow">
+  <title>URL Encoder & Decoder - Free Online Tool | Toolnes</title>
+  <link rel="canonical" href="https://toolnes.netlify.app/developer-tools/url-encoder/">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f8fafc;
+      color: #172033;
+      line-height: 1.6;
+    }
+    header { background: #fff; border-bottom: 1px solid #e5e7eb; }
+    nav {
+      max-width: 1000px;
+      margin: auto;
+      padding: 17px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    a { color: #4f46e5; text-decoration: none; }
+    .logo { font-size: 25px; font-weight: 800; }
+    main {
+      max-width: 1000px;
+      margin: auto;
+      padding: 38px 22px 60px;
+    }
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(29px, 5vw, 40px);
+      line-height: 1.2;
+    }
+    .intro { color: #64748b; margin-bottom: 25px; }
+    .panel, .info {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    label { display: block; font-weight: 700; margin-bottom: 9px; }
+    textarea {
+      display: block;
+      width: 100%;
+      min-height: 210px;
+      padding: 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+      resize: vertical;
+      background: #fbfdff;
+      color: #172033;
+      font: 14px/1.6 Consolas, Monaco, monospace;
+      overflow-wrap: anywhere;
+    }
+    textarea:focus {
+      outline: 2px solid #c7d2fe;
+      border-color: #6366f1;
+    }
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 15px 0;
+    }
+    button {
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      padding: 11px 15px;
+      background: #fff;
+      color: #172033;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    button.primary { background: #4f46e5; color: #fff; border-color: #4f46e5; }
+    button:hover { opacity: .88; }
+    .status {
+      padding: 12px 14px;
+      border-radius: 9px;
+      background: #f1f5f9;
+      color: #475569;
+      overflow-wrap: anywhere;
+    }
+    .status.success { background: #ecfdf5; color: #166534; }
+    .status.error { background: #fef2f2; color: #b91c1c; }
+    .info { margin-top: 28px; }
+    .info h2 { margin-top: 0; }
+    .notice {
+      padding: 12px 14px;
+      background: #fffbeb;
+      border-radius: 9px;
+      color: #92400e;
+      font-size: 14px;
+    }
+    footer {
+      padding: 25px 20px;
+      text-align: center;
+      border-top: 1px solid #e5e7eb;
+      background: #fff;
+      color: #64748b;
+      font-size: 14px;
+    }
+    @media (max-width: 600px) {
+      main { padding: 28px 15px 45px; }
+      .panel, .info { padding: 14px; }
+      textarea { min-height: 170px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="logo" href="/">Toolnes</a>
+      <a href="/developer-tools/">← Developer Tools</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>URL Encoder & Decoder</h1>
+    <p class="intro">
+      Encode special characters for use in URLs or decode percent-encoded
+      text into a readable format. Free and easy to use.
+    </p>
+
+    <section class="panel">
+      <label for="input">Input text or encoded URL component</label>
+      <textarea id="input" spellcheck="false" placeholder="Enter text or an encoded URL component..."></textarea>
+
+      <div class="buttons">
+        <button class="primary" id="encode">Encode Component</button>
+        <button class="primary" id="decode">Decode Component</button>
+        <button id="encodeUri">Encode Full URI</button>
+        <button id="decodeUri">Decode Full URI</button>
+        <button id="example">Load Example</button>
+        <button id="clear">Clear</button>
+      </div>
+
+      <div id="status" class="status" role="status" aria-live="polite">
+        Enter text and choose an operation.
+      </div>
+    </section>
+
+    <section class="panel">
+      <label for="output">Result</label>
+      <textarea id="output" spellcheck="false" readonly placeholder="Your result will appear here..."></textarea>
+      <div class="buttons">
+        <button id="copy">Copy Result</button>
+        <button id="download">Download Result</button>
+      </div>
+    </section>
+
+    <section class="info">
+      <h2>What is URL encoding?</h2>
+      <p>
+        URL encoding represents certain characters using percent signs and
+        hexadecimal values. It is commonly used when data needs to be included
+        in a URL query parameter.
+      </p>
+      <h2>Component encoding vs. full URI encoding</h2>
+      <p>
+        Use <strong>Encode Component</strong> for individual values, such as a
+        search query. Use <strong>Encode Full URI</strong> when you need to
+        preserve URI structure characters such as slashes and colons.
+      </p>
+      <p class="notice">
+        Only decode text from sources you trust. Decoded content may contain
+        links or text that you should inspect before using.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> Toolnes. All rights reserved.</p>
+    <p><a href="/">Home</a> · <a href="/developer-tools/">Developer Tools</a> · <a href="/text-tools/">Text Tools</a></p>
+  </footer>
+
+  <script>
+    const input = document.getElementById("input");
+    const output = document.getElementById("output");
+    const status = document.getElementById("status");
+
+    function showStatus(text, type = "") {
+      status.textContent = text;
+      status.className = "status" + (type ? " " + type : "");
+    }
+
+    function runOperation(operation, label) {
+      if (!input.value) {
+        output.value = "";
+        showStatus("Please enter text before continuing.", "error");
+        return;
+      }
+
+      try {
+        output.value = operation(input.value);
+        showStatus(label + " completed successfully.", "success");
+      } catch (error) {
+        output.value = "";
+        showStatus("Unable to process input: " + error.message, "error");
+      }
+    }
+
+    document.getElementById("encode").addEventListener("click", () => {
+      runOperation(encodeURIComponent, "Component encoding");
+    });
+
+    document.getElementById("decode").addEventListener("click", () => {
+      runOperation(decodeURIComponent, "Component decoding");
+    });
+
+    document.getElementById("encodeUri").addEventListener("click", () => {
+      runOperation(encodeURI, "Full URI encoding");
+    });
+
+    document.getElementById("decodeUri").addEventListener("click", () => {
+      runOperation(decodeURI, "Full URI decoding");
+    });
+
+    document.getElementById("example").addEventListener("click", () => {
+      input.value = "hello world & Toolnes!";
+      output.value = encodeURIComponent(input.value);
+      showStatus("Example loaded and encoded.", "success");
+    });
+
+    document.getElementById("clear").addEventListener("click", () => {
+      input.value = "";
+      output.value = "";
+      showStatus("Input and result cleared.");
+      input.focus();
+    });
+
+    document.getElementById("copy").addEventListener("click", async () => {
+      if (!output.value) {
+        showStatus("There is no result to copy.", "error");
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(output.value);
+        showStatus("Result copied to clipboard.", "success");
+      } catch {
+        output.focus();
+        output.select();
+        const ok = document.execCommand("copy");
+        showStatus(
+          ok ? "Result copied to clipboard." : "Select the result and copy it manually.",
+          ok ? "success" : "error"
+        );
+      }
+    });
+
+    document.getElementById("download").addEventListener("click", () => {
+      if (!output.value) {
+        showStatus("Generate a result before downloading.", "error");
+        return;
+      }
+
+      const blob = new Blob([output.value], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "url-result.txt";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+      showStatus("Download started.", "success");
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+```
 
