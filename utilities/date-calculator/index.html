@@ -1,1 +1,418 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free online date calculator. Add or subtract days, weeks, months and years, or calculate the time between two dates.">
+  <meta name="robots" content="index, follow">
+  <title>Date Calculator - Free Online Tool | Toolnes</title>
+  <link rel="canonical" href="https://toolnes.netlify.app/utilities/date-calculator/">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f7fb;
+      color: #172033;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #fff;
+      border-bottom: 1px solid #e5e9f2;
+      padding: 18px 20px;
+    }
+
+    .nav {
+      max-width: 1000px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .logo {
+      color: #2563eb;
+      text-decoration: none;
+      font-size: 25px;
+      font-weight: 800;
+    }
+
+    nav { display: flex; gap: 15px; flex-wrap: wrap; }
+
+    nav a {
+      color: #344054;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    main {
+      max-width: 850px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .intro { text-align: center; margin-bottom: 28px; }
+
+    h1 { font-size: clamp(30px, 5vw, 40px); margin-bottom: 10px; }
+
+    .intro p { color: #667085; }
+
+    .card, .result, .info {
+      background: #fff;
+      border: 1px solid #e4e8f0;
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 22px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+    }
+
+    .tab {
+      flex: 1;
+      min-width: 150px;
+      padding: 12px;
+      border: 1px solid #cfd6e4;
+      background: #fff;
+      color: #344054;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .tab.active {
+      background: #2563eb;
+      border-color: #2563eb;
+      color: #fff;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 7px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cfd6e4;
+      border-radius: 8px;
+      font-size: 16px;
+      margin-bottom: 18px;
+      background: white;
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    button.primary {
+      width: 100%;
+      padding: 14px;
+      background: #2563eb;
+      color: white;
+      border: 0;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button.primary:hover { background: #1d4ed8; }
+
+    .result { display: none; }
+
+    .result-number {
+      color: #2563eb;
+      font-size: 30px;
+      font-weight: 800;
+      overflow-wrap: anywhere;
+    }
+
+    .error {
+      color: #b42318;
+      font-weight: 700;
+      margin-top: 12px;
+    }
+
+    .info h2 { font-size: 22px; }
+    .info p, .info li { color: #596579; }
+
+    footer {
+      text-align: center;
+      padding: 25px 15px;
+      color: #667085;
+      background: white;
+      border-top: 1px solid #e5e9f2;
+    }
+
+    footer a { color: #2563eb; text-decoration: none; margin: 0 7px; }
+
+    @media (max-width: 520px) {
+      .field-row { grid-template-columns: 1fr; gap: 0; }
+      .card, .result, .info { padding: 18px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="nav">
+      <a class="logo" href="/">Toolnes</a>
+      <nav aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/utilities/">Utilities</a>
+        <a href="/calculators/">Calculators</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <h1>Date Calculator</h1>
+      <p>Add or subtract time from a date, or calculate the difference between two dates.</p>
+    </section>
+
+    <section class="card">
+      <div class="tabs" role="group" aria-label="Calculation type">
+        <button type="button" class="tab active" id="addTab">Add / Subtract</button>
+        <button type="button" class="tab" id="diffTab">Date Difference</button>
+      </div>
+
+      <div id="addPanel">
+        <label for="startDate">Start date</label>
+        <input type="date" id="startDate">
+
+        <div class="field-row">
+          <div>
+            <label for="operation">Operation</label>
+            <select id="operation">
+              <option value="add">Add time</option>
+              <option value="subtract">Subtract time</option>
+            </select>
+          </div>
+          <div>
+            <label for="amount">Amount</label>
+            <input type="number" id="amount" min="0" step="1" value="30">
+          </div>
+        </div>
+
+        <label for="unit">Time unit</label>
+        <select id="unit">
+          <option value="days">Days</option>
+          <option value="weeks">Weeks</option>
+          <option value="months">Months</option>
+          <option value="years">Years</option>
+        </select>
+
+        <button type="button" class="primary" id="calculateDate">Calculate New Date</button>
+      </div>
+
+      <div id="diffPanel" hidden>
+        <label for="dateOne">Start date</label>
+        <input type="date" id="dateOne">
+
+        <label for="dateTwo">End date</label>
+        <input type="date" id="dateTwo">
+
+        <button type="button" class="primary" id="calculateDiff">Calculate Difference</button>
+      </div>
+
+      <p id="error" class="error" role="alert"></p>
+    </section>
+
+    <section class="result" id="result" aria-live="polite">
+      <h2 id="resultTitle">Result</h2>
+      <div class="result-number" id="resultMain"></div>
+      <p id="resultDetail"></p>
+    </section>
+
+    <section class="info">
+      <h2>How to Use the Date Calculator</h2>
+      <ul>
+        <li>Choose Add / Subtract to calculate a date in the future or past.</li>
+        <li>Enter a start date, choose the operation and set the amount and unit.</li>
+        <li>Choose Date Difference to calculate the number of days between two dates.</li>
+      </ul>
+
+      <h2>About Date Calculations</h2>
+      <p>This tool uses calendar dates. Months and years are calculated as calendar units rather than fixed numbers of days. If the target month has fewer days, the result uses the last valid day of that month.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Toolnes. All rights reserved.</p>
+    <p>
+      <a href="/">Home</a>
+      <a href="/utilities/">Utilities</a>
+      <a href="/privacy-policy/">Privacy Policy</a>
+      <a href="/contact/">Contact</a>
+    </p>
+  </footer>
+
+  <script>
+    const addTab = document.getElementById("addTab");
+    const diffTab = document.getElementById("diffTab");
+    const addPanel = document.getElementById("addPanel");
+    const diffPanel = document.getElementById("diffPanel");
+    const result = document.getElementById("result");
+    const error = document.getElementById("error");
+
+    function parseDate(value) {
+      if (!value) return null;
+      const [year, month, day] = value.split("-").map(Number);
+      return new Date(Date.UTC(year, month - 1, day));
+    }
+
+    function formatDate(date) {
+      return new Intl.DateTimeFormat("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        timeZone: "UTC"
+      }).format(date);
+    }
+
+    function formatInputDate(date) {
+      return [
+        date.getUTCFullYear(),
+        String(date.getUTCMonth() + 1).padStart(2, "0"),
+        String(date.getUTCDate()).padStart(2, "0")
+      ].join("-");
+    }
+
+    function addCalendarMonths(date, amount) {
+      const originalDay = date.getUTCDate();
+      const firstDay = new Date(Date.UTC(
+        date.getUTCFullYear(),
+        date.getUTCMonth() + amount,
+        1
+      ));
+
+      const lastDay = new Date(Date.UTC(
+        firstDay.getUTCFullYear(),
+        firstDay.getUTCMonth() + 1,
+        0
+      )).getUTCDate();
+
+      firstDay.setUTCDate(Math.min(originalDay, lastDay));
+      return firstDay;
+    }
+
+    function showResult(title, main, detail) {
+      document.getElementById("resultTitle").textContent = title;
+      document.getElementById("resultMain").textContent = main;
+      document.getElementById("resultDetail").textContent = detail;
+      result.style.display = "block";
+    }
+
+    function clearMessages() {
+      error.textContent = "";
+      result.style.display = "none";
+    }
+
+    addTab.addEventListener("click", () => {
+      addTab.classList.add("active");
+      diffTab.classList.remove("active");
+      addPanel.hidden = false;
+      diffPanel.hidden = true;
+      clearMessages();
+    });
+
+    diffTab.addEventListener("click", () => {
+      diffTab.classList.add("active");
+      addTab.classList.remove("active");
+      diffPanel.hidden = false;
+      addPanel.hidden = true;
+      clearMessages();
+    });
+
+    document.getElementById("calculateDate").addEventListener("click", () => {
+      clearMessages();
+
+      const start = parseDate(document.getElementById("startDate").value);
+      const amount = Number(document.getElementById("amount").value);
+      const operation = document.getElementById("operation").value;
+      const unit = document.getElementById("unit").value;
+
+      if (!start || document.getElementById("amount").value === "" ||
+          !Number.isFinite(amount) || amount < 0 || !Number.isInteger(amount)) {
+        error.textContent = "Please enter a valid start date and a non-negative whole number.";
+        return;
+      }
+
+      const signedAmount = operation === "subtract" ? -amount : amount;
+      let target;
+
+      if (unit === "days") {
+        target = new Date(start.getTime());
+        target.setUTCDate(target.getUTCDate() + signedAmount);
+      } else if (unit === "weeks") {
+        target = new Date(start.getTime());
+        target.setUTCDate(target.getUTCDate() + signedAmount * 7);
+      } else if (unit === "months") {
+        target = addCalendarMonths(start, signedAmount);
+      } else {
+        target = addCalendarMonths(start, signedAmount * 12);
+      }
+
+      const difference = Math.round((target - start) / 86400000);
+
+      showResult(
+        "Your Result",
+        formatDate(target),
+        "Start date: " + formatDate(start) +
+        ". Difference: " + Math.abs(difference).toLocaleString("en-US") +
+        " days " + (difference < 0 ? "before" : "after") + " the start date."
+      );
+    });
+
+    document.getElementById("calculateDiff").addEventListener("click", () => {
+      clearMessages();
+
+      const first = parseDate(document.getElementById("dateOne").value);
+      const second = parseDate(document.getElementById("dateTwo").value);
+
+      if (!first || !second) {
+        error.textContent = "Please select both dates.";
+        return;
+      }
+
+      const difference = Math.abs(Math.round((second - first) / 86400000));
+      const weeks = Math.floor(difference / 7);
+      const remainingDays = difference % 7;
+
+      showResult(
+        "Date Difference",
+        difference.toLocaleString("en-US") + " days",
+        "That is " + weeks.toLocaleString("en-US") +
+        " full weeks and " + remainingDays + " days."
+      );
+    });
+
+    const today = new Date();
+    const todayUTC = new Date(Date.UTC(
+      today.getFullYear(), today.getMonth(), today.getDate()
+    ));
+    const todayString = formatInputDate(todayUTC);
+
+    document.getElementById("startDate").value = todayString;
+    document.getElementById("dateOne").value = todayString;
+    document.getElementById("dateTwo").value = todayString;
+  </script>
+</body>
+</html>
+```
 
