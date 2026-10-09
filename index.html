@@ -1,730 +1,411 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Toolnes - Useful Free Online Tools</title>
-
-<meta name="description" content="Toolnes offers useful free online calculators, converters, text tools, puzzles, math tools and everyday utilities.">
-
+<meta name="description" content="Toolnes offers free online calculators, converters, math tools, text tools, games and everyday utilities. Simple, useful and free.">
+<meta name="theme-color" content="#f7f8fc">
+<title>Toolnes - Useful Tools. Simple and Free.</title>
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+:root{
+  --bg:#f7f8fc;
+  --ink:#20263a;
+  --muted:#687086;
+  --purple:#7065e8;
+  --line:#e7e9f2;
+  --white:#fff;
 }
-
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f7f9fc;
-    color: #1f2937;
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:Arial,Helvetica,sans-serif;
 }
-
-/* HEADER */
-
-header {
-    background: white;
-    border-bottom: 1px solid #e5e7eb;
-    padding: 18px 30px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+header{
+  background:var(--white);
+  border-bottom:1px solid var(--line);
+  padding:18px 5%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
 }
-
-.logo {
-    font-size: 28px;
-    font-weight: 800;
-    color: #111827;
-    text-decoration: none;
+.logo{
+  font-size:27px;
+  font-weight:800;
+  color:var(--purple);
+  text-decoration:none;
+  letter-spacing:-1px;
 }
-
-.logo span {
-    color: #6366f1;
+nav{display:flex;gap:22px;flex-wrap:wrap}
+nav a{
+  color:var(--ink);
+  text-decoration:none;
+  font-size:14px;
+  font-weight:600;
 }
-
-nav {
-    display: flex;
-    gap: 22px;
+nav a:hover{color:var(--purple)}
+.hero{
+  text-align:center;
+  padding:65px 18px 35px;
+  max-width:850px;
+  margin:auto;
 }
-
-nav a {
-    text-decoration: none;
-    color: #4b5563;
-    font-weight: 600;
+.eyebrow{
+  display:inline-block;
+  background:#eeecff;
+  color:var(--purple);
+  border-radius:30px;
+  padding:8px 14px;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.5px;
 }
-
-nav a:hover {
-    color: #6366f1;
+h1{
+  font-size:clamp(35px,6vw,55px);
+  line-height:1.1;
+  letter-spacing:-1.8px;
+  margin:20px 0 14px;
 }
-
-/* HERO */
-
-.hero {
-    text-align: center;
-    padding: 65px 20px 45px;
+.hero p{
+  max-width:600px;
+  margin:0 auto;
+  color:var(--muted);
+  line-height:1.8;
+  font-size:17px;
 }
-
-.hero h1 {
-    font-size: 46px;
-    color: #111827;
-    margin-bottom: 15px;
+.search-wrap{
+  max-width:580px;
+  margin:28px auto 0;
 }
-
-.hero p {
-    font-size: 19px;
-    color: #6b7280;
-    margin-bottom: 30px;
+#search{
+  width:100%;
+  padding:17px 20px;
+  border:1px solid #dfe2ed;
+  border-radius:14px;
+  background:white;
+  font-size:16px;
+  outline:none;
+  box-shadow:0 8px 24px #27315a08;
 }
-
-.search-box {
-    max-width: 650px;
-    margin: 0 auto;
+#search:focus{
+  border-color:var(--purple);
+  box-shadow:0 0 0 3px #7065e81a;
 }
-
-.search-box input {
-    width: 100%;
-    padding: 17px 20px;
-    border: 1px solid #d1d5db;
-    border-radius: 14px;
-    background: white;
-    font-size: 16px;
-    outline: none;
+main{
+  max-width:1200px;
+  padding:0 22px 65px;
+  margin:0 auto;
 }
-
-.search-box input:focus {
-    border-color: #6366f1;
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+.category-nav{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  padding:12px 0 24px;
+  scrollbar-width:thin;
 }
-
-/* CATEGORY FILTER */
-
-.filters {
-    max-width: 1200px;
-    margin: 0 auto 30px;
-    padding: 0 25px;
-
-    display: flex;
-    gap: 10px;
-
-    overflow-x: auto;
-    scrollbar-width: none;
+.filter-btn{
+  flex:0 0 auto;
+  border:1px solid var(--line);
+  background:white;
+  color:var(--muted);
+  border-radius:30px;
+  padding:10px 16px;
+  cursor:pointer;
+  font-size:13px;
+  font-weight:700;
 }
-
-.filters::-webkit-scrollbar {
-    display: none;
-}
-
-.filter-btn {
-    flex: 0 0 auto;
-    border: none;
-    padding: 10px 16px;
-    border-radius: 999px;
-    background: white;
-    color: #4b5563;
-    font-weight: 600;
-    cursor: pointer;
-    border: 1px solid #e5e7eb;
-}
-
 .filter-btn:hover,
-.filter-btn.active {
-    background: #6366f1;
-    color: white;
-    border-color: #6366f1;
+.filter-btn.active{
+  background:var(--purple);
+  color:white;
+  border-color:var(--purple);
 }
-
-/* MAIN */
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 25px 70px;
+.section-heading{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin:12px 0 22px;
 }
-
-.categories-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+.section-heading h2{
+  font-size:24px;
+  margin:0;
 }
-
-/* CARDS */
-
-.category-card {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-
-    padding: 27px;
-    min-height: 210px;
-
-    border-radius: 20px;
-
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
+#count{
+  font-size:13px;
+  color:var(--muted);
 }
-
-.category-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.08);
+.category-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:20px;
 }
-
-.category-icon {
-    font-size: 38px;
-    margin-bottom: 17px;
+.category-card{
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  min-height:205px;
+  padding:24px;
+  background:white;
+  border:1px solid var(--line);
+  border-radius:18px;
+  text-decoration:none;
+  color:var(--ink);
+  transition:transform .18s ease,box-shadow .18s ease;
 }
-
-.category-card h2 {
-    font-size: 21px;
-    color: #111827;
-    margin-bottom: 10px;
+.category-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 12px 30px #27315a10;
 }
-
-.category-card p {
-    font-size: 14px;
-    line-height: 1.55;
-    color: #4b5563;
+.category-icon{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:54px;
+  height:54px;
+  border-radius:15px;
+  font-size:27px;
+  margin-bottom:18px;
 }
-
-/* CARD COLORS */
-
-.calculators {
-    background: #e0e7ff;
+.calculators .category-icon{background:#eeecff}
+.converters .category-icon{background:#e1f7ee}
+.text-tools .category-icon{background:#fff0dc}
+.puzzles .category-icon{background:#ffe7ec}
+.kdp .category-icon{background:#e3f1ff}
+.image-tools .category-icon{background:#f4e6ff}
+.pdf-tools .category-icon{background:#ffe8e2}
+.developer-tools .category-icon{background:#e1f4f5}
+.finance .category-icon{background:#e4f5d9}
+.utilities .category-icon{background:#fff4c9}
+.math .category-icon{background:#e8eaff}
+.category-card h3{
+  margin:0 0 10px;
+  font-size:18px;
 }
-
-.converters {
-    background: #dcfce7;
+.category-card p{
+  margin:0;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.65;
+  flex:1;
 }
-
-.text-tools {
-    background: #fce7f3;
+.card-link{
+  margin-top:17px;
+  color:var(--purple);
+  font-size:13px;
+  font-weight:700;
 }
-
-.puzzles {
-    background: #fef3c7;
+.empty{
+  display:none;
+  text-align:center;
+  padding:45px 15px;
+  color:var(--muted);
+  background:white;
+  border:1px solid var(--line);
+  border-radius:16px;
 }
-
-.kdp {
-    background: #dbeafe;
+footer{
+  border-top:1px solid var(--line);
+  background:white;
+  text-align:center;
+  padding:30px 18px;
+  color:var(--muted);
+  font-size:13px;
 }
-
-.image-tools {
-    background: #f3e8ff;
+footer a{color:var(--purple);text-decoration:none}
+@media(max-width:950px){
+  .category-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
-
-.pdf-tools {
-    background: #fee2e2;
+@media(max-width:680px){
+  header{flex-direction:column;align-items:flex-start}
+  nav{gap:15px}
+  .hero{padding-top:45px}
+  .category-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .category-card{padding:17px;min-height:195px}
+  .category-card h3{font-size:16px}
+  .category-icon{width:48px;height:48px;font-size:24px}
 }
-
-.developer-tools {
-    background: #cffafe;
-}
-
-.finance {
-    background: #d1fae5;
-}
-
-.utilities {
-    background: #ffedd5;
-}
-
-/* NEW MATH CARD */
-
-.math {
-    background: #ede9fe;
-}
-
-/* FOOTER */
-
-footer {
-    background: #111827;
-    color: #d1d5db;
-    text-align: center;
-    padding: 32px 20px;
-}
-
-footer p {
-    font-size: 14px;
-}
-
-/* RESPONSIVE */
-
-@media (max-width: 1000px) {
-    .categories-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-@media (max-width: 750px) {
-    .categories-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .hero h1 {
-        font-size: 38px;
-    }
-}
-
-@media (max-width: 520px) {
-
-    header {
-        padding: 16px 18px;
-    }
-
-    nav {
-        gap: 12px;
-    }
-
-    nav a {
-        font-size: 13px;
-    }
-
-    .hero {
-        padding: 45px 18px 35px;
-    }
-
-    .hero h1 {
-        font-size: 32px;
-    }
-
-    .hero p {
-        font-size: 16px;
-    }
-
-    .container {
-        padding: 0 18px 50px;
-    }
-
-    .categories-grid {
-        grid-template-columns: 1fr;
-    }
+@media(max-width:400px){
+  .category-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
-
 <body>
 
-<!-- HEADER -->
-
 <header>
-
-    <a href="index.html" class="logo">
-        Tool<span>nes</span>
-    </a>
-
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="calculators/index.html">Calculators</a>
-        <a href="converters/index.html">Converters</a>
-        <a href="puzzles/index.html">Puzzles</a>
-    </nav>
-
+  <a class="logo" href="/">Toolnes</a>
+  <nav aria-label="Main navigation">
+    <a href="/">Home</a>
+    <a href="/calculators/">Calculators</a>
+    <a href="/converters/">Converters</a>
+    <a href="/puzzles/">Puzzles</a>
+  </nav>
 </header>
 
-
-<!-- HERO -->
-
 <section class="hero">
-
-    <h1>Useful tools. Simple and free.</h1>
-
-    <p>
-        Free online tools for calculations, conversions, text, math, puzzles and everyday tasks.
-    </p>
-
-    <div class="search-box">
-
-        <input
-            type="text"
-            id="searchInput"
-            placeholder="Search for a tool..."
-            onkeyup="searchTools()"
-        >
-
-    </div>
-
+  <span class="eyebrow">FREE ONLINE TOOLS</span>
+  <h1>Useful tools.<br>Simple and free.</h1>
+  <p>Discover practical online tools to calculate, convert, create and solve everyday tasks. No installation required.</p>
+  <div class="search-wrap">
+    <input id="search" type="search" placeholder="Search tools and categories..." aria-label="Search categories">
+  </div>
 </section>
 
-
-<!-- FILTER BUTTONS -->
-
-<div class="filters">
-
-    <button class="filter-btn active" onclick="filterTools('all', this)">
-        All
-    </button>
-
-    <button class="filter-btn" onclick="filterTools('calculators', this)">
-        🧮 Calculators
-    </button>
-
-    <button class="filter-btn" onclick="filterTools('converters', this)">
-        🔄 Converters
-    </button>
-
-    <button class="filter-btn" onclick="filterTools('text-tools', this)">
-        ✍️ Text Tools
-    </button>
-
-    <button class="filter-btn" onclick="filterTools('puzzles', this)">
-        🧩 Puzzles
-    </button>
-
-    <button class="filter-btn" onclick="filterTools('kdp', this)">
-        📚 KDP
-    </button>
-
-    <button class="filter-btn" onclick="filterTools('image-tools', this)">
-        🖼️ Image Tools
-    </button>
-
-    <button class="filter-btn" onclick="filterTools('pdf-tools', this)">
-        📄 PDF
-    </button>
-
-    <button class="filter-btn" onclick="filterTools('developer-tools', this)">
-        💻 Developer
-    </button>
-
-    <button class="filter-btn" onclick="filterTools('finance', this)">
-        💰 Finance
-    </button>
-
-    <button class="filter-btn" onclick="filterTools('utilities', this)">
-        🛠️ Utilities
-    </button>
-
-    <button class="filter-btn" onclick="filterTools('math', this)">
-        📐 Math
-    </button>
-
-</div>
-
-
-<!-- CATEGORIES -->
-
-<main class="container">
-
-    <div class="categories-grid" id="categoriesGrid">
-
-
-        <!-- CALCULATORS -->
-
-        <a
-            href="calculators/index.html"
-            class="category-card calculators"
-            data-category="calculators"
-        >
-
-            <div class="category-icon">🧮</div>
-
-            <h2>Calculators</h2>
-
-            <p>
-                Free calculators for percentages, discounts, taxes, loans,
-                mortgage, BMI, calories and more.
-            </p>
-
-        </a>
-
-
-        <!-- CONVERTERS -->
-
-        <a
-            href="converters/index.html"
-            class="category-card converters"
-            data-category="converters"
-        >
-
-            <div class="category-icon">🔄</div>
-
-            <h2>Converters</h2>
-
-            <p>
-                Convert length, weight, temperature, speed, area,
-                volume, time and other units.
-            </p>
-
-        </a>
-
-
-        <!-- TEXT TOOLS -->
-
-        <a
-            href="text-tools/index.html"
-            class="category-card text-tools"
-            data-category="text-tools"
-        >
-
-            <div class="category-icon">✍️</div>
-
-            <h2>Text Tools</h2>
-
-            <p>
-                Count words and characters, change text case,
-                clean text and perform useful text transformations.
-            </p>
-
-        </a>
-
-
-        <!-- PUZZLES -->
-
-        <a
-            href="puzzles/index.html"
-            class="category-card puzzles"
-            data-category="puzzles"
-        >
-
-            <div class="category-icon">🧩</div>
-
-            <h2>Puzzles & Games</h2>
-
-            <p>
-                Create word searches, crosswords, Sudoku,
-                mazes, bingo cards and other printable puzzles.
-            </p>
-
-        </a>
-
-
-        <!-- KDP -->
-
-        <a
-            href="kdp/index.html"
-            class="category-card kdp"
-            data-category="kdp"
-        >
-
-            <div class="category-icon">📚</div>
-
-            <h2>KDP & Publishing</h2>
-
-            <p>
-                Useful tools for authors and publishers,
-                including book formatting and KDP resources.
-            </p>
-
-        </a>
-
-
-        <!-- IMAGE TOOLS -->
-
-        <a
-            href="image-tools/index.html"
-            class="category-card image-tools"
-            data-category="image-tools"
-        >
-
-            <div class="category-icon">🖼️</div>
-
-            <h2>Image Tools</h2>
-
-            <p>
-                Resize, compress, crop and convert images
-                directly in your browser.
-            </p>
-
-        </a>
-
-
-        <!-- PDF TOOLS -->
-
-        <a
-            href="pdf-tools/index.html"
-            class="category-card pdf-tools"
-            data-category="pdf-tools"
-        >
-
-            <div class="category-icon">📄</div>
-
-            <h2>PDF & Documents</h2>
-
-            <p>
-                Useful PDF and document tools for converting,
-                merging, splitting and managing files.
-            </p>
-
-        </a>
-
-
-        <!-- DEVELOPER TOOLS -->
-
-        <a
-            href="developer-tools/index.html"
-            class="category-card developer-tools"
-            data-category="developer-tools"
-        >
-
-            <div class="category-icon">💻</div>
-
-            <h2>Developer Tools</h2>
-
-            <p>
-                JSON, Base64, URL, HTML, UUID, QR code,
-                timestamp and other developer utilities.
-            </p>
-
-        </a>
-
-
-        <!-- FINANCE -->
-
-        <a
-            href="finance/index.html"
-            class="category-card finance"
-            data-category="finance"
-        >
-
-            <div class="category-icon">💰</div>
-
-            <h2>Finance Tools</h2>
-
-            <p>
-                Useful financial calculators for loans,
-                investments, salaries, VAT, ROI and more.
-            </p>
-
-        </a>
-
-
-        <!-- EVERYDAY UTILITIES -->
-
-        <a
-            href="utilities/index.html"
-            class="category-card utilities"
-            data-category="utilities"
-        >
-
-            <div class="category-icon">🛠️</div>
-
-            <h2>Everyday Utilities</h2>
-
-            <p>
-                Handy everyday tools including random generators,
-                timers, QR codes and useful utilities.
-            </p>
-
-        </a>
-
-
-        <!-- MATH -->
-
-        <a
-            href="math/index.html"
-            class="category-card math"
-            data-category="math"
-        >
-
-            <div class="category-icon">📐</div>
-
-            <h2>Math</h2>
-
-            <p>
-                Free math tools for calculations, scientific formulas,
-                geometry, numbers, powers and problem solving.
-            </p>
-
-        </a>
-
-
-    </div>
-
+<main>
+  <div class="category-nav" aria-label="Filter categories">
+    <button class="filter-btn active" data-filter="all">All Tools</button>
+    <button class="filter-btn" data-filter="calculators">Calculators</button>
+    <button class="filter-btn" data-filter="converters">Converters</button>
+    <button class="filter-btn" data-filter="text-tools">Text Tools</button>
+    <button class="filter-btn" data-filter="puzzles">Puzzles &amp; Games</button>
+    <button class="filter-btn" data-filter="kdp">KDP &amp; Publishing</button>
+    <button class="filter-btn" data-filter="image-tools">Image Tools</button>
+    <button class="filter-btn" data-filter="pdf-tools">PDF &amp; Documents</button>
+    <button class="filter-btn" data-filter="developer-tools">Developer Tools</button>
+    <button class="filter-btn" data-filter="finance">Finance Tools</button>
+    <button class="filter-btn" data-filter="utilities">Everyday Utilities</button>
+    <button class="filter-btn" data-filter="math">Math</button>
+  </div>
+
+  <div class="section-heading">
+    <h2>Explore our tools</h2>
+    <span id="count">11 categories</span>
+  </div>
+
+  <div class="category-grid" id="categoryGrid">
+
+    <a class="category-card calculators" data-category="calculators" href="/calculators/">
+      <div class="category-icon">🧮</div>
+      <h3>Calculators</h3>
+      <p>Calculate percentages, discounts, loans, age, interest and more.</p>
+      <span class="card-link">Explore calculators →</span>
+    </a>
+
+    <a class="category-card converters" data-category="converters" href="/converters/">
+      <div class="category-icon">🔄</div>
+      <h3>Converters</h3>
+      <p>Convert length, weight, temperature, speed and other units quickly.</p>
+      <span class="card-link">Explore converters →</span>
+    </a>
+
+    <a class="category-card text-tools" data-category="text-tools" href="/text-tools/">
+      <div class="category-icon">✍️</div>
+      <h3>Text Tools</h3>
+      <p>Count words, change text case, clean text and format your writing.</p>
+      <span class="card-link">Explore text tools →</span>
+    </a>
+
+    <a class="category-card puzzles" data-category="puzzles" href="/puzzles/">
+      <div class="category-icon">🧩</div>
+      <h3>Puzzles &amp; Games</h3>
+      <p>Generate word searches, mazes, crosswords and other puzzles.</p>
+      <span class="card-link">Explore games →</span>
+    </a>
+
+    <a class="category-card kdp" data-category="kdp" href="/kdp/">
+      <div class="category-icon">📚</div>
+      <h3>KDP &amp; Publishing</h3>
+      <p>Useful tools for book creators, authors and self-publishers.</p>
+      <span class="card-link">Explore publishing tools →</span>
+    </a>
+
+    <a class="category-card image-tools" data-category="image-tools" href="/image-tools/">
+      <div class="category-icon">🖼️</div>
+      <h3>Image Tools</h3>
+      <p>Resize, compress and convert images for your projects.</p>
+      <span class="card-link">Explore image tools →</span>
+    </a>
+
+    <a class="category-card pdf-tools" data-category="pdf-tools" href="/pdf-tools/">
+      <div class="category-icon">📄</div>
+      <h3>PDF &amp; Documents</h3>
+      <p>Work with PDF files and common document formats online.</p>
+      <span class="card-link">Explore document tools →</span>
+    </a>
+
+    <a class="category-card developer-tools" data-category="developer-tools" href="/developer-tools/">
+      <div class="category-icon">💻</div>
+      <h3>Developer Tools</h3>
+      <p>Format JSON, encode URLs and use handy web development utilities.</p>
+      <span class="card-link">Explore developer tools →</span>
+    </a>
+
+    <a class="category-card finance" data-category="finance" href="/finance/">
+      <div class="category-icon">💰</div>
+      <h3>Finance Tools</h3>
+      <p>Estimate loan payments, interest, returns and everyday costs.</p>
+      <span class="card-link">Explore finance tools →</span>
+    </a>
+
+    <a class="category-card utilities" data-category="utilities" href="/utilities/">
+      <div class="category-icon">🛠️</div>
+      <h3>Everyday Utilities</h3>
+      <p>Use practical helpers for random numbers, time and daily tasks.</p>
+      <span class="card-link">Explore utilities →</span>
+    </a>
+
+    <a class="category-card math" data-category="math" href="/math/">
+      <div class="category-icon">📐</div>
+      <h3>Math</h3>
+      <p>Solve equations and calculate powers, roots, geometry and more.</p>
+      <span class="card-link">Explore math tools →</span>
+    </a>
+
+  </div>
+
+  <div class="empty" id="empty">
+    <h3>No categories found</h3>
+    <p>Try another search term or choose a different filter.</p>
+  </div>
 </main>
 
-
-<!-- FOOTER -->
-
 <footer>
-
-    <p>
-        © 2026 Toolnes. Useful tools. Simple and free.
-    </p>
-
+  <p>© <span id="year"></span> Toolnes. Free online tools for everyone.</p>
+  <p><a href="/">Home</a> · <a href="/calculators/">Calculators</a> · <a href="/converters/">Converters</a></p>
 </footer>
 
-
 <script>
+const searchInput = document.getElementById("search");
+const cards = Array.from(document.querySelectorAll(".category-card"));
+const filterButtons = Array.from(document.querySelectorAll(".filter-btn"));
+const count = document.getElementById("count");
+const empty = document.getElementById("empty");
+let activeFilter = "all";
 
-/* SEARCH */
+function updateCards(){
+  const query = searchInput.value.trim().toLowerCase();
+  let visible = 0;
 
-function searchTools() {
+  cards.forEach(card => {
+    const category = card.dataset.category;
+    const text = card.innerText.toLowerCase();
+    const matchesFilter = activeFilter === "all" || category === activeFilter;
+    const matchesSearch = !query || text.includes(query);
+    const show = matchesFilter && matchesSearch;
 
-    const input =
-        document.getElementById("searchInput");
+    card.style.display = show ? "flex" : "none";
+    if(show) visible++;
+  });
 
-    const search =
-        input.value.toLowerCase().trim();
-
-    const cards =
-        document.querySelectorAll(".category-card");
-
-    cards.forEach(card => {
-
-        const text =
-            card.innerText.toLowerCase();
-
-        if (text.includes(search)) {
-
-            card.style.display = "block";
-
-        } else {
-
-            card.style.display = "none";
-
-        }
-
-    });
-
+  count.textContent = visible + (visible === 1 ? " category" : " categories");
+  empty.style.display = visible === 0 ? "block" : "none";
 }
 
+filterButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    activeFilter = button.dataset.filter;
+    filterButtons.forEach(item => item.classList.toggle("active", item === button));
+    updateCards();
+  });
+});
 
-/* CATEGORY FILTER */
-
-function filterTools(category, button) {
-
-    const cards =
-        document.querySelectorAll(".category-card");
-
-    const buttons =
-        document.querySelectorAll(".filter-btn");
-
-
-    buttons.forEach(btn => {
-
-        btn.classList.remove("active");
-
-    });
-
-
-    button.classList.add("active");
-
-
-    cards.forEach(card => {
-
-        if (
-            category === "all" ||
-            card.dataset.category === category
-        ) {
-
-            card.style.display = "block";
-
-        } else {
-
-            card.style.display = "none";
-
-        }
-
-    });
-
-
-    /* Clear search when using filters */
-
-    document.getElementById("searchInput").value = "";
-
-}
-
+searchInput.addEventListener("input", updateCards);
+document.getElementById("year").textContent = new Date().getFullYear();
+updateCards();
 </script>
 
 </body>
