@@ -1,1 +1,349 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Play Word Scramble online for free. Unscramble letters, earn points, and test your vocabulary with Toolnes.">
+  <meta name="robots" content="index, follow">
+  <title>Word Scramble Game | Toolnes</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #1e293b;
+      background: #f8fafc;
+      line-height: 1.6;
+    }
+    header, footer {
+      padding: 17px 20px;
+      background: #fff;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    footer {
+      margin-top: 35px;
+      border-top: 1px solid #e2e8f0;
+      border-bottom: 0;
+      text-align: center;
+      color: #64748b;
+    }
+    .nav, main {
+      width: min(850px, calc(100% - 32px));
+      margin: auto;
+    }
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .logo { font-size: 25px; font-weight: 800; color: #2563eb; }
+    a { color: #2563eb; text-decoration: none; }
+    main { padding-top: 30px; }
+    h1 { color: #0f172a; line-height: 1.2; }
+    .muted { color: #64748b; }
+    .panel {
+      margin: 22px 0;
+      padding: 24px;
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 15px;
+      box-shadow: 0 5px 18px rgba(15, 23, 42, .04);
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .stat {
+      padding: 12px;
+      text-align: center;
+      background: #eff6ff;
+      border-radius: 10px;
+    }
+    .stat span { display: block; color: #64748b; font-size: 13px; }
+    .stat strong { color: #1d4ed8; font-size: 24px; }
+    .category-row, .actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    select, input, button {
+      min-height: 44px;
+      padding: 10px 13px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font: inherit;
+    }
+    select, input { background: #fff; color: #1e293b; }
+    button {
+      cursor: pointer;
+      font-weight: 700;
+      background: #fff;
+      color: #1e293b;
+    }
+    button.primary { background: #2563eb; color: #fff; border-color: #2563eb; }
+    button:hover { filter: brightness(.96); }
+    .scrambled {
+      margin: 28px 0 12px;
+      text-align: center;
+      font-size: clamp(28px, 6vw, 42px);
+      font-weight: 800;
+      letter-spacing: .18em;
+      color: #2563eb;
+      overflow-wrap: anywhere;
+    }
+    .hint {
+      min-height: 26px;
+      text-align: center;
+      color: #64748b;
+    }
+    form { margin-top: 20px; }
+    label { display: block; margin-bottom: 7px; font-weight: 700; }
+    #answer {
+      display: block;
+      width: 100%;
+      margin-bottom: 12px;
+      font-size: 18px;
+    }
+    .feedback { min-height: 28px; font-weight: 700; }
+    .feedback.good { color: #15803d; }
+    .feedback.bad { color: #b91c1c; }
+    .feedback.neutral { color: #475569; }
+    .small { font-size: 14px; color: #64748b; }
+    @media (max-width: 500px) {
+      .panel { padding: 16px; }
+      .stats { gap: 7px; }
+      .stat { padding: 9px 5px; }
+      .stat strong { font-size: 21px; }
+      .category-row select, .category-row button { flex: 1 1 auto; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <a class="logo" href="/">Toolnes</a>
+      <a href="/puzzles/">← All Puzzle Games</a>
+    </div>
+  </header>
+
+  <main>
+    <h1>Word Scramble Game</h1>
+    <p class="muted">Unscramble the letters to discover the hidden word. Play for free, collect points, and improve your vocabulary.</p>
+
+    <section class="panel">
+      <div class="stats">
+        <div class="stat"><span>Score</span><strong id="score">0</strong></div>
+        <div class="stat"><span>Round</span><strong id="round">1</strong></div>
+        <div class="stat"><span>Best score</span><strong id="best">0</strong></div>
+      </div>
+
+      <div class="category-row">
+        <label for="category">Category:</label>
+        <select id="category">
+          <option value="all">All words</option>
+          <option value="animals">Animals</option>
+          <option value="food">Food</option>
+          <option value="nature">Nature</option>
+          <option value="technology">Technology</option>
+          <option value="everyday">Everyday words</option>
+        </select>
+        <button id="newGame" class="primary">New Game</button>
+      </div>
+
+      <div id="scrambled" class="scrambled" aria-live="polite">READY</div>
+      <p id="hint" class="hint">Choose a category and start playing.</p>
+
+      <form id="answerForm">
+        <label for="answer">Your answer</label>
+        <input id="answer" type="text" autocomplete="off" autocapitalize="none" placeholder="Type the correct word..." required>
+        <div class="actions">
+          <button class="primary" type="submit">Check Answer</button>
+          <button type="button" id="showHint">Get Hint</button>
+          <button type="button" id="skip">Skip Word</button>
+        </div>
+      </form>
+
+      <p id="feedback" class="feedback neutral" role="status" aria-live="polite"></p>
+      <p class="small">Correct answer: +10 points. A hint reveals the first letter. Skipping a word gives no points.</p>
+    </section>
+
+    <section class="panel">
+      <h2>How to play</h2>
+      <ol>
+        <li>Look at the mixed-up letters.</li>
+        <li>Type the word you think they spell.</li>
+        <li>Click Check Answer to earn points.</li>
+        <li>Use Get Hint if you need help, or skip to try another word.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year">2026</span> Toolnes · <a href="/puzzles/">Puzzle Games</a></p>
+  </footer>
+
+  <script>
+    const WORDS = [
+      { word: "TIGER", category: "animals", hint: "A large striped wild cat." },
+      { word: "RABBIT", category: "animals", hint: "A small animal with long ears." },
+      { word: "DOLPHIN", category: "animals", hint: "A clever sea mammal." },
+      { word: "MONKEY", category: "animals", hint: "A primate that can climb trees." },
+      { word: "TURTLE", category: "animals", hint: "A reptile with a shell." },
+      { word: "ELEPHANT", category: "animals", hint: "A very large animal with a trunk." },
+      { word: "ORANGE", category: "food", hint: "A citrus fruit." },
+      { word: "BANANA", category: "food", hint: "A long yellow fruit." },
+      { word: "CHEESE", category: "food", hint: "A food often made from milk." },
+      { word: "CARROT", category: "food", hint: "An orange vegetable." },
+      { word: "CHERRY", category: "food", hint: "A small red fruit." },
+      { word: "SANDWICH", category: "food", hint: "Food between slices of bread." },
+      { word: "PLANET", category: "nature", hint: "A large object orbiting a star." },
+      { word: "FOREST", category: "nature", hint: "A large area full of trees." },
+      { word: "RIVER", category: "nature", hint: "Natural flowing water." },
+      { word: "FLOWER", category: "nature", hint: "The colorful part of many plants." },
+      { word: "MOUNTAIN", category: "nature", hint: "A very high area of land." },
+      { word: "RAINBOW", category: "nature", hint: "A colorful arc in the sky after rain." },
+      { word: "KEYBOARD", category: "technology", hint: "You type on this computer device." },
+      { word: "INTERNET", category: "technology", hint: "A worldwide network of computers." },
+      { word: "BROWSER", category: "technology", hint: "An app used to visit websites." },
+      { word: "ROBOT", category: "technology", hint: "A machine that can perform tasks." },
+      { word: "CAMERA", category: "technology", hint: "A device used to take pictures." },
+      { word: "SOFTWARE", category: "technology", hint: "Programs that run on a computer." },
+      { word: "WINDOW", category: "everyday", hint: "You can look outside through this." },
+      { word: "GARDEN", category: "everyday", hint: "A place where flowers and plants grow." },
+      { word: "POCKET", category: "everyday", hint: "A small pouch in clothing." },
+      { word: "MARKET", category: "everyday", hint: "A place where people buy and sell things." },
+      { word: "PENCIL", category: "everyday", hint: "You write or draw with this." },
+      { word: "JOURNEY", category: "everyday", hint: "Travel from one place to another." }
+    ];
+
+    const scrambledElement = document.getElementById("scrambled");
+    const hintElement = document.getElementById("hint");
+    const answerInput = document.getElementById("answer");
+    const feedbackElement = document.getElementById("feedback");
+
+    let currentWord = null;
+    let score = 0;
+    let round = 1;
+    let best = 0;
+    let usedWords = [];
+    let hintUsed = false;
+    let answered = false;
+
+    function shuffleWord(word) {
+      let letters = word.split("");
+      for (let attempt = 0; attempt < 20; attempt++) {
+        for (let i = letters.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [letters[i], letters[j]] = [letters[j], letters[i]];
+        }
+        if (letters.join("") !== word) return letters.join("");
+      }
+      return word.split("").reverse().join("");
+    }
+
+    function chooseWord() {
+      const category = document.getElementById("category").value;
+      let available = WORDS.filter(item =>
+        (category === "all" || item.category === category) &&
+        !usedWords.includes(item.word)
+      );
+
+      if (!available.length) {
+        usedWords = [];
+        available = WORDS.filter(item =>
+          category === "all" || item.category === category
+        );
+      }
+
+      return available[Math.floor(Math.random() * available.length)];
+    }
+
+    function startRound() {
+      currentWord = chooseWord();
+      usedWords.push(currentWord.word);
+      hintUsed = false;
+      answered = false;
+      scrambledElement.textContent = shuffleWord(currentWord.word);
+      hintElement.textContent = `${currentWord.word.length} letters · Category: ${currentWord.category}`;
+      answerInput.value = "";
+      answerInput.disabled = false;
+      feedbackElement.textContent = "";
+      feedbackElement.className = "feedback neutral";
+      document.getElementById("score").textContent = score;
+      document.getElementById("round").textContent = round;
+      document.getElementById("best").textContent = best;
+      answerInput.focus();
+    }
+
+    function submitAnswer(event) {
+      event.preventDefault();
+      if (!currentWord || answered) return;
+
+      const guess = answerInput.value.trim().toUpperCase().replace(/[^A-Z]/g, "");
+      if (!guess) {
+        feedbackElement.textContent = "Type an answer first.";
+        feedbackElement.className = "feedback neutral";
+        return;
+      }
+
+      if (guess === currentWord.word) {
+        const points = hintUsed ? 5 : 10;
+        score += points;
+        best = Math.max(best, score);
+        answered = true;
+        answerInput.disabled = true;
+        feedbackElement.textContent = `Correct! +${points} points. The word was ${currentWord.word}.`;
+        feedbackElement.className = "feedback good";
+        document.getElementById("score").textContent = score;
+        document.getElementById("best").textContent = best;
+
+        window.setTimeout(() => {
+          round++;
+          startRound();
+        }, 1200);
+      } else {
+        feedbackElement.textContent = "Not quite. Try again!";
+        feedbackElement.className = "feedback bad";
+      }
+    }
+
+    document.getElementById("answerForm").addEventListener("submit", submitAnswer);
+
+    document.getElementById("showHint").addEventListener("click", () => {
+      if (!currentWord || answered) return;
+      hintUsed = true;
+      hintElement.textContent = `Hint: ${currentWord.hint} First letter: ${currentWord.word[0]}`;
+    });
+
+    document.getElementById("skip").addEventListener("click", () => {
+      if (!currentWord) return;
+      feedbackElement.textContent = `The answer was ${currentWord.word}.`;
+      feedbackElement.className = "feedback neutral";
+      round++;
+      startRound();
+    });
+
+    document.getElementById("newGame").addEventListener("click", () => {
+      score = 0;
+      round = 1;
+      usedWords = [];
+      startRound();
+    });
+
+    document.getElementById("category").addEventListener("change", () => {
+      usedWords = [];
+      round = 1;
+      startRound();
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+    startRound();
+  </script>
+</body>
+</html>
