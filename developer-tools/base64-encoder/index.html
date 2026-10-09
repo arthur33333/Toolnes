@@ -1,1 +1,310 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Encode text to Base64 or decode Base64 strings online for free. Supports Unicode text with Toolnes.">
+  <meta name="robots" content="index,follow">
+  <title>Base64 Encoder & Decoder - Free Online Tool | Toolnes</title>
+  <link rel="canonical" href="https://toolnes.netlify.app/developer-tools/base64-encoder/">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f8fafc;
+      color: #172033;
+      line-height: 1.6;
+    }
+    header { background: #fff; border-bottom: 1px solid #e5e7eb; }
+    nav {
+      max-width: 1000px;
+      margin: auto;
+      padding: 17px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    a { color: #4f46e5; text-decoration: none; }
+    .logo { font-size: 25px; font-weight: 800; }
+    main {
+      max-width: 1000px;
+      margin: auto;
+      padding: 38px 22px 60px;
+    }
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(29px, 5vw, 40px);
+      line-height: 1.2;
+    }
+    .intro { color: #64748b; margin-bottom: 25px; }
+    .panel, .info {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    label { display: block; font-weight: 700; margin-bottom: 9px; }
+    textarea {
+      display: block;
+      width: 100%;
+      min-height: 190px;
+      padding: 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+      resize: vertical;
+      background: #fbfdff;
+      color: #172033;
+      font: 14px/1.6 Consolas, Monaco, monospace;
+      overflow-wrap: anywhere;
+    }
+    textarea:focus {
+      outline: 2px solid #c7d2fe;
+      border-color: #6366f1;
+    }
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 15px 0;
+    }
+    button {
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      padding: 11px 15px;
+      background: #fff;
+      color: #172033;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    button.primary { background: #4f46e5; color: #fff; border-color: #4f46e5; }
+    button:hover { opacity: .88; }
+    .status {
+      padding: 12px 14px;
+      border-radius: 9px;
+      background: #f1f5f9;
+      color: #475569;
+      overflow-wrap: anywhere;
+    }
+    .status.success { background: #ecfdf5; color: #166534; }
+    .status.error { background: #fef2f2; color: #b91c1c; }
+    .info { margin-top: 28px; }
+    .info h2 { margin-top: 0; }
+    .notice {
+      padding: 12px 14px;
+      background: #fffbeb;
+      border-radius: 9px;
+      color: #92400e;
+      font-size: 14px;
+    }
+    footer {
+      padding: 25px 20px;
+      text-align: center;
+      border-top: 1px solid #e5e7eb;
+      background: #fff;
+      color: #64748b;
+      font-size: 14px;
+    }
+    @media (max-width: 600px) {
+      main { padding: 28px 15px 45px; }
+      .panel, .info { padding: 14px; }
+      textarea { min-height: 160px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="logo" href="/">Toolnes</a>
+      <a href="/developer-tools/">← Developer Tools</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Base64 Encoder & Decoder</h1>
+    <p class="intro">
+      Encode text into Base64 or decode a Base64 string back into readable
+      text. Free, fast and processed directly in your browser.
+    </p>
+
+    <section class="panel">
+      <label for="input">Input text or Base64 string</label>
+      <textarea id="input" spellcheck="false" placeholder="Type or paste your text here..."></textarea>
+
+      <div class="buttons">
+        <button class="primary" id="encode">Encode to Base64</button>
+        <button class="primary" id="decode">Decode from Base64</button>
+        <button id="example">Load Example</button>
+        <button id="clear">Clear</button>
+      </div>
+
+      <div id="status" class="status" role="status" aria-live="polite">
+        Enter text and choose an operation.
+      </div>
+    </section>
+
+    <section class="panel">
+      <label for="output">Result</label>
+      <textarea id="output" spellcheck="false" readonly placeholder="Your result will appear here..."></textarea>
+      <div class="buttons">
+        <button id="copy">Copy Result</button>
+        <button id="download">Download Result</button>
+      </div>
+    </section>
+
+    <section class="info">
+      <h2>What is Base64?</h2>
+      <p>
+        Base64 is a way to represent binary data as text using a limited set
+        of characters. It is commonly used in data transmission and encoding
+        binary content for text-based formats.
+      </p>
+      <h2>How to use this tool</h2>
+      <ol>
+        <li>Enter your text or Base64 string.</li>
+        <li>Choose Encode to Base64 or Decode from Base64.</li>
+        <li>Copy the result or download it as a text file.</li>
+      </ol>
+      <p class="notice">
+        Base64 is encoding, not encryption. It does not protect passwords,
+        API keys or confidential information.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> Toolnes. All rights reserved.</p>
+    <p><a href="/">Home</a> · <a href="/developer-tools/">Developer Tools</a> · <a href="/text-tools/">Text Tools</a></p>
+  </footer>
+
+  <script>
+    const input = document.getElementById("input");
+    const output = document.getElementById("output");
+    const status = document.getElementById("status");
+
+    function showStatus(text, type = "") {
+      status.textContent = text;
+      status.className = "status" + (type ? " " + type : "");
+    }
+
+    function encodeBase64(text) {
+      const bytes = new TextEncoder().encode(text);
+      let binary = "";
+      const chunkSize = 0x8000;
+
+      for (let i = 0; i < bytes.length; i += chunkSize) {
+        binary += String.fromCharCode(...bytes.subarray(i, i + chunkSize));
+      }
+
+      return btoa(binary);
+    }
+
+    function decodeBase64(text) {
+      const cleaned = text.replace(/\s+/g, "");
+
+      if (!cleaned) {
+        throw new Error("Please enter a Base64 string.");
+      }
+
+      if (!/^[A-Za-z0-9+/]*={0,2}$/.test(cleaned) || cleaned.length % 4 === 1) {
+        throw new Error("The Base64 string has an invalid format.");
+      }
+
+      const binary = atob(cleaned);
+      const bytes = Uint8Array.from(binary, char => char.charCodeAt(0));
+
+      return new TextDecoder("utf-8", { fatal: true }).decode(bytes);
+    }
+
+    document.getElementById("encode").addEventListener("click", () => {
+      if (!input.value) {
+        output.value = "";
+        showStatus("Please enter text to encode.", "error");
+        return;
+      }
+
+      try {
+        output.value = encodeBase64(input.value);
+        showStatus("Text successfully encoded to Base64.", "success");
+      } catch (error) {
+        output.value = "";
+        showStatus("Encoding failed: " + error.message, "error");
+      }
+    });
+
+    document.getElementById("decode").addEventListener("click", () => {
+      if (!input.value.trim()) {
+        output.value = "";
+        showStatus("Please enter a Base64 string to decode.", "error");
+        return;
+      }
+
+      try {
+        output.value = decodeBase64(input.value);
+        showStatus("Base64 successfully decoded.", "success");
+      } catch (error) {
+        output.value = "";
+        showStatus("Decoding failed: " + error.message, "error");
+      }
+    });
+
+    document.getElementById("example").addEventListener("click", () => {
+      input.value = "Hello, Toolnes!";
+      output.value = encodeBase64(input.value);
+      showStatus("Example loaded and encoded.", "success");
+    });
+
+    document.getElementById("clear").addEventListener("click", () => {
+      input.value = "";
+      output.value = "";
+      showStatus("Input and result cleared.");
+      input.focus();
+    });
+
+    document.getElementById("copy").addEventListener("click", async () => {
+      if (!output.value) {
+        showStatus("There is no result to copy.", "error");
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(output.value);
+        showStatus("Result copied to clipboard.", "success");
+      } catch {
+        output.focus();
+        output.select();
+        const ok = document.execCommand("copy");
+        showStatus(
+          ok ? "Result copied to clipboard." : "Select the result and copy it manually.",
+          ok ? "success" : "error"
+        );
+      }
+    });
+
+    document.getElementById("download").addEventListener("click", () => {
+      if (!output.value) {
+        showStatus("Generate a result before downloading.", "error");
+        return;
+      }
+
+      const blob = new Blob([output.value], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "base64-result.txt";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+      showStatus("Download started.", "success");
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+```
 
