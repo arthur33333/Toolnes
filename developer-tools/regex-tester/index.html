@@ -1,1 +1,425 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Test regular expressions online with live matches, match highlighting, and detailed results. Free Regex Tester by Toolnes.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://toolnes.netlify.app/developer-tools/regex-tester/">
+  <title>Regex Tester Online - Toolnes</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #172033;
+      line-height: 1.6;
+    }
+    header {
+      background: #fff;
+      border-bottom: 1px solid #e5e9f2;
+      padding: 18px 20px;
+    }
+    .nav {
+      max-width: 1000px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .logo {
+      font-size: 25px;
+      font-weight: 800;
+      color: #2563eb;
+      text-decoration: none;
+    }
+    nav a {
+      color: #475569;
+      text-decoration: none;
+      margin-left: 14px;
+      font-size: 14px;
+    }
+    main {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 18px;
+    }
+    .card {
+      background: #fff;
+      border: 1px solid #e5e9f2;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 8px 28px rgba(15, 23, 42, .04);
+    }
+    h1 { margin-top: 0; font-size: 32px; line-height: 1.2; }
+    h2 { margin-top: 30px; font-size: 22px; }
+    .intro { color: #64748b; }
+    label {
+      display: block;
+      margin: 18px 0 8px;
+      font-weight: 700;
+    }
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+      font: inherit;
+      color: #172033;
+      background: #fff;
+    }
+    textarea { min-height: 160px; resize: vertical; }
+    .pattern-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+    }
+    .flags {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin: 14px 0;
+    }
+    .flags label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin: 0;
+      font-weight: 400;
+    }
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    button {
+      border: 0;
+      border-radius: 9px;
+      padding: 12px 17px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      background: #2563eb;
+      color: #fff;
+    }
+    button.secondary { background: #e8eef8; color: #172033; }
+    button:hover { opacity: .88; }
+    .message {
+      padding: 10px 12px;
+      margin-top: 14px;
+      border-radius: 8px;
+      background: #f1f5f9;
+      overflow-wrap: anywhere;
+    }
+    .error { color: #b91c1c; background: #fef2f2; }
+    .success { color: #166534; background: #f0fdf4; }
+    .highlight-box {
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+      padding: 14px;
+      min-height: 80px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      background: #f8fafc;
+    }
+    mark {
+      background: #fde68a;
+      color: #713f12;
+      border-radius: 3px;
+      padding: 1px 0;
+    }
+    .match-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-left: 22px;
+    }
+    .match-list code {
+      background: #f1f5f9;
+      padding: 3px 6px;
+      border-radius: 4px;
+      overflow-wrap: anywhere;
+    }
+    .links { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 25px; }
+    .links a { color: #2563eb; text-decoration: none; }
+    footer { text-align: center; padding: 25px; color: #64748b; font-size: 13px; }
+    @media (max-width: 600px) {
+      main { margin: 25px auto; }
+      .card { padding: 20px; }
+      h1 { font-size: 27px; }
+      .pattern-row { grid-template-columns: 1fr; }
+      nav a { margin-left: 7px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <a class="logo" href="/">Toolnes</a>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/text-tools/">Text Tools</a>
+        <a href="/pdf-tools/">PDF Tools</a>
+        <a href="/developer-tools/">Developer Tools</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="card">
+      <h1>Regex Tester</h1>
+      <p class="intro">
+        Test regular expressions online. Find matches, highlight results,
+        and inspect each match directly in your browser.
+      </p>
+
+      <label for="pattern">Regular expression</label>
+      <div class="pattern-row">
+        <input id="pattern" type="text" value="\b\w+@\w+\.\w+\b" placeholder="Enter a regex pattern">
+        <button id="testBtn" type="button">Test Regex</button>
+      </div>
+
+      <div class="flags">
+        <label><input type="checkbox" id="flagG" checked> Global (g)</label>
+        <label><input type="checkbox" id="flagI"> Case-insensitive (i)</label>
+        <label><input type="checkbox" id="flagM"> Multiline (m)</label>
+        <label><input type="checkbox" id="flagS"> Dot matches newline (s)</label>
+      </div>
+
+      <label for="testText">Test text</label>
+      <textarea id="testText" placeholder="Enter the text you want to test...">Contact us at hello@example.com or support@toolnes.netlify.app.</textarea>
+
+      <div class="buttons">
+        <button id="exampleBtn" class="secondary" type="button">Load Example</button>
+        <button id="clearBtn" class="secondary" type="button">Clear</button>
+      </div>
+
+      <div id="status" class="message" role="status" aria-live="polite">Ready to test.</div>
+
+      <h2>Highlighted matches</h2>
+      <div id="highlighted" class="highlight-box">Your highlighted results will appear here.</div>
+
+      <h2>Match details</h2>
+      <div id="matchSummary">No test has been run yet.</div>
+      <ol id="matchList" class="match-list"></ol>
+
+      <div class="buttons">
+        <button id="copyBtn" class="secondary" type="button">Copy Match Results</button>
+        <button id="downloadBtn" class="secondary" type="button">Download Results</button>
+      </div>
+
+      <h2>What is a regular expression?</h2>
+      <p>
+        A regular expression (regex) is a pattern used to search, validate,
+        or extract text. For example, <code>\d+</code> matches one or more
+        digits, while <code>[A-Z]</code> matches an uppercase English letter.
+      </p>
+      <p>
+        Choose the flags you need and enter your own pattern and test text.
+        All testing is performed locally in your browser.
+      </p>
+
+      <div class="links">
+        <a href="/developer-tools/">← All Developer Tools</a>
+        <a href="/developer-tools/json-formatter/">JSON Formatter</a>
+        <a href="/developer-tools/hash-generator/">Hash Generator</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>© 2026 Toolnes. Free online tools.</footer>
+
+  <script>
+    const patternInput = document.getElementById("pattern");
+    const testText = document.getElementById("testText");
+    const statusBox = document.getElementById("status");
+    const highlighted = document.getElementById("highlighted");
+    const matchSummary = document.getElementById("matchSummary");
+    const matchList = document.getElementById("matchList");
+
+    let lastResults = [];
+
+    function escapeHTML(value) {
+      return value.replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[char]);
+    }
+
+    function getFlags() {
+      return [
+        document.getElementById("flagG").checked ? "g" : "",
+        document.getElementById("flagI").checked ? "i" : "",
+        document.getElementById("flagM").checked ? "m" : "",
+        document.getElementById("flagS").checked ? "s" : ""
+      ].join("");
+    }
+
+    function testRegex() {
+      matchList.replaceChildren();
+      lastResults = [];
+
+      let regex;
+      const flags = getFlags();
+
+      try {
+        regex = new RegExp(patternInput.value, flags);
+      } catch (error) {
+        statusBox.className = "message error";
+        statusBox.textContent = "Invalid regular expression: " + error.message;
+        highlighted.textContent = "";
+        matchSummary.textContent = "Please correct the pattern and try again.";
+        return;
+      }
+
+      const source = testText.value;
+      const searchRegex = new RegExp(regex.source, flags.includes("g") ? flags : flags + "g");
+      let match;
+      let count = 0;
+      const maxMatches = 5000;
+
+      while ((match = searchRegex.exec(source)) !== null) {
+        count++;
+
+        if (count > maxMatches) {
+          statusBox.className = "message error";
+          statusBox.textContent = "Stopped after 5,000 matches to protect browser performance.";
+          break;
+        }
+
+        lastResults.push({
+          text: match[0],
+          index: match.index,
+          groups: Array.from(match).slice(1)
+        });
+
+        if (match[0] === "") {
+          searchRegex.lastIndex++;
+        }
+      }
+
+      statusBox.className = "message success";
+      statusBox.textContent = count === 0
+        ? "No matches found."
+        : count + (count === 1 ? " match found." : " matches found.");
+
+      matchSummary.textContent = count + (count === 1 ? " match" : " matches") +
+        " | Pattern: /" + regex.source + "/" + flags;
+
+      if (lastResults.length === 0) {
+        highlighted.textContent = source || "(Empty input)";
+      } else {
+        let output = "";
+        let cursor = 0;
+
+        lastResults.forEach(item => {
+          output += escapeHTML(source.slice(cursor, item.index));
+          output += "<mark>" + escapeHTML(item.text) + "</mark>";
+          cursor = item.index + item.text.length;
+        });
+
+        output += escapeHTML(source.slice(cursor));
+        highlighted.innerHTML = output;
+      }
+
+      lastResults.forEach((item, index) => {
+        const li = document.createElement("li");
+        const code = document.createElement("code");
+        code.textContent = item.text === "" ? "(empty match)" : item.text;
+        li.appendChild(code);
+        li.appendChild(document.createTextNode(
+          " — position " + item.index + " (match " + (index + 1) + ")"
+        ));
+
+        if (item.groups.length > 0) {
+          const details = document.createElement("div");
+          details.textContent = "Captured groups: " + item.groups.map(
+            value => value === undefined ? "(undefined)" : JSON.stringify(value)
+          ).join(", ");
+          li.appendChild(details);
+        }
+
+        matchList.appendChild(li);
+      });
+    }
+
+    document.getElementById("testBtn").addEventListener("click", testRegex);
+
+    document.getElementById("exampleBtn").addEventListener("click", () => {
+      patternInput.value = "\\b\\w+@\\w+\\.\\w+\\b";
+      testText.value = "Contact hello@example.com or support@toolnes.netlify.app.";
+      document.getElementById("flagG").checked = true;
+      document.getElementById("flagI").checked = false;
+      document.getElementById("flagM").checked = false;
+      document.getElementById("flagS").checked = false;
+      testRegex();
+    });
+
+    document.getElementById("clearBtn").addEventListener("click", () => {
+      patternInput.value = "";
+      testText.value = "";
+      highlighted.textContent = "";
+      matchSummary.textContent = "No test has been run yet.";
+      matchList.replaceChildren();
+      statusBox.className = "message";
+      statusBox.textContent = "Ready to test.";
+      lastResults = [];
+    });
+
+    document.getElementById("copyBtn").addEventListener("click", async () => {
+      const output = lastResults.map((item, index) =>
+        (index + 1) + ". " + item.text + " (position " + item.index + ")"
+      ).join("\n");
+
+      if (!lastResults.length) {
+        statusBox.className = "message";
+        statusBox.textContent = "No matches to copy. Run a test first.";
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(output);
+        statusBox.className = "message success";
+        statusBox.textContent = "Match results copied.";
+      } catch (error) {
+        statusBox.className = "message error";
+        statusBox.textContent = "Clipboard access failed. Please select and copy the results manually.";
+      }
+    });
+
+    document.getElementById("downloadBtn").addEventListener("click", () => {
+      if (!lastResults.length) {
+        statusBox.className = "message";
+        statusBox.textContent = "No matches to download. Run a test first.";
+        return;
+      }
+
+      const output = lastResults.map((item, index) =>
+        (index + 1) + ". " + item.text + " (position " + item.index + ")"
+      ).join("\n");
+
+      const blob = new Blob([output + "\n"], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "regex-match-results.txt";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+    });
+
+    testRegex();
+  </script>
+</body>
+</html>
+```
 
