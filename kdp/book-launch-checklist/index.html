@@ -1,1 +1,867 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Prepare your Amazon KDP book launch with a free checklist covering manuscript, cover, formatting, metadata, publishing, promotion and post-launch tasks.">
+  <meta name="robots" content="index, follow">
+  <title>KDP Book Launch Checklist - Free Publishing Checklist | Toolnes</title>
+  <link rel="canonical" href="https://toolnes.netlify.app/kdp/book-launch-checklist/">
+  <style>
+    :root {
+      --primary: #5b45d6;
+      --primary-dark: #4431b2;
+      --bg: #f5f6fb;
+      --card: #fff;
+      --text: #202438;
+      --muted: #687087;
+      --border: #e1e5ef;
+      --green: #16865c;
+      --red: #c0394b;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+
+    header {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 18px 20px;
+    }
+
+    .nav {
+      max-width: 1000px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .brand {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .back {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 35px auto;
+      padding: 0 18px;
+    }
+
+    .eyebrow {
+      color: var(--primary);
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: 1.3px;
+      font-size: .78rem;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1.15;
+      margin: 8px 0 12px;
+    }
+
+    h2 { font-size: 1.25rem; margin-top: 0; }
+    h3 { font-size: 1rem; }
+
+    .intro {
+      color: var(--muted);
+      max-width: 760px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 23px;
+      margin-top: 22px;
+      box-shadow: 0 5px 20px rgba(30, 35, 70, .035);
+    }
+
+    .field { margin-bottom: 15px; }
+
+    label {
+      display: block;
+      font-size: .92rem;
+      font-weight: 700;
+      margin-bottom: 7px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 12px;
+      border: 1px solid #cfd5e3;
+      border-radius: 9px;
+      background: #fff;
+      color: var(--text);
+      font: inherit;
+    }
+
+    textarea {
+      min-height: 85px;
+      resize: vertical;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: 2px solid #d4ceff;
+      border-color: var(--primary);
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .stat {
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      min-width: 0;
+    }
+
+    .stat span {
+      display: block;
+      color: var(--muted);
+      font-size: .85rem;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.55rem;
+      margin-top: 5px;
+      overflow-wrap: anywhere;
+    }
+
+    .progress-track {
+      height: 12px;
+      border-radius: 99px;
+      background: #e9eaf2;
+      overflow: hidden;
+      margin-top: 18px;
+    }
+
+    .progress-bar {
+      width: 0;
+      height: 100%;
+      background: var(--primary);
+      transition: width .2s ease;
+    }
+
+    .progress-caption {
+      color: var(--muted);
+      font-size: .9rem;
+      margin-top: 8px;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin: 17px 0;
+    }
+
+    button {
+      border: 0;
+      border-radius: 9px;
+      padding: 11px 15px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button:focus-visible {
+      outline: 3px solid #bcb3ff;
+      outline-offset: 2px;
+    }
+
+    .primary { background: var(--primary); color: #fff; }
+    .primary:hover { background: var(--primary-dark); }
+    .secondary { background: #eeecff; color: var(--primary-dark); }
+    .danger { background: #fff0f1; color: var(--red); }
+
+    .phase {
+      margin-top: 19px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .phase-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      background: #f8f8ff;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .phase-heading h3 { margin: 0; }
+
+    .phase-count {
+      color: var(--muted);
+      font-size: .82rem;
+      white-space: nowrap;
+    }
+
+    .check-item {
+      display: grid;
+      grid-template-columns: 22px minmax(0, 1fr);
+      align-items: start;
+      gap: 12px;
+      padding: 15px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .check-item:last-child { border-bottom: 0; }
+
+    .check-item input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      min-height: auto;
+      margin: 4px 0 0;
+      accent-color: var(--primary);
+    }
+
+    .check-title {
+      display: block;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .check-description {
+      display: block;
+      color: var(--muted);
+      font-size: .88rem;
+      margin-top: 3px;
+    }
+
+    .check-item.done .check-title {
+      text-decoration: line-through;
+      color: var(--muted);
+    }
+
+    .custom-task {
+      display: grid;
+      grid-template-columns: 22px minmax(0, 1fr) auto;
+      gap: 12px;
+      padding: 15px 16px;
+      border-bottom: 1px solid var(--border);
+      align-items: start;
+    }
+
+    .custom-task input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      min-height: auto;
+      margin-top: 4px;
+      accent-color: var(--primary);
+    }
+
+    .custom-task button {
+      padding: 6px 9px;
+      font-size: .82rem;
+    }
+
+    .notice {
+      color: #6d571d;
+      background: #fff9e9;
+      border: 1px solid #f0dfad;
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 22px;
+    }
+
+    .status {
+      min-height: 24px;
+      color: var(--green);
+      font-size: .9rem;
+      margin-top: 10px;
+    }
+
+    footer {
+      background: #fff;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      text-align: center;
+      padding: 25px 18px;
+      margin-top: 40px;
+    }
+
+    footer a { color: var(--primary); }
+
+    @media (max-width: 650px) {
+      .project-grid { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: 1fr; }
+      .card { padding: 17px; }
+      main { margin-top: 25px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <a class="brand" href="/">Toolnes</a>
+      <a class="back" href="/kdp/">← All KDP Tools</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="eyebrow">KDP & Publishing Tools</div>
+    <h1>KDP Book Launch Checklist</h1>
+    <p class="intro">
+      Get your book ready for publication with a practical checklist
+      covering manuscript preparation, formatting, cover design,
+      book listing, launch promotion and post-launch review.
+    </p>
+
+    <section class="card">
+      <h2>Your Book Launch</h2>
+      <div class="project-grid">
+        <div class="field">
+          <label for="bookTitle">Book title</label>
+          <input id="bookTitle" maxlength="160" placeholder="Enter your book title">
+        </div>
+        <div class="field">
+          <label for="authorName">Author name</label>
+          <input id="authorName" maxlength="100" placeholder="Enter author name">
+        </div>
+        <div class="field">
+          <label for="format">Publishing format</label>
+          <select id="format">
+            <option>Kindle eBook</option>
+            <option>Paperback</option>
+            <option>Hardcover</option>
+            <option>eBook and Paperback</option>
+            <option>Multiple Formats</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="launchDate">Target publication date</label>
+          <input id="launchDate" type="date">
+        </div>
+      </div>
+      <div class="field">
+        <label for="launchNotes">Notes and reminders</label>
+        <textarea id="launchNotes" maxlength="3000" placeholder="Add your launch goals, links or reminders..."></textarea>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <span>Completed tasks</span>
+          <strong id="completed">0/0</strong>
+        </div>
+        <div class="stat">
+          <span>Checklist progress</span>
+          <strong id="percentage">0%</strong>
+        </div>
+        <div class="stat">
+          <span>Tasks remaining</span>
+          <strong id="remaining">0</strong>
+        </div>
+      </div>
+
+      <div class="progress-track" id="progressTrack"
+           role="progressbar" aria-label="Checklist completion"
+           aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+      <div class="progress-caption" id="progressCaption">
+        Start checking off tasks as you complete them.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Launch Preparation Checklist</h2>
+      <p class="intro">
+        Mark each task as complete when you have finished it.
+        You can also add your own tasks and remove items that
+        do not apply to your book.
+      </p>
+
+      <div class="toolbar">
+        <button class="primary" id="addCustom" type="button">+ Add Custom Task</button>
+        <button class="secondary" id="allTasks" type="button">Show All</button>
+        <button class="secondary" id="pendingTasks" type="button">Pending Only</button>
+        <button class="secondary" id="completedTasks" type="button">Completed Only</button>
+      </div>
+
+      <div id="checklist"></div>
+      <div id="taskStatus" class="status" role="status" aria-live="polite"></div>
+    </section>
+
+    <section class="card">
+      <h2>Export Your Checklist</h2>
+      <p class="intro">
+        Download a report to review or print, or save a JSON backup
+        to restore your checklist later.
+      </p>
+      <div class="toolbar">
+        <button class="primary" id="downloadReport" type="button">Download Checklist Report</button>
+        <button class="secondary" id="downloadBackup" type="button">Download JSON Backup</button>
+        <button class="secondary" id="importBackup" type="button">Import JSON Backup</button>
+        <input id="backupFile" type="file" accept=".json,application/json" hidden>
+        <button class="danger" id="reset" type="button">Reset Checklist</button>
+      </div>
+      <div id="exportStatus" class="status" role="status" aria-live="polite"></div>
+    </section>
+
+    <section class="notice">
+      <strong>Important:</strong> This is an independent planning tool,
+      not an official Amazon KDP product. Completing this checklist
+      does not guarantee acceptance, publication, sales or compliance.
+      Always review the current requirements in your publishing account.
+      Download a backup regularly to preserve your progress.
+    </section>
+
+    <section class="card">
+      <h2>Book Launch Tips</h2>
+      <ol>
+        <li>Proofread the manuscript and check the final interior file.</li>
+        <li>Verify that the cover matches the selected book format and specifications.</li>
+        <li>Review the title, subtitle, author name, description and pricing.</li>
+        <li>Check the relevant rights, permissions and content requirements.</li>
+        <li>Preview your files and fix any issues before submitting.</li>
+        <li>Prepare promotional content and a realistic launch plan.</li>
+        <li>After publication, verify the live listing and review performance.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> Toolnes — Free Online Tools</p>
+    <p><a href="/kdp/">Explore more KDP & Publishing Tools</a></p>
+  </footer>
+
+  <script>
+    (() => {
+      const $ = id => document.getElementById(id);
+
+      const starterItems = [
+        {
+          phase: "1. Manuscript",
+          items: [
+            ["Finalize the manuscript", "Complete the content and resolve outstanding edits."],
+            ["Proofread the full book", "Check spelling, grammar, punctuation and consistency."],
+            ["Check rights and permissions", "Confirm that you have the rights needed for your content."],
+            ["Review front and back matter", "Check title page, copyright page, acknowledgments and other relevant sections."]
+          ]
+        },
+        {
+          phase: "2. Interior and Cover",
+          items: [
+            ["Format the book interior", "Apply the correct trim size, margins and layout for your format."],
+            ["Check page numbers and blank pages", "Review page order, numbering and intentional blank pages."],
+            ["Finalize the cover design", "Check title, author name, readability and artwork."],
+            ["Verify cover specifications", "Confirm dimensions and other requirements for the selected format."]
+          ]
+        },
+        {
+          phase: "3. Listing and Metadata",
+          items: [
+            ["Confirm title and subtitle", "Check spelling and consistency with the book cover."],
+            ["Write the book description", "Prepare a clear, accurate description for readers."],
+            ["Research keywords and categories", "Choose relevant terms and suitable categories where available."],
+            ["Confirm author and contributor details", "Check all names and credits."],
+            ["Review pricing and territories", "Choose pricing and distribution settings appropriate for your book."]
+          ]
+        },
+        {
+          phase: "4. Final Quality Check",
+          items: [
+            ["Check the final manuscript file", "Ensure you are using the correct, final version."],
+            ["Preview the interior and cover", "Inspect the platform preview and fix any formatting issues."],
+            ["Review the book description and listing", "Check all text for mistakes before submission."],
+            ["Prepare a proof copy if applicable", "Inspect a physical proof when your workflow or format calls for one."]
+          ]
+        },
+        {
+          phase: "5. Publication",
+          items: [
+            ["Upload the final files", "Submit the appropriate files through your publishing platform."],
+            ["Complete required publishing details", "Review the platform's questions and declarations carefully."],
+            ["Review all settings before submission", "Check format, pricing, rights and other selected options."],
+            ["Submit for publication", "Submit only when you are satisfied with the files and information."]
+          ]
+        },
+        {
+          phase: "6. Launch and Promotion",
+          items: [
+            ["Prepare launch announcements", "Write social posts, emails or other promotional material."],
+            ["Prepare book images and promotional assets", "Use appropriate graphics and accurate book information."],
+            ["Share the book listing when available", "Verify the live link before sharing it."],
+            ["Track launch activity", "Record promotional actions and important dates."]
+          ]
+        },
+        {
+          phase: "7. After Launch",
+          items: [
+            ["Verify the live book listing", "Check the displayed title, cover, description and format."],
+            ["Check the reader experience", "Review the available listing and book preview."],
+            ["Monitor sales and royalties", "Use your publishing dashboard and reports."],
+            ["Plan future improvements", "Record useful feedback and possible updates."]
+          ]
+        }
+      ];
+
+      let nextId = 1;
+      let items = [];
+      let filter = "all";
+
+      function createItem(title, description, phase, custom = false) {
+        return {
+          id: nextId++,
+          title,
+          description,
+          phase,
+          custom,
+          done: false
+        };
+      }
+
+      function seedItems() {
+        nextId = 1;
+        items = [];
+        starterItems.forEach(group => {
+          group.items.forEach(([title, description]) => {
+            items.push(createItem(title, description, group.phase));
+          });
+        });
+      }
+
+      function getProject() {
+        return {
+          bookTitle: $("bookTitle").value.trim(),
+          authorName: $("authorName").value.trim(),
+          format: $("format").value,
+          launchDate: $("launchDate").value,
+          launchNotes: $("launchNotes").value,
+          items: items.map(item => ({ ...item }))
+        };
+      }
+
+      function updateSummary() {
+        const total = items.length;
+        const done = items.filter(item => item.done).length;
+        const left = total - done;
+        const percent = total ? Math.round(done / total * 100) : 0;
+
+        $("completed").textContent = done + "/" + total;
+        $("percentage").textContent = percent + "%";
+        $("remaining").textContent = left;
+        $("progressBar").style.width = percent + "%";
+        $("progressTrack").setAttribute("aria-valuenow", String(percent));
+
+        $("progressCaption").textContent = total === 0
+          ? "Add a task to begin your launch checklist."
+          : percent === 100
+            ? "All checklist tasks are marked complete."
+            : done === 0
+              ? "Start checking off tasks as you complete them."
+              : done + " tasks complete; " + left + " remaining.";
+      }
+
+      function render() {
+        const container = $("checklist");
+        container.replaceChildren();
+
+        const visible = items.filter(item => {
+          if (filter === "pending") return !item.done;
+          if (filter === "completed") return item.done;
+          return true;
+        });
+
+        if (visible.length === 0) {
+          const empty = document.createElement("div");
+          empty.className = "phase";
+          empty.style.padding = "20px";
+          empty.textContent = items.length
+            ? "No tasks match this filter."
+            : "No tasks available. Add a custom task to begin.";
+          container.appendChild(empty);
+          updateSummary();
+          return;
+        }
+
+        const groups = new Map();
+
+        visible.forEach(item => {
+          if (!groups.has(item.phase)) groups.set(item.phase, []);
+          groups.get(item.phase).push(item);
+        });
+
+        groups.forEach((groupItems, phase) => {
+          const section = document.createElement("section");
+          section.className = "phase";
+
+          const heading = document.createElement("div");
+          heading.className = "phase-heading";
+
+          const title = document.createElement("h3");
+          title.textContent = phase;
+
+          const count = document.createElement("span");
+          count.className = "phase-count";
+          count.textContent = groupItems.filter(item => item.done).length +
+            "/" + groupItems.length + " complete";
+
+          heading.append(title, count);
+          section.appendChild(heading);
+
+          groupItems.forEach(item => {
+            const row = document.createElement("div");
+            row.className = (item.custom ? "custom-task" : "check-item") +
+              (item.done ? " done" : "");
+
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.checked = item.done;
+            checkbox.setAttribute("aria-label", "Complete: " + item.title);
+            checkbox.addEventListener("change", () => {
+              item.done = checkbox.checked;
+              render();
+            });
+
+            const body = document.createElement("div");
+            const label = document.createElement("label");
+            label.className = "check-title";
+            label.textContent = item.title;
+            label.htmlFor = "task-" + item.id;
+
+            checkbox.id = "task-" + item.id;
+
+            body.appendChild(label);
+
+            if (item.description) {
+              const description = document.createElement("span");
+              description.className = "check-description";
+              description.textContent = item.description;
+              body.appendChild(description);
+            }
+
+            row.append(checkbox, body);
+
+            if (item.custom) {
+              const remove = document.createElement("button");
+              remove.type = "button";
+              remove.className = "danger";
+              remove.textContent = "Delete";
+              remove.addEventListener("click", () => {
+                if (!confirm('Delete "' + item.title + '"?')) return;
+                items = items.filter(entry => entry.id !== item.id);
+                render();
+                $("taskStatus").textContent = "Custom task deleted.";
+              });
+              row.appendChild(remove);
+            }
+
+            section.appendChild(row);
+          });
+
+          container.appendChild(section);
+        });
+
+        updateSummary();
+      }
+
+      function downloadFile(filename, content, type) {
+        const blob = new Blob([content], { type });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+      }
+
+      function makeReport() {
+        const project = getProject();
+        const done = items.filter(item => item.done).length;
+        const percent = items.length ? Math.round(done / items.length * 100) : 0;
+
+        const lines = [
+          "TOOLNES — KDP BOOK LAUNCH CHECKLIST",
+          "===================================",
+          "",
+          "Book title: " + (project.bookTitle || "Not specified"),
+          "Author: " + (project.authorName || "Not specified"),
+          "Format: " + project.format,
+          "Target publication date: " + (project.launchDate || "Not set"),
+          "",
+          "PROGRESS",
+          "Completed tasks: " + done + " / " + items.length,
+          "Checklist progress: " + percent + "%",
+          "",
+          "CHECKLIST",
+          "----------",
+          ...items.map((item, index) =>
+            (index + 1) + ". [" + (item.done ? "DONE" : "PENDING") + "] " +
+            item.phase + " — " + item.title +
+            (item.description ? "\n   " + item.description : "")
+          ),
+          "",
+          "NOTES",
+          project.launchNotes || "No notes added.",
+          "",
+          "This checklist is an independent planning aid. Verify current platform requirements before publishing."
+        ];
+
+        return lines.join("\n");
+      }
+
+      function importProject(project) {
+        if (!project || typeof project !== "object" || !Array.isArray(project.items)) {
+          throw new Error("Invalid backup file.");
+        }
+
+        const formats = Array.from($("format").options).map(option => option.value);
+        $("bookTitle").value = String(project.bookTitle || "").slice(0, 160);
+        $("authorName").value = String(project.authorName || "").slice(0, 100);
+        $("launchNotes").value = String(project.launchNotes || "").slice(0, 3000);
+        $("format").value = formats.includes(project.format) ? project.format : "Kindle eBook";
+        $("launchDate").value = /^\d{4}-\d{2}-\d{2}$/.test(project.launchDate || "")
+          ? project.launchDate : "";
+
+        nextId = 1;
+        items = project.items.slice(0, 500).map(item => createItem(
+          String(item.title || "Untitled task").slice(0, 180),
+          String(item.description || "").slice(0, 500),
+          String(item.phase || "Custom").slice(0, 100),
+          item.custom === true
+        )).map((item, index) => ({
+          ...item,
+          done: project.items[index].done === true
+        }));
+
+        render();
+      }
+
+      $("addCustom").addEventListener("click", () => {
+        const title = prompt("Enter your custom task:");
+        if (title === null) return;
+
+        if (!title.trim()) {
+          $("taskStatus").textContent = "Please enter a task name.";
+          return;
+        }
+
+        const description = prompt("Add a short description (optional):") || "";
+        items.push(createItem(
+          title.trim().slice(0, 180),
+          description.trim().slice(0, 500),
+          "Custom Tasks",
+          true
+        ));
+
+        filter = "all";
+        render();
+        $("taskStatus").textContent = "Custom task added.";
+      });
+
+      $("allTasks").addEventListener("click", () => {
+        filter = "all";
+        render();
+      });
+
+      $("pendingTasks").addEventListener("click", () => {
+        filter = "pending";
+        render();
+      });
+
+      $("completedTasks").addEventListener("click", () => {
+        filter = "completed";
+        render();
+      });
+
+      $("downloadReport").addEventListener("click", () => {
+        downloadFile(
+          "toolnes-kdp-book-launch-checklist.txt",
+          makeReport(),
+          "text/plain;charset=utf-8"
+        );
+        $("exportStatus").textContent = "Checklist report downloaded.";
+      });
+
+      $("downloadBackup").addEventListener("click", () => {
+        downloadFile(
+          "toolnes-kdp-book-launch-backup.json",
+          JSON.stringify(getProject(), null, 2),
+          "application/json;charset=utf-8"
+        );
+        $("exportStatus").textContent = "Backup downloaded. Keep it safe for future import.";
+      });
+
+      $("importBackup").addEventListener("click", () => $("backupFile").click());
+
+      $("backupFile").addEventListener("change", async event => {
+        const file = event.target.files && event.target.files[0];
+        if (!file) return;
+
+        try {
+          const contents = await file.text();
+          const project = JSON.parse(contents);
+
+          if (!confirm("Import this backup and replace the current checklist?")) return;
+
+          importProject(project);
+          $("exportStatus").textContent = "Backup imported successfully.";
+        } catch {
+          $("exportStatus").textContent = "Import failed. Please select a valid Toolnes checklist backup.";
+        } finally {
+          event.target.value = "";
+        }
+      });
+
+      $("reset").addEventListener("click", () => {
+        if (!confirm("Reset all checklist progress and custom tasks? Download a backup first if needed.")) return;
+
+        $("bookTitle").value = "";
+        $("authorName").value = "";
+        $("format").value = "Kindle eBook";
+        $("launchDate").value = "";
+        $("launchNotes").value = "";
+        filter = "all";
+        seedItems();
+        render();
+        $("exportStatus").textContent = "Checklist reset to its original tasks.";
+      });
+
+      $("year").textContent = new Date().getFullYear();
+      seedItems();
+      render();
+    })();
+  </script>
+</body>
+</html>
+```
 
