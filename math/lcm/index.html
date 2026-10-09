@@ -1,1 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LCM Calculator - Toolnes</title>
+<meta name="description" content="Calculate the least common multiple of two or more integers with this free online LCM calculator.">
 
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:#f7f9fc;color:#1f2937}
+header{background:#fff;border-bottom:1px solid #e5e7eb;padding:18px 30px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:28px;font-weight:800;color:#111827;text-decoration:none}
+.logo span{color:#6366f1}
+nav{display:flex;gap:20px}
+nav a{text-decoration:none;color:#4b5563;font-weight:600}
+nav a:hover{color:#6366f1}
+.hero{text-align:center;padding:45px 20px 25px}
+.hero h1{font-size:36px;margin-bottom:12px}
+.hero p{color:#6b7280;line-height:1.5}
+.container{max-width:650px;margin:20px auto 55px;padding:0 18px}
+.panel{background:#fff;padding:26px;border-radius:18px;border:1px solid #e5e7eb;box-shadow:0 8px 24px rgba(0,0,0,.04)}
+label{display:block;font-weight:600;margin-bottom:9px}
+textarea{width:100%;min-height:125px;resize:vertical;padding:14px;border:1px solid #d1d5db;border-radius:12px;font:16px Arial;outline:none}
+textarea:focus{border-color:#6366f1;box-shadow:0 0 0 3px #6366f61a}
+.hint{font-size:13px;color:#6b7280;margin-top:8px;line-height:1.5}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+button{border:0;border-radius:10px;padding:13px 18px;font-size:15px;font-weight:700;cursor:pointer}
+.primary{background:#6366f1;color:white}
+.secondary{background:#eef2ff;color:#4338ca}
+button:hover{filter:brightness(.96)}
+.result{display:none;margin-top:22px;background:#eef2ff;border-radius:14px;padding:20px}
+.result h2{font-size:14px;color:#4b5563;margin-bottom:8px}
+#answer{font-size:34px;font-weight:800;color:#3730a3;overflow-wrap:anywhere}
+#details{margin-top:10px;color:#4b5563;line-height:1.6;font-size:14px}
+.error{display:none;color:#b91c1c;background:#fef2f2;padding:12px;border-radius:10px;margin-top:14px;line-height:1.5}
+.info{margin-top:20px;background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:24px}
+.info h2{font-size:20px;margin-bottom:12px}
+.info p{color:#4b5563;line-height:1.7}
+footer{background:#111827;color:#d1d5db;text-align:center;padding:30px 20px;font-size:14px}
+@media(max-width:500px){header{padding:15px;flex-wrap:wrap;gap:12px}.logo{font-size:25px}nav{gap:12px}nav a{font-size:13px}.hero h1{font-size:30px}.panel{padding:18px}}
+</style>
+</head>
+<body>
+
+<header>
+<a href="../../index.html" class="logo">Tool<span>nes</span></a>
+<nav>
+<a href="../../index.html">Home</a>
+<a href="../index.html">Math</a>
+<a href="../../calculators/index.html">Calculators</a>
+</nav>
+</header>
+
+<section class="hero">
+<h1>LCM Calculator</h1>
+<p>Find the least common multiple of two or more integers.</p>
+</section>
+
+<main class="container">
+<section class="panel">
+<label for="numbers">Enter your integers</label>
+<textarea id="numbers" placeholder="Example: 4, 6, 10"></textarea>
+<p class="hint">Separate numbers with commas, spaces, semicolons or new lines. Use whole numbers only.</p>
+
+<div class="actions">
+<button class="primary" onclick="calculateLCM()">Calculate LCM</button>
+<button class="secondary" onclick="loadExample()">Try example</button>
+<button class="secondary" onclick="resetTool()">Reset</button>
+</div>
+
+<div class="error" id="error" role="alert"></div>
+
+<div class="result" id="result">
+<h2>LEAST COMMON MULTIPLE</h2>
+<div id="answer">0</div>
+<div id="details"></div>
+</div>
+</section>
+
+<section class="info">
+<h2>What is the LCM?</h2>
+<p>The least common multiple (LCM) is the smallest positive integer that is a multiple of every input number. For example, the LCM of 4 and 6 is 12. This tool accepts two or more integers.</p>
+</section>
+</main>
+
+<footer>© 2026 Toolnes. Useful tools. Simple and free.</footer>
+
+<script>
+function gcd(a,b){
+    a=Math.abs(a);
+    b=Math.abs(b);
+    while(b!==0){
+        const remainder=a%b;
+        a=b;
+        b=remainder;
+    }
+    return a;
+}
+
+function lcm(a,b){
+    if(a===0 || b===0) return 0;
+    return Math.abs((a/gcd(a,b))*b);
+}
+
+function calculateLCM(){
+    const input=document.getElementById("numbers").value.trim();
+    const error=document.getElementById("error");
+    const result=document.getElementById("result");
+    const answer=document.getElementById("answer");
+    const details=document.getElementById("details");
+
+    error.style.display="none";
+    result.style.display="none";
+
+    if(!input){
+        showError("Please enter at least two integers.");
+        return;
+    }
+
+    const parts=input.split(/[,\s;]+/).filter(Boolean);
+
+    if(parts.length<2){
+        showError("Please enter at least two integers.");
+        return;
+    }
+
+    if(parts.some(value=>!/^[-+]?\d+$/.test(value))){
+        showError("Please enter whole numbers only, separated by commas, spaces, semicolons or new lines.");
+        return;
+    }
+
+    const numbers=parts.map(Number);
+
+    if(numbers.some(n=>!Number.isSafeInteger(n))){
+        showError("Please use integers within the safe calculation range of this browser.");
+        return;
+    }
+
+    let value=Math.abs(numbers[0]);
+
+    for(let i=1;i<numbers.length;i++){
+        value=lcm(value,numbers[i]);
+
+        if(!Number.isSafeInteger(value)){
+            showError("The result is too large for a safe calculation in this browser. Please use smaller numbers.");
+            return;
+        }
+    }
+
+    answer.textContent=value.toLocaleString("en-US");
+    details.textContent="Numbers entered: "+numbers.join(", ")+". The result is divisible by each input number.";
+    result.style.display="block";
+}
+
+function showError(message){
+    const error=document.getElementById("error");
+    error.textContent=message;
+    error.style.display="block";
+}
+
+function loadExample(){
+    document.getElementById("numbers").value="4, 6, 10";
+    calculateLCM();
+}
+
+function resetTool(){
+    document.getElementById("numbers").value="";
+    document.getElementById("error").style.display="none";
+    document.getElementById("result").style.display="none";
+}
+</script>
+
+</body>
+</html>
