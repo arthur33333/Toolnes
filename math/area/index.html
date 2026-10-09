@@ -1,1 +1,249 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Calculate the area of common geometric shapes with this free online area calculator.">
+<title>Area Calculator - Toolnes</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f6f8fc;color:#243047;line-height:1.6}
+header{background:#fff;border-bottom:1px solid #e5eaf2;padding:17px 6%;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:25px;font-weight:800;color:#6254d9;text-decoration:none}
+nav{display:flex;gap:20px;flex-wrap:wrap}
+nav a{color:#475569;text-decoration:none;font-size:14px}
+nav a:hover{color:#6254d9}
+main{max-width:850px;margin:45px auto;padding:0 20px}
+.intro{text-align:center;margin-bottom:28px}
+.intro h1{font-size:clamp(29px,5vw,40px);margin:0 0 10px}
+.intro p{color:#64748b;margin:0}
+.card{background:#fff;border:1px solid #e6eaf2;border-radius:18px;padding:27px;margin-bottom:22px;box-shadow:0 8px 25px #2832500a}
+.field{margin-bottom:17px}
+label{display:block;font-weight:700;margin-bottom:9px}
+input,select{width:100%;padding:14px;border:1px solid #cbd5e1;border-radius:10px;font-size:16px;outline:none;background:white}
+input:focus,select:focus{border-color:#6254d9;box-shadow:0 0 0 3px #6254d91c}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:0 15px}
+.buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+button{border:0;border-radius:10px;padding:12px 19px;font-size:15px;font-weight:700;cursor:pointer}
+.primary{color:#fff;background:#6254d9}
+.primary:hover{background:#5042c5}
+.secondary{background:#eef0ff;color:#5144c7}
+.result{display:none;margin-top:22px;padding:20px;border-radius:12px;overflow-wrap:anywhere}
+.result.success{display:block;background:#e8f9ef;border:1px solid #b6ebc9}
+.result.error{display:block;background:#fff0f0;border:1px solid #ffcaca}
+.result h2{margin:0 0 8px;font-size:22px}
+.answer{font-size:clamp(27px,5vw,38px);font-weight:800;color:#5144c7;overflow-wrap:anywhere}
+.formula{background:#f4f3ff;border-radius:10px;padding:14px;margin-top:14px;overflow-wrap:anywhere}
+.card h2{margin-top:0;font-size:22px}
+.card p,.card li{color:#526078}
+.shape-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.shape-item{padding:12px;border-radius:10px;background:#f4f3ff}
+footer{text-align:center;padding:28px 16px;color:#778196;font-size:14px}
+footer a{color:#6254d9;text-decoration:none}
+@media(max-width:550px){header{padding:15px 5%}nav{gap:12px}main{margin-top:30px}.card{padding:20px}.grid,.shape-list{grid-template-columns:1fr}.buttons button{flex:1}}
+</style>
+</head>
+<body>
+<header>
+<a class="logo" href="../../index.html">Toolnes</a>
+<nav>
+<a href="../../index.html">Home</a>
+<a href="../index.html">Math Tools</a>
+<a href="../../calculators/index.html">Calculators</a>
+<a href="../../converters/index.html">Converters</a>
+</nav>
+</header>
+
+<main>
+<section class="intro">
+<h1>Area Calculator</h1>
+<p>Calculate the area of common 2D geometric shapes in seconds.</p>
+</section>
+
+<section class="card">
+<div class="field">
+<label for="shape">Choose a shape</label>
+<select id="shape">
+<option value="rectangle">Rectangle</option>
+<option value="square">Square</option>
+<option value="triangle">Triangle</option>
+<option value="parallelogram">Parallelogram</option>
+<option value="trapezoid">Trapezoid</option>
+<option value="circle">Circle</option>
+<option value="ellipse">Ellipse</option>
+</select>
+</div>
+
+<div id="inputs" class="grid"></div>
+
+<div class="buttons">
+<button class="primary" id="calculate" type="button">Calculate Area</button>
+<button class="secondary" id="example" type="button">Try Example</button>
+<button class="secondary" id="reset" type="button">Reset</button>
+</div>
+
+<div id="result" class="result" role="status" aria-live="polite"></div>
+</section>
+
+<section class="card">
+<h2>Area formulas</h2>
+<div class="shape-list">
+<div class="shape-item"><strong>Rectangle</strong><br>Length × width</div>
+<div class="shape-item"><strong>Square</strong><br>Side × side</div>
+<div class="shape-item"><strong>Triangle</strong><br>½ × base × height</div>
+<div class="shape-item"><strong>Parallelogram</strong><br>Base × height</div>
+<div class="shape-item"><strong>Trapezoid</strong><br>½ × (base 1 + base 2) × height</div>
+<div class="shape-item"><strong>Circle</strong><br>π × radius²</div>
+<div class="shape-item"><strong>Ellipse</strong><br>π × radius 1 × radius 2</div>
+</div>
+<p>Enter all measurements in the same unit. The resulting area will be expressed in square units, such as cm² or m².</p>
+</section>
+</main>
+
+<footer>
+<p>© 2026 Toolnes. Useful tools. Simple and free.</p>
+<a href="../../index.html">Explore more free tools</a>
+</footer>
+
+<script>
+const shapeSelect=document.getElementById("shape");
+const inputsBox=document.getElementById("inputs");
+const result=document.getElementById("result");
+
+const shapeFields={
+  rectangle:[["a","Length"],["b","Width"]],
+  square:[["a","Side length"]],
+  triangle:[["a","Base"],["b","Height"]],
+  parallelogram:[["a","Base"],["b","Height"]],
+  trapezoid:[["a","Base 1"],["b","Base 2"],["c","Height"]],
+  circle:[["a","Radius"]],
+  ellipse:[["a","Radius 1"],["b","Radius 2"]]
+};
+
+const formulas={
+  rectangle:"Area = length × width",
+  square:"Area = side²",
+  triangle:"Area = ½ × base × height",
+  parallelogram:"Area = base × height",
+  trapezoid:"Area = ½ × (base 1 + base 2) × height",
+  circle:"Area = π × radius²",
+  ellipse:"Area = π × radius 1 × radius 2"
+};
+
+function renderFields(){
+  inputsBox.replaceChildren();
+  shapeFields[shapeSelect.value].forEach(([id,labelText])=>{
+    const wrap=document.createElement("div");
+    wrap.className="field";
+    const label=document.createElement("label");
+    label.htmlFor="dimension-"+id;
+    label.textContent=labelText;
+    const input=document.createElement("input");
+    input.id="dimension-"+id;
+    input.dataset.dimension=id;
+    input.type="number";
+    input.min="0";
+    input.step="any";
+    input.placeholder="Enter "+labelText.toLowerCase();
+    input.inputMode="decimal";
+    wrap.append(label,input);
+    inputsBox.appendChild(wrap);
+  });
+  result.className="result";
+  result.textContent="";
+}
+
+function showError(message){
+  result.className="result error";
+  result.textContent=message;
+}
+
+function calculate(){
+  const shape=shapeSelect.value;
+  const dimensions={};
+
+  for(const [id,labelText] of shapeFields[shape]){
+    const input=document.getElementById("dimension-"+id);
+    const raw=input.value.trim();
+    if(raw===""){
+      showError("Please enter "+labelText.toLowerCase()+".");
+      input.focus();
+      return;
+    }
+    const value=Number(raw);
+    if(!Number.isFinite(value)||value<0){
+      showError("Please enter a valid non-negative measurement for "+labelText.toLowerCase()+".");
+      input.focus();
+      return;
+    }
+    if(value===0){
+      showError("Measurements must be greater than zero.");
+      input.focus();
+      return;
+    }
+    dimensions[id]=value;
+  }
+
+  const {a,b,c}=dimensions;
+  let area;
+
+  switch(shape){
+    case "rectangle": area=a*b; break;
+    case "square": area=a*a; break;
+    case "triangle": area=0.5*a*b; break;
+    case "parallelogram": area=a*b; break;
+    case "trapezoid": area=0.5*(a+b)*c; break;
+    case "circle": area=Math.PI*a*a; break;
+    case "ellipse": area=Math.PI*a*b; break;
+  }
+
+  if(!Number.isFinite(area)){
+    showError("The result is too large to calculate. Please use smaller measurements.");
+    return;
+  }
+
+  const formatted=Number(area.toPrecision(12)).toLocaleString("en-US",{maximumFractionDigits:12});
+  result.className="result success";
+  result.replaceChildren();
+
+  const heading=document.createElement("h2");
+  heading.textContent="Calculated area";
+  const answer=document.createElement("div");
+  answer.className="answer";
+  answer.textContent=formatted+" square units";
+  const formula=document.createElement("div");
+  formula.className="formula";
+  formula.textContent=formulas[shape];
+  result.append(heading,answer,formula);
+}
+
+document.getElementById("calculate").addEventListener("click",calculate);
+shapeSelect.addEventListener("change",renderFields);
+
+document.getElementById("example").addEventListener("click",()=>{
+  const examples={
+    rectangle:[8,5],
+    square:[6],
+    triangle:[10,4],
+    parallelogram:[8,5],
+    trapezoid:[6,10,4],
+    circle:[3],
+    ellipse:[4,2]
+  };
+  examples[shapeSelect.value].forEach((value,index)=>{
+    inputsBox.querySelectorAll("input")[index].value=value;
+  });
+  calculate();
+});
+
+document.getElementById("reset").addEventListener("click",()=>{
+  inputsBox.querySelectorAll("input").forEach(input=>input.value="");
+  result.className="result";
+  result.textContent="";
+});
+
+renderFields();
+</script>
+</body>
+</html>
