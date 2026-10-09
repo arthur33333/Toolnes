@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Toolnes offers free online calculators, converters, text tools, puzzles, image tools, PDF tools and more.">
+  <meta name="description" content="Toolnes offers free online calculators, converters, text tools, puzzles, image tools, PDF tools, KDP publishing tools and more.">
   <meta name="theme-color" content="#f7f8fc">
   <title>Toolnes — Free Online Tools</title>
 
@@ -19,7 +19,9 @@
       --shadow: 0 8px 28px rgba(35, 39, 75, .06);
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
@@ -28,7 +30,10 @@
       font-family: Arial, Helvetica, sans-serif;
     }
 
-    a { color: inherit; text-decoration: none; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
     header {
       background: #fff;
@@ -64,7 +69,9 @@
       color: #51566d;
     }
 
-    nav a:hover { color: var(--purple); }
+    nav a:hover {
+      color: var(--purple);
+    }
 
     main {
       max-width: 1200px;
@@ -74,7 +81,7 @@
 
     .hero {
       text-align: center;
-      margin: 0 auto 38px;
+      margin: 0 auto 42px;
       max-width: 760px;
     }
 
@@ -84,7 +91,9 @@
       margin: 0 0 15px;
     }
 
-    .hero h1 span { color: var(--purple); }
+    .hero h1 span {
+      color: var(--purple);
+    }
 
     .hero p {
       font-size: 17px;
@@ -109,7 +118,9 @@
       box-shadow: var(--shadow);
     }
 
-    #search:focus { border-color: var(--purple); }
+    #search:focus {
+      border-color: var(--purple);
+    }
 
     .section-title {
       font-size: 25px;
@@ -193,14 +204,28 @@
     }
 
     @media (max-width: 800px) {
-      .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .nav { align-items: flex-start; flex-direction: column; }
+      .cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
     }
 
     @media (max-width: 520px) {
-      .cards { grid-template-columns: 1fr; }
-      main { padding: 35px 18px 50px; }
-      .category-card { padding: 22px; }
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      main {
+        padding: 35px 18px 50px;
+      }
+
+      .category-card {
+        padding: 22px;
+      }
     }
   </style>
 </head>
@@ -209,11 +234,13 @@
   <header>
     <div class="nav">
       <a class="logo" href="/">Toolnes</a>
+
       <nav>
         <a href="/">Home</a>
         <a href="/text-tools/">Text Tools</a>
         <a href="/calculators/">Calculators</a>
         <a href="/puzzles/">Puzzles</a>
+        <a href="/kdp/">KDP &amp; Publishing</a>
       </nav>
     </div>
   </header>
@@ -221,7 +248,11 @@
   <main>
     <section class="hero">
       <h1>Free Online <span>Tools &amp; Utilities</span></h1>
-      <p>Fast, simple, and free web tools to help with your daily tasks.</p>
+
+      <p>
+        Fast, simple, and free web tools to help with your daily tasks.
+      </p>
+
       <div class="search-wrap">
         <input
           type="search"
@@ -233,7 +264,10 @@
     </section>
 
     <section aria-labelledby="categories-title">
-      <h2 class="section-title" id="categories-title">Explore Our Tools</h2>
+      <h2 class="section-title" id="categories-title">
+        Explore Our Tools
+      </h2>
+
       <p class="section-description">
         Choose a category to find free tools for your everyday tasks.
       </p>
@@ -245,6 +279,13 @@
           <h3>Calculators</h3>
           <p>Calculate percentages, dates, ages and other everyday values quickly and easily.</p>
           <span class="card-link">Explore calculators →</span>
+        </a>
+
+        <a class="category-card" href="/converters/" data-search="converters conversion units measurements">
+          <div class="card-icon">🔄</div>
+          <h3>Converters</h3>
+          <p>Convert common values and measurements with convenient online tools.</p>
+          <span class="card-link">Explore converters →</span>
         </a>
 
         <a class="category-card" href="/text-tools/" data-search="text tools word counter character counter case converter slug">
@@ -268,7 +309,14 @@
           <span class="card-link">Explore PDF tools →</span>
         </a>
 
-        <a class="category-card" href="/utilities/" data-search="utilities everyday tools conversions handy">
+        <a class="category-card" href="/image-tools/" data-search="image tools pictures photos image">
+          <div class="card-icon">🖼️</div>
+          <h3>Image Tools</h3>
+          <p>Find handy tools for common image and picture tasks.</p>
+          <span class="card-link">Explore image tools →</span>
+        </a>
+
+        <a class="category-card" href="/utilities/" data-search="utilities everyday tools handy">
           <div class="card-icon">🛠️</div>
           <h3>Utilities</h3>
           <p>Simple online utilities that help you complete everyday tasks.</p>
@@ -289,6 +337,13 @@
           <span class="card-link">Explore publishing tools →</span>
         </a>
 
+        <a class="category-card" href="/kdp/generator/" data-search="kdp generator book title description keywords amazon kindle author publishing">
+          <div class="card-icon">✍️</div>
+          <h3>KDP Generator</h3>
+          <p>Generate book titles, descriptions and keyword ideas to help prepare your next KDP publishing project.</p>
+          <span class="card-link">Open KDP Generator →</span>
+        </a>
+
         <a class="category-card" href="/puzzles/" data-search="puzzles games brain teasers logic">
           <div class="card-icon">🧩</div>
           <h3>Puzzles &amp; Games</h3>
@@ -296,23 +351,11 @@
           <span class="card-link">Play puzzles →</span>
         </a>
 
-        <a class="category-card" href="/converters/" data-search="converters conversion units measurements">
-          <div class="card-icon">🔄</div>
-          <h3>Converters</h3>
-          <p>Convert common values and measurements with convenient online tools.</p>
-          <span class="card-link">Explore converters →</span>
-        </a>
-
-        <a class="category-card" href="/image-tools/" data-search="image tools pictures photos image">
-          <div class="card-icon">🖼️</div>
-          <h3>Image Tools</h3>
-          <p>Find handy tools for common image and picture tasks.</p>
-          <span class="card-link">Explore image tools →</span>
-        </a>
-
       </div>
 
-      <p id="no-results">No matching categories found. Try another search.</p>
+      <p id="no-results">
+        No matching categories found. Try another search.
+      </p>
     </section>
   </main>
 
@@ -334,12 +377,16 @@
           card.innerText + " " + (card.dataset.search || "");
 
         const matches = searchableText.toLowerCase().includes(query);
+
         card.style.display = matches ? "" : "none";
 
-        if (matches) visibleCards++;
+        if (matches) {
+          visibleCards++;
+        }
       });
 
-      noResults.style.display = visibleCards === 0 ? "block" : "none";
+      noResults.style.display =
+        visibleCards === 0 ? "block" : "none";
     });
   </script>
 </body>
