@@ -1,1 +1,313 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Calculate percentages, percentage changes, increases, and decreases with this free online percentage calculator.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://toolnes.netlify.app/finance/percentage-calculator/">
+  <title>Percentage Calculator - Toolnes</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #172033;
+      line-height: 1.6;
+    }
+    header {
+      background: #fff;
+      border-bottom: 1px solid #e5e9f2;
+      padding: 18px 20px;
+    }
+    .nav {
+      max-width: 1000px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .logo {
+      color: #2563eb;
+      font-size: 25px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+    nav a {
+      color: #475569;
+      text-decoration: none;
+      margin-left: 14px;
+      font-size: 14px;
+    }
+    main {
+      max-width: 850px;
+      margin: 40px auto;
+      padding: 0 18px;
+    }
+    .card {
+      background: #fff;
+      border: 1px solid #e5e9f2;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 8px 28px rgba(15, 23, 42, .04);
+    }
+    h1 { margin-top: 0; font-size: 32px; line-height: 1.2; }
+    h2 { margin-top: 28px; font-size: 22px; }
+    .intro { color: #64748b; }
+    .section {
+      padding: 20px 0;
+      border-bottom: 1px solid #e5e9f2;
+    }
+    .section:last-of-type { border-bottom: 0; }
+    label {
+      display: block;
+      font-weight: 700;
+      margin: 14px 0 7px;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+      font: inherit;
+      background: #fff;
+      color: #172033;
+    }
+    .fields {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+    button {
+      border: 0;
+      border-radius: 9px;
+      padding: 12px 17px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      background: #2563eb;
+      color: #fff;
+      margin-top: 15px;
+    }
+    button.secondary { background: #e8eef8; color: #172033; }
+    button:hover { opacity: .88; }
+    .result {
+      margin-top: 14px;
+      padding: 14px;
+      background: #eff6ff;
+      border-radius: 9px;
+      overflow-wrap: anywhere;
+    }
+    .result strong { font-size: 21px; color: #1d4ed8; }
+    .message { min-height: 22px; color: #b91c1c; font-size: 14px; }
+    .links { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 25px; }
+    .links a { color: #2563eb; text-decoration: none; }
+    footer { text-align: center; padding: 25px; color: #64748b; font-size: 13px; }
+    @media (max-width: 600px) {
+      main { margin: 25px auto; }
+      .card { padding: 20px; }
+      h1 { font-size: 27px; }
+      .fields { grid-template-columns: 1fr; gap: 0; }
+      nav a { margin-left: 7px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <a class="logo" href="/">Toolnes</a>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/text-tools/">Text Tools</a>
+        <a href="/pdf-tools/">PDF Tools</a>
+        <a href="/developer-tools/">Developer Tools</a>
+        <a href="/finance/">Finance</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="card">
+      <h1>Percentage Calculator</h1>
+      <p class="intro">
+        Calculate percentages, find what percentage one number is of another,
+        and work out percentage increases or decreases.
+      </p>
+
+      <div class="section">
+        <h2>1. What is X% of Y?</h2>
+        <div class="fields">
+          <div>
+            <label for="percentOf">Percentage (%)</label>
+            <input id="percentOf" type="number" step="any" value="20">
+          </div>
+          <div>
+            <label for="valueOf">Number</label>
+            <input id="valueOf" type="number" step="any" value="150">
+          </div>
+        </div>
+        <button type="button" id="calcOf">Calculate</button>
+        <div class="result" id="resultOf" aria-live="polite">20% of 150 = <strong>30</strong></div>
+      </div>
+
+      <div class="section">
+        <h2>2. X is what percentage of Y?</h2>
+        <div class="fields">
+          <div>
+            <label for="partValue">First number (X)</label>
+            <input id="partValue" type="number" step="any" value="30">
+          </div>
+          <div>
+            <label for="wholeValue">Second number (Y)</label>
+            <input id="wholeValue" type="number" step="any" value="150">
+          </div>
+        </div>
+        <button type="button" id="calcPart">Calculate</button>
+        <div class="result" id="resultPart" aria-live="polite">30 is <strong>20%</strong> of 150</div>
+        <p class="message" id="partError"></p>
+      </div>
+
+      <div class="section">
+        <h2>3. Percentage increase or decrease</h2>
+        <div class="fields">
+          <div>
+            <label for="oldValue">Original value</label>
+            <input id="oldValue" type="number" step="any" value="100">
+          </div>
+          <div>
+            <label for="newValue">New value</label>
+            <input id="newValue" type="number" step="any" value="125">
+          </div>
+        </div>
+        <button type="button" id="calcChange">Calculate Change</button>
+        <div class="result" id="resultChange" aria-live="polite">The change is <strong>+25%</strong></div>
+        <p class="message" id="changeError"></p>
+      </div>
+
+      <button type="button" class="secondary" id="resetBtn">Reset Examples</button>
+
+      <h2>How to calculate a percentage</h2>
+      <p><strong>Find a percentage:</strong> multiply the number by the percentage and divide by 100.</p>
+      <p><strong>Find the percentage share:</strong> divide the part by the whole and multiply by 100.</p>
+      <p><strong>Find percentage change:</strong> subtract the original value from the new value, divide by the original value, and multiply by 100.</p>
+
+      <div class="links">
+        <a href="/finance/">← All Finance Tools</a>
+        <a href="/finance/discount-calculator/">Discount Calculator</a>
+        <a href="/finance/profit-margin-calculator/">Profit Margin Calculator</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>© 2026 Toolnes. Free online tools.</footer>
+
+  <script>
+    const number = id => Number(document.getElementById(id).value);
+    const valid = id => document.getElementById(id).value.trim() !== "" &&
+      Number.isFinite(number(id));
+
+    function format(value) {
+      return new Intl.NumberFormat("en-US", {
+        maximumFractionDigits: 8
+      }).format(value);
+    }
+
+    document.getElementById("calcOf").addEventListener("click", () => {
+      if (!valid("percentOf") || !valid("valueOf")) {
+        document.getElementById("resultOf").textContent = "Enter valid numbers.";
+        return;
+      }
+      const p = number("percentOf");
+      const v = number("valueOf");
+      const result = p / 100 * v;
+      document.getElementById("resultOf").replaceChildren(
+        document.createTextNode(format(p) + "% of " + format(v) + " = "),
+        Object.assign(document.createElement("strong"), { textContent: format(result) })
+      );
+    });
+
+    document.getElementById("calcPart").addEventListener("click", () => {
+      const output = document.getElementById("resultPart");
+      const error = document.getElementById("partError");
+      error.textContent = "";
+
+      if (!valid("partValue") || !valid("wholeValue")) {
+        output.textContent = "Enter valid numbers.";
+        return;
+      }
+
+      const part = number("partValue");
+      const whole = number("wholeValue");
+
+      if (whole === 0) {
+        output.textContent = "Cannot divide by zero.";
+        error.textContent = "The second number must not be zero.";
+        return;
+      }
+
+      const percentage = part / whole * 100;
+      output.replaceChildren(
+        document.createTextNode(format(part) + " is "),
+        Object.assign(document.createElement("strong"), { textContent: format(percentage) + "%" }),
+        document.createTextNode(" of " + format(whole))
+      );
+    });
+
+    document.getElementById("calcChange").addEventListener("click", () => {
+      const output = document.getElementById("resultChange");
+      const error = document.getElementById("changeError");
+      error.textContent = "";
+
+      if (!valid("oldValue") || !valid("newValue")) {
+        output.textContent = "Enter valid numbers.";
+        return;
+      }
+
+      const oldVal = number("oldValue");
+      const newVal = number("newValue");
+
+      if (oldVal === 0) {
+        output.textContent = "Percentage change cannot be calculated from zero.";
+        error.textContent = "The original value must not be zero.";
+        return;
+      }
+
+      const change = (newVal - oldVal) / Math.abs(oldVal) * 100;
+      const label = change > 0 ? "increase" : change < 0 ? "decrease" : "no change";
+      const sign = change > 0 ? "+" : "";
+
+      output.replaceChildren(
+        document.createTextNode("The change is "),
+        Object.assign(document.createElement("strong"), {
+          textContent: sign + format(change) + "%"
+        }),
+        document.createTextNode(" (" + label + ").")
+      );
+    });
+
+    document.getElementById("resetBtn").addEventListener("click", () => {
+      document.getElementById("percentOf").value = 20;
+      document.getElementById("valueOf").value = 150;
+      document.getElementById("partValue").value = 30;
+      document.getElementById("wholeValue").value = 150;
+      document.getElementById("oldValue").value = 100;
+      document.getElementById("newValue").value = 125;
+      document.getElementById("partError").textContent = "";
+      document.getElementById("changeError").textContent = "";
+      document.getElementById("calcOf").click();
+      document.getElementById("calcPart").click();
+      document.getElementById("calcChange").click();
+    });
+
+    document.getElementById("calcOf").click();
+    document.getElementById("calcPart").click();
+    document.getElementById("calcChange").click();
+  </script>
+</body>
+</html>
+```
 
