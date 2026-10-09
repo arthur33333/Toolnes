@@ -1,1 +1,261 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Base64 to Image Converter Online Free | Toolnes</title>
+  <meta name="description" content="Convert Base64 strings and data URLs back into images online for free. Preview and download PNG, JPG, GIF and WebP images with Toolnes.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://toolnes.netlify.app/image-tools/base64-to-image/">
+  <meta name="theme-color" content="#635bff">
+
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #172033; background: #f6f7fb; line-height: 1.6; }
+    header { background: #fff; border-bottom: 1px solid #e8eaf1; padding: 17px 20px; }
+    nav { max-width: 1080px; margin: auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .logo { color: #635bff; font-size: 25px; font-weight: 800; text-decoration: none; }
+    nav a:not(.logo) { color: #475067; text-decoration: none; margin-left: 16px; font-size: 14px; }
+    main { width: min(900px, calc(100% - 32px)); margin: 44px auto; }
+    .intro { text-align: center; margin-bottom: 28px; }
+    .tag { display: inline-block; background: #ecebff; color: #5147d9; padding: 5px 12px; border-radius: 30px; font-size: 12px; font-weight: bold; }
+    h1 { font-size: clamp(30px, 5vw, 43px); line-height: 1.2; margin: 15px 0 12px; }
+    .intro p { color: #687187; max-width: 640px; margin: auto; }
+    .panel, .info { background: #fff; border: 1px solid #e7e9f1; border-radius: 18px; padding: 26px; box-shadow: 0 12px 35px rgba(28,35,70,.05); }
+    label { display: block; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+    textarea, input[type="text"] { display: block; width: 100%; border: 1px solid #d9dce8; border-radius: 12px; padding: 14px; color: #293247; background: #fafbff; font: 13px/1.6 Consolas, Monaco, monospace; }
+    textarea { min-height: 210px; resize: vertical; overflow-wrap: anywhere; }
+    input[type="text"] { font-family: Arial, Helvetica, sans-serif; margin-bottom: 18px; }
+    .hint { color: #687187; font-size: 13px; margin: 7px 0 18px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+    button, .download { flex: 1; min-width: 145px; border: 0; border-radius: 10px; padding: 12px 15px; font-size: 14px; font-weight: 700; cursor: pointer; text-align: center; text-decoration: none; }
+    button { background: #635bff; color: #fff; }
+    button:hover { background: #5147e8; }
+    .secondary { background: #eef0f7; color: #30394e; }
+    .secondary:hover { background: #e1e4ef; }
+    button:disabled { opacity: .45; cursor: not-allowed; }
+    .message { color: #687187; font-size: 14px; margin: 14px 0 0; overflow-wrap: anywhere; }
+    .error { color: #b42318; }
+    .result { display: none; margin-top: 26px; padding-top: 24px; border-top: 1px solid #e8eaf1; }
+    .result h2 { font-size: 21px; margin: 0 0 14px; }
+    .preview-wrap { background: #f6f7fb; border: 1px solid #e6e8f0; border-radius: 12px; padding: 14px; text-align: center; }
+    .preview-wrap img { display: block; max-width: 100%; max-height: 420px; margin: auto; object-fit: contain; }
+    .meta { color: #687187; font-size: 13px; margin: 12px 0 0; overflow-wrap: anywhere; }
+    .download { display: inline-block; margin-top: 14px; background: #12805c; color: #fff; }
+    .download:hover { background: #0d694b; }
+    .info { margin-top: 24px; box-shadow: none; }
+    .info h2 { font-size: 21px; margin-top: 0; }
+    .info p, .info li { color: #606a80; font-size: 14px; }
+    .back { display: inline-block; margin-top: 24px; color: #5147e8; text-decoration: none; font-weight: 700; }
+    footer { text-align: center; color: #7b8498; padding: 25px 16px; font-size: 13px; }
+    @media (max-width: 600px) { main { margin: 28px auto; } .panel, .info { padding: 18px; } nav a:not(.logo) { margin-left: 8px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="logo" href="/">Toolnes</a>
+      <div>
+        <a href="/">Home</a>
+        <a href="/image-tools/">Image Tools</a>
+        <a href="/text-tools/">Text Tools</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="intro">
+      <span class="tag">FREE ONLINE TOOL</span>
+      <h1>Base64 to Image Converter</h1>
+      <p>Turn a Base64 string or data URL back into a viewable image. Preview it and download the file to your device.</p>
+    </section>
+
+    <section class="panel">
+      <label for="base64Input">Paste your Base64 string or data URL</label>
+      <textarea id="base64Input" placeholder="data:image/png;base64,iVBORw0KGgo..."></textarea>
+      <p class="hint">You can paste a complete data URL or just the Base64 text. For security, this tool accepts image data only.</p>
+
+      <label for="filename">Download filename</label>
+      <input id="filename" type="text" value="converted-image">
+
+      <div class="actions">
+        <button id="convertBtn">Convert to Image</button>
+        <button id="clearBtn" class="secondary">Clear</button>
+      </div>
+      <p id="status" class="message" role="status" aria-live="polite">Paste your Base64 data to get started.</p>
+
+      <section id="result" class="result">
+        <h2>Your image</h2>
+        <div class="preview-wrap">
+          <img id="preview" alt="Image converted from Base64">
+        </div>
+        <p id="meta" class="meta"></p>
+        <a id="download" class="download" href="#" download="converted-image.png">Download Image</a>
+      </section>
+    </section>
+
+    <section class="info">
+      <h2>How to convert Base64 to an image</h2>
+      <ol>
+        <li>Paste a Base64 string or a data URL into the text box.</li>
+        <li>Click <strong>Convert to Image</strong>.</li>
+        <li>Preview the image if the data is valid.</li>
+        <li>Click <strong>Download Image</strong> to save it.</li>
+      </ol>
+      <h2>What is a data URL?</h2>
+      <p>A data URL contains a media type and encoded data, usually in a format such as <code>data:image/png;base64,...</code>. This tool checks that the content is an image before displaying it.</p>
+      <p><strong>Privacy:</strong> The conversion happens in your browser. The pasted data is not sent to a Toolnes server.</p>
+    </section>
+
+    <a class="back" href="/image-tools/">← Back to Image Tools</a>
+  </main>
+
+  <footer>© <span id="year"></span> Toolnes. Free online tools.</footer>
+
+  <script>
+    const base64Input = document.getElementById("base64Input");
+    const filenameInput = document.getElementById("filename");
+    const convertBtn = document.getElementById("convertBtn");
+    const clearBtn = document.getElementById("clearBtn");
+    const status = document.getElementById("status");
+    const result = document.getElementById("result");
+    const preview = document.getElementById("preview");
+    const meta = document.getElementById("meta");
+    const download = document.getElementById("download");
+
+    let imageUrl = null;
+    let imageBlob = null;
+    let imageMime = "image/png";
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    function setStatus(message, error = false) {
+      status.textContent = message;
+      status.className = error ? "message error" : "message";
+    }
+
+    function clearResult() {
+      if (imageUrl) URL.revokeObjectURL(imageUrl);
+      imageUrl = null;
+      imageBlob = null;
+      preview.removeAttribute("src");
+      download.removeAttribute("href");
+      result.style.display = "none";
+    }
+
+    function safeFilename(value) {
+      const cleaned = value.trim().replace(/[<>:"/\\|?*\x00-\x1F]/g, "-").replace(/\.+$/, "");
+      return cleaned || "converted-image";
+    }
+
+    function base64ToBlob(base64, mime) {
+      const binary = atob(base64);
+      const chunkSize = 1024 * 512;
+      const chunks = [];
+
+      for (let offset = 0; offset < binary.length; offset += chunkSize) {
+        const slice = binary.slice(offset, offset + chunkSize);
+        const bytes = new Uint8Array(slice.length);
+        for (let i = 0; i < slice.length; i++) {
+          bytes[i] = slice.charCodeAt(i);
+        }
+        chunks.push(bytes);
+      }
+
+      return new Blob(chunks, { type: mime });
+    }
+
+    convertBtn.addEventListener("click", () => {
+      clearResult();
+      const raw = base64Input.value.trim();
+
+      if (!raw) {
+        setStatus("Please paste a Base64 string first.", true);
+        return;
+      }
+
+      let mime = "image/png";
+      let payload = raw;
+
+      const dataUrlMatch = raw.match(/^data:([^;,]+);base64,([\s\S]*)$/i);
+      if (dataUrlMatch) {
+        mime = dataUrlMatch[1].toLowerCase();
+        payload = dataUrlMatch[2];
+      } else if (/^data:/i.test(raw)) {
+        setStatus("Invalid data URL. Make sure it includes an image MIME type and Base64 data.", true);
+        return;
+      }
+
+      const supportedTypes = [
+        "image/png", "image/jpeg", "image/webp",
+        "image/gif", "image/bmp", "image/avif"
+      ];
+
+      if (!supportedTypes.includes(mime)) {
+        setStatus("Unsupported image type. Try PNG, JPG, WebP, GIF, BMP or AVIF data.", true);
+        return;
+      }
+
+      payload = payload.replace(/\s/g, "");
+
+      // Accept omitted Base64 padding when it can be restored safely.
+      if (!/^[A-Za-z0-9+/]*={0,2}$/.test(payload) || payload.length % 4 === 1) {
+        setStatus("The Base64 text contains invalid characters or has an invalid length.", true);
+        return;
+      }
+      payload = payload.replace(/=+$/, "");
+      payload += "=".repeat((4 - payload.length % 4) % 4);
+
+      let blob;
+      try {
+        blob = base64ToBlob(payload, mime);
+      } catch (error) {
+        setStatus("Could not decode this Base64 data. Please check the text and try again.", true);
+        return;
+      }
+
+      if (!blob.size) {
+        setStatus("No image data was found in this string.", true);
+        return;
+      }
+
+      imageBlob = blob;
+      imageMime = mime;
+      imageUrl = URL.createObjectURL(blob);
+      preview.onload = () => {
+        const extension = mime === "image/jpeg" ? "jpg" :
+          mime === "image/webp" ? "webp" :
+          mime === "image/gif" ? "gif" :
+          mime === "image/bmp" ? "bmp" :
+          mime === "image/avif" ? "avif" : "png";
+
+        download.href = imageUrl;
+        download.download = safeFilename(filenameInput.value) + "." + extension;
+        meta.textContent = mime + " · " + preview.naturalWidth + " × " +
+          preview.naturalHeight + " px · " + (blob.size / 1024).toFixed(1) + " KB";
+        result.style.display = "block";
+        setStatus("Conversion successful. Your image is ready to download.");
+      };
+
+      preview.onerror = () => {
+        clearResult();
+        setStatus("The Base64 data could not be decoded as a valid image.", true);
+      };
+
+      preview.src = imageUrl;
+    });
+
+    clearBtn.addEventListener("click", () => {
+      base64Input.value = "";
+      filenameInput.value = "converted-image";
+      clearResult();
+      setStatus("Paste your Base64 data to get started.");
+    });
+
+    base64Input.addEventListener("input", clearResult);
+  </script>
+</body>
+</html>
+```
 
