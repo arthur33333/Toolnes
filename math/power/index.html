@@ -1,1 +1,207 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Calculate powers of numbers with this free online exponent calculator.">
+<title>Power Calculator - Toolnes</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f6f8fc;color:#243047;line-height:1.6}
+header{background:#fff;border-bottom:1px solid #e5eaf2;padding:17px 6%;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:25px;font-weight:800;color:#6254d9;text-decoration:none}
+nav{display:flex;gap:20px;flex-wrap:wrap}
+nav a{color:#475569;text-decoration:none;font-size:14px}
+nav a:hover{color:#6254d9}
+main{max-width:850px;margin:45px auto;padding:0 20px}
+.intro{text-align:center;margin-bottom:28px}
+.intro h1{font-size:clamp(29px,5vw,40px);margin:0 0 10px}
+.intro p{color:#64748b;margin:0}
+.card{background:#fff;border:1px solid #e6eaf2;border-radius:18px;padding:27px;margin-bottom:22px;box-shadow:0 8px 25px #2832500a}
+label{display:block;font-weight:700;margin-bottom:9px}
+input{width:100%;padding:14px;border:1px solid #cbd5e1;border-radius:10px;font-size:17px;outline:none}
+input:focus{border-color:#6254d9;box-shadow:0 0 0 3px #6254d91c}
+.field{margin-bottom:17px}
+.buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+button{border:0;border-radius:10px;padding:12px 19px;font-size:15px;font-weight:700;cursor:pointer}
+.primary{color:#fff;background:#6254d9}
+.primary:hover{background:#5042c5}
+.secondary{background:#eef0ff;color:#5144c7}
+.result{display:none;margin-top:22px;padding:20px;border-radius:12px;overflow-wrap:anywhere}
+.result.success{display:block;background:#e8f9ef;border:1px solid #b6ebc9}
+.result.error{display:block;background:#fff0f0;border:1px solid #ffcaca}
+.result h2{margin:0 0 8px;font-size:22px}
+.answer{font-size:clamp(27px,5vw,38px);font-weight:800;color:#5144c7;overflow-wrap:anywhere}
+.formula{background:#f4f3ff;border-radius:10px;padding:14px;margin-top:14px;overflow-wrap:anywhere}
+.example{display:inline-block;margin:5px 5px 0 0;padding:6px 11px;border-radius:8px;background:#f0efff;color:#5144c7;cursor:pointer;border:0}
+.card h2{margin-top:0;font-size:22px}
+.card p,.card li{color:#526078}
+footer{text-align:center;padding:28px 16px;color:#778196;font-size:14px}
+footer a{color:#6254d9;text-decoration:none}
+@media(max-width:550px){header{padding:15px 5%}nav{gap:12px}main{margin-top:30px}.card{padding:20px}.buttons button{flex:1}}
+</style>
+</head>
+<body>
+<header>
+<a class="logo" href="../../index.html">Toolnes</a>
+<nav>
+<a href="../../index.html">Home</a>
+<a href="../index.html">Math Tools</a>
+<a href="../../calculators/index.html">Calculators</a>
+<a href="../../converters/index.html">Converters</a>
+</nav>
+</header>
+
+<main>
+<section class="intro">
+<h1>Power Calculator</h1>
+<p>Raise a number to any whole-number exponent.</p>
+</section>
+
+<section class="card">
+<div class="field">
+<label for="base">Base number (a)</label>
+<input id="base" type="number" step="any" placeholder="e.g. 2">
+</div>
+
+<div class="field">
+<label for="exponent">Exponent (b)</label>
+<input id="exponent" type="number" step="1" min="-1000" max="1000" placeholder="e.g. 5">
+</div>
+
+<div class="buttons">
+<button class="primary" id="calculate" type="button">Calculate Power</button>
+<button class="secondary" id="example" type="button">Try Example</button>
+<button class="secondary" id="reset" type="button">Reset</button>
+</div>
+
+<div id="result" class="result" role="status" aria-live="polite"></div>
+
+<p style="margin:20px 0 8px;font-weight:700">Try an example:</p>
+<button class="example" data-base="2" data-exp="5" type="button">2⁵</button>
+<button class="example" data-base="3" data-exp="4" type="button">3⁴</button>
+<button class="example" data-base="10" data-exp="3" type="button">10³</button>
+<button class="example" data-base="2" data-exp="-3" type="button">2⁻³</button>
+</section>
+
+<section class="card">
+<h2>What is a power?</h2>
+<p>A power represents repeated multiplication. In aⁿ, the number a is the base and n is the exponent.</p>
+<div class="formula">2⁵ = 2 × 2 × 2 × 2 × 2 = 32</div>
+<p>A zero exponent gives 1 for any non-zero base. A negative exponent represents the reciprocal of the corresponding positive power.</p>
+<div class="formula">a⁰ = 1 (when a ≠ 0) &nbsp; | &nbsp; a⁻ⁿ = 1 / aⁿ</div>
+</section>
+</main>
+
+<footer>
+<p>© 2026 Toolnes. Useful tools. Simple and free.</p>
+<a href="../../index.html">Explore more free tools</a>
+</footer>
+
+<script>
+const baseInput=document.getElementById("base");
+const exponentInput=document.getElementById("exponent");
+const result=document.getElementById("result");
+
+function showError(message){
+  result.className="result error";
+  result.textContent=message;
+}
+
+function calculate(){
+  const baseRaw=baseInput.value.trim();
+  const expRaw=exponentInput.value.trim();
+
+  if(baseRaw===""||expRaw===""){
+    showError("Please enter both the base and the exponent.");
+    return;
+  }
+
+  const base=Number(baseRaw);
+  const exponent=Number(expRaw);
+
+  if(!Number.isFinite(base)){
+    showError("Please enter a valid finite base number.");
+    return;
+  }
+
+  if(!Number.isSafeInteger(exponent)||exponent < -1000 || exponent > 1000){
+    showError("Please enter a whole-number exponent between -1000 and 1000.");
+    return;
+  }
+
+  if(base===0&&exponent<0){
+    showError("Zero cannot be raised to a negative exponent because division by zero is undefined.");
+    return;
+  }
+
+  if(base===0&&exponent===0){
+    showError("0⁰ is undefined in this calculator. Please choose another base or exponent.");
+    return;
+  }
+
+  const answer=Math.pow(base,exponent);
+
+  if(!Number.isFinite(answer)){
+    showError("The result is too large to display as a standard number. Try a smaller exponent or base.");
+    return;
+  }
+
+  result.className="result success";
+  result.replaceChildren();
+
+  const heading=document.createElement("h2");
+  heading.textContent=base+" ^ "+exponent+" =";
+
+  const value=document.createElement("div");
+  value.className="answer";
+  value.textContent=Number(answer.toPrecision(12)).toLocaleString("en-US",{maximumFractionDigits:12});
+
+  const explanation=document.createElement("p");
+  explanation.textContent="The result of raising "+base+" to the power of "+exponent+".";
+
+  const formula=document.createElement("div");
+  formula.className="formula";
+
+  if(exponent>0&&exponent<=8){
+    formula.textContent=base+" × ".repeat(Math.max(0,exponent-1))+base+" = "+answer;
+  }else if(exponent===0){
+    formula.textContent=base+"⁰ = 1";
+  }else if(exponent<0){
+    formula.textContent=base+"^("+exponent+") = 1 / ("+base+"^"+Math.abs(exponent)+")";
+  }else{
+    formula.textContent="Using the power rule: "+base+"^"+exponent+" = "+answer;
+  }
+
+  result.append(heading,value,explanation,formula);
+}
+
+document.getElementById("calculate").addEventListener("click",calculate);
+document.getElementById("example").addEventListener("click",()=>{
+  baseInput.value="2";
+  exponentInput.value="5";
+  calculate();
+});
+document.getElementById("reset").addEventListener("click",()=>{
+  baseInput.value="";
+  exponentInput.value="";
+  result.className="result";
+  result.textContent="";
+  baseInput.focus();
+});
+[baseInput,exponentInput].forEach(input=>{
+  input.addEventListener("keydown",event=>{
+    if(event.key==="Enter") calculate();
+  });
+});
+document.querySelectorAll("[data-base]").forEach(button=>{
+  button.addEventListener("click",()=>{
+    baseInput.value=button.dataset.base;
+    exponentInput.value=button.dataset.exp;
+    calculate();
+  });
+});
+</script>
+</body>
+</html>
