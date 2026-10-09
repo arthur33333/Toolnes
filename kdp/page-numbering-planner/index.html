@@ -1,1 +1,604 @@
 
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Numbering Planner - Free Book Tool | Toolnes</title>
+  <meta name="description" content="Plan book pagination with this free page numbering planner. Organize front matter, choose where visible numbering begins, and preview page numbers for your manuscript.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://toolnes.netlify.app/kdp/page-numbering-planner/">
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --dark: #3730a3;
+      --bg: #f6f7fb;
+      --text: #172033;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --soft: #eef2ff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    header { background: #fff; border-bottom: 1px solid var(--border); }
+    .nav {
+      max-width: 1100px;
+      margin: auto;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .logo {
+      color: var(--primary);
+      font-size: 25px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+    nav { display: flex; gap: 16px; flex-wrap: wrap; }
+    nav a, footer a { color: var(--muted); text-decoration: none; }
+    nav a:hover, footer a:hover { color: var(--primary); }
+    main { max-width: 1000px; margin: 35px auto; padding: 0 20px; }
+    .hero { text-align: center; margin-bottom: 28px; }
+    .eyebrow {
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+    h1 { font-size: clamp(30px, 5vw, 43px); line-height: 1.15; margin: 10px 0; }
+    .hero p { max-width: 720px; margin: auto; color: var(--muted); }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(290px, .9fr);
+      gap: 22px;
+      align-items: start;
+    }
+    .card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 6px 22px rgba(15, 23, 42, .04);
+      margin-bottom: 22px;
+    }
+    h2 { font-size: 21px; margin: 0 0 18px; }
+    h3 { font-size: 17px; margin: 20px 0 8px; }
+    .field { margin-bottom: 17px; }
+    label { display: block; font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+    input, select {
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+      background: #fff;
+      color: var(--text);
+      font: inherit;
+    }
+    input:focus, select:focus { outline: 2px solid #c7d2fe; border-color: var(--primary); }
+    .hint { color: var(--muted); font-size: 12px; margin-top: 5px; }
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    button {
+      border: 0;
+      border-radius: 9px;
+      padding: 12px 16px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .primary { width: 100%; background: var(--primary); color: #fff; }
+    .primary:hover { background: var(--dark); }
+    .secondary { background: var(--soft); color: var(--dark); }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+    .result {
+      background: var(--soft);
+      border: 1px solid #c7d2fe;
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 18px;
+    }
+    .result-label { color: var(--dark); font-size: 13px; font-weight: 700; }
+    .big-number { font-size: 42px; line-height: 1.2; font-weight: 800; color: var(--dark); }
+    .stat {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .stat:last-child { border-bottom: 0; }
+    .stat span { color: var(--muted); }
+    .stat strong { text-align: right; }
+    .check {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin: 12px 0;
+      font-size: 14px;
+      font-weight: 400;
+    }
+    .check input { width: 18px; min-height: 18px; margin-top: 4px; }
+    .notice {
+      padding: 13px 14px;
+      border-radius: 9px;
+      background: #f0fdf4;
+      color: #166534;
+      font-size: 13px;
+      margin-top: 15px;
+    }
+    .warning { background: #fffbeb; color: #92400e; }
+    .error { color: #b91c1c; font-size: 13px; margin-top: 10px; }
+    .preview {
+      background: #e2e8f0;
+      padding: 18px;
+      border-radius: 12px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .page {
+      background: white;
+      min-height: 220px;
+      padding: 18px 14px;
+      box-shadow: 0 3px 10px rgba(15, 23, 42, .08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      text-align: center;
+    }
+    .page-label { font-size: 10px; text-transform: uppercase; color: #94a3b8; letter-spacing: 1px; }
+    .page-content { margin: auto 0; font-family: Georgia, serif; font-size: 13px; }
+    .page-number { font-size: 12px; color: #475569; margin-top: auto; }
+    .page-number.hidden { visibility: hidden; }
+    .preview-caption { font-size: 12px; color: var(--muted); margin-top: 10px; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--border); }
+    th { background: #f8fafc; }
+    .muted { color: var(--muted); }
+    .faq { border-top: 1px solid var(--border); padding: 15px 0; }
+    .faq:first-of-type { border-top: 0; }
+    .faq h3 { margin: 0 0 6px; }
+    .faq p { margin: 0; color: var(--muted); }
+    footer {
+      text-align: center;
+      padding: 28px 20px;
+      background: #fff;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 14px;
+    }
+    @media (max-width: 760px) {
+      .layout { grid-template-columns: 1fr; }
+      .card { padding: 19px; }
+    }
+    @media (max-width: 420px) {
+      .two { grid-template-columns: 1fr; gap: 0; }
+      .preview { padding: 10px; gap: 8px; }
+      .page { min-height: 190px; padding: 12px 8px; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <a class="logo" href="/">Toolnes</a>
+    <nav aria-label="Main navigation">
+      <a href="/">Home</a>
+      <a href="/kdp/">KDP &amp; Publishing</a>
+      <a href="/calculators/">Calculators</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="eyebrow">Free book layout tool</div>
+    <h1>Page Numbering Planner</h1>
+    <p>Plan where your book's page numbering begins, how front matter is handled, and which pages display a number. Preview a sample layout and download your pagination plan.</p>
+  </section>
+
+  <div class="layout">
+    <section class="card">
+      <h2>Configure pagination</h2>
+
+      <div class="field">
+        <label for="totalPages">Total interior pages</label>
+        <input id="totalPages" type="number" min="1" max="10000" step="1" value="120">
+        <div class="hint">Enter the total page count of your formatted interior, excluding the cover.</div>
+      </div>
+
+      <div class="field">
+        <label for="frontPages">Front matter pages</label>
+        <input id="frontPages" type="number" min="0" max="10000" step="1" value="6">
+        <div class="hint">Pages before the main text, such as title, copyright, dedication, or contents.</div>
+      </div>
+
+      <div class="field">
+        <label for="numberStyle">Main text numbering style</label>
+        <select id="numberStyle">
+          <option value="arabic">Arabic numerals (1, 2, 3...)</option>
+          <option value="roman">Lowercase Roman numerals (i, ii, iii...)</option>
+          <option value="none">No visible page numbers</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="frontStyle">Front matter numbering</label>
+        <select id="frontStyle">
+          <option value="hidden">Hide visible numbers</option>
+          <option value="roman">Lowercase Roman numerals</option>
+          <option value="arabic">Arabic numerals</option>
+        </select>
+        <div class="hint">This setting affects the plan and preview only; it does not edit your manuscript.</div>
+      </div>
+
+      <div class="field">
+        <label for="startNumber">First main-text page number</label>
+        <input id="startNumber" type="number" min="1" max="10000" step="1" value="1">
+        <div class="hint">Usually set to 1 when the main text begins.</div>
+      </div>
+
+      <div class="field">
+        <label for="firstPage">Show a number on the first main-text page?</label>
+        <select id="firstPage">
+          <option value="show">Yes, display the number</option>
+          <option value="hide">No, hide it on the first page</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="position">Page number position</label>
+        <select id="position">
+          <option value="bottom-center">Bottom center</option>
+          <option value="bottom-outside">Bottom outside edge</option>
+          <option value="top-center">Top center</option>
+          <option value="top-outside">Top outside edge</option>
+        </select>
+        <div class="hint">A layout preference for your design notes, not a formatting change.</div>
+      </div>
+
+      <button class="primary" id="calculate" type="button">Create Numbering Plan</button>
+      <div class="error" id="error" role="alert" aria-live="polite"></div>
+
+      <div class="actions">
+        <button class="secondary" id="copy" type="button">Copy Plan</button>
+        <button class="secondary" id="download" type="button">Download Plan</button>
+        <button class="secondary" id="reset" type="button">Reset</button>
+      </div>
+      <div class="hint" id="status" role="status" aria-live="polite"></div>
+    </section>
+
+    <aside>
+      <section class="card">
+        <h2>Pagination summary</h2>
+
+        <div class="result" aria-live="polite">
+          <div class="result-label">Pages in main text</div>
+          <div class="big-number" id="mainPages">114</div>
+          <div class="muted">After the front matter</div>
+        </div>
+
+        <div class="stat">
+          <span>Total interior pages</span>
+          <strong id="sumTotal">120</strong>
+        </div>
+        <div class="stat">
+          <span>Front matter pages</span>
+          <strong id="sumFront">6</strong>
+        </div>
+        <div class="stat">
+          <span>First main-text page</span>
+          <strong id="sumStart">1</strong>
+        </div>
+        <div class="stat">
+          <span>Last main-text page number</span>
+          <strong id="sumEnd">114</strong>
+        </div>
+        <div class="stat">
+          <span>Visible numbering style</span>
+          <strong id="sumStyle">Arabic numerals</strong>
+        </div>
+
+        <div class="notice" id="summaryNotice">
+          Your plan is ready. Apply the settings in your word processor or book-layout software.
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Sample page preview</h2>
+        <div class="preview">
+          <div class="page">
+            <div class="page-label">Front matter</div>
+            <div class="page-content">Contents<br><br>Chapter One ........ 1<br>Chapter Two ...... 25</div>
+            <div class="page-number" id="frontPreview">No visible number</div>
+          </div>
+          <div class="page">
+            <div class="page-label">Main text</div>
+            <div class="page-content">Chapter One<br><br><strong>The Beginning</strong><br><br>Sample book text...</div>
+            <div class="page-number" id="mainPreview">1</div>
+          </div>
+        </div>
+        <div class="preview-caption">Illustrative preview only. This tool does not insert page numbers into a Word or PDF file.</div>
+      </section>
+    </aside>
+  </div>
+
+  <section class="card">
+    <h2>Planned page sequence</h2>
+    <p class="muted">This table summarizes the numbering rules for the front matter and main text. It does not list every page individually.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Section</th>
+            <th>Interior pages</th>
+            <th>Visible numbering</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody id="sequence">
+          <tr><td>Front matter</td><td>1–6</td><td>Hidden</td><td>Front matter section</td></tr>
+          <tr><td>Main text</td><td>7–120</td><td>Arabic numerals</td><td>Starts at 1</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>How to use this planner</h2>
+    <ol>
+      <li>Enter the actual total page count of your interior.</li>
+      <li>Specify how many pages come before the main text.</li>
+      <li>Choose the numbering style and starting number.</li>
+      <li>Review the preview and sequence summary.</li>
+      <li>Apply the plan manually in your document editor, then export and inspect the final PDF.</li>
+    </ol>
+  </section>
+
+  <section class="card">
+    <h2>Frequently asked questions</h2>
+    <div class="faq">
+      <h3>Does this tool add numbers to my PDF?</h3>
+      <p>No. It creates a pagination plan and a sample preview. Use a word processor or PDF editing tool to apply actual page numbers.</p>
+    </div>
+    <div class="faq">
+      <h3>Should front matter use Roman numerals?</h3>
+      <p>Some books use lowercase Roman numerals for preliminary pages, while others hide visible numbers. Choose the style that fits your book design.</p>
+    </div>
+    <div class="faq">
+      <h3>Does the first chapter have to display page number 1?</h3>
+      <p>Not necessarily. You can plan to hide the number on the first main-text page while keeping it in the numbering sequence.</p>
+    </div>
+    <div class="faq">
+      <h3>Is this an official KDP tool?</h3>
+      <p>No. This is an independent planning utility. Check current publishing specifications and inspect your exported interior before uploading.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>© <span id="year"></span> Toolnes. Free online tools for everyday work.</p>
+  <p><a href="/">Home</a> · <a href="/kdp/">KDP &amp; Publishing</a></p>
+  <p>Plan carefully and verify your final interior before publishing.</p>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  const $ = id => document.getElementById(id);
+  let latestPlan = "";
+
+  function integer(id, min, max) {
+    const raw = $(id).value.trim();
+    if (raw === "") return NaN;
+    const value = Number(raw);
+    if (!Number.isInteger(value) || value < min || value > max) return NaN;
+    return value;
+  }
+
+  function roman(number) {
+    if (number < 1 || number > 10000) return String(number);
+    const values = [
+      [1000, "m"], [900, "cm"], [500, "d"], [400, "cd"],
+      [100, "c"], [90, "xc"], [50, "l"], [40, "xl"],
+      [10, "x"], [9, "ix"], [5, "v"], [4, "iv"], [1, "i"]
+    ];
+    let result = "";
+    for (const [value, symbol] of values) {
+      while (number >= value) {
+        result += symbol;
+        number -= value;
+      }
+    }
+    return result;
+  }
+
+  function styleName(style) {
+    if (style === "roman") return "Lowercase Roman numerals";
+    if (style === "none") return "No visible numbers";
+    return "Arabic numerals";
+  }
+
+  function frontDisplay(style, frontCount) {
+    if (style === "hidden") return "No visible number";
+    if (frontCount < 1) return "No front matter";
+    if (style === "roman") return roman(1);
+    return "1";
+  }
+
+  function addRow(section, pages, numbering, notes) {
+    const row = document.createElement("tr");
+    [section, pages, numbering, notes].forEach(text => {
+      const cell = document.createElement("td");
+      cell.textContent = text;
+      row.appendChild(cell);
+    });
+    $("sequence").appendChild(row);
+  }
+
+  function calculate() {
+    $("error").textContent = "";
+    $("status").textContent = "";
+
+    const total = integer("totalPages", 1, 10000);
+    const front = integer("frontPages", 0, 10000);
+    const start = integer("startNumber", 1, 10000);
+
+    if ([total, front, start].some(Number.isNaN)) {
+      $("error").textContent =
+        "Enter whole numbers within the displayed limits for total pages, front matter, and starting number.";
+      return;
+    }
+
+    if (front >= total) {
+      $("error").textContent =
+        "Front matter must contain fewer pages than the total interior page count.";
+      return;
+    }
+
+    const mainPages = total - front;
+    const lastNumber = start + mainPages - 1;
+    const numberStyle = $("numberStyle").value;
+    const frontStyle = $("frontStyle").value;
+    const firstPage = $("firstPage").value;
+    const position = $("position").value;
+
+    $("mainPages").textContent = mainPages.toLocaleString("en-US");
+    $("sumTotal").textContent = total.toLocaleString("en-US");
+    $("sumFront").textContent = front.toLocaleString("en-US");
+    $("sumStart").textContent = start.toLocaleString("en-US");
+    $("sumEnd").textContent = numberStyle === "none"
+      ? "Not displayed"
+      : lastNumber.toLocaleString("en-US");
+    $("sumStyle").textContent = styleName(numberStyle);
+
+    $("frontPreview").textContent = frontDisplay(frontStyle, front);
+    $("frontPreview").classList.toggle("hidden", frontStyle === "hidden");
+
+    let mainPreviewText;
+    if (numberStyle === "none") {
+      mainPreviewText = "No visible number";
+    } else if (numberStyle === "roman") {
+      mainPreviewText = roman(start);
+    } else {
+      mainPreviewText = String(start);
+    }
+
+    $("mainPreview").textContent =
+      firstPage === "hide" ? "Number hidden on this page" : mainPreviewText;
+    $("mainPreview").classList.toggle("hidden", firstPage === "hide");
+
+    $("summaryNotice").textContent =
+      "Plan: " + total + " total interior pages, " + front +
+      " front matter pages, and " + mainPages +
+      " main-text pages. This is a planning guide; apply the settings in your editor.";
+
+    $("sequence").replaceChildren();
+
+    if (front > 0) {
+      const frontNumbering = frontStyle === "hidden"
+        ? "Hidden"
+        : styleName(frontStyle);
+
+      addRow(
+        "Front matter",
+        "1–" + front,
+        frontNumbering,
+        frontStyle === "hidden"
+          ? "Physical pages remain in the file"
+          : "Use separate section settings if required"
+      );
+    }
+
+    addRow(
+      "Main text",
+      (front + 1) + "–" + total,
+      styleName(numberStyle),
+      "Starts at " + start +
+      (firstPage === "hide" ? "; first page number hidden" : "") +
+      "; position: " + position.replaceAll("-", " ")
+    );
+
+    latestPlan =
+      "TOOLNES - PAGE NUMBERING PLANNER\n" +
+      "Total interior pages: " + total + "\n" +
+      "Front matter pages: " + front + "\n" +
+      "Main text pages: " + mainPages + "\n" +
+      "Main text numbering style: " + styleName(numberStyle) + "\n" +
+      "Front matter numbering: " + styleName(frontStyle) + "\n" +
+      "First main-text page number: " + start + "\n" +
+      "Last main-text page number in sequence: " + lastNumber + "\n" +
+      "Show number on first main-text page: " + (firstPage === "show" ? "Yes" : "No") + "\n" +
+      "Number position: " + position.replaceAll("-", " ") + "\n\n" +
+      "This is a planning guide. It does not edit or validate a document or PDF.";
+  }
+
+  $("calculate").addEventListener("click", calculate);
+
+  [
+    "totalPages", "frontPages", "startNumber",
+    "numberStyle", "frontStyle", "firstPage", "position"
+  ].forEach(id => {
+    $(id).addEventListener("input", calculate);
+    $(id).addEventListener("change", calculate);
+  });
+
+  $("reset").addEventListener("click", function () {
+    $("totalPages").value = 120;
+    $("frontPages").value = 6;
+    $("numberStyle").value = "arabic";
+    $("frontStyle").value = "hidden";
+    $("startNumber").value = 1;
+    $("firstPage").value = "show";
+    $("position").value = "bottom-center";
+    calculate();
+  });
+
+  $("copy").addEventListener("click", async function () {
+    if (!latestPlan) calculate();
+    if (!latestPlan) return;
+
+    try {
+      await navigator.clipboard.writeText(latestPlan);
+      $("status").textContent = "Pagination plan copied.";
+    } catch (error) {
+      $("status").textContent = "Clipboard access was blocked. Use Download Plan instead.";
+    }
+  });
+
+  $("download").addEventListener("click", function () {
+    if (!latestPlan) calculate();
+    if (!latestPlan) return;
+
+    const blob = new Blob([latestPlan], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "toolnes-page-numbering-plan.txt";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+  });
+
+  $("year").textContent = new Date().getFullYear();
+  calculate();
+})();
+</script>
+</body>
+</html>
+```
