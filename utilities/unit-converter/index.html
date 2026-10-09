@@ -1,1 +1,328 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Convert length, weight, temperature, area and volume units with this free online unit converter.">
+  <meta name="robots" content="index, follow">
+  <title>Unit Converter - Free Online Tool | Toolnes</title>
+  <link rel="canonical" href="https://toolnes.netlify.app/utilities/unit-converter/">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: #f5f7fb; color: #172033; line-height: 1.6; }
+    header { background: #fff; border-bottom: 1px solid #e5e9f2; padding: 18px 20px; }
+    .nav { max-width: 1000px; margin: auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+    .logo { color: #2563eb; text-decoration: none; font-size: 25px; font-weight: 800; }
+    nav { display: flex; gap: 15px; flex-wrap: wrap; }
+    nav a { color: #344054; text-decoration: none; font-size: 14px; }
+    main { max-width: 850px; margin: 40px auto; padding: 0 20px; }
+    .intro { text-align: center; margin-bottom: 28px; }
+    h1 { font-size: clamp(30px, 5vw, 40px); margin-bottom: 10px; }
+    .intro p { color: #667085; }
+    .card, .result, .info { background: #fff; border: 1px solid #e4e8f0; border-radius: 15px; padding: 25px; margin-bottom: 22px; }
+    label { display: block; font-weight: 700; margin-bottom: 7px; }
+    input, select { width: 100%; padding: 12px; border: 1px solid #cfd6e4; border-radius: 8px; font-size: 16px; margin-bottom: 18px; background: #fff; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    button { padding: 12px 16px; border: 0; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; }
+    .primary { width: 100%; background: #2563eb; color: white; padding: 14px; font-size: 16px; }
+    .primary:hover { background: #1d4ed8; }
+    .secondary { width: 100%; background: #eff6ff; color: #1d4ed8; margin-bottom: 18px; }
+    .result { display: none; }
+    .result-number { font-size: clamp(28px, 5vw, 38px); color: #2563eb; font-weight: 800; overflow-wrap: anywhere; }
+    .error { color: #b42318; font-weight: 700; }
+    .info h2 { font-size: 22px; }
+    .info p, .info li { color: #596579; }
+    footer { text-align: center; padding: 25px 15px; color: #667085; background: #fff; border-top: 1px solid #e5e9f2; }
+    footer a { color: #2563eb; text-decoration: none; margin: 0 7px; }
+    @media (max-width: 520px) { .field-row { grid-template-columns: 1fr; gap: 0; } .card, .result, .info { padding: 18px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <a class="logo" href="/">Toolnes</a>
+      <nav aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/utilities/">Utilities</a>
+        <a href="/calculators/">Calculators</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <h1>Unit Converter</h1>
+      <p>Convert common measurements quickly and accurately with this free online tool.</p>
+    </section>
+
+    <section class="card">
+      <label for="category">Measurement category</label>
+      <select id="category">
+        <option value="length">Length</option>
+        <option value="weight">Weight / Mass</option>
+        <option value="temperature">Temperature</option>
+        <option value="area">Area</option>
+        <option value="volume">Volume</option>
+        <option value="speed">Speed</option>
+        <option value="time">Time</option>
+        <option value="data">Digital Storage</option>
+      </select>
+
+      <label for="value">Value to convert</label>
+      <input type="number" id="value" value="1" step="any" inputmode="decimal">
+
+      <div class="field-row">
+        <div>
+          <label for="fromUnit">From</label>
+          <select id="fromUnit"></select>
+        </div>
+        <div>
+          <label for="toUnit">To</label>
+          <select id="toUnit"></select>
+        </div>
+      </div>
+
+      <button type="button" class="secondary" id="swapButton">⇄ Swap Units</button>
+      <button type="button" class="primary" id="convertButton">Convert</button>
+      <p class="error" id="error" role="alert"></p>
+    </section>
+
+    <section class="result" id="result" aria-live="polite">
+      <h2>Conversion Result</h2>
+      <div class="result-number" id="resultNumber"></div>
+      <p id="resultDetails"></p>
+      <button type="button" class="secondary" id="copyButton">Copy Result</button>
+      <p id="copyStatus" role="status"></p>
+    </section>
+
+    <section class="info">
+      <h2>How to Use the Unit Converter</h2>
+      <ol>
+        <li>Choose a measurement category.</li>
+        <li>Enter the value you want to convert.</li>
+        <li>Select the original unit and the target unit.</li>
+        <li>Click Convert to display the result.</li>
+      </ol>
+      <h2>Supported Conversions</h2>
+      <p>The converter supports length, mass, temperature, area, volume, speed, time and digital storage. Results are calculated in your browser without sending your values to a server.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Toolnes. All rights reserved.</p>
+    <p><a href="/">Home</a><a href="/utilities/">Utilities</a><a href="/privacy-policy/">Privacy Policy</a><a href="/contact/">Contact</a></p>
+  </footer>
+
+  <script>
+    const unitSets = {
+      length: {
+        label: "Length",
+        units: {
+          mm: ["Millimeter (mm)", 0.001],
+          cm: ["Centimeter (cm)", 0.01],
+          m: ["Meter (m)", 1],
+          km: ["Kilometer (km)", 1000],
+          in: ["Inch (in)", 0.0254],
+          ft: ["Foot (ft)", 0.3048],
+          yd: ["Yard (yd)", 0.9144],
+          mi: ["Mile (mi)", 1609.344],
+          nmi: ["Nautical mile (nmi)", 1852]
+        }
+      },
+      weight: {
+        label: "Weight / Mass",
+        units: {
+          mg: ["Milligram (mg)", 0.000001],
+          g: ["Gram (g)", 0.001],
+          kg: ["Kilogram (kg)", 1],
+          tonne: ["Metric tonne (t)", 1000],
+          oz: ["Ounce (oz)", 0.028349523125],
+          lb: ["Pound (lb)", 0.45359237],
+          st: ["Stone (st)", 6.35029318]
+        }
+      },
+      temperature: {
+        label: "Temperature",
+        units: {
+          C: ["Celsius (°C)"],
+          F: ["Fahrenheit (°F)"],
+          K: ["Kelvin (K)"]
+        }
+      },
+      area: {
+        label: "Area",
+        units: {
+          sqm: ["Square meter (m²)", 1],
+          sqkm: ["Square kilometer (km²)", 1000000],
+          sqcm: ["Square centimeter (cm²)", 0.0001],
+          ha: ["Hectare (ha)", 10000],
+          acre: ["Acre", 4046.8564224],
+          sqft: ["Square foot (ft²)", 0.09290304],
+          sqyd: ["Square yard (yd²)", 0.83612736]
+        }
+      },
+      volume: {
+        label: "Volume",
+        units: {
+          ml: ["Milliliter (mL)", 0.001],
+          l: ["Liter (L)", 1],
+          m3: ["Cubic meter (m³)", 1000],
+          cm3: ["Cubic centimeter (cm³)", 0.001],
+          tsp: ["US teaspoon", 0.00492892159375],
+          tbsp: ["US tablespoon", 0.01478676478125],
+          cup: ["US cup", 0.2365882365],
+          gal: ["US gallon", 3.785411784],
+          impgal: ["Imperial gallon", 4.54609],
+          floz: ["US fluid ounce", 0.0295735295625]
+        }
+      },
+      speed: {
+        label: "Speed",
+        units: {
+          ms: ["Meters per second (m/s)", 1],
+          kmh: ["Kilometers per hour (km/h)", 1 / 3.6],
+          mph: ["Miles per hour (mph)", 0.44704],
+          knot: ["Knot (kn)", 0.5144444444],
+          fts: ["Feet per second (ft/s)", 0.3048]
+        }
+      },
+      time: {
+        label: "Time",
+        units: {
+          ms: ["Millisecond (ms)", 0.001],
+          sec: ["Second (s)", 1],
+          min: ["Minute (min)", 60],
+          hr: ["Hour (h)", 3600],
+          day: ["Day", 86400],
+          week: ["Week", 604800],
+          year: ["365-day year", 31536000]
+        }
+      },
+      data: {
+        label: "Digital Storage",
+        units: {
+          bit: ["Bit (b)", 1],
+          byte: ["Byte (B)", 8],
+          KB: ["Kilobyte (decimal)", 8000],
+          MB: ["Megabyte (decimal)", 8000000],
+          GB: ["Gigabyte (decimal)", 8000000000],
+          TB: ["Terabyte (decimal)", 8000000000000],
+          KiB: ["Kibibyte (binary)", 8192],
+          MiB: ["Mebibyte (binary)", 8388608],
+          GiB: ["Gibibyte (binary)", 8589934592],
+          TiB: ["Tebibyte (binary)", 8796093022208]
+        }
+      }
+    };
+
+    const category = document.getElementById("category");
+    const fromUnit = document.getElementById("fromUnit");
+    const toUnit = document.getElementById("toUnit");
+    const valueInput = document.getElementById("value");
+    const result = document.getElementById("result");
+    const error = document.getElementById("error");
+
+    function populateUnits() {
+      const set = unitSets[category.value];
+      fromUnit.innerHTML = "";
+      toUnit.innerHTML = "";
+
+      Object.entries(set.units).forEach(([key, unit]) => {
+        fromUnit.add(new Option(unit[0], key));
+        toUnit.add(new Option(unit[0], key));
+      });
+
+      if (fromUnit.options.length > 1) toUnit.selectedIndex = 1;
+      else toUnit.selectedIndex = 0;
+
+      result.style.display = "none";
+      error.textContent = "";
+    }
+
+    function toBase(value, unit, type) {
+      if (type !== "temperature") return value * unitSets[type].units[unit][1];
+
+      if (unit === "C") return value + 273.15;
+      if (unit === "F") return (value - 32) * 5 / 9 + 273.15;
+      return value;
+    }
+
+    function fromBase(value, unit, type) {
+      if (type !== "temperature") return value / unitSets[type].units[unit][1];
+
+      if (unit === "C") return value - 273.15;
+      if (unit === "F") return (value - 273.15) * 9 / 5 + 32;
+      return value;
+    }
+
+    function formatNumber(number) {
+      if (Object.is(number, -0)) number = 0;
+      return Number(number.toPrecision(12)).toLocaleString("en-US", {
+        maximumFractionDigits: 10
+      });
+    }
+
+    function convert() {
+      error.textContent = "";
+      result.style.display = "none";
+
+      const value = Number(valueInput.value);
+      if (valueInput.value.trim() === "" || !Number.isFinite(value)) {
+        error.textContent = "Please enter a valid number.";
+        return;
+      }
+
+      const type = category.value;
+      const base = toBase(value, fromUnit.value, type);
+
+      if (type === "temperature" && base < 0) {
+        error.textContent = "The temperature cannot be below absolute zero.";
+        return;
+      }
+
+      const converted = fromBase(base, toUnit.value, type);
+      if (!Number.isFinite(converted)) {
+        error.textContent = "Unable to convert this value.";
+        return;
+      }
+
+      document.getElementById("resultNumber").textContent = formatNumber(converted);
+      document.getElementById("resultDetails").textContent =
+        formatNumber(value) + " " +
+        unitSets[type].units[fromUnit.value][0] + " = " +
+        formatNumber(converted) + " " +
+        unitSets[type].units[toUnit.value][0];
+
+      result.style.display = "block";
+    }
+
+    category.addEventListener("change", populateUnits);
+
+    document.getElementById("convertButton").addEventListener("click", convert);
+
+    document.getElementById("swapButton").addEventListener("click", () => {
+      const previous = fromUnit.value;
+      fromUnit.value = toUnit.value;
+      toUnit.value = previous;
+      convert();
+    });
+
+    document.getElementById("copyButton").addEventListener("click", async () => {
+      const text = document.getElementById("resultDetails").textContent;
+      try {
+        await navigator.clipboard.writeText(text);
+        document.getElementById("copyStatus").textContent = "Result copied.";
+      } catch {
+        document.getElementById("copyStatus").textContent =
+          "Copy is unavailable in this browser. Please select and copy the result manually.";
+      }
+    });
+
+    populateUnits();
+    convert();
+  </script>
+</body>
+</html>
+```
 
