@@ -1,1 +1,264 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compress PDF Online Free - Toolnes</title>
+  <meta name="description" content="Reduce PDF file size online with Toolnes. Try to optimize your PDF for easier sharing and storage.">
+  <link rel="canonical" href="https://toolnes.netlify.app/pdf-tools/compress-pdf/">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: #172033;
+      background: #f6f8fc;
+    }
+    header {
+      padding: 18px 5%;
+      background: #fff;
+      border-bottom: 1px solid #e5eaf2;
+    }
+    header a {
+      color: #2563eb;
+      font-size: 24px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+    main {
+      max-width: 850px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .breadcrumb {
+      margin-bottom: 22px;
+      color: #64748b;
+      font-size: 14px;
+    }
+    .breadcrumb a, footer a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+    h1 { font-size: 36px; margin-bottom: 12px; }
+    .intro { color: #64748b; line-height: 1.7; }
+    .tool-box, .info {
+      margin-top: 28px;
+      padding: 28px;
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+    }
+    label {
+      display: block;
+      margin: 18px 0 8px;
+      font-weight: 700;
+    }
+    input[type="file"] {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+      background: #fff;
+    }
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+      background: #fff;
+      font-size: 15px;
+    }
+    .hint { color: #64748b; font-size: 14px; line-height: 1.6; }
+    button, .download {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 13px 20px;
+      border: 0;
+      border-radius: 9px;
+      background: #2563eb;
+      color: white;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    button:disabled { opacity: .55; cursor: not-allowed; }
+    #status { margin-top: 18px; line-height: 1.6; overflow-wrap: anywhere; }
+    .error { color: #b91c1c; }
+    .success { color: #15803d; }
+    .info { line-height: 1.7; }
+    footer {
+      padding: 30px 15px;
+      text-align: center;
+      color: #64748b;
+      font-size: 14px;
+    }
+    @media (max-width: 600px) {
+      h1 { font-size: 29px; }
+      .tool-box, .info { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <header><a href="/">Toolnes</a></header>
+
+  <main>
+    <div class="breadcrumb">
+      <a href="/">Home</a> /
+      <a href="/pdf-tools/">PDF Tools</a> /
+      Compress PDF
+    </div>
+
+```
+<h1>Compress PDF Online</h1>
+<p class="intro">
+  Try to reduce your PDF file size with this free browser-based tool.
+  Select a PDF and choose an optimization option to create a new file.
+</p>
+
+<section class="tool-box">
+  <label for="pdfFile">Choose a PDF file</label>
+  <input id="pdfFile" type="file" accept=".pdf,application/pdf">
+
+  <label for="compression">Optimization option</label>
+  <select id="compression">
+    <option value="standard">Standard optimization</option>
+    <option value="strong">Strong optimization</option>
+  </select>
+  <p class="hint">
+    Note: this tool removes some unnecessary PDF structure where possible.
+    It does not re-encode embedded images, so the file may not always become smaller.
+  </p>
+
+  <button id="compressButton" type="button">Optimize PDF</button>
+  <div id="status" role="status" aria-live="polite"></div>
+  <div id="downloadArea"></div>
+</section>
+
+<section class="info">
+  <h2>How to optimize a PDF</h2>
+  <ol>
+    <li>Select a PDF from your device.</li>
+    <li>Choose an optimization option.</li>
+    <li>Click <strong>Optimize PDF</strong>.</li>
+    <li>Compare the original and new file sizes, then download the result.</li>
+  </ol>
+  <h2>Does this always reduce file size?</h2>
+  <p>
+    No. PDF size depends on its images, fonts, and internal structure.
+    This tool attempts to save the document in an optimized form, but some
+    files may remain the same size or become slightly larger. For stronger
+    image compression, a tool that re-encodes embedded images is needed.
+  </p>
+</section>
+```
+
+  </main>
+
+  <footer>
+    <p>© 2026 Toolnes. Free online tools.</p>
+    <p><a href="/">Home</a> · <a href="/pdf-tools/">PDF Tools</a></p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+
+  <script>
+    const fileInput = document.getElementById("pdfFile");
+    const compressionInput = document.getElementById("compression");
+    const button = document.getElementById("compressButton");
+    const status = document.getElementById("status");
+    const downloadArea = document.getElementById("downloadArea");
+
+    function showStatus(message, type) {
+      status.textContent = message;
+      status.className = type || "";
+    }
+
+    button.addEventListener("click", async function () {
+      downloadArea.replaceChildren();
+
+      if (!window.PDFLib) {
+        showStatus("The PDF library could not load. Check your internet connection and reload the page.", "error");
+        return;
+      }
+
+      const file = fileInput.files[0];
+
+      if (!file) {
+        showStatus("Please choose a PDF file first.", "error");
+        return;
+      }
+
+      if (!file.name.toLowerCase().endsWith(".pdf") && file.type !== "application/pdf") {
+        showStatus("Please select a valid PDF file.", "error");
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = "Optimizing...";
+      showStatus("Processing your PDF in the browser...", "");
+
+      try {
+        const inputBytes = await file.arrayBuffer();
+        const pdf = await PDFLib.PDFDocument.load(inputBytes);
+        const mode = compressionInput.value;
+
+        const outputBytes = await pdf.save({
+          useObjectStreams: true,
+          objectsPerTick: mode === "strong" ? 20 : 50
+        });
+
+        const blob = new Blob([outputBytes], { type: "application/pdf" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+
+        link.href = url;
+        link.download = "optimized-" + file.name.replace(/\.pdf$/i, "") + ".pdf";
+        link.className = "download";
+        link.textContent = "Download Optimized PDF";
+        downloadArea.appendChild(link);
+
+        const originalKB = (file.size / 1024).toFixed(1);
+        const resultKB = (blob.size / 1024).toFixed(1);
+        const difference = file.size - blob.size;
+        const percent = file.size > 0 ? (difference / file.size * 100).toFixed(1) : "0.0";
+
+        if (difference > 0) {
+          showStatus(
+            "Finished. Original: " + originalKB + " KB. New file: " +
+            resultKB + " KB. Size reduced by " + percent + "%.",
+            "success"
+          );
+        } else if (difference === 0) {
+          showStatus(
+            "Finished, but the file size stayed the same (" + resultKB +
+            " KB). This PDF may already be optimized.",
+            ""
+          );
+        } else {
+          showStatus(
+            "Finished, but the new file is " + Math.abs(percent) +
+            "% larger. PDF optimization cannot reduce every file.",
+            ""
+          );
+        }
+
+        link.addEventListener("click", function () {
+          setTimeout(function () { URL.revokeObjectURL(url); }, 60000);
+        }, { once: true });
+      } catch (error) {
+        showStatus(
+          "Could not process this PDF. It may be password-protected, damaged, or use unsupported features.",
+          "error"
+        );
+      } finally {
+        button.disabled = false;
+        button.textContent = "Optimize PDF";
+      }
+    });
+  </script>
+
+</body>
+</html>
 
