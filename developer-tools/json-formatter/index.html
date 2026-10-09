@@ -1,1 +1,334 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Format, beautify and validate JSON online for free. Fix indentation, inspect errors and copy clean JSON with Toolnes.">
+  <meta name="robots" content="index,follow">
+  <title>JSON Formatter & Validator - Free Online Tool | Toolnes</title>
+  <link rel="canonical" href="https://toolnes.netlify.app/developer-tools/json-formatter/">
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f8fafc;
+      color: #172033;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #fff;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    nav {
+      max-width: 1050px;
+      margin: auto;
+      padding: 17px 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    a { color: #4f46e5; text-decoration: none; }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 800;
+    }
+
+    main {
+      max-width: 1050px;
+      margin: auto;
+      padding: 38px 22px 60px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(29px, 5vw, 40px);
+      letter-spacing: -1px;
+    }
+
+    .intro { color: #64748b; margin-bottom: 25px; }
+
+    .panel {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 9px;
+    }
+
+    textarea {
+      display: block;
+      width: 100%;
+      min-height: 260px;
+      padding: 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+      resize: vertical;
+      font: 14px/1.6 Consolas, Monaco, monospace;
+      color: #172033;
+      background: #fbfdff;
+    }
+
+    textarea:focus {
+      outline: 2px solid #c7d2fe;
+      border-color: #6366f1;
+    }
+
+    .output { min-height: 300px; }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 15px 0;
+    }
+
+    button, select {
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      padding: 11px 15px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      background: #fff;
+      color: #172033;
+    }
+
+    button.primary {
+      color: #fff;
+      background: #4f46e5;
+      border-color: #4f46e5;
+    }
+
+    button:hover { opacity: .88; }
+
+    .status {
+      padding: 11px 13px;
+      border-radius: 8px;
+      background: #f1f5f9;
+      color: #475569;
+      overflow-wrap: anywhere;
+    }
+
+    .status.success {
+      background: #ecfdf5;
+      color: #166534;
+    }
+
+    .status.error {
+      background: #fef2f2;
+      color: #b91c1c;
+    }
+
+    .small { color: #64748b; font-size: 13px; }
+
+    .info {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 22px;
+      margin-top: 28px;
+    }
+
+    footer {
+      padding: 25px 20px;
+      text-align: center;
+      border-top: 1px solid #e5e7eb;
+      background: #fff;
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+      main { padding: 28px 15px 45px; }
+      .panel { padding: 14px; }
+      textarea { min-height: 220px; }
+      button, select { padding: 10px 12px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="logo" href="/">Toolnes</a>
+      <a href="/developer-tools/">← Developer Tools</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>JSON Formatter & Validator</h1>
+    <p class="intro">
+      Format, beautify and validate JSON data online. Paste your JSON,
+      choose the indentation and copy the formatted result.
+    </p>
+
+    <section class="panel">
+      <label class="label" for="input">Input JSON</label>
+      <textarea id="input" spellcheck="false" placeholder='Paste your JSON here, for example: {"name":"Toolnes","free":true}'></textarea>
+
+      <div class="buttons">
+        <button class="primary" id="format">Format JSON</button>
+        <button id="minify">Minify JSON</button>
+        <button id="validate">Validate JSON</button>
+        <button id="clear">Clear</button>
+      </div>
+
+      <label class="label" for="indent">Indentation</label>
+      <select id="indent">
+        <option value="2">2 spaces</option>
+        <option value="4">4 spaces</option>
+        <option value="tab">Tab</option>
+      </select>
+
+      <div id="status" class="status" role="status" aria-live="polite">
+        Enter JSON above to get started.
+      </div>
+    </section>
+
+    <section class="panel">
+      <label class="label" for="output">Formatted result</label>
+      <textarea id="output" class="output" spellcheck="false" readonly placeholder="Your result will appear here..."></textarea>
+      <div class="buttons">
+        <button class="primary" id="copy">Copy result</button>
+        <button id="download">Download JSON</button>
+      </div>
+      <p class="small">Your JSON is processed locally in your browser; this tool does not send it to a server.</p>
+    </section>
+
+    <section class="info">
+      <h2>What is a JSON formatter?</h2>
+      <p>
+        JSON is a common data format used by APIs, web applications and
+        software configuration files. A JSON formatter adds indentation
+        and line breaks to make structured data easier to read.
+      </p>
+      <h2>How to use this tool</h2>
+      <ol>
+        <li>Paste your JSON into the input box.</li>
+        <li>Choose your preferred indentation.</li>
+        <li>Click Format JSON to check and format your data.</li>
+        <li>Copy the result or download it as a JSON file.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> Toolnes. All rights reserved.</p>
+    <p><a href="/">Home</a> · <a href="/developer-tools/">Developer Tools</a> · <a href="/text-tools/">Text Tools</a></p>
+  </footer>
+
+  <script>
+    const input = document.getElementById("input");
+    const output = document.getElementById("output");
+    const status = document.getElementById("status");
+    const indent = document.getElementById("indent");
+
+    function showStatus(message, type = "") {
+      status.textContent = message;
+      status.className = "status" + (type ? " " + type : "");
+    }
+
+    function getIndent() {
+      if (indent.value === "tab") return "\t";
+      return Number(indent.value);
+    }
+
+    function parseInput() {
+      const source = input.value.trim();
+      if (!source) throw new Error("Please enter JSON before continuing.");
+      return JSON.parse(source);
+    }
+
+    document.getElementById("format").addEventListener("click", () => {
+      try {
+        const data = parseInput();
+        output.value = JSON.stringify(data, null, getIndent());
+        showStatus("Valid JSON. Formatting completed successfully.", "success");
+      } catch (error) {
+        showStatus("Invalid JSON: " + error.message, "error");
+      }
+    });
+
+    document.getElementById("minify").addEventListener("click", () => {
+      try {
+        output.value = JSON.stringify(parseInput());
+        showStatus("Valid JSON. Whitespace removed.", "success");
+      } catch (error) {
+        showStatus("Invalid JSON: " + error.message, "error");
+      }
+    });
+
+    document.getElementById("validate").addEventListener("click", () => {
+      try {
+        parseInput();
+        showStatus("Success! Your JSON is valid.", "success");
+      } catch (error) {
+        showStatus("Invalid JSON: " + error.message, "error");
+      }
+    });
+
+    document.getElementById("clear").addEventListener("click", () => {
+      input.value = "";
+      output.value = "";
+      showStatus("Input and output cleared.");
+      input.focus();
+    });
+
+    document.getElementById("copy").addEventListener("click", async () => {
+      if (!output.value) {
+        showStatus("There is no result to copy.", "error");
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(output.value);
+        showStatus("Result copied to clipboard.", "success");
+      } catch {
+        output.focus();
+        output.select();
+        const copied = document.execCommand("copy");
+        showStatus(
+          copied ? "Result copied to clipboard." : "Select the result and copy it manually.",
+          copied ? "success" : "error"
+        );
+      }
+    });
+
+    document.getElementById("download").addEventListener("click", () => {
+      if (!output.value) {
+        showStatus("Format some JSON before downloading.", "error");
+        return;
+      }
+
+      const blob = new Blob([output.value], {
+        type: "application/json;charset=utf-8"
+      });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "formatted.json";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+      showStatus("JSON download started.", "success");
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+```
 
