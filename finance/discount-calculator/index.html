@@ -1,1 +1,201 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Discount Calculator - Toolnes</title>
+  <meta name="description" content="Calculate discount amounts, sale prices, savings, and final prices after tax with this free discount calculator.">
+  <link rel="canonical" href="https://toolnes.netlify.app/finance/discount-calculator/">
+  <meta name="robots" content="index,follow">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Arial, sans-serif; background: #f5f7fb; color: #182230; line-height: 1.6; }
+    header { background: #fff; border-bottom: 1px solid #e5e9f0; padding: 18px 20px; }
+    nav, main, footer { max-width: 950px; margin: auto; }
+    nav a { color: #2457d6; text-decoration: none; font-weight: 700; margin-right: 18px; }
+    main { padding: 32px 18px; }
+    h1 { font-size: clamp(28px, 5vw, 40px); margin-bottom: 8px; }
+    .intro { color: #5d6878; margin-top: 0; }
+    .panel { background: #fff; border: 1px solid #e2e7ef; border-radius: 16px; padding: 24px; margin: 22px 0; box-shadow: 0 5px 18px #17255408; }
+    .fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 18px; }
+    label { display: block; font-weight: 700; margin-bottom: 7px; }
+    input, select { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 9px; font: inherit; background: #fff; }
+    button { background: #2457d6; color: #fff; border: 0; border-radius: 9px; padding: 13px 20px; font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 20px; }
+    button:hover { background: #1946b5; }
+    .results { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-top: 22px; }
+    .result { background: #f0f5ff; border-radius: 12px; padding: 16px; overflow-wrap: anywhere; }
+    .result span { display: block; color: #536174; font-size: 14px; }
+    .result strong { font-size: 23px; }
+    .note { color: #64748b; font-size: 14px; }
+    .error { color: #b42318; font-weight: 700; }
+    .price { font-size: clamp(28px, 5vw, 42px) !important; color: #2457d6; }
+    .comparison { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .comparison div { background: #f8fafc; border: 1px solid #e5e9f0; border-radius: 10px; padding: 15px; }
+    footer { padding: 20px; color: #64748b; }
+    @media (max-width: 500px) { .panel { padding: 17px; } nav a { display: inline-block; margin-bottom: 7px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <nav aria-label="Main navigation">
+      <a href="/">Toolnes</a>
+      <a href="/calculators/">Calculators</a>
+      <a href="/finance/">Finance</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Discount Calculator</h1>
+    <p class="intro">Find the sale price, discount amount, and total savings in seconds.</p>
+
+    <section class="panel">
+      <h2>Calculate your discount</h2>
+      <div class="fields">
+        <div>
+          <label for="currency">Currency</label>
+          <select id="currency">
+            <option value="USD">USD ($)</option>
+            <option value="EUR">EUR (€)</option>
+            <option value="GBP">GBP (£)</option>
+            <option value="DZD">DZD (DA)</option>
+            <option value="CAD">CAD (CA$)</option>
+            <option value="AUD">AUD (A$)</option>
+            <option value="INR">INR (₹)</option>
+          </select>
+        </div>
+        <div>
+          <label for="price">Original price</label>
+          <input id="price" type="number" min="0" step="any" value="100">
+        </div>
+        <div>
+          <label for="discount">Discount (%)</label>
+          <input id="discount" type="number" min="0" max="100" step="any" value="20">
+        </div>
+        <div>
+          <label for="quantity">Quantity</label>
+          <input id="quantity" type="number" min="0.01" step="any" value="1">
+        </div>
+        <div>
+          <label for="tax">Additional tax (%)</label>
+          <input id="tax" type="number" min="0" max="100" step="any" value="0">
+        </div>
+      </div>
+
+      <button id="calculate" type="button">Calculate Discount</button>
+      <p id="error" class="error" role="alert"></p>
+
+      <div class="results" aria-live="polite">
+        <div class="result">
+          <span>Price after discount (each)</span>
+          <strong id="salePrice" class="price">—</strong>
+        </div>
+        <div class="result">
+          <span>You save per item</span>
+          <strong id="saved">—</strong>
+        </div>
+        <div class="result">
+          <span>Total savings</span>
+          <strong id="totalSaved">—</strong>
+        </div>
+        <div class="result">
+          <span>Final total including tax</span>
+          <strong id="finalTotal">—</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Price comparison</h2>
+      <div class="comparison">
+        <div><span>Original total</span><h3 id="originalTotal">—</h3></div>
+        <div><span>Discounted total before tax</span><h3 id="discountedTotal">—</h3></div>
+        <div><span>Tax amount</span><h3 id="taxAmount">—</h3></div>
+      </div>
+      <p id="summary" aria-live="polite">Enter your price and discount to see your savings.</p>
+      <p class="note">Tax is calculated after the discount. Actual tax rules may vary by location and product.</p>
+    </section>
+
+    <section class="panel">
+      <h2>How to calculate a discount</h2>
+      <p><strong>Discount amount</strong> = Original price × Discount percentage ÷ 100.</p>
+      <p><strong>Sale price</strong> = Original price − Discount amount.</p>
+      <p><strong>Final price after tax</strong> = Sale price × (1 + Tax rate ÷ 100).</p>
+      <p>For example, a 20% discount on a $100 item saves $20, leaving a sale price of $80 before any tax.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> Toolnes. Free online tools.</p>
+  </footer>
+
+  <script>
+    const $ = id => document.getElementById(id);
+
+    function money(value) {
+      const currency = $("currency").value;
+      try {
+        return new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency,
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        }).format(value);
+      } catch {
+        return value.toFixed(2) + " " + currency;
+      }
+    }
+
+    function calculateDiscount() {
+      $("error").textContent = "";
+
+      const price = Number($("price").value);
+      const discount = Number($("discount").value);
+      const quantity = Number($("quantity").value);
+      const tax = Number($("tax").value);
+
+      if (![price, discount, quantity, tax].every(Number.isFinite)) {
+        $("error").textContent = "Please enter valid numbers in all fields.";
+        return;
+      }
+      if (price < 0 || discount < 0 || discount > 100 || quantity <= 0 || tax < 0 || tax > 100) {
+        $("error").textContent = "Enter a non-negative price, a discount from 0% to 100%, a positive quantity, and a tax rate from 0% to 100%.";
+        return;
+      }
+
+      const saved = price * discount / 100;
+      const salePrice = price - saved;
+      const originalTotal = price * quantity;
+      const discountedTotal = salePrice * quantity;
+      const totalSaved = saved * quantity;
+      const taxAmount = discountedTotal * tax / 100;
+      const finalTotal = discountedTotal + taxAmount;
+
+      $("salePrice").textContent = money(salePrice);
+      $("saved").textContent = money(saved);
+      $("totalSaved").textContent = money(totalSaved);
+      $("finalTotal").textContent = money(finalTotal);
+      $("originalTotal").textContent = money(originalTotal);
+      $("discountedTotal").textContent = money(discountedTotal);
+      $("taxAmount").textContent = money(taxAmount);
+
+      if (discount === 0) {
+        $("summary").textContent = "There is no discount. Your total before tax is " + money(discountedTotal) + ".";
+      } else {
+        $("summary").textContent = "You save " + money(totalSaved) + " on " + quantity + " item(s), a discount of " + discount + "%.";
+      }
+    }
+
+    $("calculate").addEventListener("click", calculateDiscount);
+    ["currency", "price", "discount", "quantity", "tax"].forEach(id => {
+      $(id).addEventListener("input", calculateDiscount);
+      $(id).addEventListener("change", calculateDiscount);
+    });
+
+    $("year").textContent = new Date().getFullYear();
+    calculateDiscount();
+  </script>
+</body>
+</html>
+```
 
