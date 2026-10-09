@@ -1,1 +1,211 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF to Word Converter Online Free - Toolnes</title>
+  <meta name="description" content="Convert PDF text into an editable Word document online with this free PDF to Word tool from Toolnes.">
+  <link rel="canonical" href="https://toolnes.netlify.app/pdf-tools/pdf-to-word/">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Arial, sans-serif; color: #172033; background: #f6f8fc; }
+    header { padding: 18px 5%; background: #fff; border-bottom: 1px solid #e5eaf2; }
+    header a { color: #2563eb; font-size: 24px; font-weight: 800; text-decoration: none; }
+    main { max-width: 850px; margin: 40px auto; padding: 0 20px; }
+    .breadcrumb { margin-bottom: 22px; color: #64748b; font-size: 14px; }
+    .breadcrumb a, footer a { color: #2563eb; text-decoration: none; }
+    h1 { font-size: 36px; margin-bottom: 12px; }
+    .intro { color: #64748b; line-height: 1.7; }
+    .tool-box, .info { margin-top: 28px; padding: 28px; background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; }
+    label { display: block; margin: 18px 0 8px; font-weight: 700; }
+    input[type="file"] { width: 100%; padding: 13px; border: 1px solid #cbd5e1; border-radius: 9px; background: #fff; }
+    .hint { color: #64748b; font-size: 14px; line-height: 1.6; }
+    button, .download { display: inline-block; margin-top: 18px; padding: 13px 20px; border: 0; border-radius: 9px; background: #2563eb; color: white; font-size: 15px; font-weight: 700; text-decoration: none; cursor: pointer; }
+    button:disabled { opacity: .55; cursor: not-allowed; }
+    #status { margin-top: 18px; line-height: 1.6; overflow-wrap: anywhere; }
+    .error { color: #b91c1c; }
+    .success { color: #15803d; }
+    .info { line-height: 1.7; }
+    footer { padding: 30px 15px; text-align: center; color: #64748b; font-size: 14px; }
+    @media (max-width: 600px) { h1 { font-size: 29px; } .tool-box, .info { padding: 20px; } }
+  </style>
+</head>
+<body>
+  <header><a href="/">Toolnes</a></header>
+
+  <main>
+    <div class="breadcrumb">
+      <a href="/">Home</a> /
+      <a href="/pdf-tools/">PDF Tools</a> /
+      PDF to Word
+    </div>
+
+```
+<h1>PDF to Word Converter</h1>
+<p class="intro">
+  Extract text from a PDF and convert it into an editable Word document.
+  Free to use, with processing performed in your browser.
+</p>
+
+<section class="tool-box">
+  <label for="pdfFile">Choose a PDF file</label>
+  <input id="pdfFile" type="file" accept=".pdf,application/pdf">
+  <p class="hint">
+    This version works best with PDFs that contain selectable text.
+    Scanned documents may require OCR and are not supported here.
+  </p>
+  <button id="convertButton" type="button">Convert to Word</button>
+  <div id="status" role="status" aria-live="polite"></div>
+  <div id="downloadArea"></div>
+</section>
+
+<section class="info">
+  <h2>How to convert PDF to Word</h2>
+  <ol>
+    <li>Select a PDF file from your device.</li>
+    <li>Click <strong>Convert to Word</strong>.</li>
+    <li>Wait while the text is extracted.</li>
+    <li>Download the editable DOCX document.</li>
+  </ol>
+  <h2>Important information</h2>
+  <p>
+    This tool extracts selectable text and places it into a Word document.
+    Complex layouts, images, columns, and tables may not be preserved.
+    Password-protected PDFs and scanned documents may not work.
+  </p>
+</section>
+```
+
+  </main>
+
+  <footer>
+    <p>© 2026 Toolnes. Free online tools.</p>
+    <p><a href="/">Home</a> · <a href="/pdf-tools/">PDF Tools</a></p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/8.5.0/docx.umd.min.js"></script>
+
+  <script>
+    const fileInput = document.getElementById("pdfFile");
+    const button = document.getElementById("convertButton");
+    const statusBox = document.getElementById("status");
+    const downloadArea = document.getElementById("downloadArea");
+
+    if (window.pdfjsLib) {
+      pdfjsLib.GlobalWorkerOptions.workerSrc =
+        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+    }
+
+    function showStatus(message, type) {
+      statusBox.textContent = message;
+      statusBox.className = type || "";
+    }
+
+    button.addEventListener("click", async function () {
+      downloadArea.replaceChildren();
+
+      if (!window.pdfjsLib || !window.docx) {
+        showStatus("A required library could not load. Check your internet connection and reload this page.", "error");
+        return;
+      }
+
+      const file = fileInput.files[0];
+
+      if (!file) {
+        showStatus("Please choose a PDF file first.", "error");
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = "Converting...";
+      showStatus("Reading PDF pages and extracting text...", "");
+
+      try {
+        const bytes = new Uint8Array(await file.arrayBuffer());
+        const pdf = await pdfjsLib.getDocument({ data: bytes }).promise;
+        const paragraphs = [];
+
+        for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+          showStatus("Extracting text from page " + pageNumber + " of " + pdf.numPages + "...", "");
+          const page = await pdf.getPage(pageNumber);
+          const content = await page.getTextContent();
+
+          let lines = [];
+          let currentLine = [];
+          let previousY = null;
+
+          for (const item of content.items) {
+            if (!item.str) continue;
+
+            const y = item.transform ? item.transform[5] : null;
+
+            if (previousY !== null && y !== null && Math.abs(y - previousY) > 3) {
+              if (currentLine.length) lines.push(currentLine.join(" "));
+              currentLine = [];
+            }
+
+            currentLine.push(item.str);
+            previousY = y;
+          }
+
+          if (currentLine.length) lines.push(currentLine.join(" "));
+
+          if (pageNumber > 1) {
+            paragraphs.push(new docx.Paragraph({
+              children: [new docx.TextRun({ text: " " })],
+              pageBreakBefore: true
+            }));
+          }
+
+          for (const line of lines) {
+            const cleanLine = line.replace(/\s+/g, " ").trim();
+            if (cleanLine) {
+              paragraphs.push(new docx.Paragraph({
+                children: [new docx.TextRun({ text: cleanLine })],
+                spacing: { after: 120 }
+              }));
+            }
+          }
+        }
+
+        if (!paragraphs.length) {
+          throw new Error("No selectable text was found. This may be a scanned PDF that needs OCR.");
+        }
+
+        const documentFile = new docx.Document({
+          sections: [{
+            properties: {},
+            children: paragraphs
+          }]
+        });
+
+        const blob = await docx.Packer.toBlob(documentFile);
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+
+        link.href = url;
+        link.download = file.name.replace(/\.pdf$/i, "") + ".docx";
+        link.className = "download";
+        link.textContent = "Download Word Document";
+        downloadArea.appendChild(link);
+
+        showStatus("Conversion complete! Extracted text from " + pdf.numPages + " page(s). Review the Word file for formatting.", "success");
+
+        link.addEventListener("click", function () {
+          setTimeout(function () { URL.revokeObjectURL(url); }, 60000);
+        }, { once: true });
+      } catch (error) {
+        showStatus(error.message || "Conversion failed. Try another PDF file.", "error");
+      } finally {
+        button.disabled = false;
+        button.textContent = "Convert to Word";
+      }
+    });
+  </script>
+
+</body>
+</html>
 
