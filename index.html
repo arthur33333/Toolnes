@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +7,7 @@
   <meta name="description" content="Toolnes offers free online calculators, converters, text tools, puzzles, image tools, PDF tools and more.">
   <meta name="theme-color" content="#f7f8fc">
   <title>Toolnes — Free Online Tools</title>
+
   <style>
     :root {
       --bg: #f7f8fc;
@@ -16,25 +18,193 @@
       --border: #e9eaf2;
       --shadow: 0 8px 28px rgba(35, 39, 75, .06);
     }
-    * { box-sizing: border-box }
-    body { margin: 0; background: var(--bg); color: var(--text); font-family: Arial, Helvetica, sans-serif }
-    a { color: inherit; text-decoration: none }
-    header { background: #fff; border-bottom: 1px solid var(--border) }
-    .nav { max-width: 1200px; margin: auto; padding: 18px 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px }
-    .logo { font-size: 27px; font-weight: 800; letter-spacing: -1px; color: var(--purple) }
-    nav { display: flex; gap: 23px; flex-wrap: wrap }
-    nav a { font-size: 14px; font-weight: 600; color: #51566d }
-    nav a:hover { color: var(--purple) }
-    main { max-width: 1200px; margin: auto; padding: 50px 24px 70px }
-    .hero { text-align: center; margin: 0 auto 35px; max-width: 760px }
-    .hero h1 { font-size: clamp(32px, 5vw, 48px); letter-spacing: -1.7px; margin: 0 0 15px }
-    .hero h1 span { color: var(--purple) }
-    .hero p { font-size: 17px; color: var(--muted); line-height: 1.7; margin: 0 }
-    .search-wrap { max-width: 620px; margin: 27px auto 0 }
-    #search { width: 100%; padding: 16px 18px; border: 1px solid #dedfed; border-radius: 13px; background: white; font-size: 15px; outline: none; box-shadow: var(--shadow) }
-    #search:focus { border-color: var(--purple) }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    header {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      max-width: 1200px;
+      margin: auto;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 27px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: var(--purple);
+    }
+
+    nav {
+      display: flex;
+      gap: 23px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      font-size: 14px;
+      font-weight: 600;
+      color: #51566d;
+    }
+
+    nav a:hover { color: var(--purple); }
+
+    main {
+      max-width: 1200px;
+      margin: auto;
+      padding: 50px 24px 70px;
+    }
+
+    .hero {
+      text-align: center;
+      margin: 0 auto 38px;
+      max-width: 760px;
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 48px);
+      letter-spacing: -1.7px;
+      margin: 0 0 15px;
+    }
+
+    .hero h1 span { color: var(--purple); }
+
+    .hero p {
+      font-size: 17px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .search-wrap {
+      max-width: 620px;
+      margin: 27px auto 0;
+    }
+
+    #search {
+      width: 100%;
+      padding: 16px 18px;
+      border: 1px solid #dedfed;
+      border-radius: 13px;
+      background: white;
+      font-size: 15px;
+      outline: none;
+      box-shadow: var(--shadow);
+    }
+
+    #search:focus { border-color: var(--purple); }
+
+    .section-title {
+      font-size: 25px;
+      margin: 0 0 10px;
+      letter-spacing: -.5px;
+    }
+
+    .section-description {
+      color: var(--muted);
+      margin: 0 0 24px;
+      line-height: 1.6;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .category-card {
+      display: block;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 25px;
+      box-shadow: var(--shadow);
+      transition: transform .2s, border-color .2s;
+    }
+
+    .category-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--purple);
+    }
+
+    .card-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      background: #f0eeff;
+      border-radius: 14px;
+      font-size: 26px;
+      margin-bottom: 18px;
+    }
+
+    .category-card h3 {
+      font-size: 19px;
+      margin: 0 0 10px;
+    }
+
+    .category-card p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    .card-link {
+      display: inline-block;
+      margin-top: 18px;
+      color: var(--purple);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    #no-results {
+      display: none;
+      color: var(--muted);
+      text-align: center;
+      padding: 30px 0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 13px;
+      background: white;
+    }
+
+    @media (max-width: 800px) {
+      .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .nav { align-items: flex-start; flex-direction: column; }
+    }
+
+    @media (max-width: 520px) {
+      .cards { grid-template-columns: 1fr; }
+      main { padding: 35px 18px 50px; }
+      .category-card { padding: 22px; }
+    }
   </style>
 </head>
+
 <body>
   <header>
     <div class="nav">
@@ -47,14 +217,131 @@
       </nav>
     </div>
   </header>
+
   <main>
-    <div class="hero">
-      <h1>Free Online <span>Tools & Utilities</span></h1>
+    <section class="hero">
+      <h1>Free Online <span>Tools &amp; Utilities</span></h1>
       <p>Fast, simple, and free web tools to help with your daily tasks.</p>
       <div class="search-wrap">
-        <input type="text" id="search" placeholder="Search for a tool...">
+        <input
+          type="search"
+          id="search"
+          placeholder="Search for a tool or category..."
+          aria-label="Search tools and categories"
+        >
       </div>
-    </div>
+    </section>
+
+    <section aria-labelledby="categories-title">
+      <h2 class="section-title" id="categories-title">Explore Our Tools</h2>
+      <p class="section-description">
+        Choose a category to find free tools for your everyday tasks.
+      </p>
+
+      <div class="cards" id="category-cards">
+
+        <a class="category-card" href="/calculators/" data-search="calculator calculators math percentage age date time">
+          <div class="card-icon">🧮</div>
+          <h3>Calculators</h3>
+          <p>Calculate percentages, dates, ages and other everyday values quickly and easily.</p>
+          <span class="card-link">Explore calculators →</span>
+        </a>
+
+        <a class="category-card" href="/text-tools/" data-search="text tools word counter character counter case converter slug">
+          <div class="card-icon">📝</div>
+          <h3>Text Tools</h3>
+          <p>Count words, count characters, convert text case and create clean URL slugs.</p>
+          <span class="card-link">Explore text tools →</span>
+        </a>
+
+        <a class="category-card" href="/developer-tools/" data-search="developer tools coding json html css programming">
+          <div class="card-icon">💻</div>
+          <h3>Developer Tools</h3>
+          <p>Useful online helpers for common coding, formatting and development tasks.</p>
+          <span class="card-link">Explore developer tools →</span>
+        </a>
+
+        <a class="category-card" href="/pdf-tools/" data-search="pdf tools documents files pdf">
+          <div class="card-icon">📄</div>
+          <h3>PDF Tools</h3>
+          <p>Discover practical tools to help manage and work with PDF documents.</p>
+          <span class="card-link">Explore PDF tools →</span>
+        </a>
+
+        <a class="category-card" href="/utilities/" data-search="utilities everyday tools conversions handy">
+          <div class="card-icon">🛠️</div>
+          <h3>Utilities</h3>
+          <p>Simple online utilities that help you complete everyday tasks.</p>
+          <span class="card-link">Explore utilities →</span>
+        </a>
+
+        <a class="category-card" href="/finance/" data-search="finance financial calculators savings budget money">
+          <div class="card-icon">💰</div>
+          <h3>Finance Tools</h3>
+          <p>Explore helpful calculators for money, budgeting and financial planning.</p>
+          <span class="card-link">Explore finance tools →</span>
+        </a>
+
+        <a class="category-card" href="/kdp/" data-search="kdp publishing kindle amazon books authors paperback">
+          <div class="card-icon">📚</div>
+          <h3>KDP &amp; Publishing</h3>
+          <p>Tools for authors planning book layouts, page counts, royalties and publishing projects.</p>
+          <span class="card-link">Explore publishing tools →</span>
+        </a>
+
+        <a class="category-card" href="/puzzles/" data-search="puzzles games brain teasers logic">
+          <div class="card-icon">🧩</div>
+          <h3>Puzzles &amp; Games</h3>
+          <p>Try fun puzzles and brain challenges to test your logic and attention.</p>
+          <span class="card-link">Play puzzles →</span>
+        </a>
+
+        <a class="category-card" href="/converters/" data-search="converters conversion units measurements">
+          <div class="card-icon">🔄</div>
+          <h3>Converters</h3>
+          <p>Convert common values and measurements with convenient online tools.</p>
+          <span class="card-link">Explore converters →</span>
+        </a>
+
+        <a class="category-card" href="/image-tools/" data-search="image tools pictures photos image">
+          <div class="card-icon">🖼️</div>
+          <h3>Image Tools</h3>
+          <p>Find handy tools for common image and picture tasks.</p>
+          <span class="card-link">Explore image tools →</span>
+        </a>
+
+      </div>
+
+      <p id="no-results">No matching categories found. Try another search.</p>
+    </section>
   </main>
+
+  <footer>
+    <p>© 2026 Toolnes. Free online tools for everyone.</p>
+  </footer>
+
+  <script>
+    const searchInput = document.getElementById("search");
+    const cards = document.querySelectorAll(".category-card");
+    const noResults = document.getElementById("no-results");
+
+    searchInput.addEventListener("input", function () {
+      const query = this.value.trim().toLowerCase();
+      let visibleCards = 0;
+
+      cards.forEach(function (card) {
+        const searchableText =
+          card.innerText + " " + (card.dataset.search || "");
+
+        const matches = searchableText.toLowerCase().includes(query);
+        card.style.display = matches ? "" : "none";
+
+        if (matches) visibleCards++;
+      });
+
+      noResults.style.display = visibleCards === 0 ? "block" : "none";
+    });
+  </script>
 </body>
 </html>
+```
