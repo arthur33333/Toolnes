@@ -1,1 +1,675 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Image to JPG Converter Online Free | Toolnes</title>
+  <meta name="description" content="Convert images to JPG online for free. Convert PNG, WebP, GIF and other browser-supported images to JPG directly in your browser.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://toolnes.netlify.app/image-tools/image-to-jpg/">
+
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #172033;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --success: #15803d;
+      --danger: #b91c1c;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      padding: 17px 20px;
+    }
+
+    .nav {
+      max-width: 1050px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .logo {
+      color: var(--primary);
+      font-size: 25px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .nav a:last-child {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 42px auto;
+      padding: 0 18px;
+    }
+
+    .intro {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    h1 {
+      font-size: clamp(29px, 5vw, 42px);
+      line-height: 1.2;
+      margin: 0 0 14px;
+    }
+
+    .intro p {
+      max-width: 650px;
+      margin: auto;
+      color: var(--muted);
+    }
+
+    .tool-card,
+    .info-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 25px;
+      margin-bottom: 22px;
+      box-shadow: 0 8px 28px rgba(15, 23, 42, 0.04);
+    }
+
+    .upload-area {
+      display: block;
+      border: 2px dashed #b8c8e5;
+      border-radius: 14px;
+      padding: 30px 18px;
+      text-align: center;
+      cursor: pointer;
+      background: #f8faff;
+      transition: border-color .2s, background .2s;
+    }
+
+    .upload-area:hover {
+      border-color: var(--primary);
+      background: #eff6ff;
+    }
+
+    .upload-icon {
+      display: block;
+      font-size: 38px;
+      margin-bottom: 8px;
+    }
+
+    .upload-area strong {
+      display: block;
+      font-size: 18px;
+    }
+
+    .upload-area small {
+      display: block;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .settings {
+      margin-top: 22px;
+    }
+
+    label.setting-label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--primary);
+    }
+
+    .range-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .quality-value {
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    button,
+    .download-link {
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 18px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .primary-button,
+    .download-link {
+      color: #ffffff;
+      background: var(--primary);
+    }
+
+    .primary-button:hover,
+    .download-link:hover {
+      background: var(--primary-dark);
+    }
+
+    .secondary-button {
+      background: #eaf0f8;
+      color: var(--text);
+    }
+
+    button:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+    }
+
+    .status {
+      margin-top: 16px;
+      font-size: 14px;
+      color: var(--muted);
+      overflow-wrap: anywhere;
+    }
+
+    .status.error {
+      color: var(--danger);
+    }
+
+    .status.success {
+      color: var(--success);
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .preview-box {
+      min-width: 0;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      background: #ffffff;
+    }
+
+    .preview-box h3 {
+      margin: 0 0 10px;
+      font-size: 15px;
+    }
+
+    .preview-image {
+      width: 100%;
+      height: 240px;
+      object-fit: contain;
+      background: #f1f5f9;
+      border-radius: 8px;
+      display: block;
+    }
+
+    .preview-image[hidden] {
+      display: none;
+    }
+
+    .placeholder {
+      height: 240px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--muted);
+      background: #f1f5f9;
+      border-radius: 8px;
+      padding: 15px;
+    }
+
+    .placeholder[hidden] {
+      display: none;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .stat {
+      padding: 14px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .stat strong {
+      display: block;
+      margin-top: 4px;
+      overflow-wrap: anywhere;
+    }
+
+    .info-card h2 {
+      font-size: 22px;
+      margin: 0 0 10px;
+    }
+
+    .info-card h3 {
+      font-size: 17px;
+      margin: 20px 0 5px;
+    }
+
+    .info-card p,
+    .info-card li {
+      color: #475569;
+    }
+
+    .info-card ul {
+      padding-left: 22px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    @media (max-width: 600px) {
+      main {
+        margin-top: 28px;
+      }
+
+      .tool-card,
+      .info-card {
+        padding: 17px;
+      }
+
+      .preview-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .preview-image,
+      .placeholder {
+        height: 210px;
+      }
+
+      .actions button,
+      .actions .download-link {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav class="nav" aria-label="Main navigation">
+      <a class="logo" href="/">Toolnes</a>
+      <a href="/image-tools/">← All Image Tools</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="intro">
+      <h1>Image to JPG Converter</h1>
+      <p>Convert PNG, WebP and other supported image formats to JPG online for free. Your images stay on your device.</p>
+    </section>
+
+    <section class="tool-card" aria-label="JPG image converter">
+      <label class="upload-area" for="imageInput">
+        <span class="upload-icon">🖼️</span>
+        <strong>Choose an image to convert</strong>
+        <small>Click here to select a file from your device</small>
+        <small>Supported formats depend on your browser</small>
+      </label>
+
+      <input id="imageInput" type="file" accept="image/*">
+
+      <div class="settings">
+        <label class="setting-label" for="quality">
+          JPG quality: <span id="qualityValue" class="quality-value">90%</span>
+        </label>
+        <input id="quality" type="range" min="10" max="100" value="90">
+        <div class="range-row">
+          <span>Smaller file</span>
+          <span>Higher quality</span>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="convertButton" class="primary-button" disabled>Convert to JPG</button>
+        <a id="downloadButton" class="download-link" hidden download="converted-image.jpg">Download JPG</a>
+        <button id="resetButton" class="secondary-button" type="button">Reset</button>
+      </div>
+
+      <p id="status" class="status" role="status" aria-live="polite">Choose an image to get started.</p>
+
+      <div class="preview-grid">
+        <div class="preview-box">
+          <h3>Original image</h3>
+          <img id="originalPreview" class="preview-image" alt="Original image preview" hidden>
+          <div id="originalPlaceholder" class="placeholder">Your original image will appear here.</div>
+          <div class="status" id="originalInfo">No image selected</div>
+        </div>
+
+        <div class="preview-box">
+          <h3>Converted JPG</h3>
+          <img id="convertedPreview" class="preview-image" alt="Converted JPG preview" hidden>
+          <div id="convertedPlaceholder" class="placeholder">Your converted image will appear here.</div>
+          <div class="status" id="convertedInfo">No JPG created yet</div>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <span>Original file size</span>
+          <strong id="originalSize">—</strong>
+        </div>
+        <div class="stat">
+          <span>Converted file size</span>
+          <strong id="convertedSize">—</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="info-card">
+      <h2>How to convert an image to JPG</h2>
+      <ol>
+        <li>Select an image from your device.</li>
+        <li>Adjust the JPG quality if needed.</li>
+        <li>Click <strong>Convert to JPG</strong>.</li>
+        <li>Preview the result and click <strong>Download JPG</strong>.</li>
+      </ol>
+
+      <h3>Why convert an image to JPG?</h3>
+      <p>JPG is widely supported by websites, apps, email services and image viewers. It can also produce smaller files for photographs, depending on the image and quality setting.</p>
+
+      <h3>Important: JPG does not support transparency</h3>
+      <p>Transparent areas in PNG or other images are filled with white when converted to JPG. JPG is a lossy format, so lower quality settings can reduce file size but may also reduce image detail.</p>
+
+      <h3>Is this tool private?</h3>
+      <p>Image conversion happens locally in your browser. Your selected image is not uploaded by this tool to a conversion server.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> Toolnes. Free online tools for everyday tasks.</p>
+    <p><a href="/image-tools/">Image Tools</a> · <a href="/">Home</a></p>
+  </footer>
+
+  <script>
+    const imageInput = document.getElementById("imageInput");
+    const qualityInput = document.getElementById("quality");
+    const qualityValue = document.getElementById("qualityValue");
+    const convertButton = document.getElementById("convertButton");
+    const downloadButton = document.getElementById("downloadButton");
+    const resetButton = document.getElementById("resetButton");
+    const statusElement = document.getElementById("status");
+
+    const originalPreview = document.getElementById("originalPreview");
+    const convertedPreview = document.getElementById("convertedPreview");
+    const originalPlaceholder = document.getElementById("originalPlaceholder");
+    const convertedPlaceholder = document.getElementById("convertedPlaceholder");
+
+    const originalInfo = document.getElementById("originalInfo");
+    const convertedInfo = document.getElementById("convertedInfo");
+    const originalSize = document.getElementById("originalSize");
+    const convertedSize = document.getElementById("convertedSize");
+
+    let selectedImage = null;
+    let originalUrl = null;
+    let convertedUrl = null;
+    let convertedBlob = null;
+    let conversionNumber = 0;
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    function formatBytes(bytes) {
+      if (!Number.isFinite(bytes)) return "—";
+      if (bytes < 1024) return bytes + " B";
+      if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
+      return (bytes / (1024 * 1024)).toFixed(2) + " MB";
+    }
+
+    function setStatus(message, type = "") {
+      statusElement.textContent = message;
+      statusElement.className = "status" + (type ? " " + type : "");
+    }
+
+    function clearConverted() {
+      conversionNumber++;
+
+      if (convertedUrl) {
+        URL.revokeObjectURL(convertedUrl);
+        convertedUrl = null;
+      }
+
+      convertedBlob = null;
+      convertedPreview.removeAttribute("src");
+      convertedPreview.hidden = true;
+      convertedPlaceholder.hidden = false;
+      convertedInfo.textContent = "No JPG created yet";
+      convertedSize.textContent = "—";
+      downloadButton.hidden = true;
+      downloadButton.removeAttribute("href");
+    }
+
+    function loadImageFile(file) {
+      return new Promise((resolve, reject) => {
+        const url = URL.createObjectURL(file);
+        const image = new Image();
+
+        image.onload = () => {
+          URL.revokeObjectURL(url);
+          resolve(image);
+        };
+
+        image.onerror = () => {
+          URL.revokeObjectURL(url);
+          reject(new Error("This image could not be opened. Try another file."));
+        };
+
+        image.src = url;
+      });
+    }
+
+    function resetTool() {
+      conversionNumber++;
+      imageInput.value = "";
+      selectedImage = null;
+
+      if (originalUrl) {
+        URL.revokeObjectURL(originalUrl);
+        originalUrl = null;
+      }
+
+      clearConverted();
+
+      originalPreview.removeAttribute("src");
+      originalPreview.hidden = true;
+      originalPlaceholder.hidden = false;
+
+      originalInfo.textContent = "No image selected";
+      originalSize.textContent = "—";
+      convertButton.disabled = true;
+      qualityInput.value = "90";
+      qualityValue.textContent = "90%";
+
+      setStatus("Choose an image to get started.");
+    }
+
+    imageInput.addEventListener("change", () => {
+      const file = imageInput.files && imageInput.files[0];
+
+      if (!file) return;
+
+      if (!file.type.startsWith("image/")) {
+        resetTool();
+        setStatus("Please select a valid image file.", "error");
+        return;
+      }
+
+      selectedImage = file;
+      clearConverted();
+
+      if (originalUrl) {
+        URL.revokeObjectURL(originalUrl);
+      }
+
+      originalUrl = URL.createObjectURL(file);
+      originalPreview.src = originalUrl;
+      originalPreview.hidden = false;
+      originalPlaceholder.hidden = true;
+
+      originalInfo.textContent = file.name;
+      originalSize.textContent = formatBytes(file.size);
+      convertedInfo.textContent = "Ready to convert";
+      convertButton.disabled = false;
+
+      setStatus("Image selected. Adjust quality and click Convert to JPG.");
+    });
+
+    qualityInput.addEventListener("input", () => {
+      qualityValue.textContent = qualityInput.value + "%";
+
+      if (selectedImage) {
+        clearConverted();
+        convertedInfo.textContent = "Quality changed. Convert again to update the JPG.";
+        setStatus("Quality updated. Click Convert to JPG to create the new file.");
+      }
+    });
+
+    convertButton.addEventListener("click", async () => {
+      if (!selectedImage) {
+        setStatus("Please select an image first.", "error");
+        return;
+      }
+
+      const currentConversion = ++conversionNumber;
+      convertButton.disabled = true;
+      downloadButton.hidden = true;
+      setStatus("Converting your image...");
+
+      try {
+        const image = await loadImageFile(selectedImage);
+
+        if (currentConversion !== conversionNumber) return;
+
+        if (!image.naturalWidth || !image.naturalHeight) {
+          throw new Error("The image has invalid dimensions.");
+        }
+
+        const canvas = document.createElement("canvas");
+        canvas.width = image.naturalWidth;
+        canvas.height = image.naturalHeight;
+
+        const context = canvas.getContext("2d");
+
+        if (!context) {
+          throw new Error("Your browser could not create the image canvas.");
+        }
+
+        // JPG has no transparency. Fill transparent areas with white.
+        context.fillStyle = "#ffffff";
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        context.drawImage(image, 0, 0);
+
+        const quality = Number(qualityInput.value) / 100;
+
+        const blob = await new Promise((resolve, reject) => {
+          canvas.toBlob(result => {
+            if (result) resolve(result);
+            else reject(new Error("JPG conversion failed. Try another image."));
+          }, "image/jpeg", quality);
+        });
+
+        if (currentConversion !== conversionNumber) return;
+
+        if (convertedUrl) {
+          URL.revokeObjectURL(convertedUrl);
+        }
+
+        convertedBlob = blob;
+        convertedUrl = URL.createObjectURL(blob);
+
+        convertedPreview.src = convertedUrl;
+        convertedPreview.hidden = false;
+        convertedPlaceholder.hidden = true;
+
+        convertedInfo.textContent = canvas.width + " × " + canvas.height + " pixels";
+        convertedSize.textContent = formatBytes(blob.size);
+
+        const originalName = selectedImage.name.replace(/\.[^/.]+$/, "");
+        downloadButton.href = convertedUrl;
+        downloadButton.download = (originalName || "image") + ".jpg";
+        downloadButton.hidden = false;
+
+        setStatus("Conversion complete! Your JPG is ready to download.", "success");
+      } catch (error) {
+        if (currentConversion === conversionNumber) {
+          setStatus(error.message || "Something went wrong. Please try another image.", "error");
+        }
+      } finally {
+        if (currentConversion === conversionNumber) {
+          convertButton.disabled = !selectedImage;
+        }
+      }
+    });
+
+    resetButton.addEventListener("click", resetTool);
+  </script>
+</body>
+</html>
+```
 
