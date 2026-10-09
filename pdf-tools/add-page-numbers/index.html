@@ -1,1 +1,214 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Page Numbers to PDF Online Free - Toolnes</title>
+  <meta name="description" content="Add page numbers to PDF files online for free. Choose the position and format, then download your numbered PDF with Toolnes.">
+  <link rel="canonical" href="https://toolnes.netlify.app/pdf-tools/add-page-numbers/">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Arial, sans-serif; color: #172033; background: #f6f8fc; }
+    header { padding: 18px 5%; background: #fff; border-bottom: 1px solid #e5eaf2; }
+    header a { color: #2563eb; font-size: 24px; font-weight: 800; text-decoration: none; }
+    main { max-width: 850px; margin: 40px auto; padding: 0 20px; }
+    .breadcrumb { margin-bottom: 22px; color: #64748b; font-size: 14px; }
+    .breadcrumb a, footer a { color: #2563eb; text-decoration: none; }
+    h1 { font-size: 36px; margin-bottom: 12px; }
+    .intro { color: #64748b; line-height: 1.7; }
+    .tool-box, .info { margin-top: 28px; padding: 28px; background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; }
+    label { display: block; margin: 18px 0 8px; font-weight: 700; }
+    input[type="file"], input[type="number"], select { width: 100%; padding: 13px; border: 1px solid #cbd5e1; border-radius: 9px; background: #fff; font-size: 15px; }
+    .hint { color: #64748b; font-size: 14px; line-height: 1.6; }
+    button, .download { display: inline-block; margin-top: 18px; padding: 13px 20px; border: 0; border-radius: 9px; background: #2563eb; color: white; font-size: 15px; font-weight: 700; text-decoration: none; cursor: pointer; }
+    button:disabled { opacity: .55; cursor: not-allowed; }
+    #status { margin-top: 18px; line-height: 1.6; overflow-wrap: anywhere; }
+    .error { color: #b91c1c; }
+    .success { color: #15803d; }
+    .info { line-height: 1.7; }
+    footer { padding: 30px 15px; text-align: center; color: #64748b; font-size: 14px; }
+    @media (max-width: 600px) { h1 { font-size: 29px; } .tool-box, .info { padding: 20px; } }
+  </style>
+</head>
+<body>
+  <header><a href="/">Toolnes</a></header>
+
+  <main>
+    <div class="breadcrumb">
+      <a href="/">Home</a> /
+      <a href="/pdf-tools/">PDF Tools</a> /
+      Add Page Numbers
+    </div>
+
+```
+<h1>Add Page Numbers to PDF</h1>
+<p class="intro">
+  Add page numbers to your PDF in seconds. Choose the position, starting
+  number, and numbering format, then download the updated document.
+</p>
+
+<section class="tool-box">
+  <label for="pdfFile">Choose a PDF file</label>
+  <input id="pdfFile" type="file" accept=".pdf,application/pdf">
+
+  <label for="position">Number position</label>
+  <select id="position">
+    <option value="bottom-center">Bottom center</option>
+    <option value="bottom-right">Bottom right</option>
+    <option value="bottom-left">Bottom left</option>
+    <option value="top-center">Top center</option>
+    <option value="top-right">Top right</option>
+    <option value="top-left">Top left</option>
+  </select>
+
+  <label for="format">Number format</label>
+  <select id="format">
+    <option value="number">1, 2, 3...</option>
+    <option value="page">Page 1, Page 2...</option>
+    <option value="of">1 / total, 2 / total...</option>
+  </select>
+
+  <label for="startNumber">Starting number</label>
+  <input id="startNumber" type="number" min="1" max="999999" value="1">
+
+  <button id="addButton" type="button">Add Page Numbers</button>
+  <div id="status" role="status" aria-live="polite"></div>
+  <div id="downloadArea"></div>
+</section>
+
+<section class="info">
+  <h2>How to number PDF pages</h2>
+  <ol>
+    <li>Select your PDF file.</li>
+    <li>Choose where the numbers should appear.</li>
+    <li>Select a numbering format and starting number.</li>
+    <li>Click <strong>Add Page Numbers</strong> and download the result.</li>
+  </ol>
+  <h2>Free online PDF page numbering</h2>
+  <p>
+    This tool adds numbers to every page of a PDF. The original file remains
+    unchanged. Page numbers are placed over the existing page content near
+    the selected edge.
+  </p>
+</section>
+```
+
+  </main>
+
+  <footer>
+    <p>© 2026 Toolnes. Free online tools.</p>
+    <p><a href="/">Home</a> · <a href="/pdf-tools/">PDF Tools</a></p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+
+  <script>
+    const fileInput = document.getElementById("pdfFile");
+    const positionInput = document.getElementById("position");
+    const formatInput = document.getElementById("format");
+    const startInput = document.getElementById("startNumber");
+    const button = document.getElementById("addButton");
+    const statusBox = document.getElementById("status");
+    const downloadArea = document.getElementById("downloadArea");
+
+    function showStatus(message, type) {
+      statusBox.textContent = message;
+      statusBox.className = type || "";
+    }
+
+    button.addEventListener("click", async function () {
+      downloadArea.replaceChildren();
+
+      if (!window.PDFLib) {
+        showStatus("The PDF library could not load. Check your internet connection and reload the page.", "error");
+        return;
+      }
+
+      const file = fileInput.files[0];
+
+      if (!file) {
+        showStatus("Please choose a PDF file first.", "error");
+        return;
+      }
+
+      const startNumber = Number(startInput.value);
+
+      if (!Number.isInteger(startNumber) || startNumber < 1 || startNumber > 999999) {
+        showStatus("Enter a starting number between 1 and 999999.", "error");
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = "Adding Numbers...";
+      showStatus("Processing your PDF...", "");
+
+      try {
+        const bytes = await file.arrayBuffer();
+        const pdf = await PDFLib.PDFDocument.load(bytes);
+        const pages = pdf.getPages();
+        const font = await pdf.embedFont(PDFLib.StandardFonts.Helvetica);
+        const fontSize = 10;
+        const margin = 28;
+        const color = PDFLib.rgb(0.2, 0.2, 0.2);
+
+        pages.forEach(function (page, index) {
+          const size = page.getSize();
+          const labelNumber = startNumber + index;
+          let label = String(labelNumber);
+
+          if (formatInput.value === "page") {
+            label = "Page " + labelNumber;
+          } else if (formatInput.value === "of") {
+            label = labelNumber + " / " + (startNumber + pages.length - 1);
+          }
+
+          const textWidth = font.widthOfTextAtSize(label, fontSize);
+          const pos = positionInput.value;
+          let x = (size.width - textWidth) / 2;
+          let y = margin;
+
+          if (pos.endsWith("right")) x = size.width - margin - textWidth;
+          if (pos.endsWith("left")) x = margin;
+
+          if (pos.startsWith("top")) {
+            y = size.height - margin - fontSize;
+          }
+
+          page.drawText(label, {
+            x: Math.max(5, x),
+            y: Math.max(5, y),
+            size: fontSize,
+            font: font,
+            color: color
+          });
+        });
+
+        const outputBytes = await pdf.save();
+        const blob = new Blob([outputBytes], { type: "application/pdf" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+
+        link.href = url;
+        link.download = "numbered-" + file.name.replace(/\.pdf$/i, "") + ".pdf";
+        link.className = "download";
+        link.textContent = "Download Numbered PDF";
+        downloadArea.appendChild(link);
+
+        showStatus("Success! Added page numbers to " + pages.length + " page(s).", "success");
+
+        link.addEventListener("click", function () {
+          setTimeout(function () { URL.revokeObjectURL(url); }, 60000);
+        }, { once: true });
+      } catch (error) {
+        showStatus("Could not process this PDF. It may be damaged or password-protected.", "error");
+      } finally {
+        button.disabled = false;
+        button.textContent = "Add Page Numbers";
+      }
+    });
+  </script>
+
+</body>
+</html>
 
