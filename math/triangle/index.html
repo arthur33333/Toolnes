@@ -1,1 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free Triangle Calculator. Calculate triangle area, perimeter and missing sides.">
+  <title>Triangle Calculator - Toolnes</title>
+  <style>
+    :root {
+      --bg: #f7f8fc;
+      --text: #20243a;
+      --muted: #697087;
+      --primary: #6257e8;
+      --border: #e7e9f2;
+      --white: #fff;
+    }
 
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      max-width: 1100px;
+      margin: auto;
+      padding: 17px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      color: var(--primary);
+      font-size: 25px;
+      font-weight: 800;
+      text-decoration: none;
+      letter-spacing: -1px;
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #4b5066;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    nav a:hover { color: var(--primary); }
+
+    main {
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 36px 20px 60px;
+    }
+
+    .breadcrumb {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+
+    .breadcrumb a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    h1 {
+      font-size: clamp(30px, 5vw, 42px);
+      line-height: 1.2;
+      letter-spacing: -1.2px;
+      margin: 0 0 12px;
+    }
+
+    .intro {
+      color: var(--muted);
+      margin-bottom: 25px;
+    }
+
+    .calculator, .info-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 27px;
+      box-shadow: 0 8px 30px rgba(30, 35, 80, 0.04);
+    }
+
+    .triangle-visual {
+      display: flex;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+
+    .triangle-visual svg {
+      width: 200px;
+      height: 165px;
+      max-width: 100%;
+    }
+
+    .field { margin-bottom: 19px; }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 7px;
+    }
+
+    input, select {
+      width: 100%;
+      min-width: 0;
+      padding: 13px 14px;
+      font-size: 16px;
+      color: var(--text);
+      background: white;
+      border: 1px solid #dfe2ed;
+      border-radius: 10px;
+      outline: none;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(98, 87, 232, 0.12);
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 6px;
+    }
+
+    .mode-description {
+      background: #f6f5ff;
+      border-radius: 10px;
+      padding: 12px 14px;
+      color: #5145b8;
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 19px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .primary {
+      background: var(--primary);
+      color: white;
+      flex: 1;
+    }
+
+    .primary:hover { background: #5145d4; }
+
+    .secondary {
+      background: #f0efff;
+      color: var(--primary);
+    }
+
+    .results {
+      display: none;
+      margin-top: 25px;
+      border-top: 1px solid var(--border);
+      padding-top: 23px;
+    }
+
+    .results.visible { display: block; }
+
+    .results h2, .info-card h2 {
+      font-size: 20px;
+      margin: 0 0 14px;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .result-card {
+      background: #f7f6ff;
+      border: 1px solid #e9e6ff;
+      border-radius: 12px;
+      padding: 16px;
+      min-width: 0;
+    }
+
+    .result-card .name {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 5px;
+    }
+
+    .result-card .value {
+      font-size: clamp(18px, 3vw, 23px);
+      font-weight: 800;
+      overflow-wrap: anywhere;
+    }
+
+    .result-card .unit {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 3px;
+    }
+
+    .message {
+      margin-top: 15px;
+      color: #b42318;
+      font-size: 14px;
+      display: none;
+    }
+
+    .message.visible { display: block; }
+
+    .info-card {
+      margin-top: 22px;
+      box-shadow: none;
+    }
+
+    .formula {
+      background: #f6f5ff;
+      padding: 12px 15px;
+      border-radius: 9px;
+      margin: 10px 0;
+      font-family: "Courier New", monospace;
+      overflow-wrap: anywhere;
+    }
+
+    .info-card p, .info-card li {
+      color: #555d73;
+      font-size: 14px;
+    }
+
+    .info-card ul { padding-left: 21px; }
+
+    footer {
+      text-align: center;
+      padding: 25px 20px;
+      color: var(--muted);
+      font-size: 13px;
+      border-top: 1px solid var(--border);
+      background: white;
+    }
+
+    @media (max-width: 600px) {
+      .nav { align-items: flex-start; flex-direction: column; }
+      nav { gap: 14px; }
+      main { padding: 26px 14px 45px; }
+      .calculator, .info-card { padding: 19px; }
+      .result-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <a class="logo" href="../../index.html">Toolnes</a>
+      <nav aria-label="Main navigation">
+        <a href="../../index.html">Home</a>
+        <a href="../../calculators/index.html">Calculators</a>
+        <a href="../../converters/index.html">Converters</a>
+        <a href="../../puzzles/index.html">Puzzles</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="breadcrumb">
+      <a href="../../index.html">Home</a> /
+      <a href="../index.html">Math</a> / Triangle Calculator
+    </div>
+
+    <h1>Triangle Calculator</h1>
+    <p class="intro">Calculate a triangle's area and perimeter, or find a missing side of a right triangle.</p>
+
+    <section class="calculator">
+      <div class="triangle-visual" aria-hidden="true">
+        <svg viewBox="0 0 220 180">
+          <polygon points="30,150 190,150 190,35" fill="#eeecff" stroke="#6257e8" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M174 150 L174 134 L190 134" fill="none" stroke="#e05c8a" stroke-width="2"/>
+          <text x="105" y="171" text-anchor="middle" font-size="13" fill="#6257e8">a</text>
+          <text x="202" y="95" font-size="13" fill="#6257e8">b</text>
+          <text x="98" y="84" font-size="13" fill="#b83264">c</text>
+        </svg>
+      </div>
+
+      <div class="field">
+        <label for="mode">Calculation type</label>
+        <select id="mode">
+          <option value="area">Area and perimeter (three sides)</option>
+          <option value="right">Missing side (right triangle)</option>
+        </select>
+      </div>
+
+      <div id="modeDescription" class="mode-description">
+        Enter all three side lengths. The calculator checks whether they form a valid triangle.
+      </div>
+
+      <div id="threeSides">
+        <div class="field">
+          <label for="sideA">Side A</label>
+          <input id="sideA" type="number" min="0" step="any" placeholder="Enter side A">
+        </div>
+
+        <div class="field">
+          <label for="sideB">Side B</label>
+          <input id="sideB" type="number" min="0" step="any" placeholder="Enter side B">
+        </div>
+
+        <div class="field">
+          <label for="sideC">Side C</label>
+          <input id="sideC" type="number" min="0" step="any" placeholder="Enter side C">
+        </div>
+      </div>
+
+      <div id="rightSides" hidden>
+        <div class="field">
+          <label for="knownA">Known side 1</label>
+          <input id="knownA" type="number" min="0" step="any" placeholder="Enter a known side">
+        </div>
+
+        <div class="field">
+          <label for="knownB">Known side 2</label>
+          <input id="knownB" type="number" min="0" step="any" placeholder="Enter another known side">
+        </div>
+
+        <div class="field">
+          <label for="missingSide">Side to calculate</label>
+          <select id="missingSide">
+            <option value="hypotenuse">Hypotenuse (longest side)</option>
+            <option value="leg">Missing shorter side</option>
+          </select>
+        </div>
+
+        <div class="hint">For the hypotenuse, enter the two shorter sides. For a missing shorter side, enter the hypotenuse first, then the known shorter side.</div>
+      </div>
+
+      <div class="field">
+        <label for="unit">Unit</label>
+        <select id="unit">
+          <option value="units">Units</option>
+          <option value="mm">Millimeters (mm)</option>
+          <option value="cm">Centimeters (cm)</option>
+          <option value="m">Meters (m)</option>
+          <option value="in">Inches (in)</option>
+          <option value="ft">Feet (ft)</option>
+        </select>
+      </div>
+
+      <div class="buttons">
+        <button class="primary" id="calculate" type="button">Calculate Triangle</button>
+        <button class="secondary" id="example" type="button">Load Example</button>
+        <button class="secondary" id="reset" type="button">Reset</button>
+      </div>
+
+      <div class="message" id="error" role="alert"></div>
+
+      <section class="results" id="results" aria-live="polite">
+        <h2>Results</h2>
+        <div class="result-grid" id="resultGrid"></div>
+      </section>
+    </section>
+
+    <section class="info-card">
+      <h2>Triangle formulas</h2>
+      <div class="formula">Perimeter = a + b + c</div>
+      <div class="formula">Area (Heron's formula) = √[s(s − a)(s − b)(s − c)]</div>
+      <p>Here, <strong>s</strong> is the semiperimeter: (a + b + c) ÷ 2.</p>
+      <div class="formula">Pythagorean theorem: a² + b² = c²</div>
+      <p>For a right triangle, c is the hypotenuse, the side opposite the right angle.</p>
+    </section>
+
+    <section class="info-card">
+      <h2>How to use this calculator</h2>
+      <ul>
+        <li>Select whether you want the area and perimeter or a missing side.</li>
+        <li>Enter positive side lengths and choose the unit.</li>
+        <li>Click Calculate Triangle to see the results.</li>
+        <li>Use Load Example to try sample values, or Reset to start again.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> Toolnes. Useful tools. Simple and free.
+  </footer>
+
+  <script>
+    const mode = document.getElementById("mode");
+    const threeSides = document.getElementById("threeSides");
+    const rightSides = document.getElementById("rightSides");
+    const modeDescription = document.getElementById("modeDescription");
+    const results = document.getElementById("results");
+    const resultGrid = document.getElementById("resultGrid");
+    const error = document.getElementById("error");
+    const unit = document.getElementById("unit");
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    function formatNumber(value) {
+      if (!Number.isFinite(value)) return "Too large";
+      return Number(value.toPrecision(12)).toLocaleString("en-US", {
+        maximumFractionDigits: 10,
+        useGrouping: true
+      });
+    }
+
+    function showError(message) {
+      error.textContent = message;
+      error.classList.add("visible");
+      results.classList.remove("visible");
+    }
+
+    function clearError() {
+      error.textContent = "";
+      error.classList.remove("visible");
+    }
+
+    function getPositiveInput(id, label) {
+      const input = document.getElementById(id);
+      const value = Number(input.value);
+
+      if (input.value.trim() === "" || !Number.isFinite(value) || value <= 0) {
+        throw new Error("Please enter a valid positive value for " + label + ".");
+      }
+
+      return value;
+    }
+
+    function addResult(name, value, resultUnit) {
+      const card = document.createElement("div");
+      card.className = "result-card";
+
+      const title = document.createElement("div");
+      title.className = "name";
+      title.textContent = name;
+
+      const number = document.createElement("div");
+      number.className = "value";
+      number.textContent = formatNumber(value);
+
+      const unitText = document.createElement("div");
+      unitText.className = "unit";
+      unitText.textContent = resultUnit;
+
+      card.append(title, number, unitText);
+      resultGrid.appendChild(card);
+    }
+
+    function calculateTriangle() {
+      clearError();
+      resultGrid.replaceChildren();
+
+      try {
+        const selectedUnit = unit.value;
+
+        if (mode.value === "area") {
+          const a = getPositiveInput("sideA", "Side A");
+          const b = getPositiveInput("sideB", "Side B");
+          const c = getPositiveInput("sideC", "Side C");
+
+          if (![a, b, c].every(Number.isFinite)) {
+            throw new Error("Please use valid side lengths.");
+          }
+
+          if (a + b <= c || a + c <= b || b + c <= a) {
+            throw new Error("These sides cannot form a triangle. The sum of any two sides must be greater than the third side.");
+          }
+
+          const perimeter = a + b + c;
+          const s = perimeter / 2;
+          const areaSquared = s * (s - a) * (s - b) * (s - c);
+
+          if (!Number.isFinite(perimeter) || !Number.isFinite(areaSquared)) {
+            throw new Error("These values are too large to calculate. Please use smaller values.");
+          }
+
+          const area = Math.sqrt(Math.max(0, areaSquared));
+
+          addResult("Area", area, selectedUnit + "²");
+          addResult("Perimeter", perimeter, selectedUnit);
+          addResult("Semiperimeter", s, selectedUnit);
+          addResult("Side A", a, selectedUnit);
+          addResult("Side B", b, selectedUnit);
+          addResult("Side C", c, selectedUnit);
+        } else {
+          const first = getPositiveInput("knownA", "Known side 1");
+          const second = getPositiveInput("knownB", "Known side 2");
+          const missingSide = document.getElementById("missingSide").value;
+          let answer;
+
+          if (missingSide === "hypotenuse") {
+            answer = Math.hypot(first, second);
+            addResult("Hypotenuse", answer, selectedUnit);
+            addResult("Known shorter side 1", first, selectedUnit);
+            addResult("Known shorter side 2", second, selectedUnit);
+          } else {
+            const hypotenuse = first;
+            const knownLeg = second;
+
+            if (hypotenuse <= knownLeg) {
+              throw new Error("The hypotenuse must be longer than the known shorter side. Enter the hypotenuse as Known side 1.");
+            }
+
+            answer = Math.sqrt(hypotenuse * hypotenuse - knownLeg * knownLeg);
+
+            if (!Number.isFinite(answer) || answer <= 0) {
+              throw new Error("Unable to calculate a valid missing side from these values.");
+            }
+
+            addResult("Missing shorter side", answer, selectedUnit);
+            addResult("Hypotenuse", hypotenuse, selectedUnit);
+            addResult("Known shorter side", knownLeg, selectedUnit);
+          }
+        }
+
+        results.classList.add("visible");
+      } catch (e) {
+        showError(e.message);
+      }
+    }
+
+    function loadExample() {
+      clearError();
+      results.classList.remove("visible");
+
+      if (mode.value === "area") {
+        document.getElementById("sideA").value = "3";
+        document.getElementById("sideB").value = "4";
+        document.getElementById("sideC").value = "5";
+      } else {
+        document.getElementById("knownA").value = "3";
+        document.getElementById("knownB").value = "4";
+        document.getElementById("missingSide").value = "hypotenuse";
+      }
+
+      unit.value = "units";
+    }
+
+    function resetCalculator() {
+      document.querySelectorAll('input[type="number"]').forEach(input => input.value = "");
+      mode.value = "area";
+      unit.value = "units";
+      document.getElementById("missingSide").value = "hypotenuse";
+      updateMode();
+      clearError();
+      results.classList.remove("visible");
+      resultGrid.replaceChildren();
+    }
+
+    function updateMode() {
+      const isRight = mode.value === "right";
+      threeSides.hidden = isRight;
+      rightSides.hidden = !isRight;
+
+      modeDescription.textContent = isRight
+        ? "Find the hypotenuse or a missing shorter side of a right triangle using the Pythagorean theorem."
+        : "Enter all three side lengths. The calculator checks whether they form a valid triangle.";
+
+      clearError();
+      results.classList.remove("visible");
+    }
+
+    mode.addEventListener("change", updateMode);
+    document.getElementById("calculate").addEventListener("click", calculateTriangle);
+    document.getElementById("example").addEventListener("click", loadExample);
+    document.getElementById("reset").addEventListener("click", resetCalculator);
+
+    document.querySelectorAll('input[type="number"]').forEach(input => {
+      input.addEventListener("keydown", event => {
+        if (event.key === "Enter") calculateTriangle();
+      });
+      input.addEventListener("input", clearError);
+    });
+  </script>
+</body>
+</html>
