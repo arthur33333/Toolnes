@@ -1,1 +1,360 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>KDP & Publishing Tools - Toolnes</title>
+  <meta name="description" content="Free tools for self-publishers. Prepare book interiors, plan low-content books, calculate book dimensions, and organize your Amazon KDP publishing projects.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://toolnes.netlify.app/kdp/">
+
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-light: #eef2ff;
+      --text: #172033;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --background: #f8fafc;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--background);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 20px;
+    }
+
+    nav {
+      max-width: 1150px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .brand {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    nav .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    nav .links a {
+      color: #475569;
+      font-size: .94rem;
+      text-decoration: none;
+    }
+
+    nav a:hover,
+    footer a:hover {
+      color: var(--primary);
+    }
+
+    main {
+      width: min(1150px, calc(100% - 32px));
+      margin: 42px auto 60px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 35px 20px;
+      margin-bottom: 30px;
+      background: linear-gradient(135deg, #eef2ff, #ffffff);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      background: #e0e7ff;
+      color: #3730a3;
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: .82rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1.2;
+      margin: 0 0 14px;
+    }
+
+    .hero p {
+      max-width: 720px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .section-heading {
+      margin: 35px 0 18px;
+    }
+
+    .section-heading h2 {
+      margin: 0 0 7px;
+      font-size: 1.6rem;
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .tool-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      min-height: 245px;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 28px rgba(15, 23, 42, .07);
+    }
+
+    .tool-icon {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      background: var(--primary-light);
+      border-radius: 12px;
+      font-size: 1.55rem;
+      margin-bottom: 15px;
+    }
+
+    .tool-card h3 {
+      margin: 0 0 9px;
+      font-size: 1.12rem;
+    }
+
+    .tool-card p {
+      color: var(--muted);
+      font-size: .94rem;
+      margin: 0 0 20px;
+      flex-grow: 1;
+    }
+
+    .tool-link {
+      display: inline-block;
+      color: var(--primary);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .tool-link:hover {
+      text-decoration: underline;
+    }
+
+    .notice {
+      margin-top: 30px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      background: white;
+      border-radius: 12px;
+      color: var(--muted);
+    }
+
+    .notice strong {
+      color: var(--text);
+    }
+
+    footer {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 28px 16px;
+      color: var(--muted);
+    }
+
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+      margin: 0 8px;
+    }
+
+    @media (max-width: 850px) {
+      .tools-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 560px) {
+      nav {
+        justify-content: center;
+      }
+
+      nav .links {
+        justify-content: center;
+        gap: 12px;
+      }
+
+      .tools-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .tool-card {
+        min-height: auto;
+      }
+
+      .hero {
+        padding: 28px 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <a class="brand" href="/">Toolnes</a>
+
+      <div class="links">
+        <a href="/">Home</a>
+        <a href="/text-tools/">Text Tools</a>
+        <a href="/pdf-tools/">PDF Tools</a>
+        <a href="/developer-tools/">Developer Tools</a>
+        <a href="/finance/">Finance</a>
+        <a href="/utilities/">Utilities</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <span class="eyebrow">KDP & Self-Publishing</span>
+      <h1>Free KDP & Publishing Tools</h1>
+      <p>
+        Plan, prepare, and organize your self-publishing projects with
+        practical tools for book interiors, low-content books, page layouts,
+        and publishing calculations.
+      </p>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>Explore Publishing Tools</h2>
+        <p>Choose a tool to help prepare your next publishing project.</p>
+      </div>
+
+      <div class="tools-grid">
+
+        <article class="tool-card">
+          <div class="tool-icon" aria-hidden="true">📐</div>
+          <h3>KDP Trim Size Calculator</h3>
+          <p>Calculate book dimensions and estimate the usable page area for common paperback trim sizes.</p>
+          <a class="tool-link" href="/kdp/trim-size-calculator/">Open tool →</a>
+        </article>
+
+        <article class="tool-card">
+          <div class="tool-icon" aria-hidden="true">📄</div>
+          <h3>Book Page Count Planner</h3>
+          <p>Estimate page counts for notebooks, journals, planners, and other low-content books.</p>
+          <a class="tool-link" href="/kdp/page-count-planner/">Open tool →</a>
+        </article>
+
+        <article class="tool-card">
+          <div class="tool-icon" aria-hidden="true">📚</div>
+          <h3>Book Spine Width Calculator</h3>
+          <p>Estimate paperback spine width from page count and paper type. Verify the final value against current KDP specifications.</p>
+          <a class="tool-link" href="/kdp/spine-width-calculator/">Open tool →</a>
+        </article>
+
+        <article class="tool-card">
+          <div class="tool-icon" aria-hidden="true">📝</div>
+          <h3>Journal Interior Planner</h3>
+          <p>Plan lined journal pages by choosing page dimensions, margins, line spacing, and page count.</p>
+          <a class="tool-link" href="/kdp/journal-interior-planner/">Open tool →</a>
+        </article>
+
+        <article class="tool-card">
+          <div class="tool-icon" aria-hidden="true">🔢</div>
+          <h3>Page Numbering Planner</h3>
+          <p>Plan page numbering, front matter, and the starting page for your book interior.</p>
+          <a class="tool-link" href="/kdp/page-numbering-planner/">Open tool →</a>
+        </article>
+
+        <article class="tool-card">
+          <div class="tool-icon" aria-hidden="true">💰</div>
+          <h3>KDP Royalty Calculator</h3>
+          <p>Estimate paperback or ebook earnings using your entered price, costs, and applicable royalty assumptions.</p>
+          <a class="tool-link" href="/kdp/royalty-calculator/">Open tool →</a>
+        </article>
+
+        <article class="tool-card">
+          <div class="tool-icon" aria-hidden="true">📅</div>
+          <h3>Publishing Project Planner</h3>
+          <p>Organize writing, editing, cover design, formatting, and publication tasks for your next book.</p>
+          <a class="tool-link" href="/kdp/publishing-project-planner/">Open tool →</a>
+        </article>
+
+        <article class="tool-card">
+          <div class="tool-icon" aria-hidden="true">📋</div>
+          <h3>KDP Book Launch Checklist</h3>
+          <p>Review important preparation steps before submitting your book for publication.</p>
+          <a class="tool-link" href="/kdp/book-launch-checklist/">Open tool →</a>
+        </article>
+
+      </div>
+    </section>
+
+    <aside class="notice">
+      <strong>Publishing note:</strong>
+      These tools are intended to help with planning and estimates.
+      Always check the latest Amazon KDP requirements before uploading
+      a book or setting its price.
+    </aside>
+  </main>
+
+  <footer>
+    <p>Free online tools for everyday tasks.</p>
+    <a href="/about/">About</a>
+    <a href="/contact/">Contact</a>
+    <a href="/privacy-policy/">Privacy Policy</a>
+    <a href="/terms/">Terms</a>
+    <p>© <span id="year"></span> Toolnes</p>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+```
 
