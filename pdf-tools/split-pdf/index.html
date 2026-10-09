@@ -1,1 +1,306 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Split PDF Online Free - Toolnes</title>
+  <meta name="description" content="Split PDF files online for free. Extract specific pages from a PDF and download them as a new PDF. No registration required.">
+  <link rel="canonical" href="https://toolnes.netlify.app/pdftools/split-pdf/">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f6f8fc;
+      color: #172033;
+    }
+    header {
+      background: #fff;
+      border-bottom: 1px solid #e5eaf2;
+      padding: 18px 5%;
+    }
+    header a {
+      color: #2563eb;
+      text-decoration: none;
+      font-size: 24px;
+      font-weight: 800;
+    }
+    .container {
+      max-width: 850px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .breadcrumb {
+      margin-bottom: 22px;
+      color: #64748b;
+      font-size: 14px;
+    }
+    .breadcrumb a { color: #2563eb; text-decoration: none; }
+    h1 { font-size: 36px; margin-bottom: 12px; }
+    .intro { color: #64748b; line-height: 1.7; }
+    .tool-box {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 28px;
+      margin-top: 28px;
+      box-shadow: 0 8px 25px rgba(15, 23, 42, 0.04);
+    }
+    label { display: block; font-weight: 700; margin: 18px 0 8px; }
+    input[type="file"], input[type="text"] {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+      background: #fff;
+      font-size: 15px;
+    }
+    .hint { color: #64748b; font-size: 14px; line-height: 1.6; }
+    button, .download {
+      display: inline-block;
+      border: 0;
+      border-radius: 9px;
+      background: #2563eb;
+      color: white;
+      padding: 13px 20px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      margin-top: 18px;
+    }
+    button:disabled { opacity: .55; cursor: not-allowed; }
+    #status { margin-top: 18px; line-height: 1.6; overflow-wrap: anywhere; }
+    .success { color: #15803d; }
+    .error { color: #b91c1c; }
+    .info-section {
+      margin-top: 32px;
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 24px;
+      line-height: 1.7;
+    }
+    footer {
+      text-align: center;
+      padding: 30px 15px;
+      color: #64748b;
+      font-size: 14px;
+    }
+    footer a { color: #2563eb; text-decoration: none; }
+    @media (max-width: 600px) {
+      h1 { font-size: 29px; }
+      .tool-box { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">Toolnes</a>
+  </header>
+
+  <main class="container">
+    <div class="breadcrumb">
+      <a href="/">Home</a> /
+      <a href="/pdftools/">PDF Tools</a> /
+      Split PDF
+    </div>
+
+```
+<h1>Split PDF Online</h1>
+<p class="intro">
+  Extract the pages you need from a PDF file. Enter the page numbers or
+  ranges, create a new PDF, and download it for free.
+</p>
+
+<section class="tool-box">
+  <label for="pdfFile">Choose a PDF file</label>
+  <input id="pdfFile" type="file" accept="application/pdf,.pdf">
+  <p class="hint">Select the PDF you want to split.</p>
+
+  <label for="pageRanges">Pages to extract</label>
+  <input
+    id="pageRanges"
+    type="text"
+    placeholder="Example: 1-3, 5, 8-10"
+    autocomplete="off"
+  >
+  <p class="hint">
+    Enter page numbers separated by commas. Use a hyphen for a range.
+    For example, <strong>1-3, 5, 8-10</strong>.
+  </p>
+
+  <button id="splitButton" type="button">Split PDF</button>
+  <div id="status" role="status" aria-live="polite"></div>
+  <div id="downloadArea"></div>
+</section>
+
+<section class="info-section">
+  <h2>How to split a PDF</h2>
+  <ol>
+    <li>Choose a PDF file from your device.</li>
+    <li>Enter the pages you want to extract.</li>
+    <li>Click <strong>Split PDF</strong>.</li>
+    <li>Download your new PDF file.</li>
+  </ol>
+  <h2>Free PDF page extractor</h2>
+  <p>
+    Toolnes lets you extract selected pages from a PDF into a separate
+    document. Your original file is not changed. Files are processed
+    locally in your browser.
+  </p>
+</section>
+```
+
+  </main>
+
+  <footer>
+    <p>© 2026 Toolnes. Free online tools.</p>
+    <p><a href="/">Home</a> · <a href="/pdftools/">PDF Tools</a></p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+
+  <script>
+    const fileInput = document.getElementById("pdfFile");
+    const rangesInput = document.getElementById("pageRanges");
+    const splitButton = document.getElementById("splitButton");
+    const statusBox = document.getElementById("status");
+    const downloadArea = document.getElementById("downloadArea");
+
+    function showStatus(message, type) {
+      statusBox.className = type || "";
+      statusBox.textContent = message;
+    }
+
+    function parsePageRanges(input, totalPages) {
+      const text = input.trim();
+
+      if (!text) {
+        throw new Error("Enter the page numbers you want to extract.");
+      }
+
+      const pages = new Set();
+      const parts = text.split(",");
+
+      for (const part of parts) {
+        const item = part.trim();
+
+        if (!item) {
+          throw new Error("Check your page ranges. One of the entries is empty.");
+        }
+
+        if (/^\d+$/.test(item)) {
+          const page = Number(item);
+
+          if (page < 1 || page > totalPages) {
+            throw new Error("Page " + page + " is outside the PDF page range (1-" + totalPages + ").");
+          }
+
+          pages.add(page - 1);
+          continue;
+        }
+
+        const rangeMatch = item.match(/^(\d+)\s*-\s*(\d+)$/);
+
+        if (rangeMatch) {
+          const start = Number(rangeMatch[1]);
+          const end = Number(rangeMatch[2]);
+
+          if (start < 1 || end < 1 || start > totalPages || end > totalPages) {
+            throw new Error("A page range is outside the PDF page range (1-" + totalPages + ").");
+          }
+
+          if (start > end) {
+            throw new Error("In a page range, the first number must be less than or equal to the second.");
+          }
+
+          for (let page = start; page <= end; page++) {
+            pages.add(page - 1);
+          }
+          continue;
+        }
+
+        throw new Error('Invalid entry "' + item + '". Use a format such as 1-3, 5, 8-10.');
+      }
+
+      return Array.from(pages).sort((a, b) => a - b);
+    }
+
+    splitButton.addEventListener("click", async function () {
+      downloadArea.replaceChildren();
+
+      if (!window.PDFLib) {
+        showStatus("The PDF library could not load. Check your internet connection and reload this page.", "error");
+        return;
+      }
+
+      const file = fileInput.files[0];
+
+      if (!file) {
+        showStatus("Please choose a PDF file first.", "error");
+        return;
+      }
+
+      if (!file.name.toLowerCase().endsWith(".pdf") && file.type !== "application/pdf") {
+        showStatus("Please select a valid PDF file.", "error");
+        return;
+      }
+
+      const originalButtonText = splitButton.textContent;
+      splitButton.disabled = true;
+      splitButton.textContent = "Processing...";
+      showStatus("Reading your PDF...", "");
+
+      try {
+        const bytes = await file.arrayBuffer();
+        const sourcePdf = await PDFLib.PDFDocument.load(bytes);
+        const totalPages = sourcePdf.getPageCount();
+        const selectedPages = parsePageRanges(rangesInput.value, totalPages);
+
+        if (selectedPages.length === 0) {
+          throw new Error("Select at least one page.");
+        }
+
+        const newPdf = await PDFLib.PDFDocument.create();
+        const copiedPages = await newPdf.copyPages(sourcePdf, selectedPages);
+
+        copiedPages.forEach(function (page) {
+          newPdf.addPage(page);
+        });
+
+        const pdfBytes = await newPdf.save();
+        const blob = new Blob([pdfBytes], { type: "application/pdf" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+
+        link.href = url;
+        link.download = "split-" + file.name.replace(/\.pdf$/i, "") + ".pdf";
+        link.className = "download";
+        link.textContent = "Download Split PDF";
+        downloadArea.appendChild(link);
+
+        showStatus(
+          "Success! Extracted " + selectedPages.length +
+          " page(s) from a PDF containing " + totalPages + " page(s).",
+          "success"
+        );
+
+        link.addEventListener("click", function () {
+          setTimeout(function () {
+            URL.revokeObjectURL(url);
+          }, 60000);
+        }, { once: true });
+      } catch (error) {
+        showStatus(error.message || "Could not process this PDF. Please try another file.", "error");
+      } finally {
+        splitButton.disabled = false;
+        splitButton.textContent = originalButtonText;
+      }
+    });
+  </script>
+
+</body>
+</html>
 
