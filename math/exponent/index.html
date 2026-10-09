@@ -1,1 +1,259 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Solve exponential equations and calculate unknown exponents with this free online tool.">
+<title>Exponent Calculator - Toolnes</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f6f8fc;color:#243047;line-height:1.6}
+header{background:#fff;border-bottom:1px solid #e5eaf2;padding:17px 6%;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-size:25px;font-weight:800;color:#6254d9;text-decoration:none}
+nav{display:flex;gap:20px;flex-wrap:wrap}
+nav a{color:#475569;text-decoration:none;font-size:14px}
+nav a:hover{color:#6254d9}
+main{max-width:850px;margin:45px auto;padding:0 20px}
+.intro{text-align:center;margin-bottom:28px}
+.intro h1{font-size:clamp(29px,5vw,40px);margin:0 0 10px}
+.intro p{color:#64748b;margin:0}
+.card{background:#fff;border:1px solid #e6eaf2;border-radius:18px;padding:27px;margin-bottom:22px;box-shadow:0 8px 25px #2832500a}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.tab{background:#eef0ff;color:#5144c7}
+.tab.active{background:#6254d9;color:white}
+.field{margin-bottom:17px}
+label{display:block;font-weight:700;margin-bottom:9px}
+input{width:100%;padding:14px;border:1px solid #cbd5e1;border-radius:10px;font-size:17px;outline:none}
+input:focus{border-color:#6254d9;box-shadow:0 0 0 3px #6254d91c}
+.buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+button{border:0;border-radius:10px;padding:12px 19px;font-size:15px;font-weight:700;cursor:pointer}
+.primary{color:#fff;background:#6254d9}
+.primary:hover{background:#5042c5}
+.secondary{background:#eef0ff;color:#5144c7}
+.result{display:none;margin-top:22px;padding:20px;border-radius:12px;overflow-wrap:anywhere}
+.result.success{display:block;background:#e8f9ef;border:1px solid #b6ebc9}
+.result.error{display:block;background:#fff0f0;border:1px solid #ffcaca}
+.result h2{margin:0 0 8px;font-size:22px}
+.answer{font-size:clamp(27px,5vw,38px);font-weight:800;color:#5144c7;overflow-wrap:anywhere}
+.formula{background:#f4f3ff;border-radius:10px;padding:14px;margin-top:14px;overflow-wrap:anywhere}
+.examples{margin-top:18px}
+.example{display:inline-block;margin:5px 5px 0 0;padding:6px 11px;border-radius:8px;background:#f0efff;color:#5144c7;cursor:pointer;border:0}
+.card h2{margin-top:0;font-size:22px}
+.card p,.card li{color:#526078}
+footer{text-align:center;padding:28px 16px;color:#778196;font-size:14px}
+footer a{color:#6254d9;text-decoration:none}
+.hidden{display:none}
+@media(max-width:550px){header{padding:15px 5%}nav{gap:12px}main{margin-top:30px}.card{padding:20px}.buttons button{flex:1}}
+</style>
+</head>
+<body>
+<header>
+<a class="logo" href="../../index.html">Toolnes</a>
+<nav>
+<a href="../../index.html">Home</a>
+<a href="../index.html">Math Tools</a>
+<a href="../../calculators/index.html">Calculators</a>
+<a href="../../converters/index.html">Converters</a>
+</nav>
+</header>
+
+<main>
+<section class="intro">
+<h1>Exponent Calculator</h1>
+<p>Calculate exponential expressions or solve for an unknown exponent.</p>
+</section>
+
+<section class="card">
+<div class="tabs" role="tablist" aria-label="Calculator mode">
+<button class="tab active" id="valueTab" type="button" role="tab" aria-selected="true">Calculate a Power</button>
+<button class="tab" id="solveTab" type="button" role="tab" aria-selected="false">Find Unknown Exponent</button>
+</div>
+
+<div id="valueMode">
+<div class="field">
+<label for="base">Base (a)</label>
+<input id="base" type="number" step="any" placeholder="e.g. 2">
+</div>
+<div class="field">
+<label for="exp">Exponent (x)</label>
+<input id="exp" type="number" step="any" placeholder="e.g. 5">
+</div>
+</div>
+
+<div id="solveMode" class="hidden">
+<p>Solve the equation <strong>aˣ = b</strong>.</p>
+<div class="field">
+<label for="solveBase">Base (a), greater than 0 and not equal to 1</label>
+<input id="solveBase" type="number" step="any" placeholder="e.g. 2">
+</div>
+<div class="field">
+<label for="target">Result (b), greater than 0</label>
+<input id="target" type="number" step="any" placeholder="e.g. 32">
+</div>
+</div>
+
+<div class="buttons">
+<button class="primary" id="calculate" type="button">Calculate</button>
+<button class="secondary" id="example" type="button">Try Example</button>
+<button class="secondary" id="reset" type="button">Reset</button>
+</div>
+<div id="result" class="result" role="status" aria-live="polite"></div>
+
+<div class="examples">
+<strong>Examples:</strong><br>
+<button class="example" data-mode="value" data-a="2" data-b="5" type="button">2⁵</button>
+<button class="example" data-mode="value" data-a="10" data-b="3" type="button">10³</button>
+<button class="example" data-mode="solve" data-a="2" data-b="32" type="button">2ˣ = 32</button>
+<button class="example" data-mode="solve" data-a="3" data-b="81" type="button">3ˣ = 81</button>
+</div>
+</section>
+
+<section class="card">
+<h2>What is an exponent?</h2>
+<p>An exponent tells you how many times a base is multiplied by itself when the exponent is a positive whole number.</p>
+<div class="formula">2⁵ = 2 × 2 × 2 × 2 × 2 = 32</div>
+<p>To solve aˣ = b for x when a and b are positive and a ≠ 1, use logarithms:</p>
+<div class="formula">x = log(b) / log(a)</div>
+</section>
+</main>
+
+<footer>
+<p>© 2026 Toolnes. Useful tools. Simple and free.</p>
+<a href="../../index.html">Explore more free tools</a>
+</footer>
+
+<script>
+const valueTab=document.getElementById("valueTab");
+const solveTab=document.getElementById("solveTab");
+const valueMode=document.getElementById("valueMode");
+const solveMode=document.getElementById("solveMode");
+const result=document.getElementById("result");
+let mode="value";
+
+function setMode(next){
+  mode=next;
+  valueMode.classList.toggle("hidden",mode!=="value");
+  solveMode.classList.toggle("hidden",mode!=="solve");
+  valueTab.classList.toggle("active",mode==="value");
+  solveTab.classList.toggle("active",mode==="solve");
+  valueTab.setAttribute("aria-selected",String(mode==="value"));
+  solveTab.setAttribute("aria-selected",String(mode==="solve"));
+  result.className="result";
+  result.textContent="";
+}
+
+function showError(message){
+  result.className="result error";
+  result.textContent=message;
+}
+
+function showSuccess(title,answer,details){
+  result.className="result success";
+  result.replaceChildren();
+  const heading=document.createElement("h2");
+  heading.textContent=title;
+  const value=document.createElement("div");
+  value.className="answer";
+  value.textContent=answer;
+  const note=document.createElement("p");
+  note.textContent=details;
+  result.append(heading,value,note);
+}
+
+function calculate(){
+  if(mode==="value"){
+    const aRaw=document.getElementById("base").value.trim();
+    const xRaw=document.getElementById("exp").value.trim();
+    if(aRaw===""||xRaw===""){
+      showError("Please enter both the base and exponent.");
+      return;
+    }
+    const a=Number(aRaw),x=Number(xRaw);
+    if(!Number.isFinite(a)||!Number.isFinite(x)){
+      showError("Please enter valid finite numbers.");
+      return;
+    }
+    if(a===0&&x<=0){
+      showError("Zero raised to zero or to a negative exponent is undefined.");
+      return;
+    }
+    if(a<0&&!Number.isInteger(x)){
+      showError("A negative base with a non-integer exponent may not have a real-number result. Please use a whole-number exponent.");
+      return;
+    }
+    const answer=Math.pow(a,x);
+    if(!Number.isFinite(answer)){
+      showError("The result is too large or not finite. Try smaller values.");
+      return;
+    }
+    showSuccess(a+" ^ "+x+" =",Number(answer.toPrecision(12)).toLocaleString("en-US",{maximumFractionDigits:12}),"Calculated using the exponential power rule.");
+    const formula=document.createElement("div");
+    formula.className="formula";
+    formula.textContent=a+"^"+x+" = "+answer;
+    result.appendChild(formula);
+  }else{
+    const aRaw=document.getElementById("solveBase").value.trim();
+    const bRaw=document.getElementById("target").value.trim();
+    if(aRaw===""||bRaw===""){
+      showError("Please enter both the base and the target result.");
+      return;
+    }
+    const a=Number(aRaw),b=Number(bRaw);
+    if(!Number.isFinite(a)||!Number.isFinite(b)||a<=0||a===1||b<=0){
+      showError("Use a positive base other than 1 and a positive target result.");
+      return;
+    }
+    const x=Math.log(b)/Math.log(a);
+    if(!Number.isFinite(x)){
+      showError("Unable to calculate a finite exponent for these values.");
+      return;
+    }
+    const rounded=Number(x.toPrecision(12));
+    showSuccess("Solution for "+a+"ˣ = "+b,"x = "+rounded,"The exponent is calculated using x = log(b) / log(a).");
+    const formula=document.createElement("div");
+    formula.className="formula";
+    formula.textContent="Check: "+a+"^"+rounded+" ≈ "+Math.pow(a,rounded);
+    result.appendChild(formula);
+  }
+}
+
+valueTab.addEventListener("click",()=>setMode("value"));
+solveTab.addEventListener("click",()=>setMode("solve"));
+document.getElementById("calculate").addEventListener("click",calculate);
+document.getElementById("example").addEventListener("click",()=>{
+  if(mode==="value"){
+    document.getElementById("base").value="2";
+    document.getElementById("exp").value="5";
+  }else{
+    document.getElementById("solveBase").value="2";
+    document.getElementById("target").value="32";
+  }
+  calculate();
+});
+document.getElementById("reset").addEventListener("click",()=>{
+  document.querySelectorAll("input").forEach(input=>input.value="");
+  result.className="result";
+  result.textContent="";
+});
+document.querySelectorAll("[data-mode]").forEach(button=>{
+  button.addEventListener("click",()=>{
+    setMode(button.dataset.mode);
+    if(mode==="value"){
+      document.getElementById("base").value=button.dataset.a;
+      document.getElementById("exp").value=button.dataset.b;
+    }else{
+      document.getElementById("solveBase").value=button.dataset.a;
+      document.getElementById("target").value=button.dataset.b;
+    }
+    calculate();
+  });
+});
+document.querySelectorAll("input").forEach(input=>{
+  input.addEventListener("keydown",event=>{
+    if(event.key==="Enter") calculate();
+  });
+});
+</script>
+</body>
+</html>
