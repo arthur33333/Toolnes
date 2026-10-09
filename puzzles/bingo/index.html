@@ -1,1 +1,337 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Create random bingo cards for parties, classrooms, and family games with Toolnes Bingo Generator.">
+  <title>Bingo Generator - Toolnes</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #172033;
+    }
+
+    header {
+      background: #172033;
+      color: white;
+      padding: 22px 16px;
+      text-align: center;
+    }
+
+    header a {
+      color: #a9c7ff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    header h1 { margin: 12px 0 6px; }
+    header p { margin: 0; color: #d7dfed; }
+
+    main {
+      width: min(1000px, 94%);
+      margin: 28px auto;
+    }
+
+    .panel {
+      background: white;
+      padding: 22px;
+      border-radius: 14px;
+      box-shadow: 0 4px 18px #17203312;
+      margin-bottom: 22px;
+    }
+
+    .controls {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: end;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 7px;
+    }
+
+    select, button {
+      font: inherit;
+      padding: 11px 14px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+    }
+
+    select { background: white; }
+
+    button {
+      cursor: pointer;
+      border: none;
+      background: #315efb;
+      color: white;
+      font-weight: bold;
+    }
+
+    button:hover { background: #2448c7; }
+    button.secondary { background: #e8edf5; color: #172033; }
+    button.secondary:hover { background: #d9e1ee; }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .bingo-card {
+      background: white;
+      padding: 14px;
+      border-radius: 12px;
+      box-shadow: 0 4px 18px #17203312;
+      break-inside: avoid;
+    }
+
+    .card-title {
+      text-align: center;
+      margin: 0 0 12px;
+      font-size: 17px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      border-top: 2px solid #172033;
+      border-left: 2px solid #172033;
+    }
+
+    .cell {
+      min-width: 0;
+      aspect-ratio: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-right: 2px solid #172033;
+      border-bottom: 2px solid #172033;
+      font-size: clamp(13px, 2.2vw, 19px);
+      font-weight: bold;
+      overflow-wrap: anywhere;
+    }
+
+    .letter {
+      background: #315efb;
+      color: white;
+      font-size: clamp(17px, 3vw, 25px);
+    }
+
+    .free {
+      background: #dbeafe;
+      color: #1d4ed8;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .instructions {
+      line-height: 1.6;
+      color: #536176;
+    }
+
+    #status {
+      margin-top: 14px;
+      color: #315efb;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px 12px;
+      color: #64748b;
+    }
+
+    footer a { color: #315efb; }
+
+    @media print {
+      body { background: white; }
+      header, .controls-panel, .instructions, footer, #status {
+        display: none !important;
+      }
+      main { width: 100%; margin: 0; }
+      .cards { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .bingo-card {
+        box-shadow: none;
+        border: 1px solid #bbb;
+        padding: 8px;
+      }
+      .cell { font-size: 15px; }
+      .letter { background: #ddd !important; color: black !important; }
+      .free { background: #eee !important; color: black !important; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">← Back to Toolnes</a>
+    <h1>🎱 Bingo Generator</h1>
+    <p>Create random bingo cards in seconds.</p>
+  </header>
+
+  <main>
+    <section class="panel controls-panel">
+      <h2>Create Your Bingo Cards</h2>
+      <div class="controls">
+        <div>
+          <label for="quantity">Number of cards</label>
+          <select id="quantity">
+            <option value="1">1 card</option>
+            <option value="2">2 cards</option>
+            <option value="4" selected>4 cards</option>
+            <option value="6">6 cards</option>
+            <option value="8">8 cards</option>
+            <option value="12">12 cards</option>
+          </select>
+        </div>
+
+        <button id="generate">Generate Cards</button>
+        <button id="print" class="secondary">Print Cards</button>
+      </div>
+      <p id="status" role="status" aria-live="polite"></p>
+    </section>
+
+    <section id="cards" class="cards" aria-label="Generated bingo cards"></section>
+
+    <section class="panel instructions">
+      <h2>How to Play Bingo</h2>
+      <p>1. Generate and print your bingo cards.</p>
+      <p>2. Call out numbers from 1 to 75.</p>
+      <p>3. Mark each matching number on your card.</p>
+      <p>4. The first player to complete a horizontal, vertical, or diagonal line wins!</p>
+      <p>The center square is a free space.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Free online tools at <a href="/">Toolnes</a>.</p>
+  </footer>
+
+  <script>
+    const cardsContainer = document.getElementById("cards");
+    const quantitySelect = document.getElementById("quantity");
+    const status = document.getElementById("status");
+
+    function shuffledNumbers(min, max, count) {
+      const numbers = [];
+
+      for (let n = min; n <= max; n++) {
+        numbers.push(n);
+      }
+
+      for (let i = numbers.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
+      }
+
+      return numbers.slice(0, count);
+    }
+
+    function createCard(cardNumber) {
+      const card = document.createElement("article");
+      card.className = "bingo-card";
+
+      const title = document.createElement("h3");
+      title.className = "card-title";
+      title.textContent = "Bingo Card " + cardNumber;
+      card.appendChild(title);
+
+      const grid = document.createElement("div");
+      grid.className = "grid";
+
+      ["B", "I", "N", "G", "O"].forEach(letter => {
+        const cell = document.createElement("div");
+        cell.className = "cell letter";
+        cell.textContent = letter;
+        grid.appendChild(cell);
+      });
+
+      const ranges = [
+        [1, 15],
+        [16, 30],
+        [31, 45],
+        [46, 60],
+        [61, 75]
+      ];
+
+      const columns = ranges.map((range, index) => {
+        const numbers = shuffledNumbers(range[0], range[1], 5);
+
+        if (index === 2) {
+          numbers[2] = "FREE";
+        }
+
+        return numbers;
+      });
+
+      for (let row = 0; row < 5; row++) {
+        for (let col = 0; col < 5; col++) {
+          const value = columns[col][row];
+          const cell = document.createElement("div");
+          cell.className = "cell";
+
+          if (value === "FREE") {
+            cell.classList.add("free");
+            cell.textContent = "FREE";
+            cell.setAttribute("aria-label", "Free space");
+          } else {
+            cell.textContent = value;
+            cell.title = "Click to mark or unmark";
+            cell.tabIndex = 0;
+            cell.setAttribute("role", "button");
+            cell.setAttribute("aria-pressed", "false");
+
+            function toggleCell() {
+              const marked = cell.classList.toggle("free");
+              cell.textContent = marked ? "✓" : value;
+              cell.setAttribute("aria-pressed", String(marked));
+              cell.setAttribute(
+                "aria-label",
+                "Number " + value + (marked ? ", marked" : ", not marked")
+              );
+            }
+
+            cell.addEventListener("click", toggleCell);
+            cell.addEventListener("keydown", event => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                toggleCell();
+              }
+            });
+          }
+
+          grid.appendChild(cell);
+        }
+      }
+
+      card.appendChild(grid);
+      return card;
+    }
+
+    function generateCards() {
+      const quantity = Number(quantitySelect.value);
+      cardsContainer.replaceChildren();
+
+      for (let i = 1; i <= quantity; i++) {
+        cardsContainer.appendChild(createCard(i));
+      }
+
+      status.textContent = quantity + (quantity === 1
+        ? " bingo card generated."
+        : " bingo cards generated.");
+    }
+
+    document.getElementById("generate").addEventListener("click", generateCards);
+    document.getElementById("print").addEventListener("click", () => window.print());
+
+    generateCards();
+  </script>
+</body>
+</html>
