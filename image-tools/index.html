@@ -1,1 +1,447 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Free Online Image Tools - Toolnes</title>
+  <meta name="description" content="Free online image tools to compress, resize, convert, crop and edit images. Easy to use, fast and accessible directly from your browser.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://toolnes.netlify.app/image-tools/">
+
+  <meta property="og:title" content="Free Online Image Tools - Toolnes">
+  <meta property="og:description" content="Compress, resize, convert and edit images with free online tools.">
+  <meta property="og:url" content="https://toolnes.netlify.app/image-tools/">
+  <meta property="og:type" content="website">
+
+  <style>
+    :root {
+      --primary: #635bff;
+      --primary-dark: #5146e5;
+      --background: #f7f8fc;
+      --surface: #ffffff;
+      --text: #172033;
+      --muted: #667085;
+      --border: #e7eaf1;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--background);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1120px, 92%);
+      margin: 0 auto;
+    }
+
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .navbar {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .hero {
+      padding: 68px 0 52px;
+      text-align: center;
+      background: linear-gradient(135deg, #eeedff, #f7f8fc 65%);
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 6px 13px;
+      background: #e2e0ff;
+      color: #5146e5;
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 18px 0 14px;
+      font-size: clamp(32px, 5vw, 48px);
+      line-height: 1.15;
+      letter-spacing: -1.5px;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .section {
+      padding: 48px 0 60px;
+    }
+
+    .section-heading {
+      margin-bottom: 25px;
+    }
+
+    .section-heading h2 {
+      margin: 0 0 7px;
+      font-size: 26px;
+      letter-spacing: -0.5px;
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .tool-card {
+      display: flex;
+      flex-direction: column;
+      min-height: 225px;
+      padding: 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-4px);
+      border-color: #c9c5ff;
+      box-shadow: 0 12px 30px rgba(35, 33, 90, 0.08);
+    }
+
+    .tool-icon {
+      display: grid;
+      place-items: center;
+      width: 52px;
+      height: 52px;
+      margin-bottom: 18px;
+      border-radius: 14px;
+      background: #efeeff;
+      font-size: 27px;
+    }
+
+    .tool-card h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    .tool-card p {
+      flex: 1;
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .tool-link {
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .tool-link span {
+      display: inline-block;
+      transition: transform 0.2s;
+    }
+
+    .tool-card:hover .tool-link span {
+      transform: translateX(4px);
+    }
+
+    .benefits {
+      padding: 34px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+    }
+
+    .benefits h2 {
+      margin-top: 0;
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .benefit h3 {
+      margin-bottom: 6px;
+      font-size: 16px;
+    }
+
+    .benefit p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .breadcrumb {
+      padding: 18px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--primary);
+    }
+
+    footer {
+      margin-top: 20px;
+      padding: 28px 0;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 15px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+
+    @media (max-width: 900px) {
+      .tools-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 600px) {
+      .navbar {
+        min-height: 64px;
+      }
+
+      .nav-links {
+        gap: 12px;
+        font-size: 12px;
+      }
+
+      .hero {
+        padding: 48px 0 38px;
+      }
+
+      .hero p {
+        font-size: 15px;
+      }
+
+      .tools-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .tool-card {
+        min-height: 190px;
+      }
+
+      .benefits {
+        padding: 23px;
+      }
+
+      .benefits-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container navbar">
+      <a class="logo" href="/" aria-label="Toolnes homepage">Toolnes</a>
+
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/text-tools/">Text Tools</a>
+        <a href="/calculators/">Calculators</a>
+        <a href="/puzzles/">Puzzles</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container breadcrumb">
+      <a href="/">Home</a> / Image Tools
+    </div>
+
+    <section class="hero">
+      <div class="container">
+        <span class="eyebrow">Free online tools</span>
+        <h1>Free Online Image Tools</h1>
+        <p>
+          Optimize and edit your images in seconds. Compress, resize,
+          convert and crop your pictures with simple online tools.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Explore Image Tools</h2>
+          <p>Choose a tool to get started. No complicated software required.</p>
+        </div>
+
+        <div class="tools-grid">
+
+          <a class="tool-card" href="/image-tools/image-compressor/">
+            <div class="tool-icon" aria-hidden="true">🗜️</div>
+            <h3>Image Compressor</h3>
+            <p>Reduce image file size while keeping good visual quality.</p>
+            <span class="tool-link">Compress Images <span>→</span></span>
+          </a>
+
+          <a class="tool-card" href="/image-tools/image-resizer/">
+            <div class="tool-icon" aria-hidden="true">📐</div>
+            <h3>Image Resizer</h3>
+            <p>Change image width and height for websites and social media.</p>
+            <span class="tool-link">Resize Images <span>→</span></span>
+          </a>
+
+          <a class="tool-card" href="/image-tools/image-converter/">
+            <div class="tool-icon" aria-hidden="true">🔄</div>
+            <h3>Image Converter</h3>
+            <p>Convert images between popular formats such as JPG, PNG and WebP.</p>
+            <span class="tool-link">Convert Images <span>→</span></span>
+          </a>
+
+          <a class="tool-card" href="/image-tools/image-cropper/">
+            <div class="tool-icon" aria-hidden="true">✂️</div>
+            <h3>Image Cropper</h3>
+            <p>Crop pictures to focus on the area you want to keep.</p>
+            <span class="tool-link">Crop Images <span>→</span></span>
+          </a>
+
+          <a class="tool-card" href="/image-tools/image-to-base64/">
+            <div class="tool-icon" aria-hidden="true">💻</div>
+            <h3>Image to Base64</h3>
+            <p>Convert an image into Base64 text for use in web projects.</p>
+            <span class="tool-link">Convert to Base64 <span>→</span></span>
+          </a>
+
+          <a class="tool-card" href="/image-tools/base64-to-image/">
+            <div class="tool-icon" aria-hidden="true">🖼️</div>
+            <h3>Base64 to Image</h3>
+            <p>Turn a Base64 image string back into a downloadable image.</p>
+            <span class="tool-link">Decode Image <span>→</span></span>
+          </a>
+
+          <a class="tool-card" href="/image-tools/image-to-png/">
+            <div class="tool-icon" aria-hidden="true">📄</div>
+            <h3>Image to PNG</h3>
+            <p>Convert supported image files into PNG format.</p>
+            <span class="tool-link">Convert to PNG <span>→</span></span>
+          </a>
+
+          <a class="tool-card" href="/image-tools/image-to-jpg/">
+            <div class="tool-icon" aria-hidden="true">🌄</div>
+            <h3>Image to JPG</h3>
+            <p>Convert supported image files into JPG format.</p>
+            <span class="tool-link">Convert to JPG <span>→</span></span>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="benefits">
+          <h2>Why Use Toolnes Image Tools?</h2>
+
+          <div class="benefits-grid">
+            <div class="benefit">
+              <h3>⚡ Quick and simple</h3>
+              <p>Use straightforward tools without a complicated workflow.</p>
+            </div>
+
+            <div class="benefit">
+              <h3>🔒 Privacy-conscious</h3>
+              <p>Tools can process images in your browser when designed to do so.</p>
+            </div>
+
+            <div class="benefit">
+              <h3>📱 Works on different devices</h3>
+              <p>Use the website on desktop, tablet or mobile screens.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>© <span id="year"></span> Toolnes. All rights reserved.</span>
+
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/">Home</a>
+        <a href="/about/">About</a>
+        <a href="/contact/">Contact</a>
+        <a href="/privacy-policy/">Privacy Policy</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
