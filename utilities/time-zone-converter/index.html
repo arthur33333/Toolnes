@@ -1,1 +1,314 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Convert dates and times between world time zones with this free online time zone converter.">
+  <meta name="robots" content="index, follow">
+  <title>Time Zone Converter - Free Online Tool | Toolnes</title>
+  <link rel="canonical" href="https://toolnes.netlify.app/utilities/time-zone-converter/">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: #f5f7fb; color: #172033; line-height: 1.6; }
+    header { background: white; border-bottom: 1px solid #e5e9f2; padding: 18px 20px; }
+    .nav { max-width: 1000px; margin: auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+    .logo { color: #2563eb; text-decoration: none; font-size: 25px; font-weight: 800; }
+    nav { display: flex; gap: 15px; flex-wrap: wrap; }
+    nav a { color: #344054; text-decoration: none; font-size: 14px; }
+    main { max-width: 850px; margin: 40px auto; padding: 0 20px; }
+    .intro { text-align: center; margin-bottom: 28px; }
+    h1 { font-size: clamp(30px, 5vw, 40px); margin-bottom: 10px; }
+    .intro p { color: #667085; }
+    .card, .result, .info { background: white; border: 1px solid #e4e8f0; border-radius: 15px; padding: 25px; margin-bottom: 22px; }
+    label { display: block; font-weight: 700; margin-bottom: 7px; }
+    input, select { width: 100%; padding: 12px; border: 1px solid #cfd6e4; border-radius: 8px; font-size: 16px; margin-bottom: 18px; background: white; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    button { padding: 12px 16px; border: 0; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; }
+    .primary { width: 100%; background: #2563eb; color: white; padding: 14px; font-size: 16px; }
+    .primary:hover { background: #1d4ed8; }
+    .secondary { background: #eff6ff; color: #1d4ed8; margin-bottom: 18px; }
+    .result { display: none; }
+    .result-time { font-size: clamp(25px, 5vw, 34px); color: #2563eb; font-weight: 800; overflow-wrap: anywhere; }
+    .result-date { color: #475467; }
+    .error { color: #b42318; font-weight: 700; }
+    .hint { color: #667085; font-size: 13px; margin-top: -12px; margin-bottom: 18px; }
+    .info h2 { font-size: 22px; }
+    .info p, .info li { color: #596579; }
+    footer { text-align: center; padding: 25px 15px; color: #667085; background: white; border-top: 1px solid #e5e9f2; }
+    footer a { color: #2563eb; text-decoration: none; margin: 0 7px; }
+    @media (max-width: 520px) { .field-row { grid-template-columns: 1fr; gap: 0; } .card, .result, .info { padding: 18px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <a class="logo" href="/">Toolnes</a>
+      <nav aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/utilities/">Utilities</a>
+        <a href="/calculators/">Calculators</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <h1>Time Zone Converter</h1>
+      <p>Convert a date and time between cities and time zones around the world.</p>
+    </section>
+
+    <section class="card">
+      <label for="sourceZone">From time zone</label>
+      <select id="sourceZone"></select>
+
+      <label for="targetZone">To time zone</label>
+      <select id="targetZone"></select>
+
+      <button type="button" class="secondary" id="swapZones">⇄ Swap Time Zones</button>
+
+      <label for="sourceDate">Date</label>
+      <input type="date" id="sourceDate">
+
+      <label for="sourceTime">Time</label>
+      <input type="time" id="sourceTime" value="12:00">
+
+      <p class="hint">The selected date matters because daylight saving time may change the time difference.</p>
+
+      <button type="button" class="primary" id="convertButton">Convert Time</button>
+      <p id="error" class="error" role="alert"></p>
+    </section>
+
+    <section class="result" id="result" aria-live="polite">
+      <h2>Converted Time</h2>
+      <div class="result-time" id="convertedTime"></div>
+      <p class="result-date" id="convertedDate"></p>
+      <p id="difference"></p>
+      <button type="button" class="secondary" id="copyButton">Copy Result</button>
+      <p id="copyStatus" role="status"></p>
+    </section>
+
+    <section class="info">
+      <h2>How to Use the Time Zone Converter</h2>
+      <ol>
+        <li>Select the original time zone and the destination time zone.</li>
+        <li>Choose the date and time you want to convert.</li>
+        <li>Click Convert Time to see the local date and time at the destination.</li>
+      </ol>
+      <h2>Why Can the Time Difference Change?</h2>
+      <p>Some locations observe daylight saving time, while others do not. This converter uses the time zone rules built into your browser to account for date-dependent differences.</p>
+      <p>Time zones are selected by region and city, rather than by a fixed UTC offset, so seasonal changes can be reflected.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Toolnes. All rights reserved.</p>
+    <p><a href="/">Home</a><a href="/utilities/">Utilities</a><a href="/privacy-policy/">Privacy Policy</a><a href="/contact/">Contact</a></p>
+  </footer>
+
+  <script>
+    const zones = [
+      ["UTC", "UTC"],
+      ["Africa/Algiers", "Algiers"],
+      ["Africa/Cairo", "Cairo"],
+      ["Africa/Casablanca", "Casablanca"],
+      ["Africa/Johannesburg", "Johannesburg"],
+      ["Africa/Lagos", "Lagos"],
+      ["Africa/Nairobi", "Nairobi"],
+      ["America/Anchorage", "Anchorage"],
+      ["America/Argentina/Buenos_Aires", "Buenos Aires"],
+      ["America/Chicago", "Chicago"],
+      ["America/Denver", "Denver"],
+      ["America/Los_Angeles", "Los Angeles"],
+      ["America/Mexico_City", "Mexico City"],
+      ["America/New_York", "New York"],
+      ["America/Phoenix", "Phoenix"],
+      ["America/Sao_Paulo", "Sao Paulo"],
+      ["America/St_Johns", "St. John's"],
+      ["Asia/Almaty", "Almaty"],
+      ["Asia/Bangkok", "Bangkok"],
+      ["Asia/Dhaka", "Dhaka"],
+      ["Asia/Dubai", "Dubai"],
+      ["Asia/Hong_Kong", "Hong Kong"],
+      ["Asia/Jakarta", "Jakarta"],
+      ["Asia/Jerusalem", "Jerusalem"],
+      ["Asia/Karachi", "Karachi"],
+      ["Asia/Kathmandu", "Kathmandu"],
+      ["Asia/Kolkata", "Mumbai / Kolkata"],
+      ["Asia/Riyadh", "Riyadh"],
+      ["Asia/Seoul", "Seoul"],
+      ["Asia/Shanghai", "Shanghai / Beijing"],
+      ["Asia/Singapore", "Singapore"],
+      ["Asia/Tokyo", "Tokyo"],
+      ["Australia/Adelaide", "Adelaide"],
+      ["Australia/Brisbane", "Brisbane"],
+      ["Australia/Melbourne", "Melbourne"],
+      ["Australia/Perth", "Perth"],
+      ["Australia/Sydney", "Sydney"],
+      ["Europe/Amsterdam", "Amsterdam"],
+      ["Europe/Athens", "Athens"],
+      ["Europe/Berlin", "Berlin"],
+      ["Europe/Istanbul", "Istanbul"],
+      ["Europe/London", "London"],
+      ["Europe/Madrid", "Madrid"],
+      ["Europe/Moscow", "Moscow"],
+      ["Europe/Paris", "Paris"],
+      ["Europe/Rome", "Rome"],
+      ["Pacific/Auckland", "Auckland"],
+      ["Pacific/Honolulu", "Honolulu"]
+    ];
+
+    const sourceZone = document.getElementById("sourceZone");
+    const targetZone = document.getElementById("targetZone");
+    const sourceDate = document.getElementById("sourceDate");
+    const sourceTime = document.getElementById("sourceTime");
+    const error = document.getElementById("error");
+    const result = document.getElementById("result");
+
+    function fillZones() {
+      zones.forEach(([value, label]) => {
+        sourceZone.add(new Option(label + " (" + value + ")", value));
+        targetZone.add(new Option(label + " (" + value + ")", value));
+      });
+      sourceZone.value = "Africa/Algiers";
+      targetZone.value = "America/New_York";
+    }
+
+    function partsAt(date, timeZone) {
+      const parts = new Intl.DateTimeFormat("en-GB", {
+        timeZone,
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hourCycle: "h23"
+      }).formatToParts(date);
+
+      const values = {};
+      parts.forEach(part => {
+        if (part.type !== "literal") values[part.type] = Number(part.value);
+      });
+      return values;
+    }
+
+    function zonedDateToUTC(dateString, timeString, zone) {
+      const [year, month, day] = dateString.split("-").map(Number);
+      const [hour, minute] = timeString.split(":").map(Number);
+      const desiredAsUTC = Date.UTC(year, month - 1, day, hour, minute);
+      let guess = desiredAsUTC;
+
+      // Iteratively match the selected local clock time to the UTC instant.
+      for (let i = 0; i < 4; i++) {
+        const p = partsAt(new Date(guess), zone);
+        const representedAsUTC = Date.UTC(
+          p.year, p.month - 1, p.day, p.hour, p.minute, p.second
+        );
+        const adjustment = desiredAsUTC - representedAsUTC;
+        guess += adjustment;
+        if (adjustment === 0) break;
+      }
+
+      const check = partsAt(new Date(guess), zone);
+      if (check.year !== year || check.month !== month ||
+          check.day !== day || check.hour !== hour ||
+          check.minute !== minute) {
+        throw new Error("This local time may not exist because of a daylight saving time change. Please choose another time.");
+      }
+      return new Date(guess);
+    }
+
+    function formatDateTime(date, zone) {
+      return new Intl.DateTimeFormat("en-US", {
+        timeZone: zone,
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+        timeZoneName: "short"
+      }).format(date);
+    }
+
+    function offsetMinutes(date, zone) {
+      const p = partsAt(date, zone);
+      const represented = Date.UTC(
+        p.year, p.month - 1, p.day, p.hour, p.minute, p.second
+      );
+      return Math.round((represented - date.getTime()) / 60000);
+    }
+
+    function formatOffset(minutes) {
+      const sign = minutes >= 0 ? "+" : "-";
+      const abs = Math.abs(minutes);
+      return "UTC" + sign + String(Math.floor(abs / 60)).padStart(2, "0") +
+        ":" + String(abs % 60).padStart(2, "0");
+    }
+
+    document.getElementById("convertButton").addEventListener("click", () => {
+      error.textContent = "";
+      result.style.display = "none";
+      document.getElementById("copyStatus").textContent = "";
+
+      if (!sourceDate.value || !sourceTime.value) {
+        error.textContent = "Please select a date and time.";
+        return;
+      }
+
+      try {
+        const instant = zonedDateToUTC(
+          sourceDate.value, sourceTime.value, sourceZone.value
+        );
+
+        const converted = formatDateTime(instant, targetZone.value);
+        const fromOffset = formatOffset(offsetMinutes(instant, sourceZone.value));
+        const toOffset = formatOffset(offsetMinutes(instant, targetZone.value));
+
+        document.getElementById("convertedTime").textContent = converted;
+        document.getElementById("convertedDate").textContent =
+          "Original time: " + formatDateTime(instant, sourceZone.value);
+        document.getElementById("difference").textContent =
+          "UTC offset at this date: " + fromOffset + " → " + toOffset + ".";
+
+        result.style.display = "block";
+      } catch (e) {
+        error.textContent = e.message || "Unable to convert this time. Please check your selection.";
+      }
+    });
+
+    document.getElementById("swapZones").addEventListener("click", () => {
+      const previous = sourceZone.value;
+      sourceZone.value = targetZone.value;
+      targetZone.value = previous;
+      result.style.display = "none";
+      error.textContent = "";
+    });
+
+    document.getElementById("copyButton").addEventListener("click", async () => {
+      const text = "Converted time: " +
+        document.getElementById("convertedTime").textContent +
+        "\n" + document.getElementById("convertedDate").textContent;
+
+      try {
+        await navigator.clipboard.writeText(text);
+        document.getElementById("copyStatus").textContent = "Result copied.";
+      } catch {
+        document.getElementById("copyStatus").textContent =
+          "Copy is not available in this browser. Please select and copy the result manually.";
+      }
+    });
+
+    const now = new Date();
+    sourceDate.value = [
+      now.getFullYear(),
+      String(now.getMonth() + 1).padStart(2, "0"),
+      String(now.getDate()).padStart(2, "0")
+    ].join("-");
+    fillZones();
+  </script>
+</body>
+</html>
+```
 
