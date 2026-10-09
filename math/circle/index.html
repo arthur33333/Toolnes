@@ -1,1 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free Circle Calculator. Calculate the area, circumference, diameter and radius of a circle instantly.">
+  <title>Circle Calculator - Toolnes</title>
+  <style>
+    :root {
+      --bg: #f7f8fc;
+      --text: #20243a;
+      --muted: #697087;
+      --primary: #6257e8;
+      --border: #e7e9f2;
+      --white: #fff;
+    }
 
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      max-width: 1100px;
+      margin: auto;
+      padding: 17px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      color: var(--primary);
+      font-size: 25px;
+      font-weight: 800;
+      text-decoration: none;
+      letter-spacing: -1px;
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #4b5066;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    nav a:hover { color: var(--primary); }
+
+    main {
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 36px 20px 60px;
+    }
+
+    .breadcrumb {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+
+    .breadcrumb a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .intro { margin-bottom: 25px; }
+
+    h1 {
+      font-size: clamp(30px, 5vw, 42px);
+      line-height: 1.2;
+      letter-spacing: -1.2px;
+      margin: 0 0 12px;
+    }
+
+    .intro p {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .calculator {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 27px;
+      box-shadow: 0 8px 30px rgba(30, 35, 80, 0.04);
+    }
+
+    .circle-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 4px auto 25px;
+      padding: 12px;
+    }
+
+    .circle-visual svg {
+      width: 180px;
+      height: 180px;
+      max-width: 100%;
+    }
+
+    .field { margin-bottom: 19px; }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 7px;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    input, select {
+      width: 100%;
+      min-width: 0;
+      padding: 13px 14px;
+      font-size: 16px;
+      color: var(--text);
+      background: white;
+      border: 1px solid #dfe2ed;
+      border-radius: 10px;
+      outline: none;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(98, 87, 232, 0.12);
+    }
+
+    .unit-select { max-width: 125px; }
+
+    .hint {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 6px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 23px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 19px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .primary {
+      background: var(--primary);
+      color: white;
+      flex: 1;
+    }
+
+    .primary:hover { background: #5145d4; }
+
+    .secondary {
+      background: #f0efff;
+      color: var(--primary);
+    }
+
+    .results {
+      display: none;
+      margin-top: 25px;
+      border-top: 1px solid var(--border);
+      padding-top: 23px;
+    }
+
+    .results.visible { display: block; }
+
+    .results h2 {
+      font-size: 20px;
+      margin: 0 0 14px;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .result-card {
+      background: #f7f6ff;
+      border: 1px solid #e9e6ff;
+      border-radius: 12px;
+      padding: 16px;
+      min-width: 0;
+    }
+
+    .result-card .name {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 5px;
+    }
+
+    .result-card .value {
+      font-size: clamp(18px, 3vw, 23px);
+      font-weight: 800;
+      overflow-wrap: anywhere;
+    }
+
+    .result-card .unit {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 3px;
+    }
+
+    .message {
+      margin-top: 15px;
+      color: #b42318;
+      font-size: 14px;
+      display: none;
+    }
+
+    .message.visible { display: block; }
+
+    .info-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-top: 22px;
+    }
+
+    .info-card h2 {
+      font-size: 20px;
+      margin: 0 0 12px;
+    }
+
+    .formula {
+      background: #f6f5ff;
+      padding: 12px 15px;
+      border-radius: 9px;
+      margin: 10px 0;
+      font-family: "Courier New", monospace;
+      overflow-wrap: anywhere;
+    }
+
+    .info-card p, .info-card li {
+      color: #555d73;
+      font-size: 14px;
+    }
+
+    .info-card ul { padding-left: 21px; }
+
+    footer {
+      text-align: center;
+      padding: 25px 20px;
+      color: var(--muted);
+      font-size: 13px;
+      border-top: 1px solid var(--border);
+      background: white;
+    }
+
+    @media (max-width: 600px) {
+      .nav { align-items: flex-start; flex-direction: column; }
+      nav { gap: 14px; }
+      main { padding: 26px 14px 45px; }
+      .calculator { padding: 19px; }
+      .result-grid { grid-template-columns: 1fr; }
+      .input-row { gap: 7px; }
+      .unit-select { max-width: 105px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <a class="logo" href="../../index.html">Toolnes</a>
+      <nav aria-label="Main navigation">
+        <a href="../../index.html">Home</a>
+        <a href="../../calculators/index.html">Calculators</a>
+        <a href="../../converters/index.html">Converters</a>
+        <a href="../../puzzles/index.html">Puzzles</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="breadcrumb">
+      <a href="../../index.html">Home</a> /
+      <a href="../index.html">Math</a> / Circle Calculator
+    </div>
+
+    <section class="intro">
+      <h1>Circle Calculator</h1>
+      <p>Calculate the area, circumference, diameter and radius of any circle in seconds. Enter one measurement to get all the others.</p>
+    </section>
+
+    <section class="calculator" aria-label="Circle calculator">
+      <div class="circle-visual" aria-hidden="true">
+        <svg viewBox="0 0 200 200">
+          <circle cx="100" cy="100" r="72" fill="#eeecff" stroke="#6257e8" stroke-width="3"/>
+          <line x1="100" y1="100" x2="172" y2="100" stroke="#e05c8a" stroke-width="3"/>
+          <circle cx="100" cy="100" r="4" fill="#6257e8"/>
+          <text x="130" y="91" fill="#b83264" font-size="13" font-weight="bold">r</text>
+          <text x="100" y="192" text-anchor="middle" fill="#697087" font-size="11">Circle</text>
+        </svg>
+      </div>
+
+      <div class="field">
+        <label for="measurement">Measurement type</label>
+        <select id="measurement">
+          <option value="radius">Radius</option>
+          <option value="diameter">Diameter</option>
+          <option value="circumference">Circumference</option>
+          <option value="area">Area</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="value">Measurement value</label>
+        <div class="input-row">
+          <input id="value" type="number" min="0" step="any" placeholder="Enter a value" inputmode="decimal">
+          <select id="unit" class="unit-select" aria-label="Measurement unit">
+            <option value="units">units</option>
+            <option value="mm">mm</option>
+            <option value="cm">cm</option>
+            <option value="m">m</option>
+            <option value="km">km</option>
+            <option value="in">inches</option>
+            <option value="ft">feet</option>
+            <option value="yd">yards</option>
+            <option value="mi">miles</option>
+          </select>
+        </div>
+        <div class="hint">Use a positive number. The selected unit is used for all results.</div>
+      </div>
+
+      <div class="buttons">
+        <button class="primary" id="calculate" type="button">Calculate Circle</button>
+        <button class="secondary" id="reset" type="button">Reset</button>
+      </div>
+
+      <div class="message" id="error" role="alert"></div>
+
+      <section class="results" id="results" aria-live="polite">
+        <h2>Results</h2>
+        <div class="result-grid">
+          <div class="result-card">
+            <div class="name">Radius</div>
+            <div class="value" id="radiusResult">—</div>
+            <div class="unit" id="linearUnit1">units</div>
+          </div>
+          <div class="result-card">
+            <div class="name">Diameter</div>
+            <div class="value" id="diameterResult">—</div>
+            <div class="unit" id="linearUnit2">units</div>
+          </div>
+          <div class="result-card">
+            <div class="name">Circumference</div>
+            <div class="value" id="circumferenceResult">—</div>
+            <div class="unit" id="linearUnit3">units</div>
+          </div>
+          <div class="result-card">
+            <div class="name">Area</div>
+            <div class="value" id="areaResult">—</div>
+            <div class="unit" id="areaUnit">square units</div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section class="info-card">
+      <h2>Circle formulas</h2>
+      <p>A circle is a two-dimensional shape where every point on its edge is the same distance from the center.</p>
+      <div class="formula">Diameter = 2 × Radius</div>
+      <div class="formula">Circumference = 2 × π × Radius</div>
+      <div class="formula">Area = π × Radius²</div>
+      <p>Here, π (pi) is approximately 3.141592653589793.</p>
+    </section>
+
+    <section class="info-card">
+      <h2>How to use this calculator</h2>
+      <ul>
+        <li>Select the measurement you already know.</li>
+        <li>Enter its positive value and choose the unit.</li>
+        <li>Click <strong>Calculate Circle</strong> to display the four measurements.</li>
+        <li>Use Reset to start a new calculation.</li>
+      </ul>
+      <p>For area, the result is expressed in square units, such as cm² or m². Other results use the selected linear unit.</p>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> Toolnes. Useful tools. Simple and free.
+  </footer>
+
+  <script>
+    const measurement = document.getElementById("measurement");
+    const valueInput = document.getElementById("value");
+    const unitSelect = document.getElementById("unit");
+    const results = document.getElementById("results");
+    const error = document.getElementById("error");
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    function formatNumber(number) {
+      if (!Number.isFinite(number)) return "Too large";
+      return Number(number.toPrecision(12)).toLocaleString("en-US", {
+        maximumFractionDigits: 10,
+        useGrouping: true
+      });
+    }
+
+    function showError(message) {
+      error.textContent = message;
+      error.classList.add("visible");
+      results.classList.remove("visible");
+    }
+
+    function clearError() {
+      error.textContent = "";
+      error.classList.remove("visible");
+    }
+
+    function calculateCircle() {
+      clearError();
+
+      const value = Number(valueInput.value);
+
+      if (valueInput.value.trim() === "" || !Number.isFinite(value) || value <= 0) {
+        showError("Please enter a valid number greater than zero.");
+        valueInput.focus();
+        return;
+      }
+
+      let radius;
+
+      switch (measurement.value) {
+        case "radius":
+          radius = value;
+          break;
+        case "diameter":
+          radius = value / 2;
+          break;
+        case "circumference":
+          radius = value / (2 * Math.PI);
+          break;
+        case "area":
+          radius = Math.sqrt(value / Math.PI);
+          break;
+        default:
+          showError("Please select a valid measurement type.");
+          return;
+      }
+
+      const diameter = 2 * radius;
+      const circumference = 2 * Math.PI * radius;
+      const area = Math.PI * radius * radius;
+
+      if (![radius, diameter, circumference, area].every(Number.isFinite)) {
+        showError("This value is too large to calculate. Please enter a smaller number.");
+        return;
+      }
+
+      const unit = unitSelect.value;
+      const areaUnitLabels = {
+        units: "square units",
+        mm: "mm²",
+        cm: "cm²",
+        m: "m²",
+        km: "km²",
+        in: "in²",
+        ft: "ft²",
+        yd: "yd²",
+        mi: "mi²"
+      };
+
+      document.getElementById("radiusResult").textContent = formatNumber(radius);
+      document.getElementById("diameterResult").textContent = formatNumber(diameter);
+      document.getElementById("circumferenceResult").textContent = formatNumber(circumference);
+      document.getElementById("areaResult").textContent = formatNumber(area);
+
+      document.getElementById("linearUnit1").textContent = unit;
+      document.getElementById("linearUnit2").textContent = unit;
+      document.getElementById("linearUnit3").textContent = unit;
+      document.getElementById("areaUnit").textContent = areaUnitLabels[unit];
+
+      results.classList.add("visible");
+    }
+
+    function resetCalculator() {
+      measurement.value = "radius";
+      valueInput.value = "";
+      unitSelect.value = "units";
+      clearError();
+      results.classList.remove("visible");
+      valueInput.focus();
+    }
+
+    document.getElementById("calculate").addEventListener("click", calculateCircle);
+    document.getElementById("reset").addEventListener("click", resetCalculator);
+
+    valueInput.addEventListener("keydown", function(event) {
+      if (event.key === "Enter") calculateCircle();
+    });
+
+    valueInput.addEventListener("input", clearError);
+  </script>
+</body>
+</html>
