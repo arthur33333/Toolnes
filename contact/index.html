@@ -1,1 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Contact Toolnes. Report a bug, suggest a new free online tool or ask a question.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#17172f">
+  <title>Contact Toolnes</title>
+  <link rel="canonical" href="https://toolnes.netlify.app/contact/">
+  <style>
+    :root{--bg:#17172f;--surface:#20203e;--card:#242443;--text:#f5f3ff;--muted:#b0b1cf;--purple:#a78bfa;--turquoise:#67e8d4;--border:#393858}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,-apple-system,"Segoe UI",Arial,sans-serif;line-height:1.75}
+    a{color:var(--turquoise)}
+    header{background:rgba(23,23,47,.92);border-bottom:1px solid var(--border)}
+    .nav{max-width:900px;margin:auto;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+    .logo{font-size:26px;font-weight:850;letter-spacing:-1px;color:var(--purple);text-decoration:none}
+    .logo span{color:var(--turquoise)}
+    .back{color:var(--muted);font-size:14px;text-decoration:none}
+    main{max-width:900px;margin:auto;padding:50px 24px 70px}
+    h1{font-size:clamp(30px,5vw,44px);line-height:1.15;letter-spacing:-1.5px;margin:0 0 12px}
+    .intro{color:var(--muted);margin:0 0 24px}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:28px}
+    label{display:block;font-weight:700;font-size:14px;margin-bottom:6px}
+    input,textarea{width:100%;border:1px solid var(--border);border-radius:11px;background:var(--surface);color:var(--text);padding:13px 14px;font:inherit;margin-bottom:18px}
+    textarea{min-height:150px;resize:vertical}
+    input:focus,textarea:focus{outline:none;border-color:var(--purple);box-shadow:0 0 0 4px rgba(167,139,250,.12)}
+    button{border:0;border-radius:11px;background:var(--purple);color:#17172f;font:inherit;font-weight:800;padding:13px 22px;cursor:pointer}
+    button:hover{opacity:.9}
+    button:disabled{opacity:.6;cursor:wait}
+    .hidden{display:none}
+    #msg{margin-top:16px;font-size:14px}
+    .ok{color:var(--turquoise)}
+    .err{color:#fca5a5}
+    footer{text-align:center;padding:26px 20px;border-top:1px solid var(--border);color:var(--muted);font-size:13px}
+    footer a{margin:0 8px}
+    @media(max-width:560px){main{padding:35px 16px 50px}.card{padding:20px}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <a class="logo" href="/">Tool<span>nes</span></a>
+      <a class="back" href="/">← Back to all tools</a>
+    </div>
+  </header>
 
+  <main>
+    <h1>Contact Us</h1>
+    <p class="intro">Found a bug, want a new tool, or have a question? Send us a message and we will read it.</p>
+
+    <div class="card">
+      <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="contactForm">
+        <input type="hidden" name="form-name" value="contact">
+        <p class="hidden"><label>Do not fill this out: <input name="bot-field"></label></p>
+
+        <label for="name">Your name</label>
+        <input id="name" name="name" type="text" required autocomplete="name">
+
+        <label for="email">Your email</label>
+        <input id="email" name="email" type="email" required autocomplete="email">
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" required></textarea>
+
+        <button type="submit" id="sendBtn">Send message</button>
+        <div id="msg" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> Toolnes. Free online tools for everyone.</p>
+    <p><a href="/about/">About</a> · <a href="/contact/">Contact</a> · <a href="/privacy-policy/">Privacy Policy</a></p>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const form = document.getElementById("contactForm");
+    const msg = document.getElementById("msg");
+    const btn = document.getElementById("sendBtn");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      btn.disabled = true;
+      msg.className = "";
+      msg.textContent = "Sending...";
+
+      fetch("/", {
+        method: "POST",
+        headers: {"Content-Type": "application/x-www-form-urlencoded"},
+        body: new URLSearchParams(new FormData(form)).toString()
+      })
+      .then(function (r) {
+        if (!r.ok) throw new Error("fail");
+        form.reset();
+        msg.className = "ok";
+        msg.textContent = "Thank you! Your message has been sent.";
+      })
+      .catch(function () {
+        msg.className = "err";
+        msg.textContent = "Sorry, something went wrong. Please try again later.";
+      })
+      .finally(function () { btn.disabled = false; });
+    });
+  </script>
+</body>
+</html>
