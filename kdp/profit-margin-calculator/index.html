@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Calculate your KDP book profit per sale, profit margin and the minimum list price needed to reach your target margin. Free profit margin calculator for authors.">
+  <meta name="robots" content="index, follow">
+  <title>KDP Profit Margin Calculator - Find Your Book Profit | Toolnes</title>
+  <link rel="canonical" href="https://toolnes.netlify.app/kdp/profit-margin-calculator/">
+  <meta property="og:title" content="KDP Profit Margin Calculator - Find Your Book Profit">
+  <meta property="og:description" content="See your profit per sale, margin and the minimum price to hit your target margin.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toolnes.netlify.app/kdp/profit-margin-calculator/">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"What is a good profit margin for a KDP book?","acceptedAnswer":{"@type":"Answer","text":"Many authors aim for a margin of at least 25 to 30 percent after printing and advertising costs, but the right target depends on your niche and strategy."}},
+    {"@type":"Question","name":"How do I calculate profit per sale?","acceptedAnswer":{"@type":"Answer","text":"Multiply the list price by the royalty rate, then subtract the printing cost and any advertising cost per sale."}},
+    {"@type":"Question","name":"Why include advertising cost per sale?","acceptedAnswer":{"@type":"Answer","text":"If you run ads, the money spent to get each sale reduces your real profit. Including it shows whether your ads are profitable."}}
+  ]}
+  </script>
+  <style>
+    :root{--primary:#5b45d6;--primary-dark:#4431b2;--bg:#f5f6fb;--card:#fff;--text:#202438;--muted:#687087;--border:#e1e5ef;--green:#16865c;--red:#c0394b}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+    header{background:#fff;border-bottom:1px solid var(--border);padding:18px 20px}
+    .nav{max-width:1050px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:16px}
+    .brand{color:var(--primary);font-weight:800;font-size:1.35rem;text-decoration:none}
+    .back{color:var(--muted);text-decoration:none;font-size:.92rem}
+    main{max-width:1050px;margin:35px auto;padding:0 18px}
+    .eyebrow{color:var(--primary);text-transform:uppercase;font-size:.78rem;font-weight:800;letter-spacing:1.3px}
+    h1{font-size:clamp(2rem,5vw,3rem);line-height:1.15;margin:8px 0 12px}
+    h2{font-size:1.25rem;margin-top:0}
+    .intro{color:var(--muted);max-width:720px;margin-bottom:25px}
+    .layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;box-shadow:0 5px 20px rgba(30,35,70,.035)}
+    .field{margin-bottom:17px}
+    label{display:block;font-weight:700;font-size:.92rem;margin-bottom:7px}
+    input,select{width:100%;min-height:45px;border:1px solid #cfd5e3;border-radius:9px;padding:10px 12px;font:inherit;color:var(--text);background:#fff}
+    input:focus,select:focus{outline:2px solid #d4ceff;border-color:var(--primary)}
+    .hint{display:block;font-size:.82rem;color:var(--muted);margin-top:5px}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+    .results{background:#f7f6ff;border:1px solid #e0dcff;border-radius:12px;padding:17px;margin-bottom:18px}
+    .result-label{color:var(--muted);font-size:.9rem}
+    .big-number{font-size:clamp(1.9rem,4vw,2.5rem);line-height:1.2;font-weight:800;color:var(--primary);overflow-wrap:anywhere;margin:5px 0}
+    .result-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+    .mini{padding:14px;border:1px solid var(--border);border-radius:11px;min-width:0}
+    .mini strong{display:block;font-size:1.18rem;margin-top:5px;overflow-wrap:anywhere}
+    .positive{color:var(--green)}
+    .negative{color:var(--red)}
+    .breakdown{border-collapse:collapse;width:100%;font-size:.93rem}
+    .breakdown td{padding:11px 0;border-bottom:1px solid var(--border)}
+    .breakdown td:last-child{text-align:right;font-weight:700;padding-left:10px}
+    .status{min-height:24px;font-size:.9rem;margin-top:12px;color:var(--red)}
+    .ad-slot{margin:25px 0;text-align:center}
+    .content-section{margin-top:25px}
+    .content-section p,.content-section li{color:var(--muted)}
+    .content-section a{color:var(--primary);font-weight:700}
+    .example{background:#f7f6ff;border-left:4px solid var(--primary);border-radius:8px;padding:14px 16px;color:var(--text)!important}
+    .notice{background:#fff9e9;border:1px solid #f0dfad;border-radius:12px;padding:16px;color:#6d571d;font-size:.91rem}
+    footer{border-top:1px solid var(--border);padding:25px 18px;text-align:center;color:var(--muted);background:#fff;margin-top:40px}
+    footer a{color:var(--primary)}
+    @media(max-width:720px){.layout{grid-template-columns:1fr}main{margin-top:25px}.card{padding:19px}}
+    @media(max-width:400px){.two,.result-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <a class="brand" href="/">Toolnes</a>
+      <a class="back" href="/kdp/">← All KDP Tools</a>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <div class="eyebrow">KDP & Publishing Tools</div>
+      <h1>KDP Profit Margin Calculator</h1>
+      <p class="intro">Find out how much profit you really keep on each book after printing and advertising costs, and discover the minimum list price you need to reach your target profit margin.</p>
+    </section>
+
+    <div class="layout">
+      <section class="card">
+        <h2>Your Book Costs</h2>
+        <div class="field">
+          <label for="currency">Currency</label>
+          <select id="currency">
+            <option value="USD">USD — US Dollar</option>
+            <option value="GBP">GBP — British Pound</option>
+            <option value="EUR">EUR — Euro</option>
+            <option value="CAD">CAD — Canadian Dollar</option>
+            <option value="AUD">AUD — Australian Dollar</option>
+          </select>
+        </div>
+        <div class="two">
+          <div class="field">
+            <label for="price">List price</label>
+            <input id="price" type="number" min="0" step="0.01" value="12.99">
+          </div>
+          <div class="field">
+            <label for="rate">Royalty rate (%)</label>
+            <input id="rate" type="number" min="0" max="100" step="0.1" value="60">
+          </div>
+        </div>
+        <div class="two">
+          <div class="field">
+            <label for="print">Printing cost per copy</label>
+            <input id="print" type="number" min="0" step="0.01" value="4.20">
+          </div>
+          <div class="field">
+            <label for="ads">Ad cost per sale</label>
+            <input id="ads" type="number" min="0" step="0.01" value="1.50">
+          </div>
+        </div>
+        <span class="hint">Ad cost per sale: your ad spend divided by the sales it brought. Enter 0 if you do not run ads.</span>
+        <div class="two" style="margin-top:17px">
+          <div class="field">
+            <label for="sales">Expected sales</label>
+            <input id="sales" type="number" min="0" step="1" value="200">
+          </div>
+          <div class="field">
+            <label for="target">Target margin (%)</label>
+            <input id="target" type="number" min="0" max="100" step="0.5" value="30">
+          </div>
+        </div>
+        <div id="status" class="status" role="status" aria-live="polite"></div>
+      </section>
+
+      <section class="card" aria-live="polite">
+        <h2>Your Profit</h2>
+        <div class="results">
+          <div class="result-label">Profit per sale</div>
+          <div class="big-number" id="perSale">—</div>
+          <div class="result-label" id="verdict"></div>
+        </div>
+        <div class="result-grid">
+          <div class="mini"><span class="result-label">Profit margin</span><strong id="margin">—</strong></div>
+          <div class="mini"><span class="result-label">Total profit</span><strong id="total">—</strong></div>
+          <div class="mini"><span class="result-label">Minimum price for target</span><strong id="minPrice">—</strong></div>
+          <div class="mini"><span class="result-label">Total ad spend</span><strong id="totalAds">—</strong></div>
+        </div>
+        <table class="breakdown">
+          <tbody>
+            <tr><td>Royalty before costs</td><td id="gross">—</td></tr>
+            <tr><td>Printing cost</td><td id="outPrint">—</td></tr>
+            <tr><td>Ad cost per sale</td><td id="outAds">—</td></tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+
+    <!-- Place your ad code here -->
+    <div class="ad-slot" id="ad-slot-1"></div>
+
+    <section class="card content-section">
+      <h2>How Profit Margin Is Calculated</h2>
+      <p>Profit margin tells you what share of the list price you actually keep after every cost. This calculator uses:</p>
+      <p class="example"><strong>Profit per sale = (list price × royalty rate) − printing cost − ad cost per sale<br>Margin = profit per sale ÷ list price</strong></p>
+      <p>For example, with a 12.99 list price, a 60% rate, 4.20 printing and 1.50 ad cost, the royalty before costs is 7.79 and the profit is about 2.09 per sale, a margin of roughly 16%. If your target is 30%, the tool shows the higher price you would need.</p>
+      <h3>Ways to improve your margin</h3>
+      <ul>
+        <li>Raise your price in small steps and watch your sales.</li>
+        <li>Lower printing cost with a smaller page count or a larger trim size.</li>
+        <li>Improve your ads, because a lower ad cost per sale lifts profit directly.</li>
+      </ul>
+      <p>Not sure about your page count? Try the <a href="/kdp/word-count-to-pages/">Word Count to Pages Converter</a>, then check your earnings with the <a href="/kdp/royalty-calculator/">Royalty Calculator</a>.</p>
+    </section>
+
+    <section class="notice content-section">
+      <strong>Important:</strong> This is a planning estimate, not an official Amazon KDP calculation. Royalty rates, printing costs and eligibility depend on your marketplace and book format. Verify current figures in your KDP account.
+    </section>
+
+    <section class="card content-section">
+      <h2>Frequently Asked Questions</h2>
+      <h3>What is a good profit margin for a KDP book?</h3>
+      <p>Many authors aim for at least 25 to 30 percent after printing and advertising costs, but the right target depends on your niche and strategy.</p>
+      <h3>How do I calculate profit per sale?</h3>
+      <p>Multiply the list price by the royalty rate, then subtract the printing cost and any advertising cost per sale.</p>
+      <h3>Why include advertising cost per sale?</h3>
+      <p>If you run ads, the money spent to get each sale reduces your real profit. Including it shows whether your ads are profitable.</p>
+    </section>
+
+    <section class="card content-section">
+      <h2>More KDP Tools</h2>
+      <p>
+        <a href="/kdp/royalty-calculator/">Royalty Calculator</a> ·
+        <a href="/kdp/word-count-to-pages/">Word Count to Pages</a> ·
+        <a href="/kdp/page-count-planner/">Page Count Planner</a> ·
+        <a href="/kdp/spine-width-calculator/">Spine Width Calculator</a> ·
+        <a href="/kdp/trim-size-calculator/">Trim Size Calculator</a>
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> Toolnes — Free Online Tools</p>
+    <p><a href="/kdp/">Explore more KDP & Publishing Tools</a></p>
+  </footer>
+
+  <script>
+    (() => {
+      const $ = (id) => document.getElementById(id);
+      const num = (id) => Number($(id).value);
+
+      function money(v) {
+        const c = $("currency").value;
+        try {
+          return new Intl.NumberFormat("en-US", {style: "currency", currency: c}).format(v);
+        } catch { return v.toFixed(2) + " " + c; }
+      }
+
+      function update() {
+        const price = num("price"), rate = num("rate"), print = num("print");
+        const ads = num("ads"), sales = num("sales"), target = num("target");
+
+        const bad = [["List price", price], ["Royalty rate", rate], ["Printing cost", print], ["Ad cost", ads], ["Expected sales", sales], ["Target margin", target]]
+          .find(([, v]) => !Number.isFinite(v) || v < 0);
+        if (bad || rate > 100 || target > 100) {
+          $("status").textContent = "Check your inputs: enter valid values (percentages up to 100).";
+          return;
+        }
+        $("status").textContent = "";
+
+        const gross = price * rate / 100;
+        const perSale = gross - print - ads;
+        const margin = price > 0 ? perSale / price * 100 : 0;
+        const total = perSale * sales;
+
+        let minPrice = "Not reachable";
+        const spread = (rate - target) / 100;
+        if (spread > 0) minPrice = money((print + ads) / spread);
+
+        $("perSale").textContent = money(perSale);
+        $("perSale").className = "big-number " + (perSale >= 0 ? "positive" : "negative");
+        $("verdict").textContent = margin >= target
+          ? "Your margin meets your " + target + "% target."
+          : "Your margin is below your " + target + "% target.";
+        $("margin").textContent = margin.toFixed(2) + "%";
+        $("total").textContent = money(total);
+        $("total").className = total >= 0 ? "positive" : "negative";
+        $("minPrice").textContent = minPrice;
+        $("totalAds").textContent = money(ads * sales);
+        $("gross").textContent = money(gross);
+        $("outPrint").textContent = money(print);
+        $("outAds").textContent = money(ads);
+      }
+
+      ["currency", "price", "rate", "print", "ads", "sales", "target"].forEach((id) => {
+        $(id).addEventListener("input", update);
+        $(id).addEventListener("change", update);
+      });
+      $("year").textContent = new Date().getFullYear();
+      update();
+    })();
+  </script>
+</body>
+</html>
