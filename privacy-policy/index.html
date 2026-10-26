@@ -1,1 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Privacy Policy for Toolnes. Learn how our free online tools handle your data, cookies and third-party advertising.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#17172f">
+  <title>Privacy Policy — Toolnes</title>
+  <link rel="canonical" href="https://toolnes.netlify.app/privacy-policy/">
+  <style>
+    :root{--bg:#17172f;--card:#242443;--text:#f5f3ff;--muted:#b0b1cf;--purple:#a78bfa;--turquoise:#67e8d4;--border:#393858}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,-apple-system,"Segoe UI",Arial,sans-serif;line-height:1.75}
+    a{color:var(--turquoise)}
+    header{background:rgba(23,23,47,.92);border-bottom:1px solid var(--border)}
+    .nav{max-width:900px;margin:auto;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+    .logo{font-size:26px;font-weight:850;letter-spacing:-1px;color:var(--purple);text-decoration:none}
+    .logo span{color:var(--turquoise)}
+    .back{color:var(--muted);font-size:14px;text-decoration:none}
+    main{max-width:900px;margin:auto;padding:50px 24px 70px}
+    h1{font-size:clamp(30px,5vw,44px);line-height:1.15;letter-spacing:-1.5px;margin:0 0 8px}
+    .updated{color:var(--muted);font-size:14px;margin-bottom:30px}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:28px}
+    h2{font-size:20px;margin:28px 0 8px}
+    h2:first-child{margin-top:0}
+    p,li{color:var(--muted)}
+    footer{text-align:center;padding:26px 20px;border-top:1px solid var(--border);color:var(--muted);font-size:13px}
+    footer a{margin:0 8px}
+    @media(max-width:560px){main{padding:35px 16px 50px}.card{padding:20px}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <a class="logo" href="/">Tool<span>nes</span></a>
+      <a class="back" href="/">← Back to all tools</a>
+    </div>
+  </header>
 
+  <main>
+    <h1>Privacy Policy</h1>
+    <p class="updated">Last updated: <span id="date"></span></p>
+
+    <div class="card">
+      <h2>Overview</h2>
+      <p>Toolnes (toolnes.netlify.app) offers free online tools such as calculators, converters and planners. This policy explains what information may be collected when you visit the site and how it is used.</p>
+
+      <h2>Information you enter into our tools</h2>
+      <p>Most Toolnes tools run directly in your browser. The numbers and text you type into calculators and planners are processed on your device and are not sent to us or stored on our servers.</p>
+
+      <h2>Information collected automatically</h2>
+      <p>Like most websites, our hosting provider and analytics or advertising partners may automatically collect technical information such as your IP address, browser type, device type, pages visited and the time of your visit. This helps keep the site secure and understand how it is used.</p>
+
+      <h2>Cookies</h2>
+      <p>Cookies are small files stored on your device. Toolnes and its third-party partners may use cookies to measure traffic and to show advertising. You can block or delete cookies in your browser settings, although some features of the site or of advertisements may not work as expected.</p>
+
+      <h2>Advertising</h2>
+      <p>Toolnes may display advertisements from third-party advertising networks. These partners may use cookies or similar technologies to show ads and measure their performance. They may collect information such as your IP address and browsing activity on this site. We do not control how these third parties use their cookies, so please review their own privacy policies.</p>
+
+      <h2>Google Search Console and analytics</h2>
+      <p>We may use tools such as Google Search Console and web analytics to understand how people find and use the site. These tools provide aggregated statistics about visits.</p>
+
+      <h2>External links</h2>
+      <p>Our pages may link to other websites, including Amazon KDP. We are not responsible for the content or privacy practices of external sites.</p>
+
+      <h2>Children's privacy</h2>
+      <p>Toolnes is not directed at children under 13, and we do not knowingly collect personal information from them.</p>
+
+      <h2>Your choices and rights</h2>
+      <p>Depending on where you live, you may have rights to access, correct or delete personal data, or to object to certain processing, for example under the GDPR or CCPA. Because we collect very little personal information directly, most requests can be handled by managing your browser's cookie settings. You can also contact us with any question.</p>
+
+      <h2>Changes to this policy</h2>
+      <p>We may update this policy from time to time. The date at the top of this page shows when it was last revised.</p>
+
+      <h2>Contact</h2>
+      <p>If you have questions about this Privacy Policy, please visit our <a href="/contact/">Contact page</a>.</p>
+    </div>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> Toolnes. Free online tools for everyone.</p>
+    <p><a href="/about/">About</a> · <a href="/contact/">Contact</a> · <a href="/privacy-policy/">Privacy Policy</a></p>
+  </footer>
+
+  <script>
+    const now = new Date();
+    document.getElementById("year").textContent = now.getFullYear();
+    document.getElementById("date").textContent =
+      now.toLocaleDateString("en-US", {year: "numeric", month: "long", day: "numeric"});
+  </script>
+</body>
+</html>
