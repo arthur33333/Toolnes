@@ -1,1 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Calculate your KDP paperback full-wrap cover size: total width, height, spine width and bleed, in inches, millimeters and pixels at 300 DPI.">
+  <meta name="robots" content="index, follow">
+  <title>KDP Book Cover Size Calculator - Full Wrap Dimensions | Toolnes</title>
+  <link rel="canonical" href="https://toolnes.netlify.app/kdp/cover-size-calculator/">
+  <meta property="og:title" content="KDP Book Cover Size Calculator - Full Wrap Dimensions">
+  <meta property="og:description" content="Get the full cover width, height, spine and bleed for your KDP paperback.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toolnes.netlify.app/kdp/cover-size-calculator/">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"How do I calculate a KDP paperback cover size?","acceptedAnswer":{"@type":"Answer","text":"Cover width equals bleed plus back cover width plus spine width plus front cover width plus bleed. Cover height equals bleed plus trim height plus bleed. KDP requires 0.125 inch bleed."}},
+    {"@type":"Question","name":"What is bleed on a book cover?","acceptedAnswer":{"@type":"Answer","text":"Bleed is extra artwork that extends past the trim edge so no white edge shows after cutting. KDP paperback covers need 0.125 inch of bleed on all sides."}},
+    {"@type":"Question","name":"How is spine width calculated?","acceptedAnswer":{"@type":"Answer","text":"Spine width equals page count multiplied by a paper thickness factor. The factor depends on the interior ink and paper type."}},
+    {"@type":"Question","name":"What DPI should my cover be?","acceptedAnswer":{"@type":"Answer","text":"Design your cover at 300 DPI for sharp printing."}}
+  ]}
+  </script>
+  <style>
+    :root{--primary:#5b45d6;--primary-dark:#4431b2;--bg:#f5f6fb;--card:#fff;--text:#202438;--muted:#687087;--border:#e1e5ef;--red:#c0394b}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+    header{background:#fff;border-bottom:1px solid var(--border);padding:18px 20px}
+    .nav{max-width:1050px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:16px}
+    .brand{color:var(--primary);font-weight:800;font-size:1.35rem;text-decoration:none}
+    .back{color:var(--muted);text-decoration:none;font-size:.92rem}
+    main{max-width:1050px;margin:35px auto;padding:0 18px}
+    .eyebrow{color:var(--primary);text-transform:uppercase;font-size:.78rem;font-weight:800;letter-spacing:1.3px}
+    h1{font-size:clamp(2rem,5vw,3rem);line-height:1.15;margin:8px 0 12px}
+    h2{font-size:1.25rem;margin-top:0}
+    .intro{color:var(--muted);max-width:720px;margin-bottom:25px}
+    .layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;box-shadow:0 5px 20px rgba(30,35,70,.035)}
+    .field{margin-bottom:17px}
+    label{display:block;font-weight:700;font-size:.92rem;margin-bottom:7px}
+    input,select{width:100%;min-height:45px;border:1px solid #cfd5e3;border-radius:9px;padding:10px 12px;font:inherit;color:var(--text);background:#fff}
+    input:focus,select:focus{outline:2px solid #d4ceff;border-color:var(--primary)}
+    .hint{display:block;font-size:.82rem;color:var(--muted);margin-top:5px}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+    .results{background:#f7f6ff;border:1px solid #e0dcff;border-radius:12px;padding:17px;margin-bottom:18px}
+    .result-label{color:var(--muted);font-size:.9rem}
+    .big-number{font-size:clamp(1.7rem,4vw,2.3rem);line-height:1.2;font-weight:800;color:var(--primary);overflow-wrap:anywhere;margin:5px 0}
+    .result-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+    .mini{padding:14px;border:1px solid var(--border);border-radius:11px;min-width:0}
+    .mini strong{display:block;font-size:1.1rem;margin-top:5px;overflow-wrap:anywhere}
+    .breakdown{border-collapse:collapse;width:100%;font-size:.93rem}
+    .breakdown td{padding:11px 0;border-bottom:1px solid var(--border)}
+    .breakdown td:last-child{text-align:right;font-weight:700;padding-left:10px}
+    .status{min-height:24px;font-size:.9rem;margin-top:12px;color:var(--red)}
+    .ad-slot{margin:25px 0;text-align:center}
+    .content-section{margin-top:25px}
+    .content-section p,.content-section li{color:var(--muted)}
+    .content-section a{color:var(--primary);font-weight:700}
+    .example{background:#f7f6ff;border-left:4px solid var(--primary);border-radius:8px;padding:14px 16px;color:var(--text)!important}
+    .notice{background:#fff9e9;border:1px solid #f0dfad;border-radius:12px;padding:16px;color:#6d571d;font-size:.91rem}
+    footer{border-top:1px solid var(--border);padding:25px 18px;text-align:center;color:var(--muted);background:#fff;margin-top:40px}
+    footer a{color:var(--primary)}
+    @media(max-width:720px){.layout{grid-template-columns:1fr}main{margin-top:25px}.card{padding:19px}}
+    @media(max-width:400px){.two,.result-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <a class="brand" href="/">Toolnes</a>
+      <a class="back" href="/kdp/">← All KDP Tools</a>
+    </nav>
+  </header>
 
+  <main>
+    <section>
+      <div class="eyebrow">KDP & Publishing Tools</div>
+      <h1>KDP Book Cover Size Calculator</h1>
+      <p class="intro">Find the full-wrap cover dimensions for your Amazon KDP paperback. Enter your page count, trim size and paper type to get the total width, height, spine width and bleed, ready to give to your designer.</p>
+    </section>
+
+    <div class="layout">
+      <section class="card">
+        <h2>Your Book</h2>
+        <div class="field">
+          <label for="pages">Final page count</label>
+          <input id="pages" type="number" min="24" step="1" value="120">
+          <span class="hint">Use your final interior page count. KDP paperbacks need at least 24 pages.</span>
+        </div>
+        <div class="field">
+          <label for="paper">Interior and paper type</label>
+          <select id="paper">
+            <option value="0.002252" selected>Black &amp; white, white paper</option>
+            <option value="0.0025">Black &amp; white, cream paper</option>
+            <option value="0.002347">Color (premium)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="trim">Trim size (inches)</label>
+          <select id="trim">
+            <option value="5x8">5 × 8</option>
+            <option value="5.25x8">5.25 × 8</option>
+            <option value="5.5x8.5">5.5 × 8.5</option>
+            <option value="6x9" selected>6 × 9</option>
+            <option value="7x10">7 × 10</option>
+            <option value="8x10">8 × 10</option>
+            <option value="8.5x11">8.5 × 11</option>
+            <option value="custom">Custom size</option>
+          </select>
+        </div>
+        <div class="two" id="customFields" hidden>
+          <div class="field">
+            <label for="cw">Width (in)</label>
+            <input id="cw" type="number" min="3" step="0.01" value="6">
+          </div>
+          <div class="field">
+            <label for="ch">Height (in)</label>
+            <input id="ch" type="number" min="3" step="0.01" value="9">
+          </div>
+        </div>
+        <div id="status" class="status" role="status" aria-live="polite"></div>
+      </section>
+
+      <section class="card" aria-live="polite">
+        <h2>Your Cover Dimensions</h2>
+        <div class="results">
+          <div class="result-label">Full cover file (with bleed)</div>
+          <div class="big-number" id="full">—</div>
+          <div class="result-label" id="fullMm"></div>
+        </div>
+        <div class="result-grid">
+          <div class="mini"><span class="result-label">Spine width</span><strong id="spine">—</strong></div>
+          <div class="mini"><span class="result-label">Canvas at 300 DPI</span><strong id="px">—</strong></div>
+          <div class="mini"><span class="result-label">Front / back cover</span><strong id="panel">—</strong></div>
+          <div class="mini"><span class="result-label">Bleed per side</span><strong>0.125 in</strong></div>
+        </div>
+        <table class="breakdown">
+          <tbody>
+            <tr><td>Full width</td><td id="outW">—</td></tr>
+            <tr><td>Full height</td><td id="outH">—</td></tr>
+            <tr><td>Spine text</td><td id="spineText">—</td></tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+
+    <!-- Place your ad code here -->
+    <div class="ad-slot" id="ad-slot-1"></div>
+
+    <section class="card content-section">
+      <h2>How KDP Cover Size Is Calculated</h2>
+      <p>KDP paperback covers are one single file that wraps the back cover, spine and front cover. The formulas are:</p>
+      <p class="example"><strong>Cover width = bleed + back cover + spine + front cover + bleed<br>Cover height = bleed + trim height + bleed<br>Spine width = page count × paper thickness factor</strong></p>
+      <p>KDP requires 0.125 in (3.2 mm) of bleed. For example, a 6 × 9 in book with 120 black &amp; white pages on white paper has a spine of about 0.270 in. The full cover is 12.52 in wide and 9.25 in tall.</p>
+      <h3>Tips for your cover file</h3>
+      <ul>
+        <li>Extend your background art all the way to the bleed edge.</li>
+        <li>Keep important text well inside the trim line.</li>
+        <li>Design at 300 DPI so the print stays sharp.</li>
+        <li>Changing the page count changes the spine, so finalize your interior first.</li>
+      </ul>
+      <p>Need your page count first? Use the <a href="/kdp/word-count-to-pages/">Word Count to Pages Converter</a>, or check the <a href="/kdp/spine-width-calculator/">Spine Width Calculator</a>.</p>
+    </section>
+
+    <section class="notice content-section">
+      <strong>Important:</strong> This is a planning tool. Before you finish your cover, generate the official template with KDP's Cover Calculator and Template Generator using the same page count, trim size and paper type, and design against that template.
+    </section>
+
+    <section class="card content-section">
+      <h2>Frequently Asked Questions</h2>
+      <h3>How do I calculate a KDP paperback cover size?</h3>
+      <p>Add the back cover width, spine width and front cover width, plus 0.125 in of bleed on both outside edges. The height is the trim height plus 0.125 in of bleed at the top and bottom.</p>
+      <h3>What is bleed on a book cover?</h3>
+      <p>Bleed is extra artwork that extends past the trim edge so no white edge shows after cutting. KDP paperback covers need 0.125 in of bleed on all sides.</p>
+      <h3>How is spine width calculated?</h3>
+      <p>Multiply the page count by a paper thickness factor. The factor depends on the interior ink and paper type, which is why white, cream and color books have different spines.</p>
+      <h3>What DPI should my cover be?</h3>
+      <p>Design your cover at 300 DPI for sharp printing.</p>
+    </section>
+
+    <section class="card content-section">
+      <h2>More KDP Tools</h2>
+      <p>
+        <a href="/kdp/spine-width-calculator/">Spine Width Calculator</a> ·
+        <a href="/kdp/trim-size-calculator/">Trim Size Calculator</a> ·
+        <a href="/kdp/word-count-to-pages/">Word Count to Pages</a> ·
+        <a href="/kdp/royalty-calculator/">Royalty Calculator</a> ·
+        <a href="/kdp/profit-margin-calculator/">Profit Margin Calculator</a>
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> Toolnes — Free Online Tools</p>
+    <p><a href="/kdp/">Explore more KDP & Publishing Tools</a></p>
+    <p><a href="/about/">About</a> · <a href="/contact/">Contact</a> · <a href="/privacy-policy/">Privacy Policy</a></p>
+  </footer>
+
+  <script>
+    (() => {
+      const $ = (id) => document.getElementById(id);
+      const BLEED = 0.125;
+      const f3 = (v) => v.toFixed(3);
+      const mm = (v) => (v * 25.4).toFixed(1);
+
+      function update() {
+        $("customFields").hidden = $("trim").value !== "custom";
+        const pages = Number($("pages").value);
+        const factor = Number($("paper").value);
+        let w, h;
+        if ($("trim").value === "custom") {
+          w = Number($("cw").value);
+          h = Number($("ch").value);
+        } else {
+          [w, h] = $("trim").value.split("x").map(Number);
+        }
+
+        if (!Number.isInteger(pages) || pages < 24 || !(w > 0) || !(h > 0)) {
+          $("status").textContent = "Check your inputs: use a whole page count of 24 or more and a valid trim size.";
+          return;
+        }
+        $("status").textContent = "";
+
+        const spine = pages * factor;
+        const fullW = BLEED + w + spine + w + BLEED;
+        const fullH = BLEED + h + BLEED;
+
+        $("full").textContent = f3(fullW) + " × " + f3(fullH) + " in";
+        $("fullMm").textContent = mm(fullW) + " × " + mm(fullH) + " mm";
+        $("spine").textContent = f3(spine) + " in (" + mm(spine) + " mm)";
+        $("px").textContent = Math.round(fullW * 300) + " × " + Math.round(fullH * 300) + " px";
+        $("panel").textContent = w + " × " + h + " in";
+        $("outW").textContent = f3(fullW) + " in";
+        $("outH").textContent = f3(fullH) + " in";
+        $("spineText").textContent = pages >= 80
+          ? "Possible (80+ pages)"
+          : "Leave the spine blank (under 80 pages)";
+      }
+
+      ["pages", "paper", "trim", "cw", "ch"].forEach((id) => {
+        $(id).addEventListener("input", update);
+        $(id).addEventListener("change", update);
+      });
+      $("year").textContent = new Date().getFullYear();
+      update();
+    })();
+  </script>
+</body>
+</html>
