@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free KDP character counter. Check your book title, subtitle, description and 7 keyword boxes against Amazon KDP limits as you type.">
+  <meta name="robots" content="index, follow">
+  <title>KDP Listing Character Counter - Title, Description &amp; Keywords | Toolnes</title>
+  <link rel="canonical" href="https://toolnes.netlify.app/kdp/listing-character-counter/">
+  <meta property="og:title" content="KDP Listing Character Counter">
+  <meta property="og:description" content="Check your title, description and keyword boxes against KDP character limits.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toolnes.netlify.app/kdp/listing-character-counter/">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"What is the KDP title character limit?","acceptedAnswer":{"@type":"Answer","text":"The title and subtitle fields share a combined limit of 200 characters, including spaces. Shorter titles display better on mobile."}},
+    {"@type":"Question","name":"How long can a KDP book description be?","acceptedAnswer":{"@type":"Answer","text":"KDP allows up to 4,000 characters in the book description."}},
+    {"@type":"Question","name":"How many keywords can I use on KDP?","acceptedAnswer":{"@type":"Answer","text":"KDP gives you seven keyword boxes, and each box accepts up to 50 characters."}},
+    {"@type":"Question","name":"Should keywords repeat my title?","acceptedAnswer":{"@type":"Answer","text":"No. Amazon already indexes your title, subtitle and description, so use the keyword boxes for different phrases your title does not cover."}}
+  ]}
+  </script>
+  <style>
+    :root{--primary:#5b45d6;--primary-dark:#4431b2;--bg:#f5f6fb;--card:#fff;--text:#202438;--muted:#687087;--border:#e1e5ef;--green:#16865c;--red:#c0394b;--amber:#b7791f}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+    header{background:#fff;border-bottom:1px solid var(--border);padding:18px 20px}
+    .nav{max-width:1050px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:16px}
+    .brand{color:var(--primary);font-weight:800;font-size:1.35rem;text-decoration:none}
+    .back{color:var(--muted);text-decoration:none;font-size:.92rem}
+    main{max-width:1050px;margin:35px auto;padding:0 18px}
+    .eyebrow{color:var(--primary);text-transform:uppercase;font-size:.78rem;font-weight:800;letter-spacing:1.3px}
+    h1{font-size:clamp(2rem,5vw,3rem);line-height:1.15;margin:8px 0 12px}
+    h2{font-size:1.25rem;margin-top:0}
+    .intro{color:var(--muted);max-width:720px;margin-bottom:25px}
+    .layout{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:22px;align-items:start}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;box-shadow:0 5px 20px rgba(30,35,70,.035)}
+    .field{margin-bottom:18px}
+    .row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:6px}
+    label{font-weight:700;font-size:.92rem}
+    .count{font-size:.85rem;font-weight:700;color:var(--green);white-space:nowrap}
+    .count.warn{color:var(--amber)}
+    .count.over{color:var(--red)}
+    input,textarea{width:100%;border:1px solid #cfd5e3;border-radius:9px;padding:11px 12px;font:inherit;color:var(--text);background:#fff}
+    textarea{min-height:150px;resize:vertical}
+    input:focus,textarea:focus{outline:2px solid #d4ceff;border-color:var(--primary)}
+    input.over,textarea.over{border-color:var(--red)}
+    .bar{height:6px;background:#eceef6;border-radius:6px;margin-top:6px;overflow:hidden}
+    .bar span{display:block;height:100%;width:0;background:var(--green);transition:width .15s}
+    .bar span.warn{background:var(--amber)}
+    .bar span.over{background:var(--red)}
+    .hint{display:block;font-size:.82rem;color:var(--muted);margin-top:5px}
+    .summary{position:sticky;top:15px}
+    .results{background:#f7f6ff;border:1px solid #e0dcff;border-radius:12px;padding:17px;margin-bottom:16px}
+    .result-label{color:var(--muted);font-size:.9rem}
+    .big-number{font-size:2rem;font-weight:800;color:var(--primary);line-height:1.2}
+    .breakdown{border-collapse:collapse;width:100%;font-size:.93rem}
+    .breakdown td{padding:10px 0;border-bottom:1px solid var(--border)}
+    .breakdown td:last-child{text-align:right;font-weight:700;padding-left:10px}
+    .actions{margin-top:16px}
+    button{border:0;border-radius:9px;padding:12px 17px;font:inherit;font-weight:700;cursor:pointer;background:#eeecff;color:var(--primary-dark)}
+    .ad-slot{margin:25px 0;text-align:center}
+    .content-section{margin-top:25px}
+    .content-section p,.content-section li{color:var(--muted)}
+    .content-section a{color:var(--primary);font-weight:700}
+    .notice{background:#fff9e9;border:1px solid #f0dfad;border-radius:12px;padding:16px;color:#6d571d;font-size:.91rem}
+    footer{border-top:1px solid var(--border);padding:25px 18px;text-align:center;color:var(--muted);background:#fff;margin-top:40px}
+    footer a{color:var(--primary)}
+    @media(max-width:820px){.layout{grid-template-columns:1fr}.summary{position:static}.card{padding:19px}}
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <a class="brand" href="/">Toolnes</a>
+      <a class="back" href="/kdp/">← All KDP Tools</a>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <div class="eyebrow">KDP & Publishing Tools</div>
+      <h1>KDP Listing Character Counter</h1>
+      <p class="intro">Draft your book listing and see in real time whether your title, subtitle, description and seven keyword boxes fit within Amazon KDP's limits.</p>
+    </section>
+
+    <div class="layout">
+      <section class="card">
+        <h2>Your Listing</h2>
+
+        <div class="field">
+          <div class="row"><label for="title">Book title</label><span class="count" id="c-title">0</span></div>
+          <input id="title" type="text" autocomplete="off">
+        </div>
+
+        <div class="field">
+          <div class="row"><label for="subtitle">Subtitle</label><span class="count" id="c-subtitle">0</span></div>
+          <input id="subtitle" type="text" autocomplete="off">
+          <div class="row" style="margin-top:8px"><span class="hint" style="margin:0">Title + subtitle combined (limit 200)</span><span class="count" id="c-combo">0 / 200</span></div>
+          <div class="bar"><span id="b-combo"></span></div>
+        </div>
+
+        <div class="field">
+          <div class="row"><label for="desc">Book description</label><span class="count" id="c-desc">0 / 4000</span></div>
+          <textarea id="desc"></textarea>
+          <div class="bar"><span id="b-desc"></span></div>
+        </div>
+
+        <h2 style="margin-top:26px">Keyword Boxes</h2>
+        <div id="kwWrap"></div>
+        <span class="hint">Each of the 7 boxes accepts up to 50 characters. Use different phrases from your title.</span>
+      </section>
+
+      <section class="card summary" aria-live="polite">
+        <h2>Summary</h2>
+        <div class="results">
+          <div class="result-label">Listing status</div>
+          <div class="big-number" id="status">Empty</div>
+          <div class="result-label" id="statusNote">Start typing to check your limits.</div>
+        </div>
+        <table class="breakdown">
+          <tbody>
+            <tr><td>Title + subtitle</td><td id="s-combo">0 / 200</td></tr>
+            <tr><td>Description</td><td id="s-desc">0 / 4000</td></tr>
+            <tr><td>Keyword boxes used</td><td id="s-kw">0 / 7</td></tr>
+            <tr><td>Keyword characters</td><td id="s-kwc">0 / 350</td></tr>
+            <tr><td>Description words</td><td id="s-words">0</td></tr>
+          </tbody>
+        </table>
+        <div class="actions"><button type="button" id="clear">Clear all</button></div>
+      </section>
+    </div>
+
+    <!-- Place your ad code here -->
+    <div class="ad-slot" id="ad-slot-1"></div>
+
+    <section class="card content-section">
+      <h2>KDP Listing Limits at a Glance</h2>
+      <ul>
+        <li><strong>Title and subtitle:</strong> 200 characters combined, including spaces.</li>
+        <li><strong>Description:</strong> up to 4,000 characters.</li>
+        <li><strong>Keywords:</strong> 7 boxes of up to 50 characters each (350 in total).</li>
+      </ul>
+      <h3>Tips for a stronger listing</h3>
+      <ul>
+        <li>Keep your title short and clear. Long titles are often cut off on mobile.</li>
+        <li>Put your reader and the main benefit in the first lines of the description.</li>
+        <li>Fill all seven keyword boxes with specific multi-word phrases.</li>
+        <li>Do not repeat words already in your title, because Amazon indexes them anyway.</li>
+        <li>Avoid misleading terms and competitor names in your keywords.</li>
+      </ul>
+      <p>Need ideas? Try the <a href="/kdp/generator/">KDP Generator</a>, then plan your launch with the <a href="/kdp/book-launch-checklist/">Book Launch Checklist</a>.</p>
+    </section>
+
+    <section class="notice content-section">
+      <strong>Important:</strong> Limits can change and some fields count special characters differently. Always confirm the final limits and rules on the KDP title setup page before you publish.
+    </section>
+
+    <section class="card content-section">
+      <h2>Frequently Asked Questions</h2>
+      <h3>What is the KDP title character limit?</h3>
+      <p>The title and subtitle fields share a combined limit of 200 characters, including spaces. Shorter titles display better on mobile.</p>
+      <h3>How long can a KDP book description be?</h3>
+      <p>KDP allows up to 4,000 characters in the book description.</p>
+      <h3>How many keywords can I use on KDP?</h3>
+      <p>KDP gives you seven keyword boxes, and each box accepts up to 50 characters.</p>
+      <h3>Should keywords repeat my title?</h3>
+      <p>No. Amazon already indexes your title, subtitle and description, so use the keyword boxes for different phrases your title does not cover.</p>
+    </section>
+
+    <section class="card content-section">
+      <h2>More KDP Tools</h2>
+      <p>
+        <a href="/kdp/generator/">KDP Generator</a> ·
+        <a href="/kdp/book-launch-checklist/">Book Launch Checklist</a> ·
+        <a href="/kdp/royalty-calculator/">Royalty Calculator</a> ·
+        <a href="/kdp/profit-margin-calculator/">Profit Margin Calculator</a> ·
+        <a href="/kdp/word-count-to-pages/">Word Count to Pages</a>
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> Toolnes — Free Online Tools</p>
+    <p><a href="/kdp/">Explore more KDP & Publishing Tools</a></p>
+    <p><a href="/about/">About</a> · <a href="/contact/">Contact</a> · <a href="/privacy-policy/">Privacy Policy</a></p>
+  </footer>
+
+  <script>
+    (() => {
+      const $ = (id) => document.getElementById(id);
+      const TITLE_MAX = 200, DESC_MAX = 4000, KW_MAX = 50, KW_COUNT = 7;
+
+      const kwWrap = $("kwWrap");
+      for (let i = 1; i <= KW_COUNT; i++) {
+        kwWrap.insertAdjacentHTML("beforeend",
+          '<div class="field"><div class="row"><label for="kw' + i + '">Keyword box ' + i +
+          '</label><span class="count" id="ck' + i + '">0 / 50</span></div>' +
+          '<input id="kw' + i + '" type="text" autocomplete="off"></div>');
+      }
+
+      function level(len, max) {
+        if (len > max) return "over";
+        if (len >= max * 0.9) return "warn";
+        return "";
+      }
+      function setCount(el, text, cls) { el.textContent = text; el.className = "count " + cls; }
+      function setBar(el, len, max) {
+        const cls = level(len, max);
+        el.style.width = Math.min(100, len / max * 100) + "%";
+        el.className = cls;
+      }
+
+      function update() {
+        const t = $("title").value.length;
+        const s = $("subtitle").value.length;
+        const combo = t + s;
+        const d = $("desc").value.length;
+        const words = $("desc").value.trim() ? $("desc").value.trim().split(/\s+/).length : 0;
+
+        setCount($("c-title"), t + " chars", "");
+        setCount($("c-subtitle"), s + " chars", "");
+        setCount($("c-combo"), combo + " / " + TITLE_MAX, level(combo, TITLE_MAX));
+        setBar($("b-combo"), combo, TITLE_MAX);
+        $("title").classList.toggle("over", combo > TITLE_MAX);
+        $("subtitle").classList.toggle("over", combo > TITLE_MAX);
+
+        setCount($("c-desc"), d + " / " + DESC_MAX, level(d, DESC_MAX));
+        setBar($("b-desc"), d, DESC_MAX);
+        $("desc").classList.toggle("over", d > DESC_MAX);
+
+        let used = 0, total = 0, anyOver = false;
+        for (let i = 1; i <= KW_COUNT; i++) {
+          const el = $("kw" + i), len = el.value.length;
+          if (len > 0) used++;
+          total += len;
+          const over = len > KW_MAX;
+          if (over) anyOver = true;
+          el.classList.toggle("over", over);
+          setCount($("ck" + i), len + " / " + KW_MAX, level(len, KW_MAX));
+        }
+
+        $("s-combo").textContent = combo + " / " + TITLE_MAX;
+        $("s-desc").textContent = d + " / " + DESC_MAX;
+        $("s-kw").textContent = used + " / " + KW_COUNT;
+        $("s-kwc").textContent = total + " / 350";
+        $("s-words").textContent = words;
+
+        const empty = combo === 0 && d === 0 && total === 0;
+        const problem = combo > TITLE_MAX || d > DESC_MAX || anyOver;
+        const st = $("status"), note = $("statusNote");
+        if (empty) { st.textContent = "Empty"; note.textContent = "Start typing to check your limits."; }
+        else if (problem) { st.textContent = "Over limit"; note.textContent = "One or more fields are too long. Shorten the fields marked in red."; }
+        else { st.textContent = "Within limits"; note.textContent = used < KW_COUNT ? "Tip: fill all seven keyword boxes." : "All fields fit KDP's limits."; }
+      }
+
+      document.querySelectorAll("input, textarea").forEach((el) => el.addEventListener("input", update));
+      $("clear").addEventListener("click", () => {
+        document.querySelectorAll("input, textarea").forEach((el) => { el.value = ""; });
+        update();
+      });
+      $("year").textContent = new Date().getFullYear();
+      update();
+    })();
+  </script>
+</body>
+</html>
