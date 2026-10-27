@@ -1,1 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="KDP book rejected? Learn the most common cover and interior rejection reasons, such as spine width, bleed and margin errors, and exactly how to fix each one.">
+  <meta name="robots" content="index, follow">
+  <title>KDP Book Rejected? Common Errors and How to Fix Them | Toolnes</title>
+  <link rel="canonical" href="https://toolnes.netlify.app/kdp/kdp-book-rejected/">
+  <meta property="og:title" content="KDP Book Rejected? Common Errors and How to Fix Them">
+  <meta property="og:description" content="The most common KDP cover and interior rejection reasons, with clear fixes.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://toolnes.netlify.app/kdp/kdp-book-rejected/">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"Why was my KDP cover rejected?","acceptedAnswer":{"@type":"Answer","text":"The most common causes are a wrong spine width for your page count and paper type, missing 0.125 inch bleed, wrong total dimensions, low resolution, or text too close to the edge."}},
+    {"@type":"Question","name":"Why was my KDP interior file rejected?","acceptedAnswer":{"@type":"Answer","text":"Margins that are too small, a page size that does not match the trim size, missing bleed settings, low image resolution and fonts that are not embedded are frequent causes."}},
+    {"@type":"Question","name":"What do I do if my page count changes?","acceptedAnswer":{"@type":"Answer","text":"Recalculate the spine and regenerate your cover template, because spine width depends on the final page count."}},
+    {"@type":"Question","name":"Can I just resubmit after fixing the error?","acceptedAnswer":{"@type":"Answer","text":"Yes. Fix the file, upload it again and check the KDP previewer before you publish."}}
+  ]}
+  </script>
+  <style>
+    :root{--primary:#5b45d6;--bg:#f5f6fb;--card:#fff;--text:#202438;--muted:#687087;--border:#e1e5ef}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+    header{background:#fff;border-bottom:1px solid var(--border);padding:18px 20px}
+    .nav{max-width:860px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:16px}
+    .brand{color:var(--primary);font-weight:800;font-size:1.35rem;text-decoration:none}
+    .back{color:var(--muted);text-decoration:none;font-size:.92rem}
+    main{max-width:860px;margin:35px auto;padding:0 18px}
+    .eyebrow{color:var(--primary);text-transform:uppercase;font-size:.78rem;font-weight:800;letter-spacing:1.3px}
+    h1{font-size:clamp(2rem,5vw,2.8rem);line-height:1.15;margin:8px 0 10px}
+    .meta{color:var(--muted);font-size:.9rem;margin-bottom:22px}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;box-shadow:0 5px 20px rgba(30,35,70,.035)}
+    h2{font-size:1.4rem;margin:30px 0 8px}
+    h2:first-child{margin-top:0}
+    h3{font-size:1.1rem;margin:22px 0 6px}
+    p,li{color:#454b63}
+    a{color:var(--primary);font-weight:700}
+    .fix{background:#f7f6ff;border-left:4px solid var(--primary);border-radius:8px;padding:12px 16px;margin:8px 0 14px;color:var(--text)}
+    table{border-collapse:collapse;width:100%;font-size:.93rem;margin:12px 0}
+    th,td{text-align:left;padding:10px;border-bottom:1px solid var(--border);vertical-align:top}
+    th{color:var(--muted);font-size:.85rem}
+    .table-wrap{overflow-x:auto}
+    .tool-box{background:#eeecff;border-radius:12px;padding:18px;margin:26px 0}
+    .tool-box p{margin:0 0 8px;color:var(--text)}
+    .notice{background:#fff9e9;border:1px solid #f0dfad;border-radius:12px;padding:16px;color:#6d571d;font-size:.91rem;margin-top:26px}
+    .ad-slot{margin:25px 0;text-align:center}
+    footer{border-top:1px solid var(--border);padding:25px 18px;text-align:center;color:var(--muted);background:#fff;margin-top:40px}
+    footer a{color:var(--primary);font-weight:400}
+    @media(max-width:560px){.card{padding:20px}}
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <a class="brand" href="/">Toolnes</a>
+      <a class="back" href="/kdp/">← All KDP Tools</a>
+    </nav>
+  </header>
 
+  <main>
+    <div class="eyebrow">KDP Guide</div>
+    <h1>KDP Book Rejected? Common Errors and How to Fix Them</h1>
+    <p class="meta">Updated October 2026 · 6 min read</p>
+
+    <article class="card">
+      <h2>Don't panic: most rejections are easy to fix</h2>
+      <p>When Amazon KDP rejects a paperback, the cause is almost always a technical detail in your cover or interior file. The error message usually points to the problem. This guide explains the most common ones in plain language and shows how to correct each.</p>
+
+      <h2>Cover file rejections</h2>
+      <p>A paperback cover must be one single PDF that includes the back cover, spine and front cover together. KDP checks it automatically, and these are the usual causes of rejection.</p>
+
+      <h3>1. The spine width is wrong</h3>
+      <p>Spine width depends on your page count and paper type. If you add or remove pages after designing the cover, the spine no longer matches.</p>
+      <div class="fix"><strong>Fix:</strong> generate a new template with KDP's Cover Calculator and Template Generator, using your final page count, trim size and paper type. Use our <a href="/kdp/spine-width-calculator/">Spine Width Calculator</a> for a quick estimate first.</div>
+
+      <h3>2. The total cover size is wrong</h3>
+      <p>The full cover width is bleed + back cover + spine + front cover + bleed, and the height is bleed + trim height + bleed. KDP requires 0.125 in (3.2 mm) of bleed.</p>
+      <div class="fix"><strong>Fix:</strong> recalculate with the <a href="/kdp/cover-size-calculator/">Cover Size Calculator</a> and export the file at exactly those dimensions.</div>
+
+      <h3>3. Missing or too little bleed</h3>
+      <p>If your background stops at the trim line, a thin white edge can appear after cutting.</p>
+      <div class="fix"><strong>Fix:</strong> extend your background color or image all the way to the bleed edge.</div>
+
+      <h3>4. Low resolution or wrong export</h3>
+      <p>Covers that are blurry, exported with crop marks, or built at a lower size than the template can fail.</p>
+      <div class="fix"><strong>Fix:</strong> design at 300 DPI at the template size from the start, and export a PDF without crop marks.</div>
+
+      <h3>5. Text too close to the edge or on the barcode area</h3>
+      <p>Important text must stay inside the safe zone, and the back cover needs space for the barcode that KDP adds.</p>
+      <div class="fix"><strong>Fix:</strong> keep text well inside the trim line and leave the barcode area empty.</div>
+
+      <div class="tool-box">
+        <p><strong>Check your numbers before you upload.</strong></p>
+        <p>Use the <a href="/kdp/cover-size-calculator/">Cover Size Calculator</a> and <a href="/kdp/spine-width-calculator/">Spine Width Calculator</a> to confirm your dimensions.</p>
+      </div>
+
+      <h2>Interior file rejections</h2>
+
+      <h3>6. Margins are too small</h3>
+      <p>This is one of the most common print rejections. KDP sets minimum margins, and the inside (gutter) margin must grow as your page count increases. Outside, top and bottom margins have minimums too, and they are larger when your book uses bleed.</p>
+      <div class="fix"><strong>Fix:</strong> check KDP's margin table for your page count and increase your margins in your layout software.</div>
+
+      <h3>7. The page size does not match your trim size</h3>
+      <p>If you chose 6 × 9 in KDP but your file is another size, the upload fails or the content shifts.</p>
+      <div class="fix"><strong>Fix:</strong> set your document page size to exactly your selected trim size. Not sure which size to pick? See the <a href="/kdp/trim-size-calculator/">Trim Size Calculator</a>.</div>
+
+      <h3>8. Bleed settings do not match the file</h3>
+      <p>If your pages have images that touch the edge, you must choose the bleed option in KDP and upload a PDF built for it.</p>
+      <div class="fix"><strong>Fix:</strong> set the correct bleed option in KDP and make your page size match (the page is slightly larger when bleed is used).</div>
+
+      <h3>9. Low-resolution images or missing fonts</h3>
+      <p>Blurry images and fonts that are not embedded cause warnings or rejections.</p>
+      <div class="fix"><strong>Fix:</strong> use images at about 300 DPI, and export your PDF with fonts embedded.</div>
+
+      <h3>10. Wrong page count</h3>
+      <p>Your paperback needs at least 24 pages, and the page count must match the file you upload. Extra blank pages can change your printing cost and spine.</p>
+      <div class="fix"><strong>Fix:</strong> estimate your count with the <a href="/kdp/word-count-to-pages/">Word Count to Pages Converter</a> and confirm it in the KDP previewer.</div>
+
+      <h2>A simple pre-upload checklist</h2>
+      <ul>
+        <li>Final page count is locked and matches your cover template.</li>
+        <li>Trim size in KDP matches your file's page size.</li>
+        <li>Margins meet KDP's minimum for your page count.</li>
+        <li>Cover has 0.125 in of bleed and a correct spine.</li>
+        <li>Images are sharp and fonts are embedded.</li>
+        <li>You checked every page in the KDP Previewer.</li>
+      </ul>
+      <p>Planning your launch? Use the <a href="/kdp/book-launch-checklist/">Book Launch Checklist</a>.</p>
+
+      <h2>Frequently asked questions</h2>
+      <h3>Why was my KDP cover rejected?</h3>
+      <p>The most common causes are a wrong spine width, missing bleed, wrong total dimensions, low resolution, or text too close to the edge.</p>
+      <h3>What do I do if my page count changes?</h3>
+      <p>Recalculate the spine and regenerate your cover template, because spine width depends on the final page count.</p>
+      <h3>Can I just resubmit after fixing the error?</h3>
+      <p>Yes. Fix the file, upload it again and review it in the KDP Previewer before you publish.</p>
+
+      <div class="notice">
+        <strong>Important:</strong> KDP's requirements can change. Always check the official KDP help pages and use the cover template generator for your final files. This guide is general information, not a guarantee of approval.
+      </div>
+    </article>
+
+    <!-- Place your ad code here -->
+    <div class="ad-slot" id="ad-slot-1"></div>
+
+    <section class="card" style="margin-top:25px">
+      <h2>More KDP Tools</h2>
+      <p>
+        <a href="/kdp/cover-size-calculator/">Cover Size Calculator</a> ·
+        <a href="/kdp/spine-width-calculator/">Spine Width Calculator</a> ·
+        <a href="/kdp/trim-size-calculator/">Trim Size Calculator</a> ·
+        <a href="/kdp/how-much-does-kdp-pay/">How Much Does KDP Pay?</a> ·
+        <a href="/kdp/listing-character-counter/">Listing Character Counter</a>
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> Toolnes — Free Online Tools</p>
+    <p><a href="/kdp/">Explore more KDP & Publishing Tools</a></p>
+    <p><a href="/about/">About</a> · <a href="/contact/">Contact</a> · <a href="/privacy-policy/">Privacy Policy</a></p>
+  </footer>
+
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>
