@@ -1,1 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free printable coloring pages: butterflies, fish, owls, birds, cats, turtles, flowers and mandalas. Thousands of unique designs, with new pages every day. Download or print.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#17172f">
+  <title>Free Printable Coloring Pages - Animals, Birds, Flowers &amp; Mandalas | Toolnes</title>
+  <link rel="canonical" href="https://toolnes.netlify.app/coloring-pages/">
+  <meta property="og:title" content="Free Printable Coloring Pages - Animals, Birds, Flowers and Mandalas">
+  <meta property="og:description" content="Thousands of unique coloring pages with new designs every day. Free to download and print.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toolnes.netlify.app/coloring-pages/">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"Are these coloring pages free?","acceptedAnswer":{"@type":"Answer","text":"Yes. You can download and print any page for free for personal, home and classroom use."}},
+    {"@type":"Question","name":"How many coloring pages are there?","acceptedAnswer":{"@type":"Answer","text":"Every page is created from a unique number, so there are thousands of different designs in each category, and a new set appears every day."}},
+    {"@type":"Question","name":"How do I print a coloring page?","acceptedAnswer":{"@type":"Answer","text":"Open a page, press Print and choose US Letter or A4 paper at 100 percent scale. You can also download the PNG file."}},
+    {"@type":"Question","name":"Can I find the same page again later?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every page has a number and its own link. Use Copy link to save or share it, or switch to the Classic library where page numbers stay the same."}}
+  ]}
+  </script>
+  <style>
+    :root{--bg:#17172f;--surface:#20203e;--card:#242443;--text:#f5f3ff;--muted:#b0b1cf;--purple:#a78bfa;--turquoise:#67e8d4;--border:#393858}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,-apple-system,"Segoe UI",Arial,sans-serif;line-height:1.7}
+    a{color:var(--turquoise)}
+    header{background:rgba(23,23,47,.92);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10;backdrop-filter:blur(12px)}
+    .nav{max-width:1200px;margin:auto;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+    .logo{font-size:26px;font-weight:850;letter-spacing:-1px;color:var(--purple);text-decoration:none}
+    .logo span{color:var(--turquoise)}
+    nav a{color:var(--muted);font-size:13px;font-weight:650;text-decoration:none;margin-left:18px}
+    nav a:hover{color:var(--turquoise)}
+    main{max-width:1200px;margin:auto;padding:40px 24px 70px}
+    .eyebrow{color:var(--turquoise);text-transform:uppercase;font-size:12px;font-weight:800;letter-spacing:1.3px}
+    h1{font-size:clamp(30px,5vw,48px);line-height:1.12;letter-spacing:-1.6px;margin:8px 0 12px}
+    h2{font-size:21px;margin:0 0 10px}
+    .intro{color:var(--muted);max-width:760px;margin:0 0 24px}
+    .bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}
+    .tab{border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:30px;padding:9px 16px;font:inherit;font-size:14px;font-weight:700;cursor:pointer}
+    .tab.on{background:var(--purple);color:#17172f;border-color:var(--purple)}
+    .modes{display:flex;gap:8px;margin:0 0 20px;flex-wrap:wrap;align-items:center}
+    .modes span{color:var(--muted);font-size:14px}
+    .mode{border:1px solid var(--border);background:transparent;color:var(--muted);border-radius:10px;padding:7px 13px;font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+    .mode.on{border-color:var(--turquoise);color:var(--turquoise)}
+    .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:10px;cursor:pointer;text-align:left;color:var(--text);font:inherit;transition:transform .15s,border-color .15s}
+    .card:hover{transform:translateY(-3px);border-color:var(--purple)}
+    .card canvas{display:block;width:100%;height:auto;aspect-ratio:1/1;background:#fff;border-radius:10px}
+    .cap{display:block;padding:8px 4px 2px;font-size:13px;color:var(--muted);font-weight:650}
+    .more{display:block;margin:28px auto 0;border:0;border-radius:12px;background:var(--purple);color:#17172f;font:inherit;font-weight:800;padding:14px 30px;cursor:pointer}
+    .ad-slot{margin:28px 0;text-align:center}
+    .info{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:26px;margin-top:28px}
+    .info p,.info li{color:var(--muted)}
+    .cats{display:grid;grid-template-columns:repeat(2,1fr);gap:0 28px}
+    .modal{position:fixed;inset:0;background:rgba(10,10,25,.92);z-index:50;display:none;overflow:auto;padding:20px}
+    .modal.open{display:block}
+    .mbox{max-width:760px;margin:0 auto;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:18px}
+    .mhead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
+    .mhead h2{margin:0;font-size:18px}
+    .x{border:0;background:#34345a;color:var(--text);border-radius:10px;width:40px;height:40px;font-size:20px;cursor:pointer}
+    #big{display:block;width:min(100%,68vh);height:auto;aspect-ratio:1/1;margin:0 auto;background:#fff;border-radius:10px}
+    .macts{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:16px}
+    .macts button{border:0;border-radius:10px;padding:11px 16px;font:inherit;font-weight:800;cursor:pointer;background:#34345a;color:var(--text)}
+    .macts .p{background:var(--purple);color:#17172f}
+    #toast{min-height:22px;text-align:center;color:var(--turquoise);font-size:14px;margin-top:10px}
+    footer{text-align:center;padding:26px 20px;border-top:1px solid var(--border);color:var(--muted);font-size:13px}
+    footer a{margin:0 8px}
+    @media(max-width:900px){.grid{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:620px){.grid{grid-template-columns:repeat(2,1fr);gap:12px}.cats{grid-template-columns:1fr}main{padding:30px 16px 50px}}
+    @media print{
+      body *{visibility:hidden}
+      .modal,.modal *{visibility:hidden}
+      #big{visibility:visible;position:fixed;left:50%;top:0;transform:translateX(-50%);width:7.5in;height:7.5in}
+      .modal{position:static;overflow:visible;background:none;padding:0}
+      @page{margin:.5in}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <a class="logo" href="/">Tool<span>nes</span></a>
+      <nav aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/coloring-pages/">Coloring Pages</a>
+        <a href="/kdp/printables/">Printables</a>
+        <a href="/kdp/">KDP &amp; Publishing</a>
+      </nav>
+    </div>
+  </header>
 
+  <main>
+    <div class="eyebrow">Free to print</div>
+    <h1>Free Printable Coloring Pages</h1>
+    <p class="intro">Choose from thousands of unique coloring pages: butterflies, fish, owls, birds, cats, turtles, flowers and mandalas. Every design is original, and a fresh set appears every day. Click a page to download or print it.</p>
+
+    <div class="bar" id="tabs" role="tablist" aria-label="Categories"></div>
+    <div class="modes">
+      <span>Show:</span>
+      <button class="mode on" id="mToday" type="button">New today</button>
+      <button class="mode" id="mClassic" type="button">Classic library</button>
+    </div>
+
+    <div class="grid" id="grid"></div>
+    <button class="more" id="more" type="button">Show more pages</button>
+
+    <!-- Place your ad code here -->
+    <div class="ad-slot" id="ad-slot-1"></div>
+
+    <section class="info">
+      <h2>Coloring page categories</h2>
+      <div class="cats">
+        <p><strong>Butterflies:</strong> symmetrical wings with rings, spots and patterns to fill with color.</p>
+        <p><strong>Fish:</strong> scaled, striped and spotted fish with bubbles and seaweed.</p>
+        <p><strong>Owls:</strong> big-eyed owls on a branch under the stars and moon.</p>
+        <p><strong>Birds:</strong> cute round birds with feathers, tails and leafy branches.</p>
+        <p><strong>Cats:</strong> happy cat faces with bows, collars, whiskers and stripes.</p>
+        <p><strong>Turtles:</strong> patterned shells, flippers and wavy water.</p>
+        <p><strong>Flowers:</strong> blooms with many petals and detailed centers.</p>
+        <p><strong>Mandalas:</strong> calm, detailed patterns for relaxing and mindful coloring.</p>
+      </div>
+      <h2 style="margin-top:20px">How to print</h2>
+      <ol>
+        <li>Click any page to open it in large size.</li>
+        <li>Press <strong>Print</strong>, choose US Letter or A4 and set scale to 100%.</li>
+        <li>Or press <strong>Download PNG</strong> to save a high-quality image.</li>
+        <li>Use <strong>Copy link</strong> to share a page or find it again later.</li>
+      </ol>
+      <p>Want to color your own photo? Try our <a href="/image-tools/image-to-coloring-page/">Image to Coloring Page converter</a>. Looking for planners and journal pages? See the <a href="/kdp/printables/">free printables</a>.</p>
+      <p>These pages are free for personal, home and classroom use. Please do not resell them or present them as your own.</p>
+    </section>
+
+    <section class="info">
+      <h2>Frequently Asked Questions</h2>
+      <h3>Are these coloring pages free?</h3>
+      <p>Yes. You can download and print any page for free for personal, home and classroom use.</p>
+      <h3>How many coloring pages are there?</h3>
+      <p>Every page is created from a unique number, so there are thousands of different designs in each category, and a new set appears every day under "New today".</p>
+      <h3>How do I print a coloring page?</h3>
+      <p>Open a page, press Print and choose US Letter or A4 paper at 100% scale. You can also download the PNG file.</p>
+      <h3>Can I find the same page again later?</h3>
+      <p>Yes. Every page has a number and its own link. Use Copy link to save or share it, or switch to the Classic library, where page numbers always stay the same.</p>
+    </section>
+  </main>
+
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+    <div class="mbox">
+      <div class="mhead"><h2 id="mTitle">Coloring page</h2><button class="x" id="close" type="button" aria-label="Close">×</button></div>
+      <canvas id="big"></canvas>
+      <div class="macts">
+        <button id="prev" type="button">← Previous</button>
+        <button id="next" type="button">Next →</button>
+        <button id="rand" type="button">Random</button>
+        <button class="p" id="dl" type="button">Download PNG</button>
+        <button class="p" id="pr" type="button">Print</button>
+        <button id="copy" type="button">Copy link</button>
+      </div>
+      <div id="toast" role="status" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© <span id="year"></span> Toolnes. Free online tools for everyone.</p>
+    <p><a href="/about/">About</a> · <a href="/contact/">Contact</a> · <a href="/privacy-policy/">Privacy Policy</a></p>
+  </footer>
+
+  <script>
+
+var TAU = Math.PI * 2;
+function hashSeed(str, n) {
+  var h = 2166136261 >>> 0;
+  for (var i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); }
+  h ^= n >>> 0; h = Math.imul(h ^ (h >>> 13), 0x5bd1e995); h ^= h >>> 15;
+  return h >>> 0;
+}
+function makeRng(seed) {
+  var a = seed >>> 0;
+  var f = function () {
+    a |= 0; a = (a + 0x6D2B79F5) | 0;
+    var t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+  f.range = function (lo, hi) { return lo + f() * (hi - lo); };
+  f.int = function (lo, hi) { return lo + Math.floor(f() * (hi - lo + 1)); };
+  f.pick = function (arr) { return arr[Math.floor(f() * arr.length)]; };
+  f.chance = function (p) { return f() < p; };
+  return f;
+}
+function makeHelpers(c) {
+  return {
+    line: function (x1, y1, x2, y2) { c.beginPath(); c.moveTo(x1, y1); c.lineTo(x2, y2); c.stroke(); },
+    circle: function (x, y, r, fill) {
+      c.beginPath(); c.arc(x, y, r, 0, TAU);
+      if (fill) { c.fillStyle = fill === 'k' ? '#000' : '#fff'; c.fill(); }
+      c.stroke();
+    },
+    dot: function (x, y, r) { c.beginPath(); c.arc(x, y, r, 0, TAU); c.fillStyle = '#000'; c.fill(); },
+    ell: function (x, y, rx, ry, rot, fill) {
+      c.beginPath(); c.ellipse(x, y, rx, ry, rot || 0, 0, TAU);
+      if (fill) { c.fillStyle = '#fff'; c.fill(); }
+      c.stroke();
+    },
+    path: function (fn, fill, close) {
+      c.beginPath(); fn(); if (close) c.closePath();
+      if (fill) { c.fillStyle = '#fff'; c.fill(); }
+      c.stroke();
+    },
+    arc: function (x, y, r, a0, a1) { c.beginPath(); c.arc(x, y, r, a0, a1); c.stroke(); }
+  };
+}
+function bez(p0, p1, p2, p3, t) {
+  var u = 1 - t;
+  return [u*u*u*p0[0] + 3*u*u*t*p1[0] + 3*u*t*t*p2[0] + t*t*t*p3[0],
+          u*u*u*p0[1] + 3*u*u*t*p1[1] + 3*u*t*t*p2[1] + t*t*t*p3[1]];
+}
+function pol(cx, cy, r, a) { return [cx + r * Math.cos(a), cy + r * Math.sin(a)]; }
+
+function petalRing(c, h, cx, cy, r0, r1, n, spread, off, veins) {
+  for (var i = 0; i < n; i++) {
+    var a = off + TAU * i / n;
+    var b = pol(cx, cy, r0, a), t = pol(cx, cy, r1, a);
+    var l1 = pol(cx, cy, r0 + (r1 - r0) * 0.3, a - spread), l2 = pol(cx, cy, r0 + (r1 - r0) * 0.85, a - spread * 0.55);
+    var q1 = pol(cx, cy, r0 + (r1 - r0) * 0.3, a + spread), q2 = pol(cx, cy, r0 + (r1 - r0) * 0.85, a + spread * 0.55);
+    h.path(function () { c.moveTo(b[0], b[1]); c.bezierCurveTo(l1[0], l1[1], l2[0], l2[1], t[0], t[1]); c.bezierCurveTo(q2[0], q2[1], q1[0], q1[1], b[0], b[1]); }, true, false);
+    if (veins) { var v0 = pol(cx, cy, r0 + (r1 - r0) * 0.2, a), v1 = pol(cx, cy, r0 + (r1 - r0) * 0.75, a); h.line(v0[0], v0[1], v1[0], v1[1]); }
+  }
+}
+function starPoly(c, h, cx, cy, rad, n, k, off) {
+  h.path(function () {
+    var i = 0, p = pol(cx, cy, rad, off); c.moveTo(p[0], p[1]);
+    for (var s = 0; s < n; s++) { i = (i + k) % n; p = pol(cx, cy, rad, off + TAU * i / n); c.lineTo(p[0], p[1]); }
+  }, false, true);
+}
+function eyOf(rx, ry, dx) { var q = 1 - (dx / rx) * (dx / rx); return ry * Math.sqrt(q < 0 ? 0 : q); }
+
+function butterfly(c, r, h) {
+  var uw = r.range(.85, 1.15), uh = r.range(.85, 1.12), lw = r.range(.8, 1.15), lh = r.range(.8, 1.15);
+  var upper = function (k) {
+    c.moveTo(0, -12 * k);
+    c.bezierCurveTo(30*uw*k, -300*uh*k, 380*uw*k, -430*uh*k, 440*uw*k, -290*uh*k);
+    c.bezierCurveTo(480*uw*k, -170*uh*k, 330*uw*k, -50*uh*k, 0, -2 * k);
+  };
+  var lower = function (k) {
+    c.moveTo(0, 4 * k);
+    c.bezierCurveTo(260*lw*k, -40*lh*k, 420*lw*k, 70*lh*k, 340*lw*k, 210*lh*k);
+    c.bezierCurveTo(280*lw*k, 320*lh*k, 80*lw*k, 300*lh*k, 0, 60 * k);
+  };
+  var nest = r.int(2, 4), dn = r.int(7, 11), style = r.int(0, 2), L = [.8, .62, .46, .32];
+  var U = [[0,-12],[30*uw,-300*uh],[380*uw,-430*uh],[440*uw,-290*uh]].map(function (p) { return [p[0]*.9, p[1]*.9]; });
+  var Lw = [[0,4],[260*lw,-40*lh],[420*lw,70*lh],[340*lw,210*lh]].map(function (p) { return [p[0]*.9, p[1]*.9]; });
+  var dr = r.range(7, 12);
+  c.save(); c.translate(500, 470);
+  [1, -1].forEach(function (sx) {
+    c.save(); c.scale(sx, 1);
+    h.path(function () { upper(1); }, true, true);
+    h.path(function () { lower(1); }, true, true);
+    for (var i = 0; i < nest; i++) {
+      (function (k) { h.path(function () { upper(k); }, false, true); h.path(function () { lower(k); }, false, true); })(L[i]);
+    }
+    for (var d = 1; d <= dn; d++) {
+      var t = d / (dn + 1), p = bez(U[0], U[1], U[2], U[3], t), q = bez(Lw[0], Lw[1], Lw[2], Lw[3], t);
+      h.circle(p[0], p[1], dr); h.circle(q[0], q[1], dr * .9);
+    }
+    var ux = 230*uw, uy = -205*uh, lx = 190*lw, ly = 130*lh;
+    if (style === 0) { h.circle(ux, uy, 46); h.circle(ux, uy, 26); h.dot(ux, uy, 9); h.circle(lx, ly, 36); h.dot(lx, ly, 10); }
+    else if (style === 1) { for (var s = 0; s < 6; s++) { var a = TAU*s/6; h.circle(ux+Math.cos(a)*38, uy+Math.sin(a)*38, 13); } h.dot(ux, uy, 13); h.circle(lx, ly, 30); h.circle(lx, ly, 14); }
+    else { h.circle(ux, uy, 40); h.circle(lx, ly, 32); for (var z = 0; z < 5; z++) { h.dot(ux - 60 + z*30, uy + 90, 6); } }
+    c.restore();
+  });
+  h.ell(0, -10, 22, 165, 0, true); h.circle(0, -192, 30, true);
+  for (var y = -90; y <= 100; y += 38) h.line(-19, y, 19, y);
+  [1, -1].forEach(function (sx) {
+    h.path(function () { c.moveTo(sx*10, -215); c.quadraticCurveTo(sx*60, -300, sx*115, -330); }, false, false);
+    h.circle(sx*115, -332, 10, 'k');
+  });
+  c.restore();
+}
+
+function fish(c, r, h) {
+  var cx = 520, cy = 500, rx = r.range(240, 290), ry = r.range(140, 195);
+  var tx = cx - rx + 15, tl = r.range(150, 185), pat = r.int(0, 2);
+  h.path(function () {
+    c.moveTo(tx, cy);
+    c.bezierCurveTo(tx-60, cy-40, tx-110, cy-120, tx-tl, cy-140);
+    c.quadraticCurveTo(tx-90, cy, tx-tl, cy+140);
+    c.bezierCurveTo(tx-110, cy+120, tx-60, cy+40, tx, cy);
+  }, true, true);
+  h.line(tx-10, cy, tx-tl+30, cy-95); h.line(tx-10, cy, tx-100, cy); h.line(tx-10, cy, tx-tl+30, cy+95);
+  var fh = r.range(90, 130);
+  var d0 = -rx*.4, d1 = rx*.3;
+  h.path(function () { c.moveTo(cx+d0, cy-eyOf(rx,ry,d0)); c.bezierCurveTo(cx+d0+20, cy-ry-fh, cx+d1-40, cy-ry-fh, cx+d1, cy-eyOf(rx,ry,d1)); }, true, false);
+  for (var f = 1; f <= 3; f++) { var xx = d0 + (d1 - d0) * f / 4; h.line(cx+xx, cy-eyOf(rx,ry,xx), cx+xx, cy-eyOf(rx,ry,xx)-fh*.7); }
+  h.path(function () { c.moveTo(cx+d0*.4, cy+eyOf(rx,ry,d0*.4)); c.quadraticCurveTo(cx+d0*.4-10, cy+ry+90, cx+d0*.4-70, cy+ry+90); c.quadraticCurveTo(cx+d0*.4+10, cy+ry+40, cx+rx*.2, cy+eyOf(rx,ry,rx*.2)); }, true, false);
+  h.ell(cx, cy, rx, ry, 0, true);
+  var gx = cx + rx*.42;
+  if (pat === 0) {
+    for (var row = 0, y = cy-ry+36; y < cy+ry-30; y += 40, row++) {
+      for (var x = tx+40 + (row%2)*20; x < gx-40; x += 40) {
+        var q = ((x-cx)/rx)*((x-cx)/rx) + ((y-cy)/ry)*((y-cy)/ry);
+        if (q < .78) h.arc(x, y, 20, Math.PI*.5, Math.PI*1.5);
+      }
+    }
+  } else if (pat === 1) {
+    var ns = r.int(4, 6);
+    for (var k = 0; k < ns; k++) { var sx = -rx*.6 + k*((gx-cx+rx*.5)/ns); var e = eyOf(rx,ry,sx)-10; h.path(function () { c.moveTo(cx+sx, cy-e); c.quadraticCurveTo(cx+sx+45, cy, cx+sx, cy+e); }, false, false); }
+  } else {
+    var placed = [];
+    for (var m = 0; m < 90 && placed.length < 14; m++) {
+      var px = cx + r.range(-rx*.65, rx*.15), py = cy + r.range(-ry*.65, ry*.65), rr = r.range(10, 22), ok = true;
+      if (Math.sqrt((px-cx-rx*.05)*(px-cx-rx*.05) + (py-cy-ry*.35)*(py-cy-ry*.35)) < 95) ok = false;
+      for (var q = 0; ok && q < placed.length; q++) { var ddx = placed[q][0]-px, ddy = placed[q][1]-py; if (Math.sqrt(ddx*ddx+ddy*ddy) < placed[q][2]+rr+14) ok = false; }
+      if (ok) { placed.push([px, py, rr]); h.circle(px, py, rr); }
+    }
+  }
+  h.arc(cx+rx*.5, cy, ry*.8, Math.PI-.9, Math.PI+.9);
+  h.circle(cx+rx*.66, cy-ry*.2, 27, true); h.dot(cx+rx*.68, cy-ry*.2, 13); h.circle(cx+rx*.7, cy-ry*.25, 4, 'w');
+  h.path(function () { c.moveTo(cx+rx-6, cy+12); c.quadraticCurveTo(cx+rx-30, cy+28, cx+rx-55, cy+16); }, false, false);
+  h.ell(cx+rx*.05, cy+ry*.35, 70, 26, -.55, true);
+  var nb = r.int(3, 6);
+  for (var b = 0; b < nb; b++) h.circle(cx + rx + r.range(30, 110), r.range(180, 470), r.range(10, 28));
+  if (r.chance(.8)) {
+    var sw = r.int(2, 3);
+    for (var s2 = 0; s2 < sw; s2++) {
+      var bx = r.range(120, 880), hh = r.range(130, 200);
+      h.path(function () { c.moveTo(bx, 990); c.bezierCurveTo(bx-45, 990-hh*.35, bx+45, 990-hh*.7, bx, 990-hh); }, false, false);
+      h.path(function () { c.moveTo(bx+22, 990); c.bezierCurveTo(bx-23, 990-hh*.3, bx+67, 990-hh*.6, bx+22, 990-hh*.85); }, false, false);
+    }
+  }
+}
+
+function owl(c, r, h) {
+  var bx = 500, by = 560, rx = 240, ry = 320, ER = r.range(68, 92);
+  [1, -1].forEach(function (sx) {
+    var d0 = -160, d1 = -70, tipX = r.range(285, 330), tipY = r.range(165, 205);
+    var p0 = [500 + sx*d0, by - eyOf(rx,ry,d0)], p1 = [500 + sx*d1, by - eyOf(rx,ry,d1)];
+    h.path(function () { c.moveTo(p0[0], p0[1]); c.lineTo(sx>0 ? tipX : 1000-tipX, tipY); c.lineTo(p1[0], p1[1]); }, true, false);
+  });
+  h.ell(bx, by, rx, ry, 0, true);
+  [[392, 420], [608, 420]].forEach(function (e) {
+    h.circle(e[0], e[1], ER+16); h.circle(e[0], e[1], ER, true); h.circle(e[0], e[1], ER*.55); h.dot(e[0]+6, e[1]+4, ER*.28); h.circle(e[0]+16, e[1]-8, 7, 'w');
+  });
+  h.path(function () { c.moveTo(470, 478); c.lineTo(530, 478); c.lineTo(500, 540); }, true, true);
+  var rows = r.int(3, 5);
+  for (var k = 0; k < rows; k++) {
+    var y = 600 + k * 50;
+    for (var x = 380 + (k % 2) * 24; x <= 620; x += 48) { if (Math.abs(x-500) < eyOf(rx,ry,y-by)-20) h.arc(x, y, 24, 0, Math.PI); }
+  }
+  [1, -1].forEach(function (sx) {
+    var X = function (x) { return sx > 0 ? 1000 - x : x; };
+    h.path(function () { c.moveTo(X(300), 500); c.bezierCurveTo(X(235), 590, X(250), 730, X(335), 810); c.bezierCurveTo(X(360), 720, X(350), 600, X(300), 500); }, false, true);
+    for (var f = 0; f < 3; f++) h.line(X(305 - f*8), 560 + f*55, X(335 - f*5), 640 + f*50);
+    var fx = 500 + sx * -80;
+    h.line(fx, 880, fx - 22, 928); h.line(fx, 880, fx + 4, 934); h.line(fx, 880, fx + 28, 926);
+  });
+  h.path(function () { c.moveTo(120, 940); c.quadraticCurveTo(500, 915, 880, 940); }, false, false);
+  h.path(function () { c.moveTo(120, 978); c.quadraticCurveTo(500, 953, 880, 978); }, false, false);
+  h.arc(120, 959, 19, Math.PI*.5, Math.PI*1.5); h.arc(880, 959, 19, -Math.PI*.5, Math.PI*.5);
+  var ns = r.int(3, 5);
+  for (var s = 0; s < ns; s++) {
+    var sx2 = r.chance(.5) ? r.range(70, 190) : r.range(810, 930), sy = r.range(90, 800), sr = r.range(22, 38);
+    starPoly(c, h, sx2, sy, sr, 5, 2, -Math.PI/2);
+  }
+  if (r.chance(.6)) { h.arc(860, 160, 60, Math.PI*.55, Math.PI*1.55); h.arc(885, 160, 48, Math.PI*.6, Math.PI*1.4); }
+}
+
+function turtle(c, r, h) {
+  var cx = 500, cy = 540, R = 230, sy = 1.17;
+  [[310, 350, 85, 38, -.8], [690, 350, 85, 38, .8], [330, 745, 75, 34, .7], [670, 745, 75, 34, -.7]].forEach(function (f) {
+    h.ell(f[0], f[1], f[2], f[3], f[4], true);
+    var dx = Math.cos(f[4]) * (f[0] < 500 ? -1 : 1) * (f[2] - 18);
+    for (var i = -1; i <= 1; i++) h.dot(f[0] + dx + i*8, f[1] + Math.sin(f[4]) * (f[0] < 500 ? -1 : 1) * (f[2] - 18) + i*12, 4);
+  });
+  h.path(function () { c.moveTo(468, 800); c.lineTo(500, 885); c.lineTo(532, 800); }, true, true);
+  h.circle(500, 212, 66, true);
+  h.dot(475, 198, 8); h.dot(525, 198, 8);
+  h.path(function () { c.moveTo(472, 232); c.quadraticCurveTo(500, 256, 528, 232); }, false, false);
+  if (r.chance(.5)) { h.circle(452, 226, 11); h.circle(548, 226, 11); }
+  c.save(); c.translate(cx, cy); c.scale(1, sy);
+  h.circle(0, 0, R, true);
+  var rim = r.int(12, 20), hx = r.range(68, 92), off = r.pick([0, Math.PI/6]);
+  h.circle(0, 0, 196);
+  for (var i = 0; i < rim; i++) { var a = TAU*i/rim, p0 = pol(0,0,196,a), p1 = pol(0,0,R,a); h.line(p0[0], p0[1], p1[0], p1[1]); }
+  h.path(function () { for (var k = 0; k < 6; k++) { var p = pol(0, 0, hx, off + TAU*k/6); k ? c.lineTo(p[0], p[1]) : c.moveTo(p[0], p[1]); } }, false, true);
+  var mode = r.int(0, 2);
+  for (var k2 = 0; k2 < 6; k2++) {
+    var a2 = off + TAU*k2/6, q0 = pol(0,0,hx,a2), q1 = pol(0,0,196,a2); h.line(q0[0], q0[1], q1[0], q1[1]);
+    var mid = pol(0, 0, (hx+196)/2, a2 + Math.PI/6);
+    if (mode === 0) { h.circle(mid[0], mid[1], 17); h.dot(mid[0], mid[1], 5); }
+    else if (mode === 1) { starPoly(c, h, mid[0], mid[1], 24, 6, 2, a2); }
+    else { h.circle(mid[0], mid[1], 22); h.circle(mid[0], mid[1], 10); }
+  }
+  if (r.chance(.6)) h.path(function () { for (var k = 0; k < 6; k++) { var p = pol(0, 0, hx*.5, off + TAU*k/6); k ? c.lineTo(p[0], p[1]) : c.moveTo(p[0], p[1]); } }, false, true);
+  c.restore();
+  var ns = r.int(2, 4);
+  for (var s = 0; s < ns; s++) h.circle(r.range(80, 200) , r.range(120, 900), r.range(14, 30));
+  for (var w = 0; w < 3; w++) { var wy = 930 + w * 22; h.path(function () { c.moveTo(60, wy); for (var x = 60; x < 940; x += 80) c.quadraticCurveTo(x + 20, wy - 14, x + 40, wy), c.quadraticCurveTo(x + 60, wy + 14, x + 80, wy); }, false, false); }
+}
+
+function cat(c, r, h) {
+  var cx = 500, cy = 540, rx = 290, ry = 250;
+  [1, -1].forEach(function (sx) {
+    var tipX = r.range(220, 255), tipY = r.range(145, 195), d0 = -205, d1 = -80;
+    var X = function (x) { return sx > 0 ? 1000 - x : x; };
+    var A = [500 + d0, cy - eyOf(rx,ry,d0)], B = [500 + d1, cy - eyOf(rx,ry,d1)];
+    h.path(function () { c.moveTo(X(A[0]), A[1]); c.lineTo(X(tipX), tipY); c.lineTo(X(B[0]), B[1]); }, true, false);
+    h.path(function () { c.moveTo(X(A[0]+30), A[1]-18); c.lineTo(X(tipX+22), tipY+55); c.lineTo(X(B[0]-22), B[1]-4); }, false, false);
+  });
+  h.ell(cx, cy, rx, ry, 0, true);
+  var eye = r.int(0, 2);
+  [385, 615].forEach(function (x, i) {
+    if (eye === 0) { h.circle(x, 500, 52, true); h.ell(x, 500, 15, 32, 0, 'k'); h.circle(x + 14, 480, 8, 'w'); }
+    else if (eye === 1) { h.path(function () { c.moveTo(x-55, 505); c.quadraticCurveTo(x, 440, x+55, 505); }, false, false); }
+    else { h.path(function () { c.moveTo(x-58, 500); c.quadraticCurveTo(x, 440, x+58, 500); c.quadraticCurveTo(x, 545, x-58, 500); }, true, true); h.dot(x, 500, 20); h.circle(x+8, 492, 6, 'w'); }
+  });
+  h.path(function () { c.moveTo(470, 585); c.lineTo(530, 585); c.lineTo(500, 622); }, false, true);
+  h.dot(500, 596, 9);
+  h.line(500, 622, 500, 648);
+  h.path(function () { c.moveTo(500, 648); c.quadraticCurveTo(470, 690, 425, 660); }, false, false);
+  h.path(function () { c.moveTo(500, 648); c.quadraticCurveTo(530, 690, 575, 660); }, false, false);
+  [1, -1].forEach(function (sx) {
+    for (var i = 0; i < 3; i++) h.line(500 + sx*190, 610 + i*26, 500 + sx*(380 + 8*i), 575 + i*60);
+  });
+  var st = r.int(0, 2);
+  if (st >= 1) { h.line(500, 300, 500, 375); h.line(450, 310, 462, 365); h.line(550, 310, 538, 365); }
+  if (st === 2) { [1, -1].forEach(function (sx) { for (var i = 0; i < 3; i++) h.line(500 + sx*268, 480 + i*32, 500 + sx*215, 490 + i*32); }); }
+  if (r.chance(.6)) { h.circle(325, 600, 20); h.circle(675, 600, 20); }
+  var acc = r.int(0, 1);
+  if (acc === 0) {
+    h.path(function () { c.moveTo(500, 835); c.lineTo(395, 790); c.lineTo(395, 880); }, true, true);
+    h.path(function () { c.moveTo(500, 835); c.lineTo(605, 790); c.lineTo(605, 880); }, true, true);
+    h.circle(500, 835, 20, true);
+  } else {
+    h.path(function () { c.moveTo(310, 745); c.quadraticCurveTo(500, 840, 690, 745); c.lineTo(675, 780); c.quadraticCurveTo(500, 880, 325, 780); }, true, true);
+    h.circle(500, 845, 26, true); h.line(480, 845, 520, 845); h.dot(500, 858, 5);
+  }
+}
+
+function bird(c, r, h) {
+  var nT = r.int(3, 4), i;
+  for (i = 0; i < nT; i++) {
+    var a = -.4 + i * (.8 / (nT - 1));
+    h.ell(300 - 110*Math.cos(a), 590 - 110*Math.sin(a) + 30, 120, 34, a, true);
+  }
+  h.ell(470, 540, 255, 205, -.05, true);
+  var cr = r.int(0, 2);
+  for (i = 0; i < cr + 2; i++) { var cxx = 600 + i*28; h.path(function () { c.moveTo(cxx, 312); c.quadraticCurveTo(cxx - 14, 235, cxx - 52 + i*8, 225); }, false, false); }
+  h.circle(655, 425, 125, true);
+  h.path(function () { c.moveTo(765, 405); c.lineTo(852, 445); c.lineTo(765, 485); }, true, true);
+  h.line(765, 445, 825, 445);
+  h.dot(700, 400, 22); h.circle(708, 392, 7, 'w');
+  if (r.chance(.6)) h.circle(690, 468, 18);
+  h.ell(440, 540, 150, 85, .35, true); h.ell(450, 545, 100, 52, .35);
+  for (i = 0; i < 4; i++) h.arc(330 + i*40, 580 + i*10, 20, 0, Math.PI);
+  for (var row = 0; row < 2; row++) for (var x = 400 + row*25; x < 620; x += 50) h.arc(x, 650 + row*45, 22, 0, Math.PI);
+  [430, 530].forEach(function (lx) {
+    h.line(lx, 742, lx, 835); h.line(lx, 835, lx - 28, 850); h.line(lx, 835, lx + 4, 856); h.line(lx, 835, lx + 30, 848);
+  });
+  h.path(function () { c.moveTo(60, 868); c.quadraticCurveTo(450, 842, 940, 872); }, false, false);
+  h.path(function () { c.moveTo(60, 915); c.quadraticCurveTo(450, 889, 940, 919); }, false, false);
+  h.arc(60, 891, 23, Math.PI*.5, Math.PI*1.5); h.arc(940, 895, 23, -Math.PI*.5, Math.PI*.5);
+  var nl = r.int(2, 4);
+  for (i = 0; i < nl; i++) { var lx2 = r.range(120, 900), la = r.range(-.9, -.3); h.ell(lx2, 858, 70, 24, la, true); h.line(lx2 - Math.cos(la)*55, 858 - Math.sin(la)*55, lx2 + Math.cos(la)*55, 858 + Math.sin(la)*55); }
+  var ns = r.int(2, 4);
+  for (i = 0; i < ns; i++) starPoly(c, h, r.range(70, 330), r.range(90, 300), r.range(18, 30), 5, 2, -Math.PI/2);
+  if (r.chance(.5)) { h.circle(880, 150, 55); h.circle(880, 150, 30); }
+}
+
+function flower(c, r, h) {
+  var cx = 500, cy = 500, n1 = r.int(6, 12), n2 = r.int(5, 10), v = r.chance(.6);
+  petalRing(c, h, cx, cy, 70, 440, n1, r.range(.22, .4), 0, v);
+  petalRing(c, h, cx, cy, 55, 300, n2, r.range(.25, .45), Math.PI / n2, v);
+  h.circle(cx, cy, 85, true); h.circle(cx, cy, 55);
+  var nd = r.int(8, 14);
+  for (var i = 0; i < nd; i++) { var p = pol(cx, cy, 70, TAU*i/nd); h.dot(p[0], p[1], 5); }
+  h.dot(cx, cy, 14);
+  var k = r.int(0, 3);
+  for (var j = 0; j < k; j++) h.circle(r.range(60, 140), r.range(60, 940), r.range(10, 22));
+}
+
+function mandala(c, r, h) {
+  var cx = 500, cy = 500, rad = r.range(24, 40), layers = 0, i;
+  h.circle(cx, cy, rad);
+  h.dot(cx, cy, 9);
+  while (rad < 395 || layers < 5) {
+    var w = r.range(42, 78), t = r.int(0, 5), n = r.pick([8, 10, 12, 16, 20, 24]), r1 = rad + w;
+    if (r1 > 470) break;
+    if (t === 0) petalRing(c, h, cx, cy, rad + 3, r1, n, r.range(.12, .4), r.pick([0, Math.PI / n]), r.chance(.4));
+    else if (t === 1) for (i = 0; i < n; i++) { var pc = pol(cx, cy, rad + w * .5, TAU*i/n); h.circle(pc[0], pc[1], Math.min(w * .42, Math.PI * (rad + w*.5) / n * .8)); }
+    else if (t === 2) { for (i = 0; i < n * 2; i++) { var pd = pol(cx, cy, rad + w * .5, TAU*i/(n*2)); h.dot(pd[0], pd[1], r.range(3, 7)); } }
+    else if (t === 3) { var k = r.pick([2, 3]); if (n % k === 0) k = 1 + k; starPoly(c, h, cx, cy, r1, n, Math.max(2, Math.min(k, Math.floor(n / 2) - 1)), -Math.PI/2); }
+    else if (t === 4) h.path(function () { for (var z = 0; z < n * 2; z++) { var q = pol(cx, cy, z % 2 ? rad : r1, TAU*z/(n*2)); z ? c.lineTo(q[0], q[1]) : c.moveTo(q[0], q[1]); } }, false, true);
+    else for (i = 0; i < n * 2; i++) { var l0 = pol(cx, cy, rad, TAU*i/(n*2)), l1 = pol(cx, cy, r1, TAU*i/(n*2)); h.line(l0[0], l0[1], l1[0], l1[1]); }
+    h.circle(cx, cy, r1);
+    rad = r1 + r.range(0, 10); layers++;
+  }
+  h.circle(cx, cy, 478);
+}
+
+var PAGE_TYPES = {
+  butterfly: { name: 'Butterflies', fn: butterfly },
+  fish: { name: 'Fish', fn: fish },
+  owl: { name: 'Owls', fn: owl },
+  bird: { name: 'Birds', fn: bird },
+  cat: { name: 'Cats', fn: cat },
+  turtle: { name: 'Turtles', fn: turtle },
+  flower: { name: 'Flowers', fn: flower },
+  mandala: { name: 'Mandalas', fn: mandala }
+};
+
+function drawPage(ctx, size, type, n, mark) {
+  var r = makeRng(hashSeed(type, n));
+  ctx.save();
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, size, size);
+  ctx.scale(size / 1000, size / 1000);
+  ctx.strokeStyle = '#000'; ctx.lineWidth = 6; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  PAGE_TYPES[type].fn(ctx, r, makeHelpers(ctx));
+  if (mark) {
+    ctx.fillStyle = '#888'; ctx.font = '15px Arial'; ctx.textAlign = 'center';
+    ctx.fillText('toolnes.netlify.app - free coloring pages', 500, 992);
+  }
+  ctx.restore();
+}
+
+
+    (function () {
+      var $ = function (id) { return document.getElementById(id); };
+      var types = Object.keys(PAGE_TYPES);
+      var DAY = Math.floor(Date.now() / 86400000);
+      var PER = 24;
+      var state = { cat: 'all', mode: 'today', count: 0 };
+      var cur = { type: 'butterfly', n: 1 };
+
+      function base() { return state.mode === 'today' ? DAY * 1000 : 1; }
+      function itemAt(i) {
+        if (state.cat === 'all') return { type: types[i % types.length], n: base() + Math.floor(i / types.length) };
+        return { type: state.cat, n: base() + i };
+      }
+      function label(type, n) { return PAGE_TYPES[type].name.replace(/s$/, '') + ' #' + n; }
+
+      var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { io.unobserve(e.target); thumb(e.target); }
+        });
+      }, { rootMargin: '300px' }) : null;
+
+      function thumb(cv) {
+        cv.width = 360; cv.height = 360;
+        drawPage(cv.getContext('2d'), 360, cv.getAttribute('data-type'), +cv.getAttribute('data-n'), false);
+      }
+
+      function addCards() {
+        var grid = $('grid');
+        for (var k = 0; k < PER; k++) {
+          var it = itemAt(state.count++);
+          var b = document.createElement('button');
+          b.type = 'button'; b.className = 'card';
+          var cv = document.createElement('canvas');
+          cv.setAttribute('data-type', it.type); cv.setAttribute('data-n', it.n);
+          cv.setAttribute('aria-label', label(it.type, it.n) + ' coloring page');
+          var cap = document.createElement('span'); cap.className = 'cap'; cap.textContent = label(it.type, it.n);
+          b.appendChild(cv); b.appendChild(cap);
+          (function (t, n) { b.addEventListener('click', function () { openPage(t, n); }); })(it.type, it.n);
+          grid.appendChild(b);
+          if (io) io.observe(cv); else thumb(cv);
+        }
+      }
+
+      function reset() { $('grid').innerHTML = ''; state.count = 0; addCards(); }
+
+      function buildTabs() {
+        var box = $('tabs'), names = [['all', 'All']];
+        types.forEach(function (t) { names.push([t, PAGE_TYPES[t].name]); });
+        names.forEach(function (p) {
+          var b = document.createElement('button');
+          b.type = 'button'; b.className = 'tab' + (p[0] === 'all' ? ' on' : ''); b.textContent = p[1];
+          b.addEventListener('click', function () {
+            state.cat = p[0];
+            Array.prototype.forEach.call(box.children, function (c) { c.classList.remove('on'); });
+            b.classList.add('on'); reset();
+          });
+          box.appendChild(b);
+        });
+      }
+
+      function setMode(m) {
+        state.mode = m;
+        $('mToday').classList.toggle('on', m === 'today');
+        $('mClassic').classList.toggle('on', m === 'classic');
+        reset();
+      }
+
+      function openPage(type, n) {
+        if (!PAGE_TYPES[type]) return;
+        cur = { type: type, n: Math.max(1, n) };
+        var big = $('big'); big.width = 1400; big.height = 1400;
+        drawPage(big.getContext('2d'), 1400, cur.type, cur.n, true);
+        $('mTitle').textContent = label(cur.type, cur.n) + ' - free coloring page';
+        $('toast').textContent = '';
+        $('modal').classList.add('open');
+        try { history.replaceState(null, '', '#' + cur.type + '-' + cur.n); } catch (e) {}
+      }
+
+      function closeModal() {
+        $('modal').classList.remove('open');
+        try { history.replaceState(null, '', location.pathname); } catch (e) {}
+      }
+
+      function toast(t) { $('toast').textContent = t; }
+
+      $('close').addEventListener('click', closeModal);
+      $('modal').addEventListener('click', function (e) { if (e.target === $('modal')) closeModal(); });
+      $('prev').addEventListener('click', function () { openPage(cur.type, cur.n - 1); });
+      $('next').addEventListener('click', function () { openPage(cur.type, cur.n + 1); });
+      $('rand').addEventListener('click', function () {
+        openPage(types[Math.floor(Math.random() * types.length)], 1 + Math.floor(Math.random() * 99999));
+      });
+      document.addEventListener('keydown', function (e) {
+        if (!$('modal').classList.contains('open')) return;
+        if (e.key === 'Escape') closeModal();
+        if (e.key === 'ArrowLeft') openPage(cur.type, cur.n - 1);
+        if (e.key === 'ArrowRight') openPage(cur.type, cur.n + 1);
+      });
+
+      $('dl').addEventListener('click', function () {
+        var cv = document.createElement('canvas'); cv.width = 2400; cv.height = 2400;
+        drawPage(cv.getContext('2d'), 2400, cur.type, cur.n, true);
+        cv.toBlob(function (blob) {
+          if (!blob) { toast('Could not create the file. Please try again.'); return; }
+          var a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = 'toolnes-' + cur.type + '-coloring-page-' + cur.n + '.png';
+          document.body.appendChild(a); a.click(); a.remove();
+          setTimeout(function () { URL.revokeObjectURL(a.href); }, 1500);
+          toast('Your download has started.');
+        }, 'image/png');
+      });
+      $('pr').addEventListener('click', function () { window.print(); });
+      $('copy').addEventListener('click', function () {
+        var url = location.href;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(url).then(function () { toast('Link copied.'); }, function () { toast(url); });
+        } else { toast(url); }
+      });
+
+      $('more').addEventListener('click', addCards);
+      $('mToday').addEventListener('click', function () { setMode('today'); });
+      $('mClassic').addEventListener('click', function () { setMode('classic'); });
+
+      buildTabs();
+      addCards();
+      $('year').textContent = new Date().getFullYear();
+
+      var m = /^#([a-z]+)-(\d+)$/.exec(location.hash);
+      if (m && PAGE_TYPES[m[1]]) openPage(m[1], parseInt(m[2], 10));
+    })();
+  </script>
+</body>
+</html>
