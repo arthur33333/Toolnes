@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Free printable coloring pages: butterflies, fish, owls, birds, cats, turtles, flowers and mandalas. Thousands of unique designs, with new pages every day. Download or print.">
+  <meta name="description" content="Free printable coloring pages: butterflies, fish, owls, birds, cats, dogs, rabbits, elephants, dolphins, ducks, snails, turtles, flowers and mandalas. Thousands of unique designs, with new pages every day.">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#17172f">
   <title>Free Printable Coloring Pages - Animals, Birds, Flowers &amp; Mandalas | Toolnes</title>
@@ -93,7 +93,7 @@
   <main>
     <div class="eyebrow">Free to print</div>
     <h1>Free Printable Coloring Pages</h1>
-    <p class="intro">Choose from thousands of unique coloring pages: butterflies, fish, owls, birds, cats, turtles, flowers and mandalas. Every design is original, and a fresh set appears every day. Click a page to download or print it.</p>
+    <p class="intro">Choose from thousands of unique coloring pages: butterflies, fish, owls, birds, cats, dogs, rabbits, elephants, dolphins, ducks, snails, turtles, flowers and mandalas. Every design is original, and a fresh set appears every day. Click a page to download or print it.</p>
 
     <div class="bar" id="tabs" role="tablist" aria-label="Categories"></div>
     <div class="modes">
@@ -116,6 +116,12 @@
         <p><strong>Owls:</strong> big-eyed owls on a branch under the stars and moon.</p>
         <p><strong>Birds:</strong> cute round birds with feathers, tails and leafy branches.</p>
         <p><strong>Cats:</strong> happy cat faces with bows, collars, whiskers and stripes.</p>
+        <p><strong>Dogs:</strong> friendly puppies with floppy ears, collars, bandanas and freckles.</p>
+        <p><strong>Rabbits:</strong> long-eared bunnies with carrots, bow ties and whiskers.</p>
+        <p><strong>Elephants:</strong> cheerful elephants with party hats, flowers and big ears.</p>
+        <p><strong>Dolphins:</strong> leaping dolphins above the waves, with bubbles and sunshine.</p>
+        <p><strong>Ducks:</strong> cute ducks floating on the pond, with reeds and little flowers.</p>
+        <p><strong>Snails:</strong> smiling snails with spiral shells, grass and flowers.</p>
         <p><strong>Turtles:</strong> patterned shells, flippers and wavy water.</p>
         <p><strong>Flowers:</strong> blooms with many petals and detailed centers.</p>
         <p><strong>Mandalas:</strong> calm, detailed patterns for relaxing and mindful coloring.</p>
@@ -199,7 +205,7 @@ function makeHelpers(c) {
     dot: function (x, y, r) { c.beginPath(); c.arc(x, y, r, 0, TAU); c.fillStyle = '#000'; c.fill(); },
     ell: function (x, y, rx, ry, rot, fill) {
       c.beginPath(); c.ellipse(x, y, rx, ry, rot || 0, 0, TAU);
-      if (fill) { c.fillStyle = '#fff'; c.fill(); }
+      if (fill) { c.fillStyle = fill === 'k' ? '#000' : '#fff'; c.fill(); }
       c.stroke();
     },
     path: function (fn, fill, close) {
@@ -498,15 +504,231 @@ function mandala(c, r, h) {
   h.circle(cx, cy, 478);
 }
 
+function heart(c, h, x, y, s) {
+  h.path(function () {
+    c.moveTo(x, y + s * .9);
+    c.bezierCurveTo(x - s * 1.4, y - s * .1, x - s * .6, y - s * 1.1, x, y - s * .3);
+    c.bezierCurveTo(x + s * .6, y - s * 1.1, x + s * 1.4, y - s * .1, x, y + s * .9);
+  }, false, true);
+}
+function sprinkle(c, h, r, n, y0, y1) {
+  for (var i = 0; i < n; i++) {
+    var x = r.chance(.5) ? r.range(60, 175) : r.range(825, 940), y = r.range(y0, y1);
+    if (r.chance(.5)) heart(c, h, x, y, r.range(14, 24)); else starPoly(c, h, x, y, r.range(18, 30), 5, 2, -Math.PI / 2);
+  }
+}
+function waves(c, h, y, amp) {
+  h.path(function () {
+    c.moveTo(40, y);
+    for (var x = 40; x < 940; x += 80) { c.quadraticCurveTo(x + 20, y - amp, x + 40, y); c.quadraticCurveTo(x + 60, y + amp, x + 80, y); }
+  }, false, false);
+}
+function sun(c, h, x, y, rr) {
+  h.circle(x, y, rr);
+  for (var i = 0; i < 12; i++) { var a = TAU * i / 12, p = pol(x, y, rr + 14, a), q = pol(x, y, rr + 34, a); h.line(p[0], p[1], q[0], q[1]); }
+}
+function bowTie(c, h, x, y) {
+  h.path(function () { c.moveTo(x, y); c.lineTo(x - 100, y - 45); c.lineTo(x - 100, y + 45); }, true, true);
+  h.path(function () { c.moveTo(x, y); c.lineTo(x + 100, y - 45); c.lineTo(x + 100, y + 45); }, true, true);
+  h.circle(x, y, 20, true);
+}
+
+function dog(c, r, h) {
+  var rot = r.range(.15, .4), eL = r.range(170, 210), eW = r.range(70, 90);
+  [1, -1].forEach(function (sx) {
+    h.ell(500 - sx * 255, 470, eW, eL, sx * rot, true);
+    h.ell(500 - sx * 262, 482, eW * .55, eL * .65, sx * rot);
+  });
+  h.ell(500, 520, 265, 235, 0, true);
+  if (r.chance(.8)) { var side = r.chance(.5) ? 1 : -1; h.ell(500 - side * 118, 455, 92, 102, side * .3); }
+  [395, 605].forEach(function (x) { h.circle(x, 460, 40, true); h.dot(x, 466, 21); h.circle(x + 9, 456, 6, 'w'); });
+  if (r.chance(.5)) [395, 605].forEach(function (x, i) { h.path(function () { c.moveTo(x - 45, 392 + i * 4); c.quadraticCurveTo(x, 365, x + 45, 392 + (1 - i) * 4); }, false, false); });
+  h.ell(500, 618, 135, 98, 0, true);
+  h.ell(500, 568, 54, 34, 0, 'k'); h.circle(486, 558, 7, 'w');
+  h.line(500, 601, 500, 642);
+  h.path(function () { c.moveTo(500, 642); c.quadraticCurveTo(468, 680, 424, 652); }, false, false);
+  h.path(function () { c.moveTo(500, 642); c.quadraticCurveTo(532, 680, 576, 652); }, false, false);
+  if (r.chance(.6)) { h.path(function () { c.moveTo(468, 664); c.quadraticCurveTo(468, 735, 500, 735); c.quadraticCurveTo(532, 735, 532, 664); }, true, false); h.line(500, 670, 500, 715); }
+  [[440, 598], [420, 624], [452, 628]].forEach(function (p) { h.dot(p[0], p[1], 4); h.dot(1000 - p[0], p[1], 4); });
+  if (r.chance(.5)) {
+    h.path(function () { c.moveTo(300, 720); c.quadraticCurveTo(500, 820, 700, 720); c.lineTo(690, 765); c.quadraticCurveTo(500, 865, 310, 765); }, true, true);
+    h.circle(500, 840, 28, true); h.dot(500, 840, 6);
+  } else {
+    h.path(function () { c.moveTo(320, 740); c.quadraticCurveTo(500, 790, 680, 740); c.lineTo(500, 930); }, true, true);
+    h.dot(450, 790, 8); h.dot(550, 790, 8); h.dot(500, 850, 8);
+  }
+  sprinkle(c, h, r, r.int(2, 4), 100, 700);
+}
+
+function rabbit(c, r, h) {
+  var tilt = r.range(.05, .22), eH = r.range(175, 205);
+  [1, -1].forEach(function (sx) {
+    h.ell(500 - sx * 95, 245, 62, eH, -sx * tilt, true);
+    h.ell(500 - sx * 95, 255, 32, eH * .72, -sx * tilt);
+  });
+  h.ell(500, 600, 245, 215, 0, true);
+  [405, 595].forEach(function (x) { h.dot(x, 560, 25); h.circle(x + 9, 551, 8, 'w'); });
+  h.ell(500, 632, 24, 16, 0, 'k');
+  h.line(500, 646, 500, 676);
+  h.path(function () { c.moveTo(500, 676); c.quadraticCurveTo(470, 708, 432, 682); }, false, false);
+  h.path(function () { c.moveTo(500, 676); c.quadraticCurveTo(530, 708, 568, 682); }, false, false);
+  h.path(function () { c.moveTo(472, 688); c.lineTo(528, 688); c.lineTo(528, 740); c.lineTo(472, 740); }, true, true);
+  h.line(500, 688, 500, 740);
+  h.circle(335, 655, 32); h.circle(665, 655, 32);
+  [1, -1].forEach(function (sx) { for (var i = 0; i < 3; i++) h.line(500 + sx * 170, 640 + i * 22, 500 + sx * 360, 600 + i * 42); });
+  if (r.chance(.55)) {
+    h.path(function () { c.moveTo(730, 790); c.lineTo(870, 790); c.lineTo(800, 940); }, true, true);
+    h.line(750, 825, 795, 832); h.line(790, 860, 835, 866); h.line(780, 895, 810, 900);
+    for (var i = -1; i <= 1; i++) h.path(function () { c.moveTo(800, 790); c.quadraticCurveTo(800 + i * 30, 740, 800 + i * 55, 705); }, false, false);
+  } else bowTie(c, h, 500, 875);
+  sprinkle(c, h, r, r.int(2, 4), 100, 700);
+}
+
+function elephant(c, r, h) {
+  var eW = r.range(135, 158), eH = r.range(175, 205);
+  [1, -1].forEach(function (sx) {
+    h.ell(500 - sx * 255, 470, eW, eH, sx * .12, true);
+    h.ell(500 - sx * 255, 480, eW * .65, eH * .68, sx * .12);
+    if (r.chance(.5)) for (var k = -1; k <= 1; k++) h.line(500 - sx * 255 + k * 28, 400, 500 - sx * 255 + k * 24, 560);
+  });
+  h.circle(500, 450, 232, true);
+  if (r.chance(.75)) [1, -1].forEach(function (sx) {
+    h.path(function () { c.moveTo(500 + sx * -65, 590); c.quadraticCurveTo(500 + sx * -160, 690, 500 + sx * -118, 800); c.quadraticCurveTo(500 + sx * -118, 700, 500 + sx * -42, 625); }, true, true);
+  });
+  h.path(function () {
+    c.moveTo(438, 545);
+    c.bezierCurveTo(422, 690, 438, 800, 474, 872);
+    c.quadraticCurveTo(508, 925, 548, 868);
+    c.bezierCurveTo(572, 830, 578, 690, 562, 545);
+  }, true, true);
+  for (var y = 610; y <= 790; y += 45) h.path(function () { c.moveTo(447 + (y - 610) * .06, y); c.quadraticCurveTo(500, y + 18, 553 - (y - 610) * .06, y); }, false, false);
+  [408, 592].forEach(function (x) { h.dot(x, 420, 15); h.circle(x + 5, 414, 4, 'w'); });
+  if (r.chance(.5)) [408, 592].forEach(function (x) { for (var q = -1; q <= 1; q++) h.line(x + q * 9, 400, x + q * 17, 378); });
+  h.circle(330, 520, 28); h.circle(670, 520, 28);
+  if (r.chance(.55)) {
+    h.path(function () { c.moveTo(420, 235); c.lineTo(580, 235); c.lineTo(500, 70); }, true, true);
+    h.line(442, 190, 558, 190); h.line(466, 140, 534, 140); h.circle(500, 62, 18, true);
+  } else {
+    for (var i = 0; i < 5; i++) { var p = pol(500, 190, 32, TAU * i / 5 - Math.PI / 2); h.circle(p[0], p[1], 22); }
+    h.circle(500, 190, 16, true); h.dot(500, 190, 5);
+  }
+}
+
+function dolphin(c, r, h) {
+  c.save(); c.translate(0, 5);
+  if (r.chance(.5)) sun(c, h, 140, 150, 48);
+  h.path(function () { c.moveTo(560, 335); c.bezierCurveTo(545, 275, 505, 240, 455, 225); c.bezierCurveTo(475, 270, 465, 310, 445, 345); }, true, false);
+  h.path(function () {
+    c.moveTo(915, 505);
+    c.bezierCurveTo(880, 492, 840, 470, 805, 432);
+    c.bezierCurveTo(780, 392, 740, 362, 690, 352);
+    c.bezierCurveTo(580, 322, 440, 335, 330, 420);
+    c.bezierCurveTo(280, 455, 240, 490, 200, 500);
+    c.bezierCurveTo(170, 470, 130, 420, 90, 410);
+    c.bezierCurveTo(130, 460, 150, 490, 150, 510);
+    c.bezierCurveTo(150, 530, 130, 570, 90, 610);
+    c.bezierCurveTo(130, 590, 175, 560, 210, 545);
+    c.bezierCurveTo(300, 590, 450, 660, 600, 650);
+    c.bezierCurveTo(720, 642, 790, 600, 830, 552);
+    c.bezierCurveTo(855, 535, 885, 522, 915, 505);
+  }, true, true);
+  h.path(function () { c.moveTo(915, 505); c.quadraticCurveTo(860, 530, 800, 528); }, false, false);
+  h.path(function () { c.moveTo(250, 505); c.bezierCurveTo(400, 590, 600, 600, 800, 540); }, false, false);
+  h.circle(745, 448, 22, true); h.dot(747, 450, 11); h.circle(753, 443, 4, 'w');
+  h.ell(640, 610, 85, 28, .75, true);
+  var pat = r.int(0, 2);
+  if (pat === 0) for (var x = 400; x < 700; x += 55) h.circle(x + r.range(-8, 8), 405 + r.range(-5, 25), r.range(8, 14));
+  else if (pat === 1) for (var k = 0; k < 4; k++) { var sx = 420 + k * 70; h.path(function () { c.moveTo(sx, 372 + k * 3); c.quadraticCurveTo(sx + 25, 430, sx - 10, 480); }, false, false); }
+  c.restore();
+  waves(c, h, 780, 14); waves(c, h, 835, 14); waves(c, h, 890, 14);
+  var nd = r.int(3, 6);
+  for (var i = 0; i < nd; i++) h.circle(r.range(60, 230), r.range(610, 740), r.range(8, 18));
+  for (var j = 0; j < r.int(2, 4); j++) h.circle(r.range(720, 930), r.range(600, 740), r.range(10, 24));
+}
+
+function snail(c, r, h) {
+  if (r.chance(.5)) sun(c, h, 150, 140, 46);
+  [[770, 478, 745, 382, 743, 366], [818, 478, 852, 388, 854, 372]].forEach(function (s) {
+    h.line(s[0], s[1], s[2], s[3]); h.circle(s[4], s[5], 21, true); h.dot(s[4] + 2, s[5] + 2, 8);
+  });
+  h.path(function () {
+    c.moveTo(110, 810);
+    c.bezierCurveTo(260, 740, 420, 715, 580, 712);
+    c.bezierCurveTo(700, 705, 745, 650, 742, 560);
+    c.bezierCurveTo(745, 470, 840, 470, 850, 550);
+    c.bezierCurveTo(860, 640, 830, 790, 740, 810);
+    c.lineTo(110, 810);
+  }, true, true);
+  h.path(function () { c.moveTo(783, 565); c.quadraticCurveTo(806, 592, 832, 560); }, false, false);
+  h.circle(770, 590, 12); 
+  var R = 190, sx = 430, sy = 505, turns = r.pick([3, 3.5, 4, 4.5]);
+  h.circle(sx, sy, R, true);
+  h.path(function () {
+    for (var t = 0; t <= turns * TAU; t += .08) {
+      var rr = 12 + (t / (turns * TAU)) * (R - 22), p = pol(sx, sy, rr, t + 1.2);
+      t === 0 ? c.moveTo(p[0], p[1]) : c.lineTo(p[0], p[1]);
+    }
+  }, false, false);
+  h.circle(sx, sy, R - 20);
+  if (r.chance(.6)) for (var i = 0; i < 9; i++) { var q = pol(sx, sy, R + 18, -Math.PI * .95 + i * .3); h.dot(q[0], q[1], 4); }
+  h.line(40, 815, 960, 815);
+  var g = r.int(5, 8);
+  for (var k = 0; k < g; k++) {
+    var gx = r.range(60, 940), gh = r.range(30, 55);
+    h.path(function () { c.moveTo(gx - 14, 892); c.quadraticCurveTo(gx - 10, 892 - gh * .6, gx - 18, 892 - gh); }, false, false);
+    h.path(function () { c.moveTo(gx, 892); c.lineTo(gx, 892 - gh * 1.15); }, false, false);
+    h.path(function () { c.moveTo(gx + 14, 892); c.quadraticCurveTo(gx + 10, 892 - gh * .6, gx + 18, 892 - gh); }, false, false);
+  }
+  if (r.chance(.7)) {
+    var fx = r.range(870, 930);
+    h.line(fx, 950, fx, 880);
+    for (var f = 0; f < 5; f++) { var fp = pol(fx, 862, 20, TAU * f / 5 - Math.PI / 2); h.circle(fp[0], fp[1], 14); }
+    h.circle(fx, 862, 10, true);
+  }
+}
+
+function duck(c, r, h) {
+  if (r.chance(.5)) sun(c, h, 130, 140, 48);
+  h.path(function () { c.moveTo(240, 570); c.bezierCurveTo(175, 525, 125, 485, 95, 440); c.bezierCurveTo(155, 430, 235, 470, 270, 520); }, true, false);
+  h.ell(480, 620, 270, 170, 0, true);
+  h.ell(450, 610, 165, 98, .12, true);
+  for (var i = 0; i < 3; i++) h.arc(380 + i * 55, 625 + i * 4, 26, 0, Math.PI);
+  h.line(300, 580, 520, 575);
+  h.circle(690, 420, 130, true);
+  h.path(function () { c.moveTo(800, 395); c.bezierCurveTo(880, 385, 935, 420, 928, 452); c.bezierCurveTo(900, 482, 830, 472, 800, 452); }, true, true);
+  h.path(function () { c.moveTo(808, 428); c.quadraticCurveTo(870, 440, 922, 440); }, false, false);
+  h.dot(722, 382, 17); h.circle(729, 375, 6, 'w');
+  if (r.chance(.4)) h.circle(742, 455, 18);
+  if (r.chance(.55)) {
+    for (var f = 0; f < 5; f++) { var p = pol(625, 300, 22, TAU * f / 5 - Math.PI / 2); h.circle(p[0], p[1], 15); }
+    h.circle(625, 300, 11, true);
+  } else {
+    h.path(function () { c.moveTo(650, 300); c.quadraticCurveTo(690, 270, 720, 292); }, false, false);
+  }
+  waves(c, h, 815, 13); waves(c, h, 868, 13); waves(c, h, 921, 13);
+  var nr = r.int(1, 3);
+  for (var k = 0; k < nr; k++) {
+    var rx = 880 + k * 36 - (nr - 1) * 18;
+    h.line(rx, 960, rx - 6, 620); h.ell(rx - 6, 600, 14, 40, 0, true);
+  }
+  for (var b = 0; b < r.int(2, 4); b++) h.circle(r.range(80, 220), r.range(700, 780), r.range(8, 16));
+}
+
 var PAGE_TYPES = {
-  butterfly: { name: 'Butterflies', fn: butterfly },
-  fish: { name: 'Fish', fn: fish },
-  owl: { name: 'Owls', fn: owl },
-  bird: { name: 'Birds', fn: bird },
-  cat: { name: 'Cats', fn: cat },
-  turtle: { name: 'Turtles', fn: turtle },
-  flower: { name: 'Flowers', fn: flower },
-  mandala: { name: 'Mandalas', fn: mandala }
+  butterfly: { name: 'Butterflies', one: 'Butterfly', fn: butterfly },
+  fish: { name: 'Fish', one: 'Fish', fn: fish },
+  owl: { name: 'Owls', one: 'Owl', fn: owl },
+  bird: { name: 'Birds', one: 'Bird', fn: bird },
+  cat: { name: 'Cats', one: 'Cat', fn: cat },
+  dog: { name: 'Dogs', one: 'Dog', fn: dog },
+  rabbit: { name: 'Rabbits', one: 'Rabbit', fn: rabbit },
+  elephant: { name: 'Elephants', one: 'Elephant', fn: elephant },
+  dolphin: { name: 'Dolphins', one: 'Dolphin', fn: dolphin },
+  duck: { name: 'Ducks', one: 'Duck', fn: duck },
+  snail: { name: 'Snails', one: 'Snail', fn: snail },
+  turtle: { name: 'Turtles', one: 'Turtle', fn: turtle },
+  flower: { name: 'Flowers', one: 'Flower', fn: flower },
+  mandala: { name: 'Mandalas', one: 'Mandala', fn: mandala }
 };
 
 function drawPage(ctx, size, type, n, mark) {
@@ -538,7 +760,7 @@ function drawPage(ctx, size, type, n, mark) {
         if (state.cat === 'all') return { type: types[i % types.length], n: base() + Math.floor(i / types.length) };
         return { type: state.cat, n: base() + i };
       }
-      function label(type, n) { return PAGE_TYPES[type].name.replace(/s$/, '') + ' #' + n; }
+      function label(type, n) { return PAGE_TYPES[type].one + ' #' + n; }
 
       var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function (entries) {
         entries.forEach(function (e) {
