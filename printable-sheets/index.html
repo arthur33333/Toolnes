@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free printable sheets: monthly calendar for any year, weekly and daily planners, habit tracker, budget tracker, lined paper, graph paper, dot grid and more. Customize, then download or print.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#17172f">
+  <title>Free Printable Sheets: Calendars, Planners, Trackers &amp; Lined Paper | Toolnes</title>
+  <link rel="canonical" href="https://toolnes.netlify.app/printable-sheets/">
+  <meta property="og:title" content="Free Printable Sheets: Calendars, Planners, Trackers and Lined Paper">
+  <meta property="og:description" content="Pick a sheet, customize it, then download or print. Free and instant.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toolnes.netlify.app/printable-sheets/">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"Are these printable sheets free?","acceptedAnswer":{"@type":"Answer","text":"Yes. You can download and print any sheet for free for personal, home, classroom and small office use."}},
+    {"@type":"Question","name":"Can I print a calendar for any month and year?","acceptedAnswer":{"@type":"Answer","text":"Yes. Choose Monthly Calendar, then pick the month, the year and whether the week starts on Sunday or Monday."}},
+    {"@type":"Question","name":"Does it work with US Letter and A4 paper?","acceptedAnswer":{"@type":"Answer","text":"Yes. Choose Letter or A4 under Paper size, and the sheet is drawn at the right proportions."}},
+    {"@type":"Question","name":"How do I save a sheet as a PDF?","acceptedAnswer":{"@type":"Answer","text":"Press Print, then choose Save as PDF as the destination in your browser's print window."}}
+  ]}
+  </script>
+  <style>
+    :root{--bg:#17172f;--surface:#20203e;--card:#242443;--text:#f5f3ff;--muted:#b0b1cf;--purple:#a78bfa;--turquoise:#67e8d4;--border:#393858}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,-apple-system,"Segoe UI",Arial,sans-serif;line-height:1.7}
+    a{color:var(--turquoise)}
+    header{background:rgba(23,23,47,.92);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10;backdrop-filter:blur(12px)}
+    .nav{max-width:1200px;margin:auto;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+    .logo{font-size:26px;font-weight:850;letter-spacing:-1px;color:var(--purple);text-decoration:none}
+    .logo span{color:var(--turquoise)}
+    nav a{color:var(--muted);font-size:13px;font-weight:650;text-decoration:none;margin-left:18px}
+    nav a:hover{color:var(--turquoise)}
+    main{max-width:1200px;margin:auto;padding:36px 24px 70px}
+    .eyebrow{color:var(--turquoise);text-transform:uppercase;font-size:12px;font-weight:800;letter-spacing:1.3px}
+    h1{font-size:clamp(30px,5vw,46px);line-height:1.12;letter-spacing:-1.5px;margin:8px 0 12px}
+    h2{font-size:21px;margin:0 0 12px}
+    .intro{color:var(--muted);max-width:780px;margin:0 0 24px}
+    .types{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:12px;margin-bottom:28px}
+    .t{background:var(--card);border:2px solid var(--border);border-radius:12px;padding:8px;cursor:pointer;color:var(--text);font:inherit;text-align:center}
+    .t:hover{border-color:var(--purple)}
+    .t.on{border-color:var(--turquoise)}
+    .t canvas{display:block;width:100%;height:auto;background:#fff;border-radius:6px}
+    .t span{display:block;font-size:12.5px;font-weight:700;margin-top:6px;line-height:1.3}
+    .work{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:24px;align-items:start}
+    .panel{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:22px}
+    .f{margin-bottom:16px}
+    .f label{display:block;font-weight:700;font-size:13px;margin-bottom:6px}
+    .f input,.f select{width:100%;min-height:42px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);padding:9px 12px;font:inherit}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .sw{display:flex;gap:10px;flex-wrap:wrap}
+    .sw button{width:34px;height:34px;border-radius:50%;border:3px solid transparent;cursor:pointer}
+    .sw button.on{border-color:#fff}
+    .chk{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:14px}
+    .chk input{width:auto;min-height:0}
+    .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+    .btns button{border:0;border-radius:11px;padding:12px 18px;font:inherit;font-weight:800;cursor:pointer;background:var(--purple);color:#17172f}
+    .btns .s{background:#34345a;color:var(--text)}
+    .preview{background:#0f0f24;border:1px solid var(--border);border-radius:18px;padding:18px;text-align:center}
+    #sheet{width:100%;max-width:640px;height:auto;background:#fff;border-radius:6px;box-shadow:0 12px 40px rgba(0,0,0,.35)}
+    .ad-slot{margin:28px 0;text-align:center}
+    .info{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:26px;margin-top:28px}
+    .info p,.info li{color:var(--muted)}
+    .list{display:grid;grid-template-columns:1fr 1fr;gap:0 28px}
+    footer{text-align:center;padding:26px 20px;border-top:1px solid var(--border);color:var(--muted);font-size:13px}
+    footer a{margin:0 8px}
+    @media(max-width:1000px){.types{grid-template-columns:repeat(4,1fr)}.work{grid-template-columns:1fr}}
+    @media(max-width:560px){.types{grid-template-columns:repeat(3,1fr);gap:8px}.list{grid-template-columns:1fr}main{padding:26px 16px 50px}}
+    @media print{
+      body *{visibility:hidden}
+      #sheet{visibility:visible;position:fixed;left:0;top:0;width:var(--pw);height:var(--ph);max-width:none;border-radius:0;box-shadow:none}
+    }
+  </style>
+  <style id="pageStyle">@page{size:letter;margin:0}</style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <a class="logo" href="/">Tool<span>nes</span></a>
+      <nav aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/printable-sheets/">Printable Sheets</a>
+        <a href="/coloring-pages/">Coloring Pages</a>
+        <a href="/kdp/printables/">KDP Printables</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="eyebrow">Free to print</div>
+    <h1>Free Printable Sheets</h1>
+    <p class="intro">Choose a sheet, customize it, then download or print it. Calendars for any month and year, planners, trackers, lined paper, graph paper and more, for US Letter or A4. Everything is made in your browser, instantly.</p>
+
+    <h2>1. Choose a sheet</h2>
+    <div class="types" id="types"></div>
+
+    <div class="work">
+      <section class="panel" aria-label="Options">
+        <h2>2. Customize</h2>
+        <div class="f"><label for="title">Title (optional)</label><input id="title" type="text" maxlength="40" placeholder="Leave empty for the default title"></div>
+        <div class="two">
+          <div class="f"><label for="paper">Paper size</label><select id="paper"><option value="letter">US Letter</option><option value="a4">A4</option></select></div>
+          <div class="f" id="fSpacing" style="display:none"><label for="spacing">Spacing</label><select id="spacing"></select></div>
+        </div>
+        <div class="f"><label>Color</label><div class="sw" id="swatches"></div></div>
+        <div id="fDate" style="display:none">
+          <div class="two">
+            <div class="f"><label for="month">Month</label><select id="month"></select></div>
+            <div class="f"><label for="year">Year</label><input id="year" type="number" min="1900" max="2100" step="1"></div>
+          </div>
+          <div class="f" id="fWeek"><label for="week">Week starts on</label><select id="week"><option value="0">Sunday</option><option value="1">Monday</option></select></div>
+        </div>
+        <div class="f" id="fMargin" style="display:none"><label class="chk"><input type="checkbox" id="margin" checked> Add a margin line</label></div>
+        <div class="btns">
+          <button type="button" id="dl">Download PNG</button>
+          <button type="button" id="pr">Print / Save as PDF</button>
+        </div>
+        <p style="font-size:13px;color:var(--muted);margin:14px 0 0">To save as PDF, press Print, then choose "Save as PDF" as the destination.</p>
+      </section>
+      <section class="preview" aria-label="Preview">
+        <canvas id="sheet"></canvas>
+      </section>
+    </div>
+
+    <!-- Place your ad code here -->
+    <div class="ad-slot" id="ad-slot-1"></div>
+
+    <section class="info">
+      <h2>Sheets you can create</h2>
+      <div class="list">
+        <p><strong>Monthly Calendar:</strong> a printable calendar for any month and year, starting on Sunday or Monday.</p>
+        <p><strong>Weekly Planner:</strong> one box for each day plus a notes box.</p>
+        <p><strong>Daily Planner:</strong> an hourly schedule, top priorities, to-do list and notes.</p>
+        <p><strong>To-Do List:</strong> a simple checklist page.</p>
+        <p><strong>Habit Tracker:</strong> a monthly grid to track up to 16 daily habits.</p>
+        <p><strong>Budget Tracker:</strong> a table for income, expenses and balance.</p>
+        <p><strong>Reading Log:</strong> keep track of books, authors, dates and ratings.</p>
+        <p><strong>Meal Planner:</strong> a weekly menu with a grocery list.</p>
+        <p><strong>Lined Paper:</strong> narrow, college or wide ruled, with an optional margin line.</p>
+        <p><strong>Handwriting Practice:</strong> three-line guides for printing and cursive practice.</p>
+        <p><strong>Cornell Notes:</strong> cue column, notes area and summary box for studying.</p>
+        <p><strong>Graph Paper and Dot Grid:</strong> for math, sketches, bullet journals and design.</p>
+        <p><strong>Gratitude Journal:</strong> daily prompts for a mindful writing habit.</p>
+      </div>
+      <h2 style="margin-top:20px">How to print</h2>
+      <ol>
+        <li>Pick a sheet and adjust the options.</li>
+        <li>Press <strong>Print / Save as PDF</strong>.</li>
+        <li>Choose your printer, or "Save as PDF". Set scale to 100% and margins to none or default.</li>
+      </ol>
+      <p>Looking for something to color? See our <a href="/coloring-pages/">free coloring pages</a>. Planning a book? Try the <a href="/kdp/printables/">KDP printables</a> and <a href="/kdp/">publishing tools</a>.</p>
+      <p>These sheets are free for personal, home, classroom and small office use. Please do not resell them as they are.</p>
+    </section>
+
+    <section class="info">
+      <h2>Frequently Asked Questions</h2>
+      <h3>Are these printable sheets free?</h3>
+      <p>Yes. You can download and print any sheet for free for personal, home, classroom and small office use.</p>
+      <h3>Can I print a calendar for any month and year?</h3>
+      <p>Yes. Choose Monthly Calendar, then pick the month, the year and whether the week starts on Sunday or Monday.</p>
+      <h3>Does it work with US Letter and A4 paper?</h3>
+      <p>Yes. Choose Letter or A4 under Paper size, and the sheet is drawn at the right proportions.</p>
+      <h3>How do I save a sheet as a PDF?</h3>
+      <p>Press Print, then choose Save as PDF as the destination in your browser's print window.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year2"></span> Toolnes. Free online tools for everyone.</p>
+    <p><a href="/about/">About</a> · <a href="/contact/">Contact</a> · <a href="/privacy-policy/">Privacy Policy</a></p>
+  </footer>
+
+  <script>
+
+var SHEET_TYPES = [
+  { id: 'lined', name: 'Lined Paper', cat: 'Writing' },
+  { id: 'handwriting', name: 'Handwriting Practice', cat: 'Writing' },
+  { id: 'cornell', name: 'Cornell Notes', cat: 'Writing' },
+  { id: 'dotgrid', name: 'Dot Grid', cat: 'Grids' },
+  { id: 'graph', name: 'Graph Paper', cat: 'Grids' },
+  { id: 'calendar', name: 'Monthly Calendar', cat: 'Planners' },
+  { id: 'weekly', name: 'Weekly Planner', cat: 'Planners' },
+  { id: 'daily', name: 'Daily Planner', cat: 'Planners' },
+  { id: 'todo', name: 'To-Do List', cat: 'Planners' },
+  { id: 'habit', name: 'Habit Tracker', cat: 'Trackers' },
+  { id: 'budget', name: 'Budget Tracker', cat: 'Trackers' },
+  { id: 'reading', name: 'Reading Log', cat: 'Trackers' },
+  { id: 'meal', name: 'Meal Planner', cat: 'Planners' },
+  { id: 'gratitude', name: 'Gratitude Journal', cat: 'Journal' }
+];
+var SHEET_PAPER = { letter: [612, 792], a4: [595.28, 841.89] };
+var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+var DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+var SM = 40, GRID = '#c9cde0';
+
+function sLine(c, x1, y1, x2, y2, w, col) { c.strokeStyle = col || GRID; c.lineWidth = w || 0.8; c.beginPath(); c.moveTo(x1, y1); c.lineTo(x2, y2); c.stroke(); }
+function sText(c, t, x, y, size, col, bold, align) { c.fillStyle = col; c.font = (bold ? 'bold ' : '') + size + 'px Arial'; c.textAlign = align || 'left'; c.fillText(t, x, y); }
+function sHeader(c, o, W, def, right) {
+  sText(c, o.title || def, SM, 54, 24, o.color, true);
+  sLine(c, SM, 64, SM + 70, 64, 2.5, o.color);
+  if (right) sText(c, right, W - SM, 52, 11, '#555', false, 'right');
+}
+function sBox(c, x, y, s) { c.strokeStyle = '#555'; c.lineWidth = 1; c.strokeRect(x, y, s, s); }
+function fitCols(cols, total) { var s = 0; cols.forEach(function (v) { s += v; }); return cols.map(function (v) { return v * total / s; }); }
+function sTable(c, o, x, y, cols, rh, n, heads, hh) {
+  var w = 0; cols.forEach(function (v) { w += v; }); hh = hh || 24;
+  c.fillStyle = o.color; c.fillRect(x, y, w, hh);
+  var cx = x;
+  heads.forEach(function (t, i) { sText(c, t, cx + 6, y + hh * .68, 10.5, '#fff', true); cx += cols[i]; });
+  y += hh;
+  for (var r = 0; r <= n; r++) sLine(c, x, y + r * rh, x + w, y + r * rh);
+  cx = x;
+  for (var i = 0; i <= cols.length; i++) { sLine(c, cx, y, cx, y + n * rh); cx += cols[i] || 0; }
+  return y;
+}
+function monthInfo(o) {
+  var first = new Date(o.year, o.month, 1).getDay(), days = new Date(o.year, o.month + 1, 0).getDate();
+  if (o.weekStart === 1) first = (first + 6) % 7;
+  return { first: first, days: days };
+}
+function dayNames(o) { var d = DAYS.slice(); if (o.weekStart === 1) d = d.slice(1).concat(d[0]); return d; }
+
+var SHEET_DRAW = {
+  lined: function (c, o, W, H) {
+    sHeader(c, o, W, 'Lined Paper', 'Name: ____________   Date: ____________');
+    var sp = o.spacing || 25, y = 96;
+    for (; y < H - 40; y += sp) sLine(c, SM, y, W - SM, y, 0.8);
+    if (o.margin) sLine(c, SM + 40, 78, SM + 40, H - 36, 1.2, '#e08a8a');
+  },
+  handwriting: function (c, o, W, H) {
+    sHeader(c, o, W, 'Handwriting Practice', 'Name: ____________   Date: ____________');
+    for (var y = 100; y + 50 < H - 30; y += 56) {
+      sLine(c, SM, y, W - SM, y, 1, '#9aa0b8');
+      c.setLineDash([5, 4]); sLine(c, SM, y + 22, W - SM, y + 22, .8, '#c2c6d8'); c.setLineDash([]);
+      sLine(c, SM, y + 44, W - SM, y + 44, 1.3, '#9aa0b8');
+    }
+  },
+  cornell: function (c, o, W, H) {
+    sHeader(c, o, W, 'Cornell Notes', 'Topic: ____________   Date: ____________');
+    var top = 84, cue = 150, sum = H - 150;
+    c.strokeStyle = o.color; c.lineWidth = 1.4;
+    c.strokeRect(SM, top, W - 2 * SM, H - 40 - top);
+    sLine(c, SM + cue, top, SM + cue, sum, 1.4, o.color); sLine(c, SM, sum, W - SM, sum, 1.4, o.color);
+    sText(c, 'Cues / Questions', SM + 8, top + 18, 11, o.color, true);
+    sText(c, 'Notes', SM + cue + 10, top + 18, 11, o.color, true);
+    sText(c, 'Summary', SM + 8, sum + 18, 11, o.color, true);
+    for (var y = top + 44; y < sum - 6; y += 24) sLine(c, SM + cue + 8, y, W - SM - 8, y);
+    for (var y2 = sum + 42; y2 < H - 46; y2 += 24) sLine(c, SM + 8, y2, W - SM - 8, y2);
+  },
+  dotgrid: function (c, o, W, H) {
+    sHeader(c, o, W, 'Dot Grid');
+    var sp = o.spacing || 14.2;
+    c.fillStyle = '#8a90a8';
+    for (var y = 92; y < H - 34; y += sp) for (var x = SM; x <= W - SM + 1; x += sp) { c.beginPath(); c.arc(x, y, .9, 0, Math.PI * 2); c.fill(); }
+  },
+  graph: function (c, o, W, H) {
+    sHeader(c, o, W, 'Graph Paper');
+    var sp = o.spacing || 14.2, k = 0, x, y;
+    for (x = SM; x <= W - SM + 1; x += sp, k++) sLine(c, x, 86, x, H - 34, k % 5 === 0 ? 1 : .5, k % 5 === 0 ? '#a7aec8' : GRID);
+    k = 0;
+    for (y = 86; y <= H - 34; y += sp, k++) sLine(c, SM, y, W - SM, y, k % 5 === 0 ? 1 : .5, k % 5 === 0 ? '#a7aec8' : GRID);
+  },
+  calendar: function (c, o, W, H) {
+    sText(c, MONTHS[o.month] + ' ' + o.year, SM, 56, 30, o.color, true);
+    if (o.title) sText(c, o.title, W - SM, 54, 13, '#555', false, 'right');
+    var mi = monthInfo(o), rows = Math.ceil((mi.first + mi.days) / 7), top = 108, cw = (W - 2 * SM) / 7, rh = (H - 40 - top) / rows;
+    c.fillStyle = o.color; c.fillRect(SM, 76, W - 2 * SM, 26);
+    dayNames(o).forEach(function (d, i) { sText(c, d.slice(0, 3).toUpperCase(), SM + i * cw + cw / 2, 94, 11, '#fff', true, 'center'); });
+    for (var r = 0; r <= rows; r++) sLine(c, SM, top + r * rh, W - SM, top + r * rh, 1, '#9aa0b8');
+    for (var i2 = 0; i2 <= 7; i2++) sLine(c, SM + i2 * cw, top, SM + i2 * cw, top + rows * rh, 1, '#9aa0b8');
+    for (var d = 1; d <= mi.days; d++) { var idx = mi.first + d - 1; sText(c, String(d), SM + (idx % 7) * cw + 6, top + Math.floor(idx / 7) * rh + 16, 12, '#333', true); }
+  },
+  weekly: function (c, o, W, H) {
+    sHeader(c, o, W, 'Weekly Planner', 'Week of: ______________________');
+    var bw = (W - 2 * SM - 14) / 2, bh = (H - 100 - 40 - 3 * 12) / 4, names = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday','Notes'];
+    names.forEach(function (n, i) {
+      var x = SM + (i % 2) * (bw + 14), y = 84 + Math.floor(i / 2) * (bh + 12);
+      c.strokeStyle = GRID; c.lineWidth = 1.2; c.strokeRect(x, y, bw, bh);
+      c.fillStyle = o.color; c.fillRect(x, y, bw, 20); sText(c, n, x + 8, y + 14, 11, '#fff', true);
+      for (var ly = y + 44; ly < y + bh - 6; ly += 22) sLine(c, x + 8, ly, x + bw - 8, ly);
+    });
+  },
+  daily: function (c, o, W, H) {
+    sHeader(c, o, W, 'Daily Planner', 'Date: ______________________');
+    var top = 84, sx = SM, sw = (W - 2 * SM) * .58, rx = sx + sw + 16, rw = W - SM - rx, hours = 17, rh = (H - 40 - top - 22) / hours;
+    c.fillStyle = o.color; c.fillRect(sx, top, sw, 20); sText(c, 'Schedule', sx + 8, top + 14, 11, '#fff', true);
+    for (var i = 0; i < hours; i++) {
+      var y = top + 20 + i * rh, h = 6 + i, lab = (h % 12 === 0 ? 12 : h % 12) + (h < 12 || h === 24 ? ' am' : ' pm');
+      sLine(c, sx, y + rh, sx + sw, y + rh); sText(c, lab, sx + 6, y + rh * .62, 10, '#555');
+    }
+    sLine(c, sx + 46, top + 20, sx + 46, top + 20 + hours * rh);
+    var half = (H - 40 - top) / 3 - 8;
+    ['Top 3 priorities', 'To do', 'Notes'].forEach(function (t, k) {
+      var y = top + k * (half + 12);
+      c.fillStyle = o.color; c.fillRect(rx, y, rw, 20); sText(c, t, rx + 8, y + 14, 11, '#fff', true);
+      for (var ly = y + 40; ly < y + half && (k !== 0 || ly < y + 40 + 3 * 24); ly += 24) { if (k < 2) sBox(c, rx + 6, ly - 10, 10); sLine(c, rx + (k < 2 ? 24 : 6), ly, rx + rw - 4, ly); }
+    });
+  },
+  todo: function (c, o, W, H) {
+    sHeader(c, o, W, 'To-Do List', 'Date: ______________________');
+    for (var y = 100; y < H - 40; y += 30) { sBox(c, SM + 4, y - 12, 13); sLine(c, SM + 28, y, W - SM, y); }
+  },
+  habit: function (c, o, W, H) {
+    var mi = monthInfo(o);
+    sText(c, 'Habit Tracker - ' + MONTHS[o.month] + ' ' + o.year, SM, 54, 22, o.color, true);
+    sLine(c, SM, 64, SM + 70, 64, 2.5, o.color);
+    var left = SM, nameW = 130, cw = (W - 2 * SM - nameW) / mi.days, top = 84, rows = 16, rh = (H - 40 - top - 24) / rows;
+    c.fillStyle = o.color; c.fillRect(left, top, W - 2 * SM, 24);
+    sText(c, 'Habit', left + 6, top + 16, 10.5, '#fff', true);
+    for (var d = 0; d < mi.days; d++) sText(c, String(d + 1), left + nameW + d * cw + cw / 2, top + 16, 8, '#fff', true, 'center');
+    for (var r = 0; r <= rows; r++) sLine(c, left, top + 24 + r * rh, W - SM, top + 24 + r * rh);
+    for (var k = 0; k <= mi.days; k++) sLine(c, left + nameW + k * cw, top + 24, left + nameW + k * cw, top + 24 + rows * rh);
+    sLine(c, left, top + 24, left, top + 24 + rows * rh); sLine(c, left + nameW, top + 24, left + nameW, top + 24 + rows * rh);
+  },
+  budget: function (c, o, W, H) {
+    sHeader(c, o, W, 'Budget Tracker', 'Month: ______________________');
+    var cols = fitCols([62, 165, 105, 72, 72, 66], W - 2 * SM), rh = 25, n = Math.floor((H - 40 - 84 - 24) / rh);
+    sTable(c, o, SM, 84, cols, rh, n, ['Date', 'Description', 'Category', 'Income', 'Expense', 'Balance'], 24);
+  },
+  reading: function (c, o, W, H) {
+    sHeader(c, o, W, 'Reading Log', 'Name: ______________________');
+    var cols = fitCols([190, 130, 62, 62, 88], W - 2 * SM), rh = 30, n = Math.floor((H - 40 - 84 - 24) / rh);
+    sTable(c, o, SM, 84, cols, rh, n, ['Title', 'Author', 'Started', 'Finished', 'Rating'], 24);
+  },
+  meal: function (c, o, W, H) {
+    sHeader(c, o, W, 'Meal Planner', 'Week of: ______________________');
+    var cols = fitCols([92, 110, 110, 110, 100], W - 2 * SM), n = 7, rh = (H - 40 - 84 - 24 - 110) / n;
+    var y = sTable(c, o, SM, 84, cols, rh, n, ['Day', 'Breakfast', 'Lunch', 'Dinner', 'Snacks'], 24);
+    DAYS.slice(1).concat(DAYS[0]).forEach(function (d, i) { sText(c, d, SM + 6, y + i * rh + rh * .55, 11, '#333', true); });
+    var gy = y + n * rh + 16;
+    sText(c, 'Grocery list', SM, gy + 8, 12, o.color, true);
+    for (var ly = gy + 32; ly < H - 40; ly += 22) sLine(c, SM, ly, W - SM, ly);
+  },
+  gratitude: function (c, o, W, H) {
+    sHeader(c, o, W, 'Gratitude Journal', 'Date: ______________________');
+    var prompts = ['Three things I am grateful for today', 'Someone who made my day better', 'A small win I want to remember', 'Something I am looking forward to', 'My mood today (draw or write)'];
+    var y = 100, block = (H - 40 - 100) / prompts.length;
+    prompts.forEach(function (p) {
+      sText(c, p, SM, y, 12.5, o.color, true);
+      for (var ly = y + 26; ly < y + block - 6; ly += 24) sLine(c, SM, ly, W - SM, ly);
+      y += block;
+    });
+  }
+};
+
+function drawSheet(ctx, o) {
+  var p = SHEET_PAPER[o.paper] || SHEET_PAPER.letter, W = p[0], H = p[1];
+  ctx.save();
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, o.px, o.px * H / W);
+  ctx.scale(o.px / W, o.px / W);
+  ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  SHEET_DRAW[o.type](ctx, o, W, H);
+  ctx.fillStyle = '#9aa0b8'; ctx.font = '8px Arial'; ctx.textAlign = 'center';
+  ctx.fillText('toolnes.netlify.app - free printable sheets', W / 2, H - 14);
+  ctx.restore();
+}
+
+
+    (function () {
+      var $ = function (id) { return document.getElementById(id); };
+      var COLORS = ['#5b45d6', '#2563eb', '#16a34a', '#db2777', '#222222'];
+      var SPACING = {
+        lined: [['Narrow', 20], ['College', 25], ['Wide', 32]],
+        dotgrid: [['Small (3.5 mm)', 10], ['Standard (5 mm)', 14.2], ['Large (7 mm)', 20]],
+        graph: [['Small (3.5 mm)', 10], ['Standard (5 mm)', 14.2], ['Large (7 mm)', 20]]
+      };
+      var now = new Date();
+      var o = { type: 'weekly', paper: 'letter', color: COLORS[0], title: '', month: now.getMonth(), year: now.getFullYear(), weekStart: 0, spacing: null, margin: true };
+
+      MONTHS.forEach(function (m, i) { var op = document.createElement('option'); op.value = i; op.textContent = m; $('month').appendChild(op); });
+      $('month').value = o.month; $('year').value = o.year;
+
+      var sw = $('swatches');
+      COLORS.forEach(function (c, i) {
+        var b = document.createElement('button'); b.type = 'button'; b.style.background = c; b.setAttribute('aria-label', 'Color ' + (i + 1));
+        if (i === 0) b.className = 'on';
+        b.addEventListener('click', function () {
+          o.color = c; Array.prototype.forEach.call(sw.children, function (x) { x.classList.remove('on'); }); b.classList.add('on');
+          drawMain(); drawThumbs();
+        });
+        sw.appendChild(b);
+      });
+
+      var typeBtns = {};
+      function buildTypes() {
+        SHEET_TYPES.forEach(function (t) {
+          var b = document.createElement('button'); b.type = 'button'; b.className = 't';
+          var cv = document.createElement('canvas'); cv.setAttribute('data-id', t.id);
+          var sp = document.createElement('span'); sp.textContent = t.name;
+          b.appendChild(cv); b.appendChild(sp);
+          b.addEventListener('click', function () { selectType(t.id, true); });
+          $('types').appendChild(b); typeBtns[t.id] = b;
+        });
+      }
+      function drawThumbs() {
+        SHEET_TYPES.forEach(function (t) {
+          var cv = typeBtns[t.id].querySelector('canvas'), p = SHEET_PAPER[o.paper], px = 180;
+          cv.width = px; cv.height = Math.round(px * p[1] / p[0]);
+          drawSheet(cv.getContext('2d'), Object.assign({}, o, { type: t.id, px: px, title: '' }));
+        });
+      }
+      function setSpacingOptions() {
+        var list = SPACING[o.type], f = $('fSpacing');
+        if (!list) { f.style.display = 'none'; o.spacing = null; return; }
+        f.style.display = ''; $('spacing').innerHTML = '';
+        list.forEach(function (it, i) { var op = document.createElement('option'); op.value = it[1]; op.textContent = it[0]; $('spacing').appendChild(op); if (i === 1) op.selected = true; });
+        o.spacing = +$('spacing').value;
+      }
+      function selectType(id, scroll) {
+        o.type = id;
+        Object.keys(typeBtns).forEach(function (k) { typeBtns[k].classList.toggle('on', k === id); });
+        setSpacingOptions();
+        $('fDate').style.display = (id === 'calendar' || id === 'habit') ? '' : 'none';
+        $('fWeek').style.display = id === 'calendar' ? '' : 'none';
+        $('fMargin').style.display = id === 'lined' ? '' : 'none';
+        drawMain();
+        try { history.replaceState(null, '', '#' + id); } catch (e) {}
+        if (scroll && window.innerWidth < 1000) $('sheet').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      function applyPaperCss() {
+        var p = o.paper;
+        $('pageStyle').textContent = '@page{size:' + (p === 'a4' ? 'A4' : 'letter') + ';margin:0}';
+        document.documentElement.style.setProperty('--pw', p === 'a4' ? '210mm' : '8.5in');
+        document.documentElement.style.setProperty('--ph', p === 'a4' ? '297mm' : '11in');
+      }
+      function drawMain() {
+        var cv = $('sheet'), p = SHEET_PAPER[o.paper], px = 1000;
+        cv.width = px; cv.height = Math.round(px * p[1] / p[0]);
+        drawSheet(cv.getContext('2d'), Object.assign({}, o, { px: px }));
+      }
+
+      $('title').addEventListener('input', function () { o.title = this.value; drawMain(); });
+      $('paper').addEventListener('change', function () { o.paper = this.value; applyPaperCss(); drawMain(); drawThumbs(); });
+      $('spacing').addEventListener('change', function () { o.spacing = +this.value; drawMain(); });
+      $('month').addEventListener('change', function () { o.month = +this.value; drawMain(); });
+      $('year').addEventListener('input', function () { var y = parseInt(this.value, 10); if (y >= 1900 && y <= 2100) { o.year = y; drawMain(); } });
+      $('week').addEventListener('change', function () { o.weekStart = +this.value; drawMain(); });
+      $('margin').addEventListener('change', function () { o.margin = this.checked; drawMain(); });
+
+      $('dl').addEventListener('click', function () {
+        var p = SHEET_PAPER[o.paper], px = o.paper === 'a4' ? 2480 : 2550, cv = document.createElement('canvas');
+        cv.width = px; cv.height = Math.round(px * p[1] / p[0]);
+        drawSheet(cv.getContext('2d'), Object.assign({}, o, { px: px }));
+        cv.toBlob(function (blob) {
+          if (!blob) return;
+          var a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+          a.download = 'toolnes-' + o.type + (o.type === 'calendar' ? '-' + o.year + '-' + (o.month + 1) : '') + '-' + o.paper + '.png';
+          document.body.appendChild(a); a.click(); a.remove();
+          setTimeout(function () { URL.revokeObjectURL(a.href); }, 1500);
+        }, 'image/png');
+      });
+      $('pr').addEventListener('click', function () { window.print(); });
+
+      buildTypes(); applyPaperCss();
+      var h = (location.hash || '').replace('#', ''), ok = SHEET_TYPES.some(function (t) { return t.id === h; });
+      drawThumbs(); selectType(ok ? h : 'weekly', false);
+      $('year2').textContent = now.getFullYear();
+    })();
+  </script>
+</body>
+</html>
