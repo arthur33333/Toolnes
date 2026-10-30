@@ -320,6 +320,22 @@ SHEET_DRAW.grocery = function (c, o, W, H) {
   });
 };
 
+
+SHEET_DRAW.year = function (c, o, W, H) {
+  sText(c, String(o.year), SM, 60, 40, o.color, true);
+  sText(c, o.title || 'Year at a glance', W - SM, 54, 14, '#555', false, 'right');
+  sLine(c, SM, 72, W - SM, 72, 2, o.color);
+  var cols = 3, rows = 4, top = 88, bw = (W - 2 * SM) / cols, bh = (H - 40 - top) / rows, init = o.weekStart === 1 ? ['M', 'T', 'W', 'T', 'F', 'S', 'S'] : ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+  for (var m = 0; m < 12; m++) {
+    var x = SM + (m % cols) * bw + 6, y = top + Math.floor(m / cols) * bh, w = bw - 12, cw = w / 7, rh = (bh - 38) / 7;
+    sText(c, MONTHS[m], x, y + 14, 12, o.color, true);
+    init.forEach(function (d, i) { sText(c, d, x + i * cw + cw / 2, y + 30, 8, '#888', true, 'center'); });
+    var first = new Date(o.year, m, 1).getDay(), days = new Date(o.year, m + 1, 0).getDate();
+    if (o.weekStart === 1) first = (first + 6) % 7;
+    for (var d = 1; d <= days; d++) { var idx = first + d - 1; sText(c, String(d), x + (idx % 7) * cw + cw / 2, y + 38 + Math.floor(idx / 7) * rh + rh * .7, 8.5, '#333', false, 'center'); }
+  }
+};
+
 function drawSheet(ctx, o) {
   var p = SHEET_PAPER[o.paper] || SHEET_PAPER.letter, W = p[0], H = p[1];
   ctx.save();
